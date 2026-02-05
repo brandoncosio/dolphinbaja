@@ -370,46 +370,92 @@ html{
 }
 
 /* =========================
-   Header (logo izquierda + hamburguesa derecha)
-   Ajuste: logo a la misma altura que el icono (misma “línea”)
+  /* =========================
+   HEADER
 ========================= */
+
 .site-header{
-  position:absolute;
-  inset:0 0 auto 0;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
   z-index:120;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
 
-  /* MÁS espacio arriba/abajo y a los lados */
   padding:
-    clamp(26px, 4vh, 44px)   /* arriba y abajo */
-    clamp(24px, 6vw, 80px);  /* izquierda y derecha */
+    clamp(26px, 4vh, 44px)
+    clamp(24px, 6vw, 80px);
 
+  background:transparent;
+  transition: background 300ms ease, box-shadow 300ms ease;
   pointer-events:none;
 }
 
+/* Estado al hacer scroll */
+.site-header.is-scrolled{
+  background:#071a24;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+}
 
 .brand,
-.menu-btn{ pointer-events:auto; }
+.menu-btn,
+.nav-desktop{
+  pointer-events:auto;
+}
 
+/* Logo */
 .brand{
   display:flex;
   align-items:center;
-  height:var(--header-hit);     /* mantiene alineación con el botón */
+  height:var(--header-hit);
 }
 
 .brand img{
-  width:clamp(96px, 10vw, 100px); /* se queda como lo tenías */
-  height:auto;                    /* NO se aplasta */
-  max-height:none;                /* quita cualquier límite de altura */
-  object-fit:contain;             /* por si acaso (webp) */
+  width:clamp(96px, 10vw, 100px);
+  height:auto;
+  object-fit:contain;
   display:block;
   filter: drop-shadow(0 8px 18px rgba(0,0,0,.35));
 }
 
+/* =========================
+   MENÚ DESKTOP
+========================= */
 
-/* Menu button */
+.nav-desktop{
+  display:none;
+  gap:40px;
+}
+
+.nav-desktop a{
+  color:#fff;
+  font-weight:500;
+  text-decoration:none;
+  position:relative;
+}
+
+.nav-desktop a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:var(--cyan);
+  transition:width .25s ease;
+}
+
+.nav-desktop a:hover::after{
+  width:100%;
+}
+
+/* =========================
+   MENU BUTTON (MÓVIL)
+========================= */
+
 .menu-btn{
   border:1px solid rgba(255,255,255,.12);
   background:rgba(0,0,0,.08);
@@ -419,29 +465,44 @@ html{
   display:grid;
   place-items:center;
   cursor:pointer;
-  transition:background var(--t-med) var(--ease), transform var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+  transition:background var(--t-med) var(--ease),
+             transform var(--t-med) var(--ease),
+             border-color var(--t-med) var(--ease);
   position:relative;
-  z-index:130; /* encima del drawer */
+  z-index:130;
 }
-.menu-btn:hover{ background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18); }
+
+.menu-btn:hover{
+  background:rgba(255,255,255,.10);
+  border-color:rgba(255,255,255,.18);
+}
+
 .menu-btn:active{ transform:scale(.98); }
 
 .menu-btn__png{
   width:34px;
   height:auto;
-  display:block;
 }
 
 .menu-btn__x{
   font-size:30px;
-  line-height:1;
   display:none;
-  color:#fff; /* X blanca */
+  color:#fff;
 }
 
-/* estado open: NO se mueve el botón, solo cambia el icono */
+/* Estado abierto */
 .is-menu-open .menu-btn__png{ display:none; }
 .is-menu-open .menu-btn__x{ display:block; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (min-width: 1024px){
+  .menu-btn{ display:none; }
+  .nav-desktop{ display:flex; }
+}
+
 
 /* =========================
    Hero + Slider

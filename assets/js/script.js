@@ -1,10 +1,10 @@
-/* =========================
-   Menu (hamburguesa PNG -> X RemixIcon) + Drawer
-========================= */
 const body = document.body;
 const menuBtn = document.querySelector("[data-menu-btn]");
 const drawer = document.querySelector("[data-drawer]");
 const overlay = document.querySelector("[data-overlay]");
+const header = document.querySelector("[data-header]");
+
+/* ===== MENU MÓVIL ===== */
 
 function setMenu(open) {
   body.classList.toggle("is-menu-open", open);
@@ -12,8 +12,6 @@ function setMenu(open) {
   if (menuBtn) {
     menuBtn.setAttribute("aria-expanded", String(open));
     menuBtn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
-
-    // Cuando abre, asegura visibilidad y foco (útil en móvil)
     if (open) menuBtn.focus({ preventScroll: true });
   }
 
@@ -31,10 +29,18 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") setMenu(false);
 });
 
-// Cierra al dar click en cualquier link del drawer (mejor UX móvil)
 drawer?.addEventListener("click", (e) => {
-  const target = e.target;
-  if (target && target.closest && target.closest("a")) setMenu(false);
+  if (e.target.closest("a")) setMenu(false);
+});
+
+/* ===== HEADER SCROLL ===== */
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 20) {
+    header.classList.add("is-scrolled");
+  } else {
+    header.classList.remove("is-scrolled");
+  }
 });
 
 /* =========================

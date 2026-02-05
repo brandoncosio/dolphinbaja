@@ -89,34 +89,46 @@
 
 <body>
   <!-- Overlay para el menú -->
-  <div class="overlay" data-overlay></div>
+<div class="overlay" data-overlay></div>
 
-  <!-- Menú off-canvas -->
-  <aside class="drawer" data-drawer aria-hidden="true">
-    <nav class="drawer__nav" aria-label="Menú principal">
-      <a href="/" class="drawer__link is-active">Inicio</a>
-      <a href="/servicios/" class="drawer__link">Servicios</a>
-      <a href="/nosotros/" class="drawer__link">Nosotros</a>
-      <a href="/contacto/" class="drawer__link">Contacto</a>
+<!-- Menú off-canvas (MÓVIL) -->
+<aside class="drawer" data-drawer aria-hidden="true">
+  <nav class="drawer__nav" aria-label="Menú principal">
+    <a href="/" class="drawer__link is-active">Home</a>
+    <a href="/servicios/" class="drawer__link">Services</a>
+    <a href="/nosotros/" class="drawer__link">About us</a>
+    <a href="/contacto/" class="drawer__link">Contact</a>
 
-      <div class="drawer__cta">
-        <a class="btn btn--primary" href="contacto/">Reservar experiencia</a>
-      </div>
-    </nav>
-  </aside>
+    <div class="drawer__cta">
+      <a class="btn btn--primary"
+        href="https://wa.me/526131182311?text=Hola%20Dolphin%20Dive%20Baja%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20por%20favor.">
+        Reservar experiencia
+      </a>
+    </div>
+  </nav>
+</aside>
 
-  <!-- HERO / SLIDER -->
-  <header class="site-header">
-    <a class="brand" href="./" aria-label="Dolphin Dive Baja - Inicio">
-      <img src="/assets/imagenes/logodolphin.webp" alt="Dolphin Dive Baja" />
-    </a>
+<!-- HEADER -->
+<header class="site-header" data-header>
+  <a class="brand" href="./" aria-label="Dolphin Dive Baja - Inicio">
+    <img src="/assets/imagenes/logodolphin.webp" alt="Dolphin Dive Baja" />
+  </a>
 
-    <!-- Botón menú: por defecto PNG, al abrir muestra X (RemixIcon) -->
-    <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" data-menu-btn>
-      <img class="menu-btn__png" src="/assets/imagenes/icono-burguer.png" alt="" />
-      <i class="ri-close-line menu-btn__x" aria-hidden="true"></i>
-    </button>
-  </header>
+  <!-- MENÚ DESKTOP -->
+  <nav class="nav-desktop" aria-label="Menú principal">
+    <a href="/">Home</a>
+    <a href="/servicios/">Services</a>
+    <a href="/nosotros/">About us</a>
+    <a href="/contacto/">Contact</a>
+  </nav>
+
+  <!-- Botón menú (SOLO MÓVIL) -->
+  <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" data-menu-btn>
+    <img class="menu-btn__png" src="/assets/imagenes/icono-burguer.png" alt="" />
+    <i class="ri-close-line menu-btn__x" aria-hidden="true"></i>
+  </button>
+</header>
+
 
 <main>
 
@@ -711,7 +723,7 @@
 
     <!-- Texto corto -->
     <p class="dd-footer__tagline">
-      Experiencias responsables dentro del Parque Nacional Bahía de Loreto. 
+      Experiencias inolvidables dentro del Parque Nacional Bahía de Loreto. 
     </p>
 
     <!-- Redes -->
