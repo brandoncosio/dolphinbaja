@@ -1,0 +1,387 @@
+/* =========================
+   Variables (paleta + tipografías)
+========================= */
+:root{
+  /* Brand */
+  --navy: #0E3D59;
+  --blue: #0C71A5;
+  --cyan: #66D8E3;
+  --yellow: #FED966;
+  --offwhite: #F5F2E3;
+  --pale: #CCEAEA;
+
+  /* Text */
+  --text: #ffffff;
+  --text-soft: rgba(255,255,255,.85);
+
+  /* Overlay */
+  --overlay: rgba(0, 0, 0, .48);
+  --overlay-strong: rgba(0, 0, 0, .60);
+
+  /* Fonts */
+  --font-title: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-body: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+  /* Layout */
+  --wrap: 1200px;
+  --radius: 18px;
+
+  /* Motion */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --t-slow: 1200ms;
+  --t-med: 650ms;
+
+  /* Header */
+  --header-pad-y: 18px;
+  --header-pad-x: clamp(18px, 4vw, 48px);
+  --header-hit: 52px; /* alto del icono (menu) */
+}
+/* Fondo con overlay */
+.dd-contact-hero__bg{
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.72) 0%,
+      rgba(0,0,0,.80) 55%,
+      rgba(0,0,0,.88) 100%
+    ),
+    url("/contacto/assets/imagenes/contacto.jpg");
+}
+
+/* =========================
+   MÓVIL – NO SE TOCA
+========================= */
+@media (max-width: 720px){
+
+  /* Texto */
+.dd-contact-hero__content{
+  padding-top: 4rem;
+}
+}
+
+
+
+/* =========================
+   CONTACTO (Info + Mapa) – Dolphin Style
+   Usa: --font-title, --font-body, --navy, --cyan, --yellow (si existen)
+========================= */
+
+.dd-contact{
+  background: #f7f9fb;
+  color: #0a2230;
+  padding: 86px 0 78px;
+}
+
+.dd-contact .wrap{
+  max-width: 1200px;
+}
+
+/* Header */
+.dd-contact__head{
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.dd-contact__eyebrow{
+  margin: 0 0 10px;
+  letter-spacing: .22em;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(10,34,48,.55);
+}
+
+.dd-contact__title{
+  margin: 0 0 10px;
+  font-family: var(--font-title, system-ui);
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.12;
+}
+
+.dd-contact__lead{
+  margin: 0 auto;
+  max-width: 78ch;
+  font-family: var(--font-body, system-ui);
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(10,34,48,.74);
+}
+
+/* Top grid */
+.dd-contact__top{
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* Card */
+.dd-contact__card{
+  background: #fff;
+  border: 1px solid rgba(10,34,48,.08);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 18px 44px rgba(0,0,0,.08);
+  position: relative;
+  overflow: hidden;
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.dd-contact__card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 26px 60px rgba(0,0,0,.10);
+  border-color: rgba(12,113,165,.20);
+}
+
+.dd-contact__icon{
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(12,113,165,.10);
+  border: 1px solid rgba(12,113,165,.16);
+  margin-bottom: 10px;
+}
+
+.dd-contact__icon i{
+  font-size: 22px;
+  color: var(--navy, #0E3D59);
+}
+
+.dd-contact__cardTitle{
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 1000;
+  letter-spacing: .01em;
+}
+
+.dd-contact__cardText{
+  margin: 0 0 10px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(10,34,48,.72);
+}
+
+.dd-contact__link{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 13.5px;
+  color: var(--navy, #0E3D59);
+}
+
+.dd-contact__link i{ font-size: 16px; }
+.dd-contact__link:hover{ text-decoration: underline; }
+
+/* WhatsApp card (center highlight) */
+.dd-contact__card--whatsapp{
+  background: linear-gradient(180deg, rgba(102,216,227,.10), rgba(255,255,255,1));
+  border-color: rgba(102,216,227,.28);
+}
+
+.dd-contact__icon--wa{
+  background: rgba(37, 211, 102, .10);
+  border-color: rgba(37, 211, 102, .18);
+}
+
+.dd-contact__icon--wa i{
+  color: #17a857;
+  font-size: 24px;
+}
+
+/* Form */
+.dd-contact__form{
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.dd-contact__field{
+  display: grid;
+  gap: 6px;
+}
+
+.dd-contact__label{
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(10,34,48,.70);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dd-contact__input{
+  width: 100%;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(10,34,48,.12);
+  background: rgba(255,255,255,.95);
+  padding: 0 12px;
+  outline: none;
+  font-size: 14.5px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.dd-contact__input:focus{
+  border-color: rgba(12,113,165,.35);
+  box-shadow: 0 0 0 4px rgba(12,113,165,.10);
+}
+
+/* Buttons */
+.dd-contact__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(10,34,48,.12);
+  background: #0a2230;
+  color: #fff;
+  font-weight: 1000;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
+}
+
+.dd-contact__btn i{
+  color: var(--yellow, #FED966);
+  font-size: 18px;
+}
+
+.dd-contact__btn:hover{
+  transform: translateY(-2px);
+}
+
+
+.dd-contact__btn--ghost i{
+  color: #17a857;
+}
+
+.dd-contact__tiny{
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: rgba(10,34,48,.60);
+}
+
+/* Map card */
+.dd-contact__mapCard{
+  margin-top: 18px;
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid rgba(10,34,48,.08);
+  box-shadow: 0 22px 54px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+.dd-contact__mapHead{
+  padding: 16px 16px 10px;
+}
+
+.dd-contact__mapTitle{
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dd-contact__mapTitle i{
+  color: var(--navy, #0E3D59);
+  font-size: 18px;
+}
+
+.dd-contact__mapSub{
+  margin: 0;
+  font-size: 13px;
+  color: rgba(10,34,48,.62);
+  font-weight: 800;
+}
+
+.dd-contact__mapFrame{
+  height: 360px; /* desktop */
+  background: rgba(10,34,48,.05);
+}
+
+.dd-contact__mapFrame iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 980px){
+  .dd-contact__top{
+    grid-template-columns: 1fr;
+  }
+
+  .dd-contact__mapFrame{
+    height: 320px;
+  }
+}
+
+@media (max-width: 720px){
+  .dd-contact{
+    padding: 94px 0 72px;
+  }
+
+  .dd-contact__lead{
+    font-size: 15.5px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .dd-contact__mapFrame{
+    height: 290px;
+  }
+}
+
+@media (max-width: 420px){
+  .dd-contact .wrap{
+    padding-inline: 14px;
+  }
+
+  .dd-contact__mapFrame{
+    height: 260px;
+  }
+}
+
+/* =========================================
+   CONTACTO – AJUSTES MAPA (CENTER FIX)
+========================================= */
+
+/* Centrar bloque del mapa */
+.dd-contact__mapHead{
+  text-align: center;
+  padding: 18px 16px 12px;
+}
+
+/* Título del mapa centrado */
+.dd-contact__mapTitle{
+  justify-content: center;
+  text-align: center;
+}
+
+/* Subtítulo centrado */
+.dd-contact__mapSub{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* En móvil un poco más de aire */
+@media (max-width: 720px){
+  .dd-contact__mapHead{
+    padding: 22px 14px 14px;
+  }
+}
+
+

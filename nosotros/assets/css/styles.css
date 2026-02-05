@@ -1,0 +1,1394 @@
+/* =========================
+   Variables (paleta + tipografías)
+========================= */
+:root{
+  /* Brand */
+  --navy: #0E3D59;
+  --blue: #0C71A5;
+  --cyan: #66D8E3;
+  --yellow: #FED966;
+  --offwhite: #F5F2E3;
+  --pale: #CCEAEA;
+
+  /* Text */
+  --text: #ffffff;
+  --text-soft: rgba(255,255,255,.85);
+
+  /* Overlay */
+  --overlay: rgba(0, 0, 0, .48);
+  --overlay-strong: rgba(0, 0, 0, .60);
+
+  /* Fonts */
+  --font-title: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-body: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+  /* Layout */
+  --wrap: 1200px;
+  --radius: 18px;
+
+  /* Motion */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --t-slow: 1200ms;
+  --t-med: 650ms;
+
+  /* Header */
+  --header-pad-y: 18px;
+  --header-pad-x: clamp(18px, 4vw, 48px);
+  --header-hit: 52px; /* alto del icono (menu) */
+}
+
+
+/* ========================= 
+   NOSOTROS – EXPERIENCIA (CARD HERO)
+========================= */
+
+.ab-exp{
+  background: #f7f9fb;
+
+  /* ✅ menos espacio abajo en general */
+  padding-top: clamp(78px, 10vw, 102px);
+  padding-bottom: clamp(28px, 5vw, 34px);
+}
+
+/* Card */
+.ab-exp__card{
+  position: relative;
+  width: min(1200px, 94%);
+  margin: 0 auto;
+
+  border-radius: 32px;
+  overflow: hidden;
+
+  background-image: url("/nosotros/assets/imagenes/team.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: clamp(420px, 48vw, 620px);
+
+  display: grid;
+  place-items: center;
+
+  box-shadow: 0 30px 80px rgba(0,0,0,.55);
+
+  /* ✅ evita “líneas”/cortes por sub-pixel en algunos móviles */
+  transform: translateZ(0);
+}
+
+/* Overlay */
+.ab-exp__overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.45) 0%,
+    rgba(0,0,0,.62) 45%,
+    rgba(0,0,0,.78) 100%
+  );
+}
+
+/* Contenido */
+.ab-exp__content{
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(24px, 4vw, 48px);
+  max-width: 1000px;
+}
+
+/* Título */
+.ab-exp__title{
+  font-family: var(--font-title);
+  font-weight: 700;
+  line-height: 1.02;
+  margin: 0 0 18px;
+  color: #ffffff;
+
+  font-size: clamp(44px, 7vw, 96px);
+  text-shadow: 0 20px 50px rgba(0,0,0,.65);
+}
+
+/* Texto */
+.ab-exp__text{
+  font-family: var(--font-body);
+  font-size: clamp(15px, 2.4vw, 18px);
+  line-height: 1.65;
+  color: rgba(255,255,255,.92);
+  margin: 0 auto;
+  max-width: 68ch;
+}
+
+/* =========================
+   MÓVIL: más espacio arriba, menos abajo + quitar “línea”
+========================= */
+@media (max-width: 720px){
+  .ab-exp{
+    padding-top: 128px;  /* ✅ más arriba (como pediste) */
+    padding-bottom: 16px; /* ✅ menos abajo */
+  }
+
+  .ab-exp__card{
+    width: min(980px, 92%);
+    border-radius: 26px;
+
+    /* ✅ en móvil la sombra fuerte crea “banda”/línea visual */
+    box-shadow: 0 22px 46px rgba(0,0,0,.30);
+  }
+
+  /* ✅ si el “rayón” es por el overlay + compresión, suaviza */
+  .ab-exp__overlay{
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,.48) 0%,
+      rgba(0,0,0,.68) 55%,
+      rgba(0,0,0,.82) 100%
+    );
+  }
+
+  .ab-exp__title{
+    margin-bottom: 12px;
+    font-size: clamp(36px, 9vw, 54px);
+  }
+
+  .ab-exp__text{
+    font-size: 15px;
+    max-width: 38ch;
+  }
+}
+
+/* Celulares muy pequeños */
+@media (max-width: 380px){
+  .ab-exp{
+    padding-top: 98px;
+    padding-bottom: 22px;
+  }
+
+  .ab-exp__card{
+    width: min(980px, 90%);
+    border-radius: 24px;
+  }
+}
+
+
+/* =========================
+   QUIÉNES SOMOS (About + Stats)
+========================= */
+
+.dd-about{
+  padding: 92px 0;
+  background: #f7f9fb;
+  color: #0a2230;
+}
+
+.dd-about__grid{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 54px;
+
+  /* ✅ antes: align-items:start; */
+  align-items: center; /* centra verticalmente el bloque derecho vs el texto */
+}
+
+/* Texto */
+.dd-about__eyebrow{
+  margin: 0 0 12px;
+  letter-spacing: .22em;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(10,34,48,.55);
+}
+
+.dd-about__title{
+  font-family: var(--font-title, system-ui);
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.12;
+  margin: 0 0 14px;
+}
+
+.dd-about__text{
+  margin: 0 0 12px;
+  font-family: var(--font-body, system-ui);
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(10,34,48,.72);
+  max-width: 66ch;
+}
+
+.dd-about__chips{
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dd-chip{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(10,34,48,.78);
+  background: rgba(12,113,165,.08);
+  border: 1px solid rgba(12,113,165,.14);
+}
+
+/* Stats */
+.dd-about__stats{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 18px;
+
+  /* ✅ antes: align-content:start; */
+  align-content: center; /* centra el grid internamente */
+  justify-self: end;     /* se “pega” bonito al lado derecho en desktop */
+}
+
+.dd-stat{
+  background: #f7f9fb;
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(10,34,48,.08);
+  box-shadow: 0 16px 42px rgba(0,0,0,.06);
+}
+
+.dd-stat__num{
+  margin: 0 0 6px;
+  font-family: var(--font-title, system-ui);
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: #0a2230;
+}
+
+.dd-stat__label{
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(10,34,48,.62);
+  font-weight: 600;
+}
+
+/* “logos/partners” discreto */
+.dd-about__logos{
+  grid-column: 1 / -1;
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(10,34,48,.14);
+  color: rgba(10,34,48,.55);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 980px){
+  .dd-about__grid{
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start; /* al apilar, vuelve natural */
+  }
+
+  .dd-about__text{
+    max-width: 100%;
+  }
+
+  .dd-about__stats{
+    justify-self: stretch; /* ocupa ancho completo */
+  }
+}
+
+@media (max-width: 720px){
+  .dd-about{
+    padding: 64px 0;
+  }
+
+  /* ✅ Centrar eyebrow + título en móvil */
+  .dd-about__eyebrow,
+  .dd-about__title{
+    text-align: center;
+  }
+
+  .dd-about__title{
+    font-size: clamp(28px, 8vw, 38px);
+    margin-bottom: 10px;
+  }
+
+  .dd-about__text{
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 15.5px;
+  }
+
+  /* Chips centrados en móvil (se ve más pro) */
+  .dd-about__chips{
+    justify-content: center;
+  }
+
+  .dd-about__stats{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .dd-stat{
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  /* Logos centrados en móvil */
+  .dd-about__logos{
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px){
+  .dd-about__stats{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   EQUIPO – Nuestro recurso humano
+   Fondo: #071a24
+========================= */
+
+.dd-team{
+  background: #071a24;
+  color: #ffffff;
+  padding: 92px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow suave (sin molestar) */
+.dd-team::before{
+  content:"";
+  position:absolute;
+  inset:-120px;
+  background:
+    radial-gradient(800px 500px at 18% 18%, rgba(102,216,227,.14), transparent 60%),
+    radial-gradient(900px 520px at 85% 70%, rgba(12,113,165,.18), transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.dd-team__wrap{
+  position: relative;
+  z-index: 1;
+}
+
+/* Head */
+.dd-team__head{
+  text-align: center;
+  max-width: 980px;
+  margin: 0 auto 22px;
+}
+
+.dd-team__eyebrow{
+  margin: 0 0 12px;
+  letter-spacing: .26em;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.70);
+}
+
+.dd-team__title{
+  font-family: var(--font-title, system-ui);
+  font-size: clamp(30px, 3.8vw, 52px);
+  line-height: 1.08;
+  margin: 0 0 12px;
+  letter-spacing: -.02em;
+  text-shadow: 0 18px 40px rgba(0,0,0,.35);
+}
+
+.dd-team__subtitle{
+  margin: 0 auto;
+  max-width: 76ch;
+  font-family: var(--font-body, system-ui);
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(255,255,255,.84);
+}
+
+/* Texto extra */
+.dd-team__story{
+  max-width: 980px;
+  margin: 14px auto 26px;
+  text-align: center;
+  color: rgba(255,255,255,.80);
+  font-size: 15.5px;
+  line-height: 1.75;
+}
+
+/* Stats mini */
+.dd-team__stats{
+  max-width: 980px;
+  margin: 0 auto 34px;
+
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dd-team__stat{
+  border-radius: 16px;
+  padding: 14px 12px 12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 18px 50px rgba(0,0,0,.22);
+  text-align: center;
+}
+
+.dd-team__stat strong{
+  display:block;
+  font-family: var(--font-title, system-ui);
+  font-size: 22px;
+  line-height: 1.05;
+  color: #ffffff;
+}
+
+.dd-team__stat span{
+  display:block;
+  margin-top: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: rgba(255,255,255,.72);
+}
+
+/* Grid personas */
+.dd-team__grid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 62px;
+  align-items: start;
+  margin-top: 8px;
+}
+
+/* Card persona */
+.dd-person{
+  text-align: center;
+}
+
+.dd-person__media{
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 22px 60px rgba(0,0,0,.35);
+  transform: translateZ(0);
+  transition: transform 380ms ease, box-shadow 380ms ease, border-color 380ms ease;
+  position: relative;
+}
+
+/* Aro glow */
+.dd-person__media::after{
+  content:"";
+  position:absolute;
+  inset: -10px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, rgba(102,216,227,.28), transparent 55%);
+  opacity: .75;
+  pointer-events:none;
+}
+
+.dd-person__media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+  transform: scale(1.02);
+  transition: transform 520ms ease, filter 520ms ease;
+  filter: saturate(1.02) contrast(1.02);
+}
+
+@media (hover:hover){
+  .dd-person__media:hover{
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 26px 70px rgba(0,0,0,.45);
+    border-color: rgba(254,217,102,.55);
+  }
+  .dd-person__media:hover img{
+    transform: scale(1.08);
+    filter: saturate(1.08) contrast(1.05);
+  }
+}
+
+.dd-person__name{
+  margin: 12px 0 2px;
+  font-family: var(--font-title, system-ui);
+  font-size: 16px;
+  letter-spacing: -.01em;
+}
+
+.dd-person__role{
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.72);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+/* Laptop/Tablet */
+@media (max-width: 1100px){
+  .dd-team__grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .dd-team__stats{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Móvil */
+@media (max-width: 720px){
+  .dd-team{
+    padding: 72px 0;
+  }
+
+  .dd-team__title{
+    font-size: clamp(30px, 8.6vw, 42px);
+  }
+
+  .dd-team__subtitle{
+    font-size: 15.5px;
+    padding-inline: 12px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .dd-team__story{
+    padding-inline: 12px;
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 22px;
+  }
+
+  .dd-team__grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .dd-team__stats{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .dd-person__name{ font-size: 15.5px; }
+}
+
+/* Muy chico */
+@media (max-width: 420px){
+  .dd-team__grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   EQUIPO – Ajuste imagen staff en móvil
+========================= */
+@media (max-width: 720px){
+
+  /* Reduce visualmente el círculo */
+  .dd-person__media{
+    max-width: 250px;     /* tamaño del círculo */
+    margin: 0 auto;       /* centra cada foto */
+  }
+
+  /* Ajuste de hover/zoom para que no se vea exagerado */
+  .dd-person__media img{
+    transform: scale(1);
+  }
+
+  .dd-person__media:hover img{
+    transform: scale(1.05);
+  }
+
+  /* Texto un poquito más compacto */
+  .dd-person__name{
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .dd-person__role{
+    font-size: 12.5px;
+  }
+}
+
+/* =========================
+   CRESSI POINT / TIENDA (Collage + texto)
+   - Desktop: collage a la izquierda, texto a la derecha
+   - Mobile: texto primero, collage después
+   - Imágenes con menos gap y más “completas”
+   - Hover pro
+========================= */
+
+.dd-store{
+  background: #f7f9fb;
+  color: #0a2230;
+  padding: 92px 0;
+}
+
+.dd-store__wrap{
+  position: relative;
+}
+
+/* Grid principal */
+.dd-store__grid{
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 52px;
+  align-items: center;
+}
+
+/* =========================
+   COLLAGE
+========================= */
+
+.dd-store__collage{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;                 /* ✅ menos espacio entre imágenes */
+  align-content: start;
+}
+
+/* Cada imagen */
+.dd-store__img{
+  position: relative;
+  margin: 0;
+  border-radius: 20px;
+  overflow: hidden;
+
+  /* ✅ se ven más completas (menos zoom) */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Alto estable + responsivo */
+  min-height: 168px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.08);
+  border: 1px solid rgba(10,34,48,.10);
+
+  transform: translateZ(0);
+  transition:
+    transform 360ms cubic-bezier(.22,.61,.36,1),
+    box-shadow 360ms cubic-bezier(.22,.61,.36,1),
+    border-color 360ms cubic-bezier(.22,.61,.36,1),
+    filter 360ms cubic-bezier(.22,.61,.36,1);
+}
+
+/* “Más completas”: reduce el recorte usando un leve contain en desktop amplio */
+@media (min-width: 1100px){
+  .dd-store__img{
+    background-size: 112%;    /* ✅ menos recorte que 140%/cover agresivo */
+  }
+}
+
+/* Hover */
+.dd-store__img::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.06) 0%,
+    rgba(0,0,0,.10) 55%,
+    rgba(0,0,0,.16) 100%
+  );
+  opacity: 0;
+  transition: opacity 360ms cubic-bezier(.22,.61,.36,1);
+  pointer-events:none;
+}
+
+.dd-store__img:hover{
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 22px 48px rgba(0,0,0,.14);
+  border-color: rgba(12,113,165,.22);
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.dd-store__img:hover::after{
+  opacity: 1;
+}
+
+/* Proporciones tipo “mosaico” (más visual) */
+.dd-store__img--a{ aspect-ratio: 16 / 10; }
+.dd-store__img--b{ aspect-ratio: 16 / 10; }
+.dd-store__img--c{ aspect-ratio: 16 / 10; }
+.dd-store__img--d{ aspect-ratio: 16 / 10; }
+
+/* =========================
+   TEXTO
+========================= */
+
+.dd-store__content{
+  max-width: 680px;
+}
+
+.dd-store__eyebrow{
+  margin: 0 0 12px;
+  letter-spacing: .22em;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(10,34,48,.55);
+  text-transform: uppercase;
+}
+
+.dd-store__title{
+  font-family: var(--font-title, system-ui);
+  font-size: clamp(30px, 3.2vw, 50px);
+  line-height: 1.08;
+  margin: 0 0 14px;
+}
+
+.dd-store__text{
+  margin: 0 0 18px;
+  font-family: var(--font-body, system-ui);
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(10,34,48,.72);
+  max-width: 70ch;
+}
+
+/* Botón */
+.dd-store__btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 16px;
+  border-radius: 999px;
+
+  background: rgba(12,113,165,.10);
+  border: 1px solid rgba(12,113,165,.22);
+  color: #0a2230;
+  font-weight: 800;
+  text-decoration: none;
+
+  transition:
+    transform 260ms cubic-bezier(.22,.61,.36,1),
+    background 260ms cubic-bezier(.22,.61,.36,1),
+    border-color 260ms cubic-bezier(.22,.61,.36,1);
+}
+
+.dd-store__btn i{
+  font-size: 18px;
+  color: var(--blue, #0C71A5);
+}
+
+.dd-store__btn:hover{
+  transform: translateY(-2px);
+  background: rgba(254,217,102,.22);
+  border-color: rgba(254,217,102,.55);
+}
+
+/* =========================
+   IMÁGENES (rutas correctas)
+========================= */
+.dd-store__img--a{ background-image: url("/nosotros/assets/imagenes/tienda4.webp"); }
+.dd-store__img--b{ background-image: url("/nosotros/assets/imagenes/tienda2.webp"); }
+.dd-store__img--c{ background-image: url("/nosotros/assets/imagenes/tienda3.webp"); }
+.dd-store__img--d{ background-image: url("/nosotros/assets/imagenes/tienda1.webp"); }
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Tablet / colapsa en 1 columna */
+@media (max-width: 980px){
+  .dd-store{
+    padding: 74px 0;
+  }
+
+  .dd-store__grid{
+    grid-template-columns: 1fr;
+    gap: 26px;
+    align-items: start;
+  }
+
+  /* ✅ En móvil/tablet: texto primero, imágenes después */
+  .dd-store__content{ order: 1; }
+  .dd-store__collage{ order: 2; }
+}
+
+/* Móvil */
+@media (max-width: 720px){
+  .dd-store{
+    padding: 66px 0;
+  }
+
+  .dd-store__content{
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .dd-store__title{
+    font-size: clamp(28px, 8.4vw, 40px);
+    margin-bottom: 10px;
+  }
+
+  .dd-store__text{
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 15.5px;
+    margin-bottom: 16px;
+  }
+
+  .dd-store__btn{
+    justify-content: center;
+  }
+
+  /* Collage más compacto y alto amigable */
+  .dd-store__collage{
+    gap: 10px;
+  }
+
+  .dd-store__img{
+    border-radius: 18px;
+    min-height: 140px;
+    background-size: cover; /* en móvil mejor cover para que no se vea “chiquita” */
+  }
+}
+
+/* Muy pequeño */
+@media (max-width: 420px){
+  .dd-store__collage{
+    grid-template-columns: 1fr;
+  }
+
+  .dd-store__img{
+    min-height: 190px;
+  }
+}
+
+/* =========================
+   DÓNDE ESTAMOS (Texto + Mapas) – DARK
+========================= */
+
+.dd-location{
+  background: #071a24;           /* fondo oscuro */
+  padding: 64px 0;               /* 👈 menos espacio arriba y abajo */
+  color: #ffffff;
+}
+
+.dd-location__grid{
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 42px;                     /* un poco más compacto */
+  align-items: center;
+}
+
+/* =========================
+   Texto
+========================= */
+
+.dd-location__eyebrow{
+  margin: 0 0 10px;
+  letter-spacing: .22em;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255,255,255,.55);
+}
+
+.dd-location__title{
+  font-family: var(--font-title, system-ui);
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.12;
+  margin: 0 0 12px;
+  color: #ffffff;
+}
+
+.dd-location__text{
+  margin: 0 0 12px;
+  font-family: var(--font-body, system-ui);
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255,255,255,.78);
+  max-width: 70ch;
+}
+
+/* =========================
+   Chips
+========================= */
+
+.dd-location__chips{
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dd-chip--dark{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.85);
+  background: rgba(102,216,227,.12);
+  border: 1px solid rgba(102,216,227,.35);
+}
+
+.dd-chip--dark i{
+  color: #66D8E3;
+  font-size: 16px;
+}
+
+/* =========================
+   Botones
+========================= */
+
+.dd-location__actions{
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dd-location__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 13.5px;
+
+  transition: transform 260ms ease, background 260ms ease, border-color 260ms ease;
+}
+
+.dd-location__btn i{
+  font-size: 18px;
+  color: #FED966;
+}
+
+.dd-location__btn:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.32);
+}
+
+.dd-location__btn--ghost{
+  background: transparent;
+}
+
+/* =========================
+   Mapas
+========================= */
+
+.dd-location__maps{
+  display: grid;
+  gap: 16px;                     /* más compacto */
+}
+
+.dd-mapcard{
+  background: rgba(255,255,255,.05);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 44px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+
+.dd-mapcard__head{
+  padding: 14px 16px 0;
+}
+
+.dd-mapcard__title{
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.dd-mapcard__sub{
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,.65);
+  font-weight: 700;
+}
+
+/* Contenedor del mapa */
+.dd-mapcard__frame{
+  width: 100%;
+  height: 260px;                 /* más compacto en desktop */
+  background: rgba(0,0,0,.2);
+}
+
+.dd-mapcard__frame iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 980px){
+  .dd-location__grid{
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .dd-location__text{
+    max-width: 100%;
+  }
+
+  .dd-mapcard__frame{
+    height: 300px;
+  }
+}
+
+@media (max-width: 720px){
+  .dd-location{
+    padding: 56px 0;             /* 👈 menos espacio móvil */
+  }
+
+  .dd-location__title{
+    text-align: center;
+    font-size: clamp(28px, 8vw, 38px);
+    margin-bottom: 10px;
+  }
+
+  .dd-location__eyebrow{
+    text-align: center;
+  }
+
+  .dd-location__text{
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 15.5px;
+  }
+
+  .dd-location__chips{
+    justify-content: center;
+  }
+
+  .dd-location__actions{
+    justify-content: center;
+  }
+
+  .dd-mapcard__frame{
+    height: 280px;
+  }
+}
+
+@media (max-width: 420px){
+  .dd-mapcard__frame{
+    height: 250px;
+  }
+}
+
+
+/* =========================
+   CÓMO LLEGAR + HOSPEDAJE
+========================= */
+
+.dd-arrival{
+  padding: 92px 0;
+  background: #f7f9fb;
+  color: #0a2230;
+}
+
+.dd-arrival__wrap{
+  display: grid;
+  gap: 34px;
+}
+
+/* =========================
+   HEAD (CENTRADO EN TODOS)
+========================= */
+
+.dd-arrival__head{
+  max-width: 980px;
+  margin-inline: auto;
+  text-align: center; /* 👈 centra en desktop y mobile */
+}
+
+.dd-arrival__eyebrow{
+  margin: 0 0 10px;
+  letter-spacing: .22em;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(10,34,48,.55);
+}
+
+.dd-arrival__title{
+  font-family: var(--font-title, system-ui);
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.12;
+  margin: 0 0 12px;
+}
+
+.dd-arrival__lead{
+  margin: 0 auto;
+  font-family: var(--font-body, system-ui);
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(10,34,48,.72);
+  max-width: 78ch;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.dd-arrival__grid{
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+/* =========================
+   CARD BASE
+========================= */
+
+.dd-arrival-card{
+  background: #ffffff;
+  border-radius: 22px;
+  border: 1px solid rgba(10,34,48,.08);
+  box-shadow: 0 18px 48px rgba(0,0,0,.06);
+  overflow: hidden;
+  padding: 22px;
+}
+
+.dd-arrival-card--soft{
+  background: linear-gradient(180deg, #ffffff, rgba(12,113,165,.03));
+}
+
+.dd-arrival-card__top{
+  display: grid;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.dd-arrival-card__icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(12,113,165,.08);
+  border: 1px solid rgba(12,113,165,.14);
+}
+
+.dd-arrival-card__icon i{
+  font-size: 22px;
+  color: var(--navy, #0E3D59);
+}
+
+.dd-arrival-card__title{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+}
+
+.dd-arrival-card__subtitle{
+  margin: 0;
+  color: rgba(10,34,48,.62);
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+/* =========================
+   SECCIONES INTERNAS
+========================= */
+
+.dd-arrival-card__section{
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(10,34,48,.14);
+}
+
+.dd-arrival-card__h4{
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 900;
+  color: rgba(10,34,48,.85);
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dd-arrival-card__h4 i{
+  font-size: 16px;
+  color: var(--blue, #0C71A5);
+}
+
+.dd-arrival-card__p{
+  margin: 0 0 12px;
+  color: rgba(10,34,48,.72);
+  line-height: 1.75;
+  font-size: 15.5px;
+}
+
+/* =========================
+   LISTA DE VUELOS
+========================= */
+
+.dd-arrival-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.dd-arrival-item{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(10,34,48,.03);
+  border: 1px solid rgba(10,34,48,.06);
+}
+
+.dd-arrival-route{
+  font-weight: 800;
+  color: rgba(10,34,48,.86);
+}
+
+.dd-arrival-air{
+  font-size: 12.5px;
+  font-weight: 900;
+  color: rgba(10,34,48,.62);
+  background: rgba(254,217,102,.22);
+  border: 1px solid rgba(254,217,102,.35);
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* =========================
+   HOTELES
+========================= */
+
+.dd-hotel-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dd-hotel{
+  padding: 12px;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 13px;
+  text-align: center;
+  background: rgba(10,34,48,.03);
+  border: 1px solid rgba(10,34,48,.08);
+}
+
+/* =========================
+   CTA
+========================= */
+
+.dd-arrival-cta{
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(10,34,48,.14);
+  display: grid;
+  gap: 14px;
+}
+
+.dd-arrival-cta__text{
+  margin: 0;
+  color: rgba(10,34,48,.72);
+  line-height: 1.7;
+  font-size: 14.5px;
+}
+
+/* BOTÓN GRANDE EN DESKTOP */
+.dd-arrival-btn{
+  align-self: center;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;               /* 👈 más grande */
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 16px;                  /* 👈 más grande */
+  color: rgba(10,34,48,.92);
+  background: rgba(254,217,102,.28);
+  border: 1px solid rgba(254,217,102,.45);
+  transition: transform .25s ease, background .25s ease;
+}
+
+.dd-arrival-btn i{
+  font-size: 20px;
+}
+
+.dd-arrival-btn:hover{
+  transform: translateY(-2px);
+  background: rgba(254,217,102,.38);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 980px){
+  .dd-arrival__grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px){
+  .dd-arrival{
+    padding: 70px 0;
+  }
+
+  .dd-arrival-card{
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .dd-arrival-item{
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .dd-hotel-grid{
+    grid-template-columns: 1fr;
+  }
+
+  /* Botón normal en móvil */
+  .dd-arrival-btn{
+    padding: 14px 22px;
+    font-size: 14.5px;
+  }
+}
+

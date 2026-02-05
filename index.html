@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <!-- =========================
+       Básicos
+  ========================== -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0E3D59" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+
+  <title>Dolphin Dive Baja | Buceo, Snorkel y Experiencias en Loreto</title>
+  <meta
+    name="description"
+    content="Buceo y snorkel en Loreto, Baja California Sur dentro del Parque Nacional Bahía de Loreto. Experiencias responsables, grupos pequeños y atención humana con Dolphin Dive Baja."
+  />
+
+  <!-- Canonical (evita contenido duplicado) -->
+  <link rel="canonical" href="https://www.dolphindivebaja.com/" />
+
+  <!-- =========================
+       Open Graph / Social
+  ========================== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_MX" />
+  <meta property="og:site_name" content="Dolphin Dive Baja" />
+  <meta property="og:title" content="Dolphin Dive Baja | Buceo, Snorkel y Experiencias en Loreto" />
+  <meta
+    property="og:description"
+    content="Buceo y snorkel en Loreto, BCS dentro del Parque Nacional Bahía de Loreto. Experiencias responsables, grupos pequeños y atención humana."
+  />
+  <meta property="og:url" content="https://www.dolphindivebaja.com/" />
+  <meta property="og:image" content="https://www.dolphindivebaja.com/assets/imagenes/logodolphin.webp" />
+  <meta property="og:image:alt" content="Logo de Dolphin Dive Baja" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dolphin Dive Baja | Buceo, Snorkel y Experiencias en Loreto" />
+  <meta
+    name="twitter:description"
+    content="Buceo y snorkel en Loreto, BCS dentro del Parque Nacional Bahía de Loreto. Experiencias responsables, grupos pequeños y atención humana."
+  />
+  <meta name="twitter:image" content="https://www.dolphindivebaja.com/assets/imagenes/logodolphin.webp" />
+
+  <!-- =========================
+       Favicons / PWA (si luego los agregas)
+  ========================== -->
+  <link rel="icon" href="assets/imagenes/logodolphin.webp" type="image/webp" />
+  <!-- Recomendado (si tienes PNGs): -->
+  <!-- <link rel="icon" href="assets/imagenes/favicon-32.png" sizes="32x32" type="image/png" /> -->
+  <!-- <link rel="icon" href="assets/imagenes/favicon-16.png" sizes="16x16" type="image/png" /> -->
+  <!-- <link rel="apple-touch-icon" href="assets/imagenes/apple-touch-icon.png" /> -->
+  <!-- <link rel="manifest" href="/site.webmanifest" /> -->
+
+  <!-- =========================
+       Performance: Fonts + Icons
+  ========================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Remix Icon -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <!-- =========================
+       Structured Data (sin inventar datos)
+       (Si luego quieres, te lo dejo con address/geo/phones reales)
+  ========================== -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Dolphin Dive Baja",
+      "url": "https://www.dolphindivebaja.com/",
+      "logo": "https://www.dolphindivebaja.com/assets/imagenes/logodolphin.webp"
+    }
+  </script>
+</head>
+
+
+<body>
+  
+  <!-- ===== PRELOADER ===== -->
+<div class="dd-loader" id="ddLoader" aria-label="Cargando" role="status">
+  <!-- Fondo/Profundidad -->
+  <div class="dd-loader__bg" aria-hidden="true"></div>
+
+  <!-- Olas full-screen -->
+  <div class="dd-sea" aria-hidden="true">
+    <!-- “crestas”/líneas puntiagudas del mar -->
+    <div class="dd-sea__spikes dd-sea__spikes--1"></div>
+    <div class="dd-sea__spikes dd-sea__spikes--2"></div>
+    <div class="dd-sea__spikes dd-sea__spikes--3"></div>
+
+    <!-- olas suaves por debajo -->
+    <div class="dd-sea__swell dd-sea__swell--1"></div>
+    <div class="dd-sea__swell dd-sea__swell--2"></div>
+    <div class="dd-sea__swell dd-sea__swell--3"></div>
+
+    <!-- barquito -->
+    <div class="dd-boat" aria-hidden="true">
+      <i class="ri-sailboat-line"></i>
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="dd-loader__content">
+    <div class="dd-loader__ring" aria-hidden="true">
+      <i class="ri-loader-4-line"></i>
+    </div>
+
+    <p class="dd-loader__title">Dolphin Dive Baja</p>
+    <p class="dd-loader__subtitle">Preparando tu próxima aventura…</p>
+  </div>
+</div>
+
+  <!-- Overlay para el menú -->
+  <div class="overlay" data-overlay></div>
+
+  <!-- Menú off-canvas -->
+  <aside class="drawer" data-drawer aria-hidden="true">
+    <nav class="drawer__nav" aria-label="Menú principal">
+      <a href="/" class="drawer__link is-active">Inicio</a>
+      <a href="servicios/" class="drawer__link">Servicios</a>
+      <a href="nosotros/" class="drawer__link">Nosotros</a>
+      <a href="contacto/" class="drawer__link">Contacto</a>
+
+      <div class="drawer__cta">
+        <a class="btn btn--primary" href="https://wa.me/526131182311?text=Hola%20Dolphin%20Dive%20Baja%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20por%20favor.">Reservar experiencia</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- HERO / SLIDER -->
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Dolphin Dive Baja - Inicio">
+      <img src="assets/imagenes/logodolphin.webp" alt="Dolphin Dive Baja" />
+    </a>
+
+    <!-- Botón menú: por defecto PNG, al abrir muestra X (RemixIcon) -->
+    <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" data-menu-btn>
+      <img class="menu-btn__png" src="assets/imagenes/icono-burguer.png" alt="" />
+      <i class="ri-close-line menu-btn__x" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Slider principal" id="home">
+      <div class="hero__slides" data-slides>
+        <!-- Slides (toman tus imágenes) -->
+        <div class="slide is-active" style="background-image:url('assets/imagenes/slide1.webp')" role="img" aria-label="Buceo en Baja California Sur"></div>
+        <div class="slide" style="background-image:url('assets/imagenes/slide2.webp')" role="img" aria-label="Experiencias de snorkel"></div>
+        <div class="slide" style="background-image:url('assets/imagenes/slide3.webp')" role="img" aria-label="Exploración marina"></div>
+        <div class="slide" style="background-image:url('assets/imagenes/slide4.webp')" role="img" aria-label="Aventura bajo el mar"></div>
+        <div class="slide" style="background-image:url('assets/imagenes/slide5.webp')" role="img" aria-label="Momentos inolvidables"></div>
+      </div>
+
+      <div class="hero__content wrap">
+        <div class="hero__text" data-hero-text>
+          <h1 class="hero__title">MÁS QUE BUCEO,<br>UNA EXPERIENCIA INOLVIDABLE</h1>
+          <p class="hero__subtitle">
+            Cada inmersión está diseñada para conectar con el mar, la naturaleza y el momento.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="contacto/">Reserva ahora</a>
+            <a class="btn btn--ghost" href="servicios/">Explora servicios</a>
+          </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="dots" aria-label="Indicadores del slider" data-dots>
+          <button class="dot is-active" type="button" aria-label="Ir al slide 1"></button>
+          <button class="dot" type="button" aria-label="Ir al slide 2"></button>
+          <button class="dot" type="button" aria-label="Ir al slide 3"></button>
+          <button class="dot" type="button" aria-label="Ir al slide 4"></button>
+          <button class="dot" type="button" aria-label="Ir al slide 5"></button>
+        </div>
+      </div>
+    </section>
+
+<section class="dd-highlights dd-highlights--icons" aria-label="Explora Dolphin Dive Baja">
+  <!-- Decorative ocean icons background -->
+<div class="dd-ocean-icons" aria-hidden="true">
+  <i class="ri-anchor-line"></i>
+  <i class="ri-ship-2-line"></i>
+  <i class="ri-compass-3-line"></i>
+  <i class="ri-bubble-chart-line"></i>
+  <i class="ri-sailboat-line"></i>
+  <i class="ri-moon-foggy-line"></i>
+  <i class="ri-umbrella-line"></i>
+  <i class="ri-windy-line"></i>
+  <i class="ri-water-flash-line"></i>
+  <i class="ri-map-pin-2-line"></i>
+  <i class="ri-leaf-line"></i>
+  <i class="ri-sun-line"></i>
+</div>
+
+  <div class="wrap">
+    <div class="dd-highlights__head">
+      <p class="dd-eyebrow">Explora</p>
+      <h2 class="dd-title">Elige tu próxima experiencia en Loreto</h2>
+      <p class="dd-subtitle">Tours, experiencias y el mar como debe vivirse: en grupos pequeños y con respeto total por la vida marina.</p>
+    </div>
+
+    <div class="dd-mosaic" data-reveal-group>
+      <!-- Card 1 (alta izquierda) -->
+      <a class="dd-card dd-card--tall reveal" href="servicios/" aria-label="Ver Tours">
+        <img class="dd-card__img" src="assets/imagenes/tours.webp" alt="Tours en el Parque Nacional Bahía de Loreto" loading="lazy">
+        <span class="dd-card__overlay"></span>
+
+        <div class="dd-card__content">
+          <span class="dd-card__kicker">Servicios</span>
+          <h3 class="dd-card__title">Fun Dives & aventuras al mar</h3>
+          <span class="dd-card__cta">Ver tours</span>
+        </div>
+
+        <span class="dd-card__icon" aria-hidden="true">
+          <i class="ri-arrow-right-up-line"></i>
+        </span>
+      </a>
+
+      <!-- Card 2 (arriba derecha 1) -->
+      <a class="dd-card reveal" href="servicios/" aria-label="Ver Experiencias">
+        <img class="dd-card__img" src="assets/imagenes/experiencias.webp" alt="Experiencias de snorkel y mar" loading="lazy">
+        <span class="dd-card__overlay"></span>
+
+        <div class="dd-card__content">
+          <span class="dd-card__kicker">Servicios</span>
+          <h3 class="dd-card__title">Snorkeling, DSD & familia</h3>
+          <span class="dd-card__cta">Explorar</span>
+        </div>
+
+        <span class="dd-card__icon" aria-hidden="true">
+          <i class="ri-arrow-right-up-line"></i>
+        </span>
+      </a>
+
+      <!-- Card 3 (arriba derecha 2) -->
+      <a class="dd-card reveal" href="nosotros/" aria-label="Conoce nuestra historia">
+        <img class="dd-card__img" src="assets/imagenes/staff.webp" alt="Dolphin Dive Baja en Loreto" loading="lazy">
+        <span class="dd-card__overlay"></span>
+
+        <div class="dd-card__content">
+          <span class="dd-card__kicker">Nosotros</span>
+          <h3 class="dd-card__title">Familia, misión y conservación</h3>
+          <span class="dd-card__cta">Conocer</span>
+        </div>
+
+        <span class="dd-card__icon" aria-hidden="true">
+          <i class="ri-arrow-right-up-line"></i>
+        </span>
+      </a>
+
+      <!-- Card 4 (ancha abajo derecha) -->
+      <a class="dd-card dd-card--wide reveal" href="contacto/" aria-label="Cómo llegar y reservar">
+        <img class="dd-card__img" src="assets/imagenes/planifica2.webp" alt="Ubicación y contacto Dolphin Dive Baja" loading="lazy">
+        <span class="dd-card__overlay"></span>
+
+        <div class="dd-card__content">
+          <span class="dd-card__kicker">Planifica</span>
+          <h3 class="dd-card__title">Ubicación, cómo llegar y reservar</h3>
+          <span class="dd-card__cta">Ver información</span>
+        </div>
+
+        <span class="dd-card__icon" aria-hidden="true">
+          <i class="ri-arrow-right-up-line"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="dd-value">
+  <div class="wrap dd-value__grid">
+
+    <!-- Texto -->
+    <div class="dd-value__content">
+      <p class="dd-eyebroc">Te ofrecemos</p>
+      <h2 class="dd-value__title">
+        Buceo responsable y experiencias auténticas en Loreto
+      </h2>
+      <p class="dd-value__text">
+        En Dolphin Dive Baja no solo te llevamos a bucear. Creamos experiencias seguras, humanas y conscientes dentro del Parque Nacional Bahía de Loreto, donde cada inmersión está pensada para conectar con el mar de forma respetuosa. Operamos con altos estándares de seguridad, grupos pequeños y una profunda conciencia ambiental.
+      </p>
+    </div>
+
+    <!-- Cards -->
+    <div class="dd-value__cards">
+
+      <article class="dd-value-card">
+        <i class="ri-award-line"></i>
+        <h3>Centro PADI 5 Estrellas</h3>
+        <p>
+          Somos el único Centro PADI 5 Estrellas y Cressi Dive Center en Loreto,
+          cumpliendo con los más altos estándares de seguridad y servicio.
+        </p>
+      </article>
+
+      <article class="dd-value-card">
+        <i class="ri-group-line"></i>
+        <h3>Grupos pequeños</h3>
+        <p>
+          Trabajamos con grupos reducidos:
+          <strong>6 buzos por Dive Master</strong> o
+          <strong>máx. 8 snorkelistas por guía</strong>,
+          para una atención cercana y personalizada.
+        </p>
+      </article>
+
+      <article class="dd-value-card">
+        <i class="ri-restaurant-line"></i>
+        <h3>Todo incluido</h3>
+        <p>
+          En nuestros tours incluimos brazaletes del parque marino,
+          lunch y agua (según la actividad),
+          para que solo te preocupes por disfrutar.
+        </p>
+      </article>
+
+      <article class="dd-value-card dd-value-card--highlight">
+        <i class="ri-leaf-line"></i>
+        <h3>Nuestra misión</h3>
+        <p>
+          Educar sobre qué es el mar para protegerlo.
+          <br>
+          <em>Primero los animales. Segundo los animales.
+          Tercero los animales.</em>
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="dd-collage" id="collage" aria-label="Collage de experiencias">
+  <div class="wrap">
+    <header class="dd-collage__head">
+      <h2 class="dd-collage__title">Atrévete a vivir la experiencia con nosotros</h2>
+    </header>
+
+    <div class="dd-collage__grid">
+      <figure class="dd-collage__item dd-collage__item--1" aria-label="Experiencia 1"></figure>
+      <figure class="dd-collage__item dd-collage__item--2" aria-label="Experiencia 2"></figure>
+      <figure class="dd-collage__item dd-collage__item--3" aria-label="Experiencia 3"></figure>
+      <figure class="dd-collage__item dd-collage__item--4" aria-label="Experiencia 4"></figure>
+
+      <figure class="dd-collage__item dd-collage__item--5" aria-label="Experiencia 5"></figure>
+      <figure class="dd-collage__item dd-collage__item--6" aria-label="Experiencia 6"></figure>
+      <figure class="dd-collage__item dd-collage__item--7" aria-label="Experiencia 7"></figure>
+      <figure class="dd-collage__item dd-collage__item--8" aria-label="Experiencia 8"></figure>
+
+      <figure class="dd-collage__item dd-collage__item--9" aria-label="Experiencia 5"></figure>
+      <figure class="dd-collage__item dd-collage__item--10" aria-label="Experiencia 6"></figure>
+      <figure class="dd-collage__item dd-collage__item--11" aria-label="Experiencia 7"></figure>
+      <figure class="dd-collage__item dd-collage__item--12" aria-label="Experiencia 8"></figure>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="dd-destination" id="destino" aria-label="Destino Loreto">
+  <!-- Fondo decorativo con íconos -->
+  <div class="dd-ocean-icons dd-ocean-icons--dest" aria-hidden="true">
+    <i class="ri-anchor-line"></i>
+    <i class="ri-ship-2-line"></i>
+    <i class="ri-compass-3-line"></i>
+    <i class="ri-bubble-chart-line"></i>
+    <i class="ri-sailboat-line"></i>
+    <i class="ri-water-flash-line"></i>
+    <i class="ri-map-pin-2-line"></i>
+    <i class="ri-leaf-line"></i>
+  </div>
+
+  <div class="wrap dd-destination__grid">
+    <!-- Texto -->
+    <div class="dd-destination__content">
+      <p class="dd-eyebrow dd-eyebrow--on-dark">Destino</p>
+
+      <h2 class="dd-destination__title">#Loreto_donde_el_lujo_es_la_naturaleza</h2>
+
+      <p class="dd-destination__text">
+        Loreto es un paraíso natural dentro del Parque Nacional Bahía de Loreto:
+        islas, arrecifes y biodiversidad incomparable.
+      </p>
+
+      <div class="dd-destination__pill">
+        <i class="ri-earth-line" aria-hidden="true"></i>
+        <span>Parque Nacional Bahía de Loreto · Patrimonio natural</span>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="dd-destination__map" aria-label="Mapa de Loreto">
+      <iframe
+        title="Mapa de Loreto"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Loreto%2C%20Baja%20California%20Sur%2C%20Mexico&output=embed">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<footer class="dd-footer" aria-label="Footer Dolphin Dive Baja">
+  <!-- Fondo ilustrado -->
+  <div class="dd-footer__bg" aria-hidden="true"></div>
+
+  <div class="wrap dd-footer__wrap">
+    <!-- Logo -->
+    <a class="dd-footer__brand" href="#inicio" aria-label="Ir al inicio">
+      <img src="/assets/imagenes/logodolphin.webp" alt="Dolphin Dive Baja" class="dd-footer__logo">
+    </a>
+
+    <!-- Texto corto -->
+    <p class="dd-footer__tagline">
+      Experiencias responsables dentro del Parque Nacional Bahía de Loreto.
+    </p>
+
+    <!-- Redes -->
+    <nav class="dd-footer__social" aria-label="Redes sociales">
+      <a class="dd-footer__social-link" href="https://www.instagram.com/dolphindivebajaloreto?igsh=MWxwMmIxYzM0dGU1cw==" target="_blank" rel="noopener" aria-label="Instagram">
+        <i class="ri-instagram-line"></i>
+      </a>
+      <a class="dd-footer__social-link" href="https://www.facebook.com/share/1H4r35gxtz/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
+        <i class="ri-facebook-circle-line"></i>
+      </a>
+      <a class="dd-footer__social-link" href="https://maps.app.goo.gl/xsDbhWbAN9WkQZuU9 " target="_blank" rel="noopener" aria-label="Tripadvisor">
+        <i class="ri-map-pin-line"></i>
+      </a>
+    </nav>
+
+    <!-- Links legales -->
+    <div class="dd-footer__links">
+      <a href="/politicadeprivacidad/" class="dd-footer__link">Política de privacidad</a>
+      <span class="dd-footer__dot" aria-hidden="true">•</span>
+      <a href="/" class="dd-footer__link">Inicio</a>
+    </div>
+
+    <!-- Copyright -->
+    <small class="dd-footer__copy">
+      © <span id="ddYear"></span> Dolphin Dive Baja. Todos los derechos reservados.
+    </small>
+  </div>
+
+  <script>
+    (function(){
+      var el = document.getElementById("ddYear");
+      if(el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+</footer>
+
+
+  <script src="assets/js/script.js"></script>
+
+
+<!-- WhatsApp Floating Button -->
+<a
+  class="wa-float"
+  href="https://wa.me/526131182311?text=Hola%20Dolphin%20Dive%20Baja%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20por%20favor."
+  target="_blank"
+  rel="noopener"
+  aria-label="WhatsApp: Más información"
+>
+  <span class="wa-float__label">
+    <strong>Más información</strong><br>
+    ¿Tienes dudas?<br>
+    <span class="wa-float__num">+52 613 118 23 11</span>
+  </span>
+
+  <span class="wa-float__btn" aria-hidden="true">
+    <i class="ri-whatsapp-line"></i>
+  </span>
+</a>
+
+</body>
+</html>
