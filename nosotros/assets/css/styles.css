@@ -824,6 +824,22 @@
   /* ✅ En móvil/tablet: texto primero, imágenes después */
   .dd-store__content{ order: 1; }
   .dd-store__collage{ order: 2; }
+
+  /* 🔒 FIX: evitar desbordes horizontales */
+  .dd-store__collage{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .dd-store__img{
+    max-width: 100%;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    position: relative !important;
+  }
 }
 
 /* Móvil */
@@ -861,7 +877,7 @@
   .dd-store__img{
     border-radius: 18px;
     min-height: 140px;
-    background-size: cover; /* en móvil mejor cover para que no se vea “chiquita” */
+    background-size: cover;
   }
 }
 
@@ -875,6 +891,7 @@
     min-height: 190px;
   }
 }
+
 
 /* =========================
    DÓNDE ESTAMOS (Texto + Mapas) – DARK
