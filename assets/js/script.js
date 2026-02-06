@@ -44,8 +44,8 @@ window.addEventListener("scroll", () => {
 });
 
 /* =========================
-   Slider (lento, animación suave)
-   Cambia imagen + texto + dots
+   Slider (slow, smooth animation)
+   Changes image + text + dots
 ========================= */
 const slides = Array.from(document.querySelectorAll("[data-slides] .slide"));
 const dots = Array.from(document.querySelectorAll("[data-dots] .dot"));
@@ -53,26 +53,27 @@ const heroText = document.querySelector("[data-hero-text]");
 
 const content = [
   {
-    title: "MÁS QUE BUCEO,<br>UNA EXPERIENCIA INOLVIDABLE",
-    subtitle: "Cada inmersión está diseñada para conectar con el mar, la naturaleza y el momento."
+    title: "MORE THAN DIVING,<br>AN UNFORGETTABLE EXPERIENCE",
+    subtitle: "Every dive is designed to connect you with the ocean, nature, and the moment."
   },
   {
-    title: "EXPLORA BAJA<br>DESDE EL MAR",
-    subtitle: "Tours y salidas guiadas para descubrir paisajes submarinos únicos con seguridad y atención personalizada."
+    title: "EXPLORE BAJA<br>FROM THE SEA",
+    subtitle: "Guided tours and excursions to discover unique underwater landscapes with safety and personalized attention."
   },
   {
-    title: "SNORKEL Y AVENTURA<br>PARA TODOS",
-    subtitle: "Vive el océano con experiencias pensadas para principiantes, familias y amantes de la naturaleza."
+    title: "SNORKELING AND ADVENTURE<br>FOR EVERYONE",
+    subtitle: "Experience the ocean with activities designed for beginners, families, and nature lovers."
   },
   {
-    title: "INMERSIONES GUIADAS<br>CON EXPERTOS",
-    subtitle: "Equipo, guía y acompañamiento para que disfrutes cada momento con confianza."
+    title: "GUIDED DIVES<br>WITH EXPERTS",
+    subtitle: "Equipment, guidance, and support so you can enjoy every moment with confidence."
   },
   {
-    title: "RECUERDOS QUE<br>SE QUEDAN CONTIGO",
-    subtitle: "Momentos reales, agua cristalina y la emoción de una experiencia que vale la pena repetir."
+    title: "MEMORIES THAT<br>STAY WITH YOU",
+    subtitle: "Real moments, crystal-clear water, and the thrill of an experience worth repeating."
   }
 ];
+
 
 let index = 0;
 let timer = null;
