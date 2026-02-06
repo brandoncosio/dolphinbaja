@@ -391,6 +391,27 @@
   font-weight: 900;
 }
 
+/* Botón correo (oscuro) */
+.dd-services__btn--email{
+  margin-top: 10px;
+  background: #0f2a36; /* oscuro marino */
+  border: 1px solid rgba(255,255,255,.22);
+  color: #fff;
+}
+
+.dd-services__btn--email i{
+  color: var(--cyan, #66D8E3);
+  font-size: 18px;
+}
+
+.dd-services__btn--email:hover{
+  background: #123443;
+  border-color: rgba(255,255,255,.32);
+  transform: translateY(-2px);
+}
+
+
+
 
 /* =========================
    FUN DIVES – Sección Pro
