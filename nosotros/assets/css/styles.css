@@ -892,6 +892,40 @@
   }
 }
 
+/* Botón correo – tienda */
+.dd-store__btn--email{
+  margin-left: 10px; /* desktop: al ladito */
+  background: #0f2a36; /* azul marino oscuro */
+  color: #ffffff;
+  border: 1px solid rgba(15,42,54,.35);
+}
+
+.dd-store__btn--email i{
+  color: var(--cyan, #66D8E3);
+  font-size: 18px;
+}
+
+.dd-store__btn--email:hover{
+  transform: translateY(-2px);
+  background: #123443;
+  border-color: rgba(255,255,255,.32);
+}
+
+/* Responsive: botones uno debajo del otro */
+@media (max-width: 720px){
+  .dd-store__btn--email{
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dd-store__btn{
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 
 /* =========================
    DÓNDE ESTAMOS (Texto + Mapas) – DARK
@@ -1409,3 +1443,37 @@
   }
 }
 
+/* Botón correo – llegada y hospedaje */
+.dd-arrival-btn--email{
+  background: #0f2a36; /* azul marino oscuro */
+  color: #ffffff;
+  border: 1px solid rgba(15,42,54,.38);
+}
+
+.dd-arrival-btn--email i{
+  color: var(--cyan, #66D8E3);
+  font-size: 20px;
+}
+
+.dd-arrival-btn--email:hover{
+  transform: translateY(-2px);
+  background: #123443;
+}
+
+/* Desktop: botones uno debajo del otro, centrados */
+.dd-arrival-cta{
+  justify-items: center;
+}
+
+/* Mobile: botones full width */
+@media (max-width: 720px){
+  .dd-arrival-btn--email{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dd-arrival-btn{
+    width: 100%;
+    justify-content: center;
+  }
+}

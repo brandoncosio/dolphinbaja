@@ -2046,6 +2046,34 @@ html{
   transform: translateY(-1px);
 }
 
+/* Botón correo – misión */
+.dd-mission-btn--email{
+  background: #0f2a36; /* azul marino oscuro */
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.22);
+}
+
+.dd-mission-btn--email i{
+  color: var(--cyan, #66D8E3);
+  font-size: 18px;
+}
+
+.dd-mission-btn--email:hover{
+  background: #123443;
+  border-color: rgba(255,255,255,.32);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 54px rgba(0,0,0,.45);
+}
+
+/* En móvil: ancho completo igual que WhatsApp */
+@media (max-width: 820px){
+  .dd-mission-btn--email{
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
 /* =========================
    Responsive
 ========================= */
@@ -2083,6 +2111,7 @@ html{
     justify-content: center;
   }
 }
+
 
 /* =========================
    NOSOTROS – HERO COMPACTO
