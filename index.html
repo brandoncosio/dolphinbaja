@@ -86,37 +86,22 @@
 
 <body>
   
-  <!-- ===== PRELOADER ===== -->
-<div class="dd-loader" id="ddLoader" aria-label="Cargando" role="status">
-  <!-- Fondo/Profundidad -->
-  <div class="dd-loader__bg" aria-hidden="true"></div>
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader__card">
+    <i class="ri-loader-4-line loader__icon"></i>
 
-  <!-- Olas full-screen -->
-  <div class="dd-sea" aria-hidden="true">
-    <!-- “crestas”/líneas puntiagudas del mar -->
-    <div class="dd-sea__spikes dd-sea__spikes--1"></div>
-    <div class="dd-sea__spikes dd-sea__spikes--2"></div>
-    <div class="dd-sea__spikes dd-sea__spikes--3"></div>
-
-    <!-- olas suaves por debajo -->
-    <div class="dd-sea__swell dd-sea__swell--1"></div>
-    <div class="dd-sea__swell dd-sea__swell--2"></div>
-    <div class="dd-sea__swell dd-sea__swell--3"></div>
-
-    <!-- barquito -->
-    <div class="dd-boat" aria-hidden="true">
-      <i class="ri-sailboat-line"></i>
-    </div>
-  </div>
-
-  <!-- Contenido -->
-  <div class="dd-loader__content">
-    <div class="dd-loader__ring" aria-hidden="true">
-      <i class="ri-loader-4-line"></i>
+    <div class="loader__bar">
+      <span class="loader__progress" id="loaderProgress"></span>
     </div>
 
-    <p class="dd-loader__title">Dolphin Dive Baja</p>
-    <p class="dd-loader__subtitle">Preparando tu próxima aventura…</p>
+    <p class="loader__text">
+      Loading<span id="loaderDots">...</span>
+    </p>
+
+    <p class="loader__percent">
+      <span id="loaderPercent">0</span>%
+    </p>
   </div>
 </div>
 

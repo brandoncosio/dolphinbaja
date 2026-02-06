@@ -142,30 +142,37 @@ goTo(0);
 start();
 
 
-// =========================
-// PRELOADER (min 3s) + fade out
-// =========================
-document.addEventListener("DOMContentLoaded", () => {
-  const loader = document.getElementById("ddLoader");
-  if (!loader) return;
+const loader = document.getElementById("loader");
+const progress = document.getElementById("loaderProgress");
+const percent = document.getElementById("loaderPercent");
+const loaderDotsEl = document.querySelector(".loader__text span"); // ✅ nombre nuevo
 
-  const MIN_TIME = 3000; // ⬅️ antes 2000, ahora 3s
-  const start = performance.now();
+let value = 0;
+let dotCount = 0;
 
-  const hideLoader = () => {
-    const elapsed = performance.now() - start;
-    const wait = Math.max(0, MIN_TIME - elapsed);
+const loaderInterval = setInterval(() => {
+  value += Math.floor(Math.random() * 6) + 2;
+  if (value >= 100) value = 100;
+
+  progress.style.width = value + "%";
+  percent.textContent = value;
+
+  dotCount = (dotCount + 1) % 4;
+  if (loaderDotsEl) {
+    loaderDotsEl.textContent = ".".repeat(dotCount);
+  }
+
+  if (value === 100) {
+    clearInterval(loaderInterval);
 
     setTimeout(() => {
-      loader.classList.add("is-hidden");
-      setTimeout(() => loader.remove(), 700);
-    }, wait);
-  };
+      loader.style.opacity = "0";
+      loader.style.pointerEvents = "none";
+      loader.style.transition = "opacity 600ms ease";
 
-  window.addEventListener("load", hideLoader, { once: true });
-
-  // fallback
-  setTimeout(() => {
-    if (document.readyState === "complete") hideLoader();
-  }, MIN_TIME + 800);
-});
+      setTimeout(() => {
+        loader.remove();
+      }, 600);
+    }, 400);
+  }
+}, 180);
