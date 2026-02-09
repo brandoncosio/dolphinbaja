@@ -176,3 +176,12 @@ const loaderInterval = setInterval(() => {
     }, 400);
   }
 }, 180);
+document.querySelectorAll('.dd-reel-card').forEach(card => {
+  card.addEventListener('touchstart', () => {
+    card.classList.add('is-active');
+  });
+
+  card.addEventListener('touchend', () => {
+    card.classList.remove('is-active');
+  });
+});

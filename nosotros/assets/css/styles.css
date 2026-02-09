@@ -80,12 +80,20 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    180deg,
-    rgba(0,0,0,.45) 0%,
-    rgba(0,0,0,.62) 45%,
-    rgba(0,0,0,.78) 100%
-  );
+   background-image:
+    /* luz suave superior */
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.10) 0%,
+      rgba(255,255,255,0) 35%
+    ),
+    /* overlay oscuro más ligero */
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.55) 0%,
+      rgba(0,0,0,.62) 55%,
+      rgba(0,0,0,.70) 100%
+    ),
 }
 
 /* Contenido */

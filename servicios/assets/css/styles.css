@@ -39,11 +39,18 @@
 /* Fondo con overlay */
 .dd-contact-hero__bg{
   background-image:
+    /* luz suave superior */
     linear-gradient(
       180deg,
-      rgba(0,0,0,.72) 0%,
-      rgba(0,0,0,.80) 55%,
-      rgba(0,0,0,.88) 100%
+      rgba(255,255,255,.10) 0%,
+      rgba(255,255,255,0) 35%
+    ),
+    /* overlay oscuro más ligero */
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.55) 0%,
+      rgba(0,0,0,.62) 55%,
+      rgba(0,0,0,.70) 100%
     ),
     url("/servicios/assets/imagenes/experiencias.webp");
 }
