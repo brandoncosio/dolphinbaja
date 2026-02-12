@@ -30,7 +30,6 @@ const events = [
 
 export default function History() {
   return (
-    // 👇 AQUÍ ESTÁ EL ID PARA EL MENÚ
     <section id="historia" className="bg-slate-900 pb-24 px-6 md:px-20 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-20">
