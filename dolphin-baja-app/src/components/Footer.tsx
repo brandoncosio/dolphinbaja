@@ -32,8 +32,6 @@ export default function Footer() {
   ];
 
   return (
-    // 👇 ESTRATEGIA 3: 'aspect-[4/5]' en móvil para dar aire al fondo marino. 
-    // 'min-h' asegura que si el contenido es mucho, crezca lo necesario.
     <footer className="relative pt-24 pb-12 overflow-hidden bg-slate-900 text-slate-200 aspect-[4/5] md:aspect-auto md:min-h-[500px]">
 
       <div className="absolute inset-0 z-0">

@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import logo from '/assets/images/logodolphin.webp';
 
-// 👇 Importamos el hook de idioma
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {

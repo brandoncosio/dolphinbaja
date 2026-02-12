@@ -57,7 +57,6 @@ export default function Contacto() {
                         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/50 to-slate-900" />
                     </div>
 
-                    {/* 👇 CORRECCIÓN AQUÍ: Agregué 'pb-32' para dar espacio abajo y evitar que las tarjetas tapen el texto */}
                     <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20 pb-32">
                         <motion.span
                             initial={{ opacity: 0, y: 10 }}

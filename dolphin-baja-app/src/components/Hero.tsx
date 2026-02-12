@@ -45,7 +45,6 @@ export default function Hero() {
   }, []);
 
   return (
-    // 👇 ESTRATEGIA 3: 'aspect-[3/4]' para móvil (vertical elegante), 'md:h-screen' para escritorio
     <section className="relative w-full overflow-hidden bg-slate-900 aspect-[3/4] md:h-screen md:aspect-auto">
 
       {/* Slides de Imágenes */}

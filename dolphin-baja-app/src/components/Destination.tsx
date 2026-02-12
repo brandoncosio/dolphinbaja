@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Destination() {
   return (
-    // 👇 AQUÍ ESTÁ EL ID PARA EL MENÚ
+
     <section id="ubicacion" className="bg-slate-900 py-24 px-6 relative overflow-hidden scroll-mt-20">
       <div className="max-w-5xl mx-auto text-center relative z-10">
 

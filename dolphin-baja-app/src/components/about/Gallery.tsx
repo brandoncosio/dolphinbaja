@@ -2,7 +2,6 @@ import React from 'react';
 
 export default function Gallery() {
   return (
-    // 👇 AQUÍ ESTÁ EL ID PARA EL MENÚ
     <section id="galeria" className="bg-slate-900 pt-20 pb-0 scroll-mt-20">
 
       {/* 1. SECCIÓN CRESSI POINT */}
@@ -39,7 +38,6 @@ export default function Gallery() {
 
         {/* Grid Full Width */}
         <div className="grid grid-cols-2 md:grid-cols-4 h-[400px] md:h-[500px]">
-          {/* Asumiendo que colashX.webp están en /assets/imagenes/ generales */}
           {['colash1.webp', 'colash2.webp', 'colash3.webp', 'colash4.webp', 'colash5.webp', 'colash6.webp', 'colash7.webp', 'colash8.webp'].map((img, idx) => (
             <div key={idx} className="relative group overflow-hidden border-[0.5px] border-slate-900">
               <img

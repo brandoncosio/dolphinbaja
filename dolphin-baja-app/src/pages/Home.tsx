@@ -5,7 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import Hero from '../components/Hero';
 import Highlights from '../components/Highlights';
 import ValueProps from '../components/ValueProps';
-import HomeGallery from '../components/HomeGallery'; // 👈 Tu nueva galería
+import HomeGallery from '../components/HomeGallery';
 import Destination from '../components/Destination';
 import SplashScreen from '../components/SplashScreen';
 

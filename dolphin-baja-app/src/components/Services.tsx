@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-// 👇 IMPORTACIÓN DE IMÁGENES LOCALES
 import funDivesImg from '/assets/images/colash1.webp';
 import snorkelImg from '/assets/images/realsonrkell.jpeg';
 import coursesImg from '/assets/images/certificacionpadi.jpeg';
@@ -45,7 +44,7 @@ export default function Services() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-dark to-navy py-24 z-0">
-      
+
       {/* Animación de Algas en el fondo */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {seaweeds.map((sw) => (
@@ -53,38 +52,38 @@ export default function Services() {
             key={sw.id}
             viewBox="0 0 40 200"
             className="absolute bottom-0 text-cyan"
-            style={{ 
-              left: `${sw.left}%`, 
+            style={{
+              left: `${sw.left}%`,
               height: `${sw.height}px`,
               width: '40px',
               opacity: sw.opacity,
-              transformOrigin: 'bottom center' 
+              transformOrigin: 'bottom center'
             }}
-            animate={{ 
+            animate={{
               skewX: [-8, 8, -8], // Efecto de doblez por el agua
               rotate: [-5, 5, -5] // Inclinación
             }}
-            transition={{ 
-              duration: sw.duration, 
-              repeat: Infinity, 
-              ease: "easeInOut", 
-              delay: sw.delay 
+            transition={{
+              duration: sw.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: sw.delay
             }}
           >
             {/* Ruta SVG que dibuja una hoja de alga */}
-            <path 
-              d="M20,200 C0,150 40,100 20,50 C0,20 20,0 20,0 C20,0 40,20 20,50 C0,100 40,150 20,200 Z" 
-              fill="currentColor" 
+            <path
+              d="M20,200 C0,150 40,100 20,50 C0,20 20,0 20,0 C20,0 40,20 20,50 C0,100 40,150 20,200 Z"
+              fill="currentColor"
             />
           </motion.svg>
         ))}
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-20">
-        
+
         {/* Título de Sección */}
         <div className="mb-20">
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="mb-4 font-body text-xs font-black uppercase tracking-[0.5em] text-cyan"
@@ -99,22 +98,21 @@ export default function Services() {
         {/* Listado de Servicios */}
         <div className="flex flex-col gap-32">
           {services.map((service, index) => (
-            <motion.div 
+            <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8 }}
-              className={`flex flex-col md:flex-row items-center gap-12 ${
-                index % 2 !== 0 ? 'md:flex-row-reverse' : ''
-              }`}
+              className={`flex flex-col md:flex-row items-center gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''
+                }`}
             >
               {/* Imagen con Contenedor de Cristal */}
               <div className="group relative w-full md:w-1/2">
                 <div className="aspect-[4/3] overflow-hidden rounded-[2.5rem] border border-white/10 shadow-[0_0_40px_rgba(102,216,227,0.1)] transition-shadow duration-500 group-hover:shadow-[0_0_60px_rgba(102,216,227,0.25)]">
-                  <motion.img 
+                  <motion.img
                     whileHover={{ scale: 1.05 }}
-                    src={service.image} 
+                    src={service.image}
                     alt={service.title}
                     className="h-full w-full object-cover transition-transform duration-700"
                   />
@@ -128,7 +126,7 @@ export default function Services() {
                 <span className="absolute -left-8 -top-16 -z-10 select-none font-title text-[8rem] text-white/[0.03]">
                   {service.id}
                 </span>
-                
+
                 <h3 className="mb-6 font-title text-3xl text-white md:text-4xl">
                   {service.title}
                 </h3>
@@ -145,11 +143,11 @@ export default function Services() {
                   ))}
                 </div>
 
-                <motion.button 
+                <motion.button
                   whileHover={{ x: 10 }}
                   className="group flex items-center gap-4 font-title text-white transition-colors hover:text-cyan"
                 >
-                  Ver detalles 
+                  Ver detalles
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-colors group-hover:bg-cyan group-hover:border-cyan group-hover:text-navy">
                     <i className="ri-arrow-right-line"></i>
                   </span>

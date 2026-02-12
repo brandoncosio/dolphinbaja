@@ -17,8 +17,8 @@ export default function SplashScreen() {
   const animals = useMemo(() => {
     const seaCreatures = ["🐢", "🐟", "🐠", "🐬", "🐙"];
     return Array.from({ length: 6 }).map((_, i) => {
-      const isLeftToRight = Math.random() > 0.5; 
-      
+      const isLeftToRight = Math.random() > 0.5;
+
       return {
         id: `animal-${i}`,
         emoji: seaCreatures[Math.floor(Math.random() * seaCreatures.length)],
@@ -26,9 +26,9 @@ export default function SplashScreen() {
         top: Math.random() * 70 + 10, // Altura en la pantalla (10% a 80%)
         duration: Math.random() * 10 + 15, // Nado muy lento (15 a 25 seg)
         delay: Math.random() * 2,
-        startX: isLeftToRight ? "-20vw" : "120vw", 
-        endX: isLeftToRight ? "120vw" : "-20vw",   
-        scaleX: isLeftToRight ? 1 : -1,            
+        startX: isLeftToRight ? "-20vw" : "120vw",
+        endX: isLeftToRight ? "120vw" : "-20vw",
+        scaleX: isLeftToRight ? 1 : -1,
       };
     });
   }, []);
@@ -37,7 +37,6 @@ export default function SplashScreen() {
     <motion.div
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      // 👇 AQUÍ ESTÁ EL CAMBIO: z-[200] para superar al Navbar (z-[100])
       className="fixed inset-0 z-[200] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#0C71A5] to-[#071a24]"
     >
       {/* Capa 1: Animales Marinos */}
@@ -48,17 +47,17 @@ export default function SplashScreen() {
           style={{
             fontSize: animal.size,
             top: `${animal.top}%`,
-            scaleX: animal.scaleX, 
-            filter: "grayscale(100%) brightness(200%) opacity(0.15)", 
+            scaleX: animal.scaleX,
+            filter: "grayscale(100%) brightness(200%) opacity(0.15)",
           }}
           initial={{ x: animal.startX, y: 0 }}
           animate={{
             x: animal.endX,
-            y: ["0px", "15px", "-15px", "0px"] 
+            y: ["0px", "15px", "-15px", "0px"]
           }}
           transition={{
             x: { duration: animal.duration, ease: "linear", delay: animal.delay },
-            y: { duration: 4, repeat: Infinity, ease: "easeInOut" } 
+            y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
           }}
         >
           {animal.emoji}
@@ -76,8 +75,8 @@ export default function SplashScreen() {
             left: `${bubble.left}%`,
           }}
           animate={{
-            y: ["0vh", "-120vh"], 
-            x: ["0px", "20px", "-20px", "0px"], 
+            y: ["0vh", "-120vh"],
+            x: ["0px", "20px", "-20px", "0px"],
           }}
           transition={{
             y: {
@@ -104,9 +103,9 @@ export default function SplashScreen() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="relative z-10"
       >
-        <img 
-          src="/assets/images/logodolphin.webp" 
-          alt="Dolphin Dive Baja" 
+        <img
+          src="/assets/images/logodolphin.webp"
+          alt="Dolphin Dive Baja"
           className="w-48 drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] md:w-64"
         />
       </motion.div>

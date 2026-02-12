@@ -14,7 +14,6 @@ const team = [
 
 export default function Team() {
   return (
-    // 👇 AQUÍ ESTÁ EL ID PARA EL MENÚ
     <section id="equipo" className="bg-slate-900 py-24 px-6 md:px-20 relative overflow-hidden scroll-mt-20">
       {/* Glow de fondo */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-cyan-400/5 blur-[100px] rounded-full -z-0"></div>
