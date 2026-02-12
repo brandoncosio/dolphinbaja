@@ -2,29 +2,21 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
-// Componentes Globales (Estos se quedan igual porque se usan siempre)
+// Componentes Globales
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SplashScreen from './components/SplashScreen';
 import ScrollToTop from './components/ScrollToTop';
 
-// 👇 IMPORTACIÓN "LAZY": Solo se descargan cuando se necesitan
-// Esto aligera muchísimo la carga inicial
+// 👇 IMPORTACIÓN "LAZY": Carga diferida para optimizar velocidad
 const Home = lazy(() => import('./pages/Home'));
 const Servicios = lazy(() => import('./pages/Servicios'));
 const Nosotros = lazy(() => import('./pages/Nosotros'));
 
-// Componente temporal para Contacto
-const Contacto = () => (
-  <div className="pt-32 pb-20 text-center text-white min-h-screen bg-slate-900 flex items-center justify-center">
-    <div>
-      <h1 className="text-4xl font-title text-yellow-400 mb-4">Próximamente</h1>
-      <p className="font-body text-slate-400">Estamos construyendo la sección de Contacto.</p>
-    </div>
-  </div>
-);
+// 👇 AHORA SÍ cargamos el archivo real de Contacto
+const Contacto = lazy(() => import('./pages/Contacto'));
 
-// 👇 LOADER DE TRANSICIÓN: Se muestra un instante mientras carga la nueva página
+// Loader de transición
 const PageLoader = () => (
   <div className="min-h-screen bg-slate-900 flex items-center justify-center">
     <div className="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
@@ -57,15 +49,14 @@ export default function App() {
 
         <Navbar />
 
-        {/* 👇 SUSPENSE: Es el "amortiguador". 
-           Envuelve las rutas para manejar la carga perezosa.
-           Mientras la página se descarga, muestra el 'fallback' (PageLoader).
-        */}
+        {/* 👇 SUSPENSE: Maneja la carga de páginas */}
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/servicios" element={<Servicios />} />
             <Route path="/nosotros" element={<Nosotros />} />
+
+            {/* Ruta actualizada a la nueva página */}
             <Route path="/contacto" element={<Contacto />} />
           </Routes>
         </Suspense>
