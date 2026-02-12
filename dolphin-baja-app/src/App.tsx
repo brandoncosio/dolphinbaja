@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SplashScreen from './components/SplashScreen';
+import ScrollToTop from './components/ScrollToTop';
 
 // Páginas Reales
 import Home from './pages/Home';
@@ -37,9 +38,12 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      {/* 👇 2. USAR EL COMPONENTE AQUÍ (Dentro del Router, antes de todo lo visual) */}
+      <ScrollToTop />
+
       {/* Contenedor principal */}
       <div className="relative min-h-screen bg-slate-900 text-white font-body selection:bg-cyan-400 selection:text-slate-900">
-        
+
         {/* Pantalla de Carga (Splash) */}
         <AnimatePresence>
           {isLoading && <SplashScreen key="splash" />}
@@ -58,7 +62,7 @@ export default function App() {
 
         {/* Footer Global */}
         <Footer />
-        
+
       </div>
     </BrowserRouter>
   );
