@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Datos de los servicios
+// 👇 IMPORTACIÓN DE IMÁGENES (Usando tus rutas confirmadas)
+import funDivesImg from '/assets/images/colash1.webp';
+import coronadosImg from '/assets/images/colash11.webp';
+import nightDiveImg from '/assets/images/colash2.webp';
+import coursesImg from '/assets/images/certificacionpadi.jpeg';
+import snorkelImg from '/assets/images/realsonrkell.jpeg';
+import experienciasImg from '/assets/images/experiencias.webp';
+// Usaremos algunas del slider celular para variar en los nuevos servicios
+import refreshImg from '/assets/images/slider5-celular.webp'; 
+import bubbleImg from '/assets/images/slider1-celular.webp';
+
 const categories = [
   { id: 'fundives', label: 'Fun Dives', icon: 'ri-anchor-line' },
-  { id: 'cursos', label: 'Cursos PADI', icon: 'ri-medal-line' },
+  { id: 'cursos', label: 'Cursos & Programas', icon: 'ri-medal-line' },
   { id: 'snorkel', label: 'Snorkel & Tours', icon: 'ri-sun-line' }
 ];
 
@@ -16,23 +26,23 @@ const servicesData = {
       duration: "4 Horas",
       desc: "Explora los arrecifes volcánicos del Parque Nacional. Vida marina abundante y formaciones rocosas impresionantes.",
       includes: ["2 Tanques", "Lastre y Cinturón", "Snacks y Bebidas", "Guía PADI"],
-      image: "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&q=80&w=800"
+      image: funDivesImg
     },
     {
       title: "Coronados Island",
       price: "$140 USD",
       duration: "5 Horas",
       desc: "Nuestra inmersión más popular. Juega con lobos marinos y explora barcos hundidos llenos de vida.",
-      includes: ["2 Tanques", "Equipo Completo", "Lunch en playa", "Permisos de Parque"],
-      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=800"
+      includes: ["2 Tanques", "Equipo Completo", "Lunch en playa", "Permisos"],
+      image: coronadosImg
     },
     {
       title: "Night Dive",
       price: "$95 USD",
       duration: "2.5 Horas",
       desc: "Descubre la bioluminiscencia y las criaturas que solo salen al caer el sol. Una experiencia mística.",
-      includes: ["1 Tanque", "Linterna Primaria", "Luz de Tanque", "Guía Especializado"],
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
+      includes: ["1 Tanque", "Linterna Primaria", "Luz de Tanque", "Solo Avanzados"],
+      image: nightDiveImg
     }
   ],
   cursos: [
@@ -42,15 +52,31 @@ const servicesData = {
       duration: "1 Día",
       desc: "¿Primera vez? Aprende lo básico en piscina y realiza tu primera inmersión en el mar bajo supervisión directa.",
       includes: ["Clase Teórica", "Práctica en Alberca", "1 Inmersión en Mar", "Equipo Completo"],
-      image: "https://images.unsplash.com/photo-1590533357552-3286f76f78f6?auto=format&fit=crop&q=80&w=800"
+      image: coursesImg
     },
     {
       title: "Open Water Diver",
       price: "$480 USD",
       duration: "3-4 Días",
       desc: "Tu certificación de por vida. Aprende a bucear de forma autónoma hasta 18 metros de profundidad.",
-      includes: ["Material eLearning", "5 Módulos de Alberca", "4 Inmersiones en Mar", "Certificación Digital"],
-      image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=800"
+      includes: ["eLearning", "5 Módulos Alberca", "4 Inmersiones Mar", "Certificación"],
+      image: coursesImg
+    },
+    {
+      title: "Refresher (Refresh)",
+      price: "Consultar",
+      duration: "1 Día",
+      desc: "¿Más de 1 año sin bucear? Retoma confianza y técnica en un área controlada antes de explorar.",
+      includes: ["1 Tanque Habilidades", "1 Tanque Exploración", "Equipo NO incluido"],
+      image: refreshImg
+    },
+    {
+      title: "Bubble Makers",
+      price: "Consultar",
+      duration: "Medio día",
+      desc: "Introducción segura y divertida para niños de 8 a 11 años. Máximo 2 metros de profundidad.",
+      includes: ["1 Tanque", "Equipo Incluido", "Instructor PADI", "Lunch"],
+      image: bubbleImg
     }
   ],
   snorkel: [
@@ -60,7 +86,7 @@ const servicesData = {
       duration: "4 Horas",
       desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.",
       includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"],
-      image: "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?auto=format&fit=crop&q=80&w=800"
+      image: snorkelImg
     },
     {
       title: "Sunset Cruise",
@@ -68,29 +94,54 @@ const servicesData = {
       duration: "3 Horas",
       desc: "Disfruta del atardecer en el Mar de Cortés con música suave y bebidas refrescantes.",
       includes: ["Bebidas (No alcohólicas)", "Botana", "Capitán Bilingüe", "Fotos"],
-      image: "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800"
+      image: experienciasImg
     }
   ]
+};
+
+// Datos de horarios y reglas (Adaptados de tu HTML anterior)
+const scheduleData = {
+  fundives: {
+    morning: { time: "08:00 – 12:30", note: "Cita 07:30 AM", season: "Todo el año" },
+    afternoon: { time: "13:00 – 17:30", note: "Cita 12:30 PM", season: "Mayo – Octubre" },
+    night: { time: "18:00 – 20:00", note: "Cita 17:30 PM", season: "Julio – Octubre" },
+    rules: ["Equipo de buceo NO incluido en tarifa Fun Dives.", "Mínimo 2 personas para salir.", "Buzos solos: tarifa privada."]
+  },
+  cursos: {
+    morning: { time: "08:00 – 13:00", note: "Teoría + Alberca", season: "Todo el año" },
+    afternoon: { time: "13:00 – 17:00", note: "Inmersiones", season: "Todo el año" },
+    night: null,
+    rules: ["Incluye todo el material didáctico.", "Certificación digital PADI incluida.", "Requiere llenado de formulario médico."]
+  },
+  snorkel: {
+    morning: { time: "08:00 – 12:30", note: "Cita 07:30 AM", season: "Todo el año" },
+    afternoon: { time: "13:00 – 17:30", note: "Cita 12:30 PM", season: "Mayo – Octubre" },
+    night: null,
+    rules: ["Equipo de snorkel SÍ incluido.", "Mínimo 3 personas.", "Chaleco salvavidas obligatorio en el agua."]
+  }
 };
 
 export default function Servicios() {
   const [activeTab, setActiveTab] = useState('fundives');
 
+  // Helper para obtener los datos actuales sin errores de TS
+  const currentSchedule = scheduleData[activeTab as keyof typeof scheduleData];
+
   return (
-    <div className="min-h-screen bg-dark pt-32 pb-20">
+    <div className="min-h-screen bg-slate-900 pt-32 pb-20">
       
-      {/* 1. HEADER DE SECCIÓN */}
+      {/* HEADER */}
       <div className="relative px-6 md:px-20 mb-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <span className="font-body text-xs font-bold uppercase tracking-[0.4em] text-cyan">
+          <span className="font-body text-xs font-bold uppercase tracking-[0.4em] text-cyan-400">
             Catálogo de Aventuras
           </span>
           <h1 className="mt-4 font-title text-4xl text-white md:text-6xl">
-            Elige tu próxima <br/> <span className="text-yellow">Inmersión</span>
+            Elige tu próxima <br/> <span className="text-yellow-400">Inmersión</span>
           </h1>
           <p className="mt-6 text-slate-400 font-body text-lg">
             Desde tu primera respiración bajo el agua hasta expediciones técnicas. 
@@ -99,32 +150,25 @@ export default function Servicios() {
         </motion.div>
       </div>
 
-      {/* 2. PESTAÑAS (TABS) MEJORADAS - "Glassmorphism Dock"
-         - sticky top-[70px]: Deja espacio para que el Navbar (aprox 60-80px) viva arriba.
-         - z-40: Queda debajo del Navbar (z-50) pero encima del contenido (z-0).
-         - backdrop-blur-xl: Efecto de vidrio esmerilado intenso.
-      */}
-      <div className="sticky top-[70px] z-40 py-4 mb-12 px-4">
-        <div className="mx-auto max-w-lg rounded-full border border-white/10 bg-navy/80 p-1.5 backdrop-blur-xl shadow-2xl">
+      {/* TABS */}
+      <div className="sticky top-[90px] z-40 py-4 mb-12 px-4">
+        <div className="mx-auto max-w-lg rounded-full border border-white/10 bg-slate-900/80 p-1.5 backdrop-blur-xl shadow-2xl">
           <div className="flex justify-between">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveTab(cat.id)}
                 className={`relative flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold transition-colors ${
-                  activeTab === cat.id ? 'text-navy' : 'text-slate-400 hover:text-white'
+                  activeTab === cat.id ? 'text-slate-900' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                {/* Fondo Animado (Slider) */}
                 {activeTab === cat.id && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 rounded-full bg-cyan shadow-[0_0_15px_rgba(102,216,227,0.5)]"
+                    className="absolute inset-0 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)]"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
-                
-                {/* Contenido del botón (Ícono y Texto) */}
                 <span className="relative z-10 flex items-center gap-2 font-title uppercase tracking-wider">
                   <i className={`${cat.icon} text-lg`}></i>
                   <span className="hidden md:inline">{cat.label}</span>
@@ -135,8 +179,8 @@ export default function Servicios() {
         </div>
       </div>
 
-      {/* 3. GRID DE SERVICIOS */}
-      <div className="max-w-7xl mx-auto px-6 md:px-20 min-h-[600px]">
+      {/* GRID DE SERVICIOS */}
+      <div className="max-w-7xl mx-auto px-6 md:px-20 min-h-[400px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -146,11 +190,10 @@ export default function Servicios() {
             transition={{ duration: 0.3 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {/* @ts-ignore */}
-            {servicesData[activeTab].map((item, index) => (
+            {servicesData[activeTab as keyof typeof servicesData].map((item, index) => (
               <div 
                 key={index}
-                className="group relative bg-navy rounded-[2rem] overflow-hidden border border-white/5 hover:border-cyan/30 transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-2xl"
+                className="group relative bg-slate-800 rounded-[2rem] overflow-hidden border border-white/5 hover:border-cyan-400/30 transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-2xl"
               >
                 {/* Imagen */}
                 <div className="h-56 overflow-hidden relative">
@@ -159,7 +202,7 @@ export default function Servicios() {
                     alt={item.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute top-4 right-4 bg-navy/90 backdrop-blur-md text-yellow font-title px-4 py-2 rounded-xl text-sm border border-yellow/20 shadow-lg">
+                  <div className="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-md text-yellow-400 font-title px-4 py-2 rounded-xl text-sm border border-yellow-400/20 shadow-lg">
                     {item.price}
                   </div>
                 </div>
@@ -167,32 +210,36 @@ export default function Servicios() {
                 {/* Contenido */}
                 <div className="p-8 flex flex-col flex-grow">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-title text-2xl text-white group-hover:text-cyan transition-colors">{item.title}</h3>
+                    <h3 className="font-title text-2xl text-white group-hover:text-cyan-400 transition-colors">{item.title}</h3>
                   </div>
                   
-                  <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-wider mb-4 border-b border-white/5 pb-4">
-                    <i className="ri-time-line text-cyan"></i> {item.duration}
+                  <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-wider mb-4 border-b border-white/5 pb-4 font-body">
+                    <i className="ri-time-line text-cyan-400"></i> {item.duration}
                   </div>
 
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow font-body">
                     {item.desc}
                   </p>
 
-                  {/* Lista de Inclusiones */}
                   <div className="mb-8">
-                    <p className="text-[10px] text-slate-500 mb-3 font-bold uppercase tracking-widest">Tu experiencia incluye:</p>
+                    <p className="text-[10px] text-slate-500 mb-3 font-bold uppercase tracking-widest font-body">Incluye:</p>
                     <div className="flex flex-wrap gap-2">
                       {item.includes.map((inc, i) => (
-                        <span key={i} className="text-[11px] bg-white/5 text-slate-300 px-3 py-1.5 rounded-lg border border-white/5">
+                        <span key={i} className="text-[11px] bg-white/5 text-slate-300 px-3 py-1.5 rounded-lg border border-white/5 font-body">
                           {inc}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <button className="w-full py-4 bg-gradient-to-r from-cyan/10 to-transparent border border-cyan/20 text-cyan font-title rounded-2xl hover:bg-cyan hover:text-navy transition-all duration-300 flex items-center justify-center gap-2 group-hover:shadow-[0_0_20px_rgba(102,216,227,0.3)]">
-                    Reservar ahora <i className="ri-arrow-right-line"></i>
-                  </button>
+                  <a 
+                    href="https://wa.me/526131182311"
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    className="w-full py-4 bg-gradient-to-r from-cyan-400/10 to-transparent border border-cyan-400/20 text-cyan-400 font-title rounded-2xl hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    Reservar ahora <i className="ri-whatsapp-line"></i>
+                  </a>
                 </div>
               </div>
             ))}
@@ -200,47 +247,76 @@ export default function Servicios() {
         </AnimatePresence>
       </div>
 
-      {/* 4. SECCIÓN DE HORARIOS (SCHEDULE) */}
-      <div className="mt-32 max-w-5xl mx-auto px-6">
-        <div className="bg-navy rounded-[3rem] p-8 md:p-16 border border-white/5 relative overflow-hidden shadow-2xl">
-          {/* Decoración de fondo */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan/10 rounded-full blur-[100px] -z-0"></div>
+      {/* SECCIÓN DE DETALLES OPERATIVOS (Adaptado de tu HTML anterior) */}
+      <div className="mt-24 max-w-5xl mx-auto px-6">
+        <motion.div 
+          layout
+          className="bg-slate-800 rounded-[3rem] p-8 md:p-12 border border-white/5 relative overflow-hidden shadow-2xl"
+        >
+          {/* Decoración */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/5 rounded-full blur-[80px] -z-0"></div>
 
-          <div className="relative z-10 text-center">
-            <span className="font-body text-xs font-bold uppercase tracking-[0.3em] text-slate-500">Planifica tu día</span>
-            <h3 className="font-title text-3xl md:text-4xl text-white mb-12 mt-4">⏰ Horarios de Salida</h3>
+          <div className="relative z-10">
+            <h3 className="font-title text-2xl text-white mb-8 flex items-center gap-3">
+              <i className="ri-calendar-check-line text-yellow-400"></i> 
+              Horarios y Detalles Operativos
+            </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              <div className="bg-dark/40 p-8 rounded-3xl border border-white/5 hover:border-cyan/30 transition-colors group">
-                <div className="w-12 h-12 rounded-full bg-cyan/10 flex items-center justify-center mb-4 text-cyan text-xl"><i className="ri-sun-foggy-line"></i></div>
-                <p className="text-cyan font-title text-lg mb-1">Mañana</p>
-                <p className="text-4xl text-white font-title mb-2">8:00 AM</p>
-                <p className="text-xs text-slate-400 leading-relaxed">Presentarse 7:30 AM para check-in y prueba de equipo.</p>
+            {/* Grid de Horarios */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              {/* Mañana */}
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
+                <div className="flex justify-between items-start mb-2">
+                  <p className="text-cyan-400 font-title text-lg">Mañana</p>
+                  <span className="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-300 font-body">{currentSchedule.morning.season}</span>
+                </div>
+                <p className="text-3xl text-white font-title mb-1">{currentSchedule.morning.time}</p>
+                <p className="text-xs text-slate-400 font-body">{currentSchedule.morning.note}</p>
               </div>
               
-              <div className="bg-dark/40 p-8 rounded-3xl border border-white/5 hover:border-yellow/30 transition-colors">
-                 <div className="w-12 h-12 rounded-full bg-yellow/10 flex items-center justify-center mb-4 text-yellow text-xl"><i className="ri-sun-line"></i></div>
-                <p className="text-yellow font-title text-lg mb-1">Tarde</p>
-                <p className="text-4xl text-white font-title mb-2">1:00 PM</p>
-                <p className="text-xs text-slate-400 leading-relaxed">Ideal para cursos, check-out dives y snorkel relajado.</p>
+              {/* Tarde */}
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
+                <div className="flex justify-between items-start mb-2">
+                  <p className="text-yellow-400 font-title text-lg">Tarde</p>
+                  <span className="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-300 font-body">{currentSchedule.afternoon.season}</span>
+                </div>
+                <p className="text-3xl text-white font-title mb-1">{currentSchedule.afternoon.time}</p>
+                <p className="text-xs text-slate-400 font-body">{currentSchedule.afternoon.note}</p>
               </div>
 
-              <div className="bg-dark/40 p-8 rounded-3xl border border-white/5 hover:border-purple-400/30 transition-colors">
-                 <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mb-4 text-purple-400 text-xl"><i className="ri-moon-clear-line"></i></div>
-                <p className="text-purple-400 font-title text-lg mb-1">Nocturno</p>
-                <p className="text-4xl text-white font-title mb-2">6:30 PM</p>
-                <p className="text-xs text-slate-400 leading-relaxed">El horario varía ligeramente según la puesta de sol.</p>
-              </div>
+              {/* Noche (Condicional) */}
+              {currentSchedule.night ? (
+                <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
+                  <div className="flex justify-between items-start mb-2">
+                    <p className="text-purple-400 font-title text-lg">Nocturno</p>
+                    <span className="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-300 font-body">{currentSchedule.night.season}</span>
+                  </div>
+                  <p className="text-3xl text-white font-title mb-1">{currentSchedule.night.time}</p>
+                  <p className="text-xs text-slate-400 font-body">{currentSchedule.night.note}</p>
+                </div>
+              ) : (
+                <div className="bg-slate-900/30 p-6 rounded-2xl border border-white/5 flex flex-col justify-center items-center text-center opacity-50">
+                  <i className="ri-moon-clear-line text-2xl text-slate-500 mb-2"></i>
+                  <p className="text-sm text-slate-500 font-body">No disponible en esta modalidad</p>
+                </div>
+              )}
             </div>
 
-            <div className="mt-12 p-4 bg-yellow/5 border border-yellow/10 rounded-2xl inline-flex items-center gap-3">
-              <i className="ri-information-line text-yellow text-xl"></i>
-              <p className="text-slate-300 text-sm font-medium text-left">
-                Todos los tours requieren reservación previa de al menos 24 horas.
-              </p>
+            {/* Reglas e Importante */}
+            <div className="bg-yellow-400/5 border border-yellow-400/10 rounded-2xl p-6">
+              <h4 className="font-title text-yellow-400 text-sm mb-4 uppercase tracking-widest">Información Importante</h4>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {currentSchedule.rules.map((rule, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm text-slate-300 font-body">
+                    <i className="ri-alert-line text-yellow-400 mt-0.5"></i>
+                    {rule}
+                  </li>
+                ))}
+              </ul>
             </div>
+
           </div>
-        </div>
+        </motion.div>
       </div>
 
     </div>
