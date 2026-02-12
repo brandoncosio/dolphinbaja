@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// 👇 IMPORTACIÓN DE IMÁGENES (Usando tus rutas confirmadas)
 import funDivesImg from '/assets/images/colash1.webp';
 import coronadosImg from '/assets/images/colash11.webp';
 import nightDiveImg from '/assets/images/colash2.webp';
 import coursesImg from '/assets/images/certificacionpadi.jpeg';
 import snorkelImg from '/assets/images/realsonrkell.jpeg';
 import experienciasImg from '/assets/images/experiencias.webp';
-// Usaremos algunas del slider celular para variar en los nuevos servicios
 import refreshImg from '/assets/images/slider5-celular.webp'; 
 import bubbleImg from '/assets/images/slider1-celular.webp';
 

@@ -9,17 +9,25 @@ import SplashScreen from './components/SplashScreen';
 
 // Páginas Reales
 import Home from './pages/Home';
-import Servicios from './pages/Servicios'; // ¡Aquí importamos la nueva página!
+import Servicios from './pages/Servicios';
+import Nosotros from './pages/Nosotros';
 
-// Componentes temporales (Construiremos estos en los siguientes pasos)
-const Nosotros = () => <div className="pt-32 pb-20 text-center text-white min-h-screen bg-navy">Página de Nosotros en construcción...</div>;
-const Contacto = () => <div className="pt-32 pb-20 text-center text-white min-h-screen bg-navy">Página de Contacto en construcción...</div>;
+// Componente temporal para Contacto (Próximo paso)
+const Contacto = () => (
+  <div className="pt-32 pb-20 text-center text-white min-h-screen bg-slate-900 flex items-center justify-center">
+    <div>
+      <h1 className="text-4xl font-title text-yellow-400 mb-4">Próximamente</h1>
+      <p className="font-body text-slate-400">Estamos construyendo la sección de Contacto.</p>
+    </div>
+  </div>
+);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulamos el tiempo de carga inicial (2.5 segundos) para la animación de burbujas
+    // Simulamos carga inicial solo si no se ha visitado antes (opcional)
+    // O simplemente un timer fijo para el efecto visual
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2500);
@@ -29,18 +37,18 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      {/* Contenedor principal con position relative */}
-      <div className="relative min-h-screen bg-dark text-white font-body">
+      {/* Contenedor principal */}
+      <div className="relative min-h-screen bg-slate-900 text-white font-body selection:bg-cyan-400 selection:text-slate-900">
         
         {/* Pantalla de Carga (Splash) */}
         <AnimatePresence>
           {isLoading && <SplashScreen key="splash" />}
         </AnimatePresence>
 
-        {/* Navbar siempre visible */}
+        {/* Navbar (Header) */}
         <Navbar />
 
-        {/* Gestor de Rutas */}
+        {/* Rutas de la Aplicación */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/servicios" element={<Servicios />} />
@@ -48,7 +56,7 @@ export default function App() {
           <Route path="/contacto" element={<Contacto />} />
         </Routes>
 
-        {/* Footer siempre visible */}
+        {/* Footer Global */}
         <Footer />
         
       </div>
