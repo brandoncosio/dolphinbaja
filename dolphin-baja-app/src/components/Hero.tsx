@@ -41,11 +41,13 @@ export default function Hero() {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev === slidesData.length - 1 ? 0 : prev + 1));
     }, 4500);
-    return () => clearInterval(timer);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-slate-900">
+    // 👇 ESTRATEGIA 3: 'aspect-[3/4]' para móvil (vertical elegante), 'md:h-screen' para escritorio
+    <section className="relative w-full overflow-hidden bg-slate-900 aspect-[3/4] md:h-screen md:aspect-auto">
+
       {/* Slides de Imágenes */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
@@ -58,15 +60,8 @@ export default function Hero() {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slidesData[currentIndex].image})` }}
           >
-            {/* 👇 MEJORA DE CONTRASTE AQUÍ 👇 */}
-
-            {/* 1. Capa general para oscurecer un poco toda la foto (evita brillo excesivo) */}
             <div className="absolute inset-0 bg-black/30" />
-
-            {/* 2. Gradiente reforzado a la izquierda (donde va el texto) */}
-            {/* Pasa de casi negro (90%) a transparente, asegurando que el texto siempre se lea */}
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent" />
-
           </motion.div>
         </AnimatePresence>
       </div>
@@ -80,7 +75,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl"
+            className="max-w-4xl pt-20 md:pt-0" // Un poco de padding top en móvil para que no choque con el header
           >
             <h1
               className="mb-6 font-title text-4xl font-bold leading-tight text-white md:text-6xl lg:text-7xl drop-shadow-lg"

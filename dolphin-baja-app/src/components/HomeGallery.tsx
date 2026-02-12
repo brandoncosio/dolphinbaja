@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-// Imágenes para la galería (usamos las del collage que ya tienes)
-// Asegúrate de tener estas imágenes en tu carpeta public/assets/imagenes/
+// Imágenes para la galería
 import img1 from '/assets/images/colash1.webp';
 import img2 from '/assets/images/colash2.webp';
 import img3 from '/assets/images/colash3.webp';
@@ -64,10 +63,12 @@ export default function HomeGallery() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.05 }}
                         >
-                            {/* Imagen */}
+                            {/* Imagen con Lazy Loading para rendimiento */}
                             <img
                                 src={item.src}
                                 alt={item.title}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
 

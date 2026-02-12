@@ -48,7 +48,6 @@ export default function Navbar() {
           name: 'Servicios',
           path: '/servicios',
           submenu: [
-            // 👇 AQUÍ ESTÁN LOS CAMBIOS: Agregamos #id para activar las tabs
             { label: 'Fun Dives', link: '/servicios#fundives' },
             { label: 'Cursos PADI', link: '/servicios#cursos' },
             { label: 'Snorkel & Tours', link: '/servicios#snorkel' }
@@ -81,7 +80,6 @@ export default function Navbar() {
           name: 'Services',
           path: '/servicios',
           submenu: [
-            // 👇 AQUÍ TAMBIÉN (Inglés)
             { label: 'Fun Dives', link: '/servicios#fundives' },
             { label: 'PADI Courses', link: '/servicios#cursos' },
             { label: 'Snorkel & Tours', link: '/servicios#snorkel' }
@@ -117,7 +115,8 @@ export default function Navbar() {
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
       >
-        <Link to="/" className="flex items-center z-50 group">
+        {/* LOGO (Lado Izquierdo) */}
+        <Link to="/" className="flex items-center z-50 group shrink-0">
           <img
             src={logo}
             alt="Dolphin Dive Baja"
@@ -126,12 +125,14 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* MENÚ DESKTOP */}
-        <nav className="hidden gap-10 md:flex items-center">
+        {/* MENÚ DESKTOP (CENTRADO ABSOLUTO) 
+            - Usamos 'absolute left-1/2 -translate-x-1/2' para que NADA lo mueva de su centro perfecto.
+        */}
+        <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-10">
           {content[lang].nav.map((item) => (
             <div
               key={item.name}
-              className="relative group h-full flex items-center"
+              className="relative group h-full flex items-center justify-center" // Centrado extra
               onMouseEnter={() => setHoveredMenu(item.name)}
               onMouseLeave={() => setHoveredMenu(null)}
             >
@@ -154,7 +155,7 @@ export default function Navbar() {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-56"
                   >
-                    <div className="bg-navy/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden p-2">
+                    <div className="bg-navy/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden p-2 text-left">
                       <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-navy border-t border-l border-white/10 rotate-45 transform"></div>
 
                       {item.submenu.map((subItem, idx) => (
@@ -186,16 +187,19 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* BOTONES DESKTOP */}
-        <div className="hidden md:flex items-center gap-6">
+        {/* BOTONES DESKTOP (Lado Derecho) */}
+        <div className="hidden md:flex items-center gap-4 shrink-0 z-50">
+
+          {/* Botón Idioma Glass */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 font-body text-sm font-bold text-white transition-colors hover:text-cyan"
+            className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-2.5 font-title text-xs text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:scale-105 active:scale-95 shadow-lg"
           >
             <i className="ri-global-line text-lg"></i>
             <span>{lang === 'en' ? 'ES' : 'EN'}</span>
           </button>
 
+          {/* Botón Reservar */}
           <a
             href="https://wa.me/526131182311"
             target="_blank"

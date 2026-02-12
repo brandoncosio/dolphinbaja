@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
-// Importa tu componente de SplashScreen
 import SplashScreen from '../components/SplashScreen';
 
-// Importación de imágenes
+// Imágenes
 import funDivesImg from '/assets/images/colash1.webp';
 import coronadosImg from '/assets/images/colash11.webp';
 import nightDiveImg from '/assets/images/colash2.webp';
@@ -102,7 +101,6 @@ const servicesData = {
   ]
 };
 
-// Datos de horarios y reglas
 const scheduleData = {
   fundives: {
     morning: { time: "08:00 – 12:30", note: "Cita 07:30 AM", season: "Todo el año" },
@@ -130,7 +128,6 @@ export default function Servicios() {
 
   const location = useLocation();
 
-  // Simulación de carga (Splash)
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -138,17 +135,11 @@ export default function Servicios() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 👇 LÓGICA DE NAVEGACIÓN: Detectar hash (#cursos) y cambiar tab
   useEffect(() => {
     if (location.hash) {
-      // Quitamos el # (ej: #cursos -> cursos)
       const tabId = location.hash.replace('#', '');
-
-      // Verificamos si es una categoría válida
       if (categories.some(cat => cat.id === tabId)) {
         setActiveTab(tabId);
-
-        // Hacemos scroll suave hacia el inicio de la sección
         const element = document.getElementById('catalogo-top');
         if (element) {
           setTimeout(() => {
@@ -159,7 +150,6 @@ export default function Servicios() {
     }
   }, [location]);
 
-  // Helper para datos
   const currentSchedule = scheduleData[activeTab as keyof typeof scheduleData];
 
   return (
@@ -170,7 +160,6 @@ export default function Servicios() {
 
       <div className="min-h-screen bg-slate-900 pt-32 pb-20">
 
-        {/* HEADER */}
         <div className="relative px-6 md:px-20 mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -190,10 +179,6 @@ export default function Servicios() {
           </motion.div>
         </div>
 
-        {/* TABS - BARRA ESTÁTICA 
-           Se quitó "sticky top-[90px]" para que no baje con el scroll.
-           Ahora es 'relative' y se queda en su sitio.
-        */}
         <div id="catalogo-top" className="relative z-40 py-4 mb-12 px-4">
           <div className="mx-auto max-w-lg rounded-full border border-white/10 bg-slate-900/80 p-1.5 backdrop-blur-xl shadow-2xl">
             <div className="flex justify-between">
@@ -221,7 +206,6 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* GRID DE SERVICIOS */}
         <div className="max-w-7xl mx-auto px-6 md:px-20 min-h-[400px]">
           <AnimatePresence mode="wait">
             <motion.div
@@ -237,11 +221,12 @@ export default function Servicios() {
                   key={index}
                   className="group relative bg-slate-800 rounded-[2rem] overflow-hidden border border-white/5 hover:border-cyan-400/30 transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-2xl"
                 >
-                  {/* Imagen */}
-                  <div className="h-56 overflow-hidden relative">
+                  {/* 👇 ESTRATEGIA 3 AQUÍ: 'aspect-[4/3]' para móvil, 'md:aspect-video' para escritorio */}
+                  <div className="w-full aspect-[4/3] md:aspect-video overflow-hidden relative">
                     <img
                       src={item.image}
                       alt={item.title}
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-md text-yellow-400 font-title px-4 py-2 rounded-xl text-sm border border-yellow-400/20 shadow-lg">
@@ -249,7 +234,6 @@ export default function Servicios() {
                     </div>
                   </div>
 
-                  {/* Contenido */}
                   <div className="p-8 flex flex-col flex-grow">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-title text-2xl text-white group-hover:text-cyan-400 transition-colors">{item.title}</h3>
@@ -289,7 +273,6 @@ export default function Servicios() {
           </AnimatePresence>
         </div>
 
-        {/* SECCIÓN DE DETALLES OPERATIVOS */}
         <div className="mt-24 max-w-5xl mx-auto px-6">
           <motion.div
             layout
@@ -304,7 +287,6 @@ export default function Servicios() {
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                {/* Mañana */}
                 <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
                   <div className="flex justify-between items-start mb-2">
                     <p className="text-cyan-400 font-title text-lg">Mañana</p>
@@ -314,7 +296,6 @@ export default function Servicios() {
                   <p className="text-xs text-slate-400 font-body">{currentSchedule.morning.note}</p>
                 </div>
 
-                {/* Tarde */}
                 <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
                   <div className="flex justify-between items-start mb-2">
                     <p className="text-yellow-400 font-title text-lg">Tarde</p>
@@ -324,7 +305,6 @@ export default function Servicios() {
                   <p className="text-xs text-slate-400 font-body">{currentSchedule.afternoon.note}</p>
                 </div>
 
-                {/* Noche */}
                 {currentSchedule.night ? (
                   <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
                     <div className="flex justify-between items-start mb-2">

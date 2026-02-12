@@ -43,7 +43,7 @@ export default function Gallery() {
           {['colash1.webp', 'colash2.webp', 'colash3.webp', 'colash4.webp', 'colash5.webp', 'colash6.webp', 'colash7.webp', 'colash8.webp'].map((img, idx) => (
             <div key={idx} className="relative group overflow-hidden border-[0.5px] border-slate-900">
               <img
-                src={`/assets/nosotros/${img}`}
+                src={`/assets/images/${img}`}
                 alt="Galería Dolphin Dive"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
