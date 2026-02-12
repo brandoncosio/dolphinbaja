@@ -1,34 +1,39 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+// 👇 IMPORTACIÓN DE IMÁGENES LOCALES
+import highlight1 from '/assets/images/colash1.webp';  // Lobos marinos / Naturaleza
+import highlight2 from '/assets/images/colash4.webp';  // Tortuga / Aventura
+import highlight3 from '/assets/images/realsonrkell.jpeg'; // Snorkel
+import highlight4 from '/assets/images/certificacionpadi.jpeg'; // Cursos
+
 const highlights = [
   {
     id: 1,
     title: "Encuentro con Lobos Marinos",
     category: "Naturaleza",
-    // Imagen real de lobos marinos/oceano
-    image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=1200",
+    image: highlight1, // Variable importada
     size: "md:col-span-2 md:row-span-2"
   },
   {
     id: 2,
     title: "Buceo en Arrecifes",
     category: "Aventura",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=800",
+    image: highlight2,
     size: "md:col-span-1 md:row-span-1"
   },
   {
     id: 3,
     title: "Snorkel en Loreto",
     category: "Tour",
-    image: "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&q=80&w=800",
+    image: highlight3,
     size: "md:col-span-1 md:row-span-1"
   },
   {
     id: 4,
     title: "Certificaciones PADI",
     category: "Cursos",
-    image: "https://images.unsplash.com/photo-1590533357552-3286f76f78f6?auto=format&fit=crop&q=80&w=1000",
+    image: highlight4,
     size: "md:col-span-2 md:row-span-1"
   }
 ];

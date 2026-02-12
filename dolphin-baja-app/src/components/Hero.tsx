@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// 👇 IMPORTACIÓN DE IMÁGENES LOCALES
+// Asegúrate de que los nombres coincidan con tus archivos en la carpeta images
+import slide1 from '/assets/images/slide1.webp';
+import slide2 from '/assets/images/slide2.webp';
+import slide3 from '/assets/images/slide3.webp';
+
 // Interfaz para los datos de cada slide
 interface Slide {
   id: number;
@@ -14,19 +20,19 @@ const slidesData: Slide[] = [
     id: 1,
     title: "MÁS QUE BUCEO,<br/>UNA EXPERIENCIA INOLVIDABLE",
     subtitle: "Cada inmersión está diseñada para conectarte con el océano y la naturaleza.",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1920"
+    image: slide1 // Usamos la variable importada
   },
   {
     id: 2,
     title: "EXPLORA LORETO<br/>DESDE EL MAR",
     subtitle: "Tours guiados y excursiones para descubrir paisajes submarinos únicos.",
-    image: "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&q=80&w=1920"
+    image: slide2
   },
   {
     id: 3,
     title: "SNORKEL Y AVENTURA<br/>PARA TODOS",
     subtitle: "Vive el océano con actividades diseñadas para familias y amantes del mar.",
-    image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=1920"
+    image: slide3
   }
 ];
 
@@ -53,6 +59,7 @@ export default function Hero() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
             className="absolute inset-0 bg-cover bg-center"
+            // Aquí se aplica la imagen importada como fondo
             style={{ backgroundImage: `url(${slidesData[currentIndex].image})` }}
           >
             {/* Overlay (reemplaza los gradientes complejos de tu CSS) */}

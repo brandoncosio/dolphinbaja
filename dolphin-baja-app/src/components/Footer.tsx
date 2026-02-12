@@ -13,7 +13,7 @@ export default function Footer() {
         {/* Logo */}
         <a href="/" className="mb-6 inline-block transition-transform hover:scale-105">
           <img 
-            src="src/assets/images/logodolphin.webp" 
+            src="/assets/images/logodolphin.webp" 
             alt="Dolphin Dive Baja Logo" 
             className="mx-auto h-24 w-auto object-contain drop-shadow-2xl md:h-32"
             // Si no tienes el logo local aún, usa este placeholder temporal para ver el diseño:

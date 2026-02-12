@@ -1,32 +1,37 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
+// 👇 IMPORTACIÓN DE IMÁGENES LOCALES
+import funDivesImg from '/assets/images/colash1.webp';
+import snorkelImg from '/assets/images/realsonrkell.jpeg';
+import coursesImg from '/assets/images/certificacionpadi.jpeg';
+
 const services = [
   {
     id: "01",
     title: "Fun Dives",
     description: "Inmersiones de dos tanques para buzos certificados. Explora los mejores arrecifes de las islas Coronados y Carmen.",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200",
+    image: funDivesImg, // Variable importada
     tags: ["2 Tanques", "PADI", "Guía Pro"]
   },
   {
     id: "02",
     title: "Snorkeling Adventure",
     description: "Perfecto para familias. Conecta con la vida marina en aguas cristalinas y disfruta de un lunch en playas vírgenes.",
-    image: "https://images.unsplash.com/photo-1590533357552-3286f76f78f6?auto=format&fit=crop&q=80&w=1200",
+    image: snorkelImg, // Variable importada
     tags: ["Familiar", "Equipo Incluido", "Lunch"]
   },
   {
     id: "03",
     title: "Cursos de Buceo",
     description: "¿Quieres aprender? Desde tu primera burbuja hasta certificaciones avanzadas con el único centro PADI 5 Estrellas.",
-    image: "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?auto=format&fit=crop&q=80&w=1200",
+    image: coursesImg, // Variable importada
     tags: ["Open Water", "Referidos", "e-Learning"]
   }
 ];
 
 export default function Services() {
-  // Generador de Algas Marinas (Kelp)
+  // Generador de Algas Marinas (Kelp) - Mantenemos tu lógica original
   const seaweeds = useMemo(() => {
     return Array.from({ length: 12 }).map((_, i) => ({
       id: i,
@@ -113,7 +118,7 @@ export default function Services() {
                     alt={service.title}
                     className="h-full w-full object-cover transition-transform duration-700"
                   />
-                  {/* Overlay sutil para oscurecer un poco la imagen y unificar el tono */}
+                  {/* Overlay sutil */}
                   <div className="absolute inset-0 bg-navy/20 mix-blend-overlay" />
                 </div>
               </div>

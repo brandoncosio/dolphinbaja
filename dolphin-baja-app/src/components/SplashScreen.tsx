@@ -105,7 +105,7 @@ export default function SplashScreen() {
         className="relative z-10"
       >
         <img 
-          src="src/assets/images/logodolphin.webp" 
+          src="/assets/images/logodolphin.webp" 
           alt="Dolphin Dive Baja" 
           className="w-48 drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] md:w-64"
         />

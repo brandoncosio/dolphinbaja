@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
+// 👇 IMPORTACIÓN CORRECTA DE LA IMAGEN
+// (Asegúrate de que la extensión coincida: .png, .webp o .jpg según tu carpeta)
+import logo from '/assets/images/logodolphin.webp'; 
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [lang, setLang] = useState<'es' | 'en'>('es');
@@ -18,10 +22,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 👇 SOLUCIÓN AL ERROR DE REACT (useEffect loop)
+  // Solo actualizamos el estado si es estrictamente necesario
   useEffect(() => {
-    setIsMenuOpen(false);
-    setHoveredMenu(null);
-  }, [location]);
+    if (isMenuOpen) setIsMenuOpen(false);
+    if (hoveredMenu) setHoveredMenu(null);
+  }, [location.pathname]); // Escuchamos el cambio de ruta específico
 
   const toggleLanguage = () => {
     setLang(prevLang => (prevLang === 'es' ? 'en' : 'es'));
@@ -30,7 +36,6 @@ export default function Navbar() {
   const content = {
     es: {
       nav: [
-        // Eliminamos "Inicio" explícito, se accede por el Logo.
         { 
           name: 'Servicios', 
           path: '/servicios',
@@ -97,25 +102,23 @@ export default function Navbar() {
 
   return (
     <>
-      {/* IMPORTANTE: z-[100] en el header.
-         Esto lo coloca por encima de TODO (incluyendo la barra de servicios que es z-40).
-      */}
+      {/* HEADER: Z-Index 100 para estar siempre arriba */}
       <header 
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 py-4 transition-all duration-500 md:px-20 ${
           isScrolled ? 'bg-navy shadow-xl py-3' : 'bg-transparent py-5'
         }`}
         onMouseLeave={() => setHoveredMenu(null)}
       >
-        {/* Logo (Home) */}
+        {/* LOGO (Usando la variable importada) */}
         <Link to="/" className="flex items-center z-50 group">
           <img 
-            src="src/assets/images/logodolphin.webp" 
+            src={logo} 
             alt="Dolphin Dive Baja" 
             className={`transition-all duration-500 ${isScrolled ? 'h-10' : 'h-14'} w-auto object-contain drop-shadow-lg group-hover:scale-105`}
           />
         </Link>
 
-        {/* Menú Desktop */}
+        {/* MENÚ DESKTOP */}
         <nav className="hidden gap-10 md:flex items-center">
           {content[lang].nav.map((item) => (
             <div 
@@ -135,7 +138,7 @@ export default function Navbar() {
                 <span className="absolute bottom-2 left-0 h-0.5 w-0 bg-cyan transition-all duration-300 group-hover:w-full" />
               </Link>
 
-              {/* Submenú Desktop */}
+              {/* SUBMENÚ DESKTOP (Glassmorphism) */}
               <AnimatePresence>
                 {hoveredMenu === item.name && (
                   <motion.div
@@ -146,7 +149,9 @@ export default function Navbar() {
                     className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-56"
                   >
                     <div className="bg-navy/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden p-2">
+                      {/* Flecha decorativa superior */}
                       <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-navy border-t border-l border-white/10 rotate-45 transform"></div>
+                      
                       {item.submenu.map((subItem, idx) => (
                         subItem.link.startsWith('http') ? (
                           <a
@@ -176,7 +181,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Botones Desktop */}
+        {/* BOTONES DESKTOP */}
         <div className="hidden md:flex items-center gap-6">
           <button 
             onClick={toggleLanguage}
@@ -197,7 +202,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Botones Móviles */}
+        {/* BOTONES MÓVILES */}
         <div className="flex items-center gap-4 md:hidden z-50">
           <button 
             onClick={toggleLanguage}
@@ -216,14 +221,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* =========================
-          MENÚ MÓVIL (Drawer)
-      ========================= */}
-      
-      {/* IMPORTANTE: z-[90] en el overlay y el aside.
-         Esto asegura que cubran cualquier elemento pegajoso de la página (z-40),
-         pero que queden debajo del header (z-[100]) para que el botón de cerrar siga visible.
-      */}
+      {/* MENÚ MÓVIL (DRAWER) */}
       <div 
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] transition-opacity duration-500 ${
           isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
