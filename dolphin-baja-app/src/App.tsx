@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
-// Componentes Globales
+// Componentes Globales (Estos se quedan igual porque se usan siempre)
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SplashScreen from './components/SplashScreen';
 import ScrollToTop from './components/ScrollToTop';
 
-// Páginas Reales
-import Home from './pages/Home';
-import Servicios from './pages/Servicios';
-import Nosotros from './pages/Nosotros';
+// 👇 IMPORTACIÓN "LAZY": Solo se descargan cuando se necesitan
+// Esto aligera muchísimo la carga inicial
+const Home = lazy(() => import('./pages/Home'));
+const Servicios = lazy(() => import('./pages/Servicios'));
+const Nosotros = lazy(() => import('./pages/Nosotros'));
 
-// Componente temporal para Contacto (Próximo paso)
+// Componente temporal para Contacto
 const Contacto = () => (
   <div className="pt-32 pb-20 text-center text-white min-h-screen bg-slate-900 flex items-center justify-center">
     <div>
@@ -23,12 +24,18 @@ const Contacto = () => (
   </div>
 );
 
+// 👇 LOADER DE TRANSICIÓN: Se muestra un instante mientras carga la nueva página
+const PageLoader = () => (
+  <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+    <div className="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
+
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulamos carga inicial solo si no se ha visitado antes (opcional)
-    // O simplemente un timer fijo para el efecto visual
+    // Simulamos carga inicial
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2500);
@@ -38,29 +45,31 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      {/* 👇 2. USAR EL COMPONENTE AQUÍ (Dentro del Router, antes de todo lo visual) */}
+      {/* Scroll Top al cambiar de ruta */}
       <ScrollToTop />
 
-      {/* Contenedor principal */}
       <div className="relative min-h-screen bg-slate-900 text-white font-body selection:bg-cyan-400 selection:text-slate-900">
 
-        {/* Pantalla de Carga (Splash) */}
+        {/* Pantalla de Carga Inicial (Splash) */}
         <AnimatePresence>
           {isLoading && <SplashScreen key="splash" />}
         </AnimatePresence>
 
-        {/* Navbar (Header) */}
         <Navbar />
 
-        {/* Rutas de la Aplicación */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/servicios" element={<Servicios />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/contacto" element={<Contacto />} />
-        </Routes>
+        {/* 👇 SUSPENSE: Es el "amortiguador". 
+           Envuelve las rutas para manejar la carga perezosa.
+           Mientras la página se descarga, muestra el 'fallback' (PageLoader).
+        */}
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/servicios" element={<Servicios />} />
+            <Route path="/nosotros" element={<Nosotros />} />
+            <Route path="/contacto" element={<Contacto />} />
+          </Routes>
+        </Suspense>
 
-        {/* Footer Global */}
         <Footer />
 
       </div>

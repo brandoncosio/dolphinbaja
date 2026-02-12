@@ -18,7 +18,7 @@ const slidesData: Slide[] = [
     id: 1,
     title: "MÁS QUE BUCEO,<br/>UNA EXPERIENCIA INOLVIDABLE",
     subtitle: "Cada inmersión está diseñada para conectarte con el océano y la naturaleza.",
-    image: slide1 
+    image: slide1
   },
   {
     id: 2,
@@ -58,7 +58,15 @@ export default function Hero() {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slidesData[currentIndex].image})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
+            {/* 👇 MEJORA DE CONTRASTE AQUÍ 👇 */}
+
+            {/* 1. Capa general para oscurecer un poco toda la foto (evita brillo excesivo) */}
+            <div className="absolute inset-0 bg-black/30" />
+
+            {/* 2. Gradiente reforzado a la izquierda (donde va el texto) */}
+            {/* Pasa de casi negro (90%) a transparente, asegurando que el texto siempre se lea */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent" />
+
           </motion.div>
         </AnimatePresence>
       </div>
@@ -74,30 +82,27 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="max-w-4xl"
           >
-            {/* Título corregido: usa font-title en lugar de font-serif */}
-            <h1 
+            <h1
               className="mb-6 font-title text-4xl font-bold leading-tight text-white md:text-6xl lg:text-7xl drop-shadow-lg"
               dangerouslySetInnerHTML={{ __html: slidesData[currentIndex].title }}
             />
-            
-            {/* Subtítulo corregido: usa font-body */}
-            <p className="mb-8 max-w-xl font-body text-lg text-slate-200 md:text-xl drop-shadow-md">
+
+            <p className="mb-8 max-w-xl font-body text-lg text-slate-200 md:text-xl drop-shadow-md font-medium">
               {slidesData[currentIndex].subtitle}
             </p>
-            
+
             <div className="flex flex-wrap gap-4">
-              {/* Botones con font-body para coherencia */}
-              <a 
-                href="https://wa.me/526131182311" 
-                target="_blank" 
+              <a
+                href="https://wa.me/526131182311"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-yellow-400 px-8 py-3 font-body font-bold text-slate-900 transition-transform hover:scale-105 hover:bg-yellow-300 inline-flex items-center gap-2 shadow-lg"
               >
                 <i className="ri-whatsapp-line text-xl"></i> Reservar experiencia
               </a>
-              
-              <Link 
-                to="/servicios" 
+
+              <Link
+                to="/servicios"
                 className="rounded-full border border-white/30 bg-white/10 px-8 py-3 font-body font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20 inline-flex items-center gap-2"
               >
                 Ver servicios <i className="ri-arrow-right-line"></i>
@@ -113,9 +118,8 @@ export default function Hero() {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`h-2.5 rounded-full transition-all duration-500 ${
-              index === currentIndex ? "w-8 bg-yellow-400" : "w-2.5 bg-white/40"
-            }`}
+            className={`h-2.5 rounded-full transition-all duration-500 shadow-md ${index === currentIndex ? "w-8 bg-yellow-400" : "w-2.5 bg-white/60 hover:bg-white"
+              }`}
           />
         ))}
       </div>

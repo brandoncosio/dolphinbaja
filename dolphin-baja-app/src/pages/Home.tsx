@@ -3,21 +3,24 @@ import { AnimatePresence } from 'framer-motion';
 
 // Componentes
 import Hero from '../components/Hero';
-import Highlights from '../components/Highlights.tsx'; // Sección Mosaico (Tours/Snorkel/Staff)
-import ValueProps from '../components/ValueProps.tsx'; // Sección "Te ofrecemos"
-import Destination from '../components/Destination.tsx'; // Sección Mapa
-import SplashScreen from '../components/SplashScreen.tsx'; // Tu splash screen
+import Highlights from '../components/Highlights';
+import ValueProps from '../components/ValueProps';
+import HomeGallery from '../components/HomeGallery'; // 👈 Tu nueva galería
+import Destination from '../components/Destination';
+import SplashScreen from '../components/SplashScreen';
 
 export default function Home() {
-  // Estado para el Splash Screen (opcional, si lo quieres solo en el Home)
+  // Estado para el Splash Screen
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulamos carga o usamos sessionStorage para que salga solo una vez por sesión
+    // Revisamos si ya se mostró el splash en esta sesión
     const hasLoaded = sessionStorage.getItem('hasLoaded');
+
     if (hasLoaded) {
       setIsLoading(false);
     } else {
+      // Si es la primera vez, esperamos 2.5s y guardamos la marca
       const timer = setTimeout(() => {
         setIsLoading(false);
         sessionStorage.setItem('hasLoaded', 'true');
@@ -28,24 +31,27 @@ export default function Home() {
 
   return (
     <>
-      {/* Splash Screen solo en Home */}
+      {/* Splash Screen (Solo aparece una vez por sesión) */}
       <AnimatePresence>
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
 
       {/* Contenido Principal */}
-      <main className="bg-dark text-white w-full overflow-x-hidden">
-        
-        {/* 1. Hero Slider */}
+      <main className="bg-slate-900 text-white w-full overflow-x-hidden">
+
+        {/* 1. Hero Slider (Portada) */}
         <Hero />
 
-        {/* 2. Mosaico de Experiencias (Adaptado de tu sección Highlights) */}
+        {/* 2. Mosaico de Experiencias (Highlights) */}
         <Highlights />
 
-        {/* 3. Propuesta de Valor (PADI 5 Estrellas, Grupos pequeños) */}
+        {/* 3. Propuesta de Valor (PADI 5 Estrellas, etc.) */}
         <ValueProps />
 
-        {/* 4. Mapa y Destino */}
+        {/* 4. Galería Visual (Bento Grid) */}
+        <HomeGallery />
+
+        {/* 5. Mapa y Ubicación */}
         <Destination />
 
       </main>

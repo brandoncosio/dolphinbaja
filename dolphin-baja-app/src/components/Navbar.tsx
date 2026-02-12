@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// Ajusta la ruta si es necesario
 import logo from '/assets/images/logodolphin.webp';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [lang, setLang] = useState<'es' | 'en'>('es');
+  const [lang, setLang] = useState<'es' | 'en'>('en');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
   const location = useLocation();
 
-  // Detectar Scroll para cambiar fondo del Navbar
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -22,26 +20,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Cerrar menú al cambiar de ruta
   useEffect(() => {
     if (isMenuOpen) setIsMenuOpen(false);
     if (hoveredMenu) setHoveredMenu(null);
   }, [location.pathname]);
 
-  // 👇 NUEVO: Lógica para hacer Scroll a la sección (Anclas)
+  // Scroll suave para anclas (#)
   useEffect(() => {
     if (location.hash) {
       const elem = document.getElementById(location.hash.substring(1));
       if (elem) {
         setTimeout(() => {
           elem.scrollIntoView({ behavior: 'smooth' });
-        }, 100); // Pequeño delay para asegurar que la página cargó
+        }, 100);
       }
     }
   }, [location]);
 
   const toggleLanguage = () => {
-    setLang(prevLang => (prevLang === 'es' ? 'en' : 'es'));
+    setLang(prevLang => (prevLang === 'en' ? 'es' : 'en'));
   };
 
   const content = {
@@ -51,18 +48,16 @@ export default function Navbar() {
           name: 'Servicios',
           path: '/servicios',
           submenu: [
-            // Nota: Para que esto funcione en Servicios, podrías necesitar lógica extra si usas Tabs.
-            // Por ahora redirigen a la página general.
-            { label: 'Fun Dives', link: '/servicios' },
-            { label: 'Cursos PADI', link: '/servicios' },
-            { label: 'Snorkel & Tours', link: '/servicios' }
+            // 👇 AQUÍ ESTÁN LOS CAMBIOS: Agregamos #id para activar las tabs
+            { label: 'Fun Dives', link: '/servicios#fundives' },
+            { label: 'Cursos PADI', link: '/servicios#cursos' },
+            { label: 'Snorkel & Tours', link: '/servicios#snorkel' }
           ]
         },
         {
           name: 'Nosotros',
           path: '/nosotros',
           submenu: [
-            // 👇 Aquí están las anclas (IDs) a las secciones de Nosotros
             { label: 'Nuestra Historia', link: '/nosotros#historia' },
             { label: 'Equipo & Staff', link: '/nosotros#equipo' },
             { label: 'Galería', link: '/nosotros#galeria' }
@@ -86,9 +81,10 @@ export default function Navbar() {
           name: 'Services',
           path: '/servicios',
           submenu: [
-            { label: 'Fun Dives', link: '/servicios' },
-            { label: 'PADI Courses', link: '/servicios' },
-            { label: 'Snorkel & Tours', link: '/servicios' }
+            // 👇 AQUÍ TAMBIÉN (Inglés)
+            { label: 'Fun Dives', link: '/servicios#fundives' },
+            { label: 'PADI Courses', link: '/servicios#cursos' },
+            { label: 'Snorkel & Tours', link: '/servicios#snorkel' }
           ]
         },
         {
@@ -116,13 +112,11 @@ export default function Navbar() {
 
   return (
     <>
-      {/* HEADER: Z-Index 100 para estar siempre arriba */}
       <header
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 py-4 transition-all duration-500 md:px-20 ${isScrolled ? 'bg-navy shadow-xl py-3' : 'bg-transparent py-5'
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
       >
-        {/* LOGO */}
         <Link to="/" className="flex items-center z-50 group">
           <img
             src={logo}
@@ -151,7 +145,6 @@ export default function Navbar() {
                 <span className="absolute bottom-2 left-0 h-0.5 w-0 bg-cyan transition-all duration-300 group-hover:w-full" />
               </Link>
 
-              {/* SUBMENÚ DESKTOP */}
               <AnimatePresence>
                 {hoveredMenu === item.name && (
                   <motion.div
@@ -176,7 +169,6 @@ export default function Navbar() {
                             {subItem.label} <i className="ri-external-link-line ml-1 text-xs"></i>
                           </a>
                         ) : (
-                          // Usamos Link normal (HashLink funciona nativo si implementas el useEffect de arriba)
                           <Link
                             key={idx}
                             to={subItem.link}
@@ -199,13 +191,11 @@ export default function Navbar() {
           <button
             onClick={toggleLanguage}
             className="flex items-center gap-2 font-body text-sm font-bold text-white transition-colors hover:text-cyan"
-            aria-label="Cambiar idioma"
           >
             <i className="ri-global-line text-lg"></i>
-            <span>{lang === 'es' ? 'EN' : 'ES'}</span>
+            <span>{lang === 'en' ? 'ES' : 'EN'}</span>
           </button>
 
-          {/* 👇 BOTÓN RESERVAR CON WHATSAPP (Desktop) */}
           <a
             href="https://wa.me/526131182311"
             target="_blank"
@@ -223,25 +213,23 @@ export default function Navbar() {
             onClick={toggleLanguage}
             className="font-body text-sm font-bold text-white"
           >
-            {lang === 'es' ? 'EN' : 'ES'}
+            {lang === 'en' ? 'ES' : 'EN'}
           </button>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white backdrop-blur-md transition-colors active:bg-white/10"
-            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
           >
             {isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-3-line text-2xl"></i>}
           </button>
         </div>
       </header>
 
-      {/* MENÚ MÓVIL (DRAWER) */}
+      {/* MENÚ MÓVIL */}
       <div
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] transition-opacity duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
         onClick={() => setIsMenuOpen(false)}
-        aria-hidden="true"
       />
 
       <aside
@@ -259,7 +247,7 @@ export default function Navbar() {
                 >
                   {item.name}
                 </Link>
-                {/* Submenú Móvil */}
+
                 <div className="pl-4 flex flex-col gap-3 border-l-2 border-white/10 ml-1">
                   {item.submenu.map((sub, i) => (
                     sub.link.startsWith('http') ? (
@@ -268,7 +256,7 @@ export default function Navbar() {
                         href={sub.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-slate-400 font-body hover:text-white transition-colors cursor-pointer block"
+                        className="text-sm text-slate-400 font-body hover:text-white transition-colors cursor-pointer block py-1"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sub.label}
@@ -277,7 +265,7 @@ export default function Navbar() {
                       <Link
                         key={i}
                         to={sub.link}
-                        className="text-sm text-slate-400 font-body hover:text-white transition-colors cursor-pointer block"
+                        className="text-sm text-slate-400 font-body hover:text-white transition-colors cursor-pointer block py-1"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sub.label}
@@ -292,7 +280,6 @@ export default function Navbar() {
           <div className="my-8 h-px w-full bg-white/10" />
 
           <div className="flex flex-col gap-4">
-            {/* 👇 BOTÓN RESERVAR CON WHATSAPP (Móvil) */}
             <a
               href="https://wa.me/526131182311"
               target="_blank"
