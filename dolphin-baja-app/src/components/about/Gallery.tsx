@@ -38,7 +38,7 @@ export default function Gallery() {
         
         {/* Grid Full Width */}
         <div className="grid grid-cols-2 md:grid-cols-4 h-[400px] md:h-[500px]">
-          {['colash1.webp', 'colash2.webp', 'colash3.webp', 'colash4.webp', 'colash5.webp', 'colash6.webp', 'colash7.webp', 'colash8.webp'].map((img, idx) => (
+          {['colash1.webp', 'colash2.webp', 'colash3.webp', 'colash4.webp', 'colash5.webp', 'colash6.webp', 'time3.webp', 'time4.webp'].map((img, idx) => (
             <div key={idx} className="relative group overflow-hidden border-[0.5px] border-slate-900">
               <img 
                 src={`/assets/nosotros/${img}`} 
