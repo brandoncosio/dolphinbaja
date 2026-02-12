@@ -14,13 +14,14 @@ const team = [
 
 export default function Team() {
   return (
-    <section className="bg-navy py-24 px-6 md:px-20 relative overflow-hidden">
+    // 👇 AQUÍ ESTÁ EL ID PARA EL MENÚ
+    <section id="equipo" className="bg-slate-900 py-24 px-6 md:px-20 relative overflow-hidden scroll-mt-20">
       {/* Glow de fondo */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-cyan-400/5 blur-[100px] rounded-full -z-0"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400 mb-3 block">Nuestro Recurso Humano</span>
+          <span className="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400 mb-3 block font-body">Nuestro Recurso Humano</span>
           <h2 className="font-title text-3xl md:text-5xl text-white mb-6">Equipo local y profesional</h2>
           <p className="font-body text-slate-300">
             Creemos en el desarrollo profesional. Hemos formado 7 Dive Masters mexicanos y nuestros capitanes son gente de mar que conoce cada rincón del Parque Nacional.
@@ -39,9 +40,9 @@ export default function Team() {
             >
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-full p-1 border border-white/10 group-hover:border-yellow-400/50 transition-colors mb-4 relative">
                 <div className="w-full h-full rounded-full overflow-hidden bg-slate-800">
-                  <img 
-                    src={member.img} 
-                    alt={member.name} 
+                  <img
+                    src={member.img}
+                    alt={member.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>

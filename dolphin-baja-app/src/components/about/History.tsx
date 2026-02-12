@@ -30,7 +30,8 @@ const events = [
 
 export default function History() {
   return (
-    <section className="bg-slate-900 pb-24 px-6 md:px-20 relative">
+    // 👇 AQUÍ ESTÁ EL ID PARA EL MENÚ
+    <section id="historia" className="bg-slate-900 pb-24 px-6 md:px-20 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="font-title text-3xl md:text-5xl text-white">Un Poco de Historia...</h2>
@@ -38,7 +39,7 @@ export default function History() {
 
         <div className="space-y-12">
           {events.map((event, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -60,9 +61,9 @@ export default function History() {
 
               {/* Columna Imagen */}
               <div className="w-full md:w-48 h-32 rounded-2xl overflow-hidden shrink-0">
-                <img 
-                  src={event.image} 
-                  alt={event.title} 
+                <img
+                  src={event.image}
+                  alt={event.title}
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </div>
