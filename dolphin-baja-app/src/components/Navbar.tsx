@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-
 import logo from '/assets/images/logodolphin.webp';
+
+// 👇 Importamos el hook de idioma
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [lang, setLang] = useState<'es' | 'en'>('en');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
+  // 👇 Obtenemos las funciones y textos del contexto
+  const { lang, t, toggleLanguage } = useLanguage();
   const location = useLocation();
 
   useEffect(() => {
@@ -25,7 +28,6 @@ export default function Navbar() {
     if (hoveredMenu) setHoveredMenu(null);
   }, [location.pathname]);
 
-  // Scroll suave para anclas (#)
   useEffect(() => {
     if (location.hash) {
       const elem = document.getElementById(location.hash.substring(1));
@@ -37,76 +39,36 @@ export default function Navbar() {
     }
   }, [location]);
 
-  const toggleLanguage = () => {
-    setLang(prevLang => (prevLang === 'en' ? 'es' : 'en'));
-  };
-
-  const content = {
-    es: {
-      nav: [
-        {
-          name: 'Servicios',
-          path: '/servicios',
-          submenu: [
-            { label: 'Fun Dives', link: '/servicios#fundives' },
-            { label: 'Cursos PADI', link: '/servicios#cursos' },
-            { label: 'Snorkel & Tours', link: '/servicios#snorkel' }
-          ]
-        },
-        {
-          name: 'Nosotros',
-          path: '/nosotros',
-          submenu: [
-            { label: 'Nuestra Historia', link: '/nosotros#historia' },
-            { label: 'Equipo & Staff', link: '/nosotros#equipo' },
-            { label: 'Galería', link: '/nosotros#galeria' }
-          ]
-        },
-        {
-          name: 'Contacto',
-          path: '/contacto',
-          submenu: [
-            { label: 'Ubicación', link: '/contacto#ubicacion' },
-            { label: 'WhatsApp Directo', link: 'https://wa.me/526131182311' },
-            { label: 'Preguntas Frecuentes', link: '/contacto#faq' }
-          ]
-        }
-      ],
-      cta: 'Reservar'
+  // Construimos el menú dinámicamente usando 't' (textos traducidos)
+  const navItems = [
+    {
+      name: t.navbar.services,
+      path: '/servicios',
+      submenu: [
+        { label: t.navbar.submenu.funDives, link: '/servicios#fundives' },
+        { label: t.navbar.submenu.courses, link: '/servicios#cursos' },
+        { label: t.navbar.submenu.snorkel, link: '/servicios#snorkel' }
+      ]
     },
-    en: {
-      nav: [
-        {
-          name: 'Services',
-          path: '/servicios',
-          submenu: [
-            { label: 'Fun Dives', link: '/servicios#fundives' },
-            { label: 'PADI Courses', link: '/servicios#cursos' },
-            { label: 'Snorkel & Tours', link: '/servicios#snorkel' }
-          ]
-        },
-        {
-          name: 'About Us',
-          path: '/nosotros',
-          submenu: [
-            { label: 'Our Story', link: '/nosotros#historia' },
-            { label: 'Staff & Team', link: '/nosotros#equipo' },
-            { label: 'Gallery', link: '/nosotros#galeria' }
-          ]
-        },
-        {
-          name: 'Contact',
-          path: '/contacto',
-          submenu: [
-            { label: 'Location', link: '/contacto#ubicacion' },
-            { label: 'Direct WhatsApp', link: 'https://wa.me/526131182311' },
-            { label: 'FAQ', link: '/contacto#faq' }
-          ]
-        }
-      ],
-      cta: 'Book Now'
+    {
+      name: t.navbar.about,
+      path: '/nosotros',
+      submenu: [
+        { label: t.navbar.submenu.history, link: '/nosotros#historia' },
+        { label: t.navbar.submenu.team, link: '/nosotros#equipo' },
+        { label: t.navbar.submenu.gallery, link: '/nosotros#galeria' }
+      ]
+    },
+    {
+      name: t.navbar.contact,
+      path: '/contacto',
+      submenu: [
+        { label: t.navbar.submenu.location, link: '/contacto#ubicacion' },
+        { label: t.navbar.submenu.whatsapp, link: 'https://wa.me/526131182311' },
+        { label: t.navbar.submenu.faq, link: '/contacto#faq' }
+      ]
     }
-  };
+  ];
 
   return (
     <>
@@ -115,7 +77,6 @@ export default function Navbar() {
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
       >
-        {/* LOGO (Lado Izquierdo) */}
         <Link to="/" className="flex items-center z-50 group shrink-0">
           <img
             src={logo}
@@ -125,14 +86,12 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* MENÚ DESKTOP (CENTRADO ABSOLUTO) 
-            - Usamos 'absolute left-1/2 -translate-x-1/2' para que NADA lo mueva de su centro perfecto.
-        */}
+        {/* MENÚ CENTRADO ABSOLUTO */}
         <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-10">
-          {content[lang].nav.map((item) => (
+          {navItems.map((item) => (
             <div
               key={item.name}
-              className="relative group h-full flex items-center justify-center" // Centrado extra
+              className="relative group h-full flex items-center justify-center"
               onMouseEnter={() => setHoveredMenu(item.name)}
               onMouseLeave={() => setHoveredMenu(null)}
             >
@@ -187,19 +146,17 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* BOTONES DESKTOP (Lado Derecho) */}
+        {/* BOTONES DESKTOP */}
         <div className="hidden md:flex items-center gap-4 shrink-0 z-50">
-
-          {/* Botón Idioma Glass */}
           <button
             onClick={toggleLanguage}
             className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-2.5 font-title text-xs text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:scale-105 active:scale-95 shadow-lg"
           >
             <i className="ri-global-line text-lg"></i>
-            <span>{lang === 'en' ? 'ES' : 'EN'}</span>
+            {/* Muestra EN si estás en ES, y viceversa */}
+            <span>{t.navbar.languageBtn}</span>
           </button>
 
-          {/* Botón Reservar */}
           <a
             href="https://wa.me/526131182311"
             target="_blank"
@@ -207,7 +164,7 @@ export default function Navbar() {
             className="flex items-center gap-2 rounded-full bg-yellow px-6 py-2.5 font-title text-xs text-navy transition-transform hover:scale-105 active:scale-95 shadow-lg group"
           >
             <i className="ri-whatsapp-line text-lg group-hover:scale-110 transition-transform"></i>
-            {content[lang].cta}
+            {t.navbar.cta}
           </a>
         </div>
 
@@ -217,7 +174,7 @@ export default function Navbar() {
             onClick={toggleLanguage}
             className="font-body text-sm font-bold text-white"
           >
-            {lang === 'en' ? 'ES' : 'EN'}
+            {t.navbar.languageBtn}
           </button>
 
           <button
@@ -242,7 +199,7 @@ export default function Navbar() {
       >
         <div className="flex h-full flex-col justify-center px-8 pt-20 pb-8 overflow-y-auto">
           <nav className="flex flex-col gap-6">
-            {content[lang].nav.map((item) => (
+            {navItems.map((item) => (
               <div key={item.name}>
                 <Link
                   to={item.path}
@@ -291,7 +248,7 @@ export default function Navbar() {
               className="flex items-center justify-center gap-3 rounded-xl bg-yellow py-4 font-title text-navy shadow-lg active:scale-95 transition-transform"
             >
               <i className="ri-whatsapp-line text-xl"></i>
-              {content[lang].cta}
+              {t.navbar.cta}
             </a>
           </div>
         </div>
