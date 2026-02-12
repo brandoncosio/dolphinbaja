@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-// 👇 IMPORTACIÓN DE IMÁGENES LOCALES
-// Asegúrate de que los nombres coincidan con tus archivos en la carpeta images
 import slide1 from '/assets/images/slide1.webp';
 import slide2 from '/assets/images/slide2.webp';
 import slide3 from '/assets/images/slide3.webp';
 
-// Interfaz para los datos de cada slide
 interface Slide {
   id: number;
   title: string;
@@ -20,7 +18,7 @@ const slidesData: Slide[] = [
     id: 1,
     title: "MÁS QUE BUCEO,<br/>UNA EXPERIENCIA INOLVIDABLE",
     subtitle: "Cada inmersión está diseñada para conectarte con el océano y la naturaleza.",
-    image: slide1 // Usamos la variable importada
+    image: slide1 
   },
   {
     id: 2,
@@ -39,7 +37,6 @@ const slidesData: Slide[] = [
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Lógica del auto-play (4.5 segundos como en tu script original)
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev === slidesData.length - 1 ? 0 : prev + 1));
@@ -59,10 +56,8 @@ export default function Hero() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
             className="absolute inset-0 bg-cover bg-center"
-            // Aquí se aplica la imagen importada como fondo
             style={{ backgroundImage: `url(${slidesData[currentIndex].image})` }}
           >
-            {/* Overlay (reemplaza los gradientes complejos de tu CSS) */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
           </motion.div>
         </AnimatePresence>
@@ -79,21 +74,34 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="max-w-4xl"
           >
+            {/* Título corregido: usa font-title en lugar de font-serif */}
             <h1 
-              className="mb-6 font-serif text-4xl font-bold leading-tight text-white md:text-6xl lg:text-7xl"
+              className="mb-6 font-title text-4xl font-bold leading-tight text-white md:text-6xl lg:text-7xl drop-shadow-lg"
               dangerouslySetInnerHTML={{ __html: slidesData[currentIndex].title }}
             />
-            <p className="mb-8 max-w-xl text-lg text-slate-200 md:text-xl">
+            
+            {/* Subtítulo corregido: usa font-body */}
+            <p className="mb-8 max-w-xl font-body text-lg text-slate-200 md:text-xl drop-shadow-md">
               {slidesData[currentIndex].subtitle}
             </p>
             
             <div className="flex flex-wrap gap-4">
-              <button className="rounded-full bg-yellow-400 px-8 py-3 font-bold text-slate-900 transition-transform hover:scale-105 hover:bg-yellow-300">
-                Reservar experiencia
-              </button>
-              <button className="rounded-full border border-white/30 bg-white/10 px-8 py-3 font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20">
-                Ver servicios
-              </button>
+              {/* Botones con font-body para coherencia */}
+              <a 
+                href="https://wa.me/526131182311" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="rounded-full bg-yellow-400 px-8 py-3 font-body font-bold text-slate-900 transition-transform hover:scale-105 hover:bg-yellow-300 inline-flex items-center gap-2 shadow-lg"
+              >
+                <i className="ri-whatsapp-line text-xl"></i> Reservar experiencia
+              </a>
+              
+              <Link 
+                to="/servicios" 
+                className="rounded-full border border-white/30 bg-white/10 px-8 py-3 font-body font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20 inline-flex items-center gap-2"
+              >
+                Ver servicios <i className="ri-arrow-right-line"></i>
+              </Link>
             </div>
           </motion.div>
         </AnimatePresence>

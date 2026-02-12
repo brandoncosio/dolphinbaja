@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// 👇 IMPORTACIÓN CORRECTA DE LA IMAGEN
-// (Asegúrate de que la extensión coincida: .png, .webp o .jpg según tu carpeta)
 import logo from '/assets/images/logodolphin.webp'; 
 
 export default function Navbar() {
@@ -22,12 +20,10 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 👇 SOLUCIÓN AL ERROR DE REACT (useEffect loop)
-  // Solo actualizamos el estado si es estrictamente necesario
   useEffect(() => {
     if (isMenuOpen) setIsMenuOpen(false);
     if (hoveredMenu) setHoveredMenu(null);
-  }, [location.pathname]); // Escuchamos el cambio de ruta específico
+  }, [location.pathname]); 
 
   const toggleLanguage = () => {
     setLang(prevLang => (prevLang === 'es' ? 'en' : 'es'));
@@ -114,7 +110,14 @@ export default function Navbar() {
           <img 
             src={logo} 
             alt="Dolphin Dive Baja" 
-            className={`transition-all duration-500 ${isScrolled ? 'h-10' : 'h-14'} w-auto object-contain drop-shadow-lg group-hover:scale-105`}
+            // CAMBIOS AQUÍ: Aumenté las clases de altura (h-*)
+            // Móvil scrolleado: h-12 (antes h-10)
+            // Móvil top: h-16 (antes h-14)
+            // Desktop scrolleado: md:h-16 
+            // Desktop top: md:h-20
+            className={`transition-all duration-500 w-auto object-contain drop-shadow-lg group-hover:scale-105 ${
+              isScrolled ? 'h-12 md:h-16' : 'h-16 md:h-20'
+            }`}
           />
         </Link>
 
