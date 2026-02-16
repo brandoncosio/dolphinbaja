@@ -130,6 +130,17 @@ export const translations = {
                     { q: "¿Aceptan tarjetas de crédito?", a: "Sí, aceptamos Visa, Mastercard y efectivo (Pesos/Dólares). Los pagos con tarjeta pueden tener una pequeña comisión bancaria." }
                 ]
             }
+        },
+        footer: {
+            desc: "Explorando el 'Acuario del Mundo' con pasión, seguridad y respeto por la vida marina desde 2010. Tu familia en Loreto.",
+            navTitle: "Navegación",
+            navLinks: { home: "Inicio", services: "Servicios", about: "Nosotros", contact: "Contacto" },
+            expTitle: "Experiencias",
+            contactTitle: "Contacto",
+            address: "Marina de Loreto, BCS, México. CP 23880.",
+            rights: "Dolphin Dive Baja. Todos los derechos reservados.",
+            privacy: "Aviso de Privacidad",
+            terms: "Términos y Condiciones"
         }
     },
     en: {
@@ -263,6 +274,17 @@ export const translations = {
                     { q: "Do you accept credit cards?", a: "Yes, we accept Visa, Mastercard, and cash (Pesos/USD). Card payments may have a small bank fee." }
                 ]
             }
+        },
+        footer: {
+            desc: "Exploring the 'Aquarium of the World' with passion, safety, and respect for marine life since 2010. Your family in Loreto.",
+            navTitle: "Navigation",
+            navLinks: { home: "Home", services: "Services", about: "About Us", contact: "Contact" },
+            expTitle: "Experiences",
+            contactTitle: "Contact",
+            address: "Marina de Loreto, BCS, Mexico. CP 23880.",
+            rights: "Dolphin Dive Baja. All rights reserved.",
+            privacy: "Privacy Policy",
+            terms: "Terms and Conditions"
         }
     }
 };
