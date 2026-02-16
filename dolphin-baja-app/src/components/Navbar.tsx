@@ -78,7 +78,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 transition-all duration-500 xl:px-20 bg-transparent ${isScrolled ? 'py-3' : 'py-5 lg:py-6'
+        // 👇 1. Cristal Esmerilado Inteligente al hacer scroll
+        className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 transition-all duration-500 xl:px-20 ${isScrolled
+            ? 'py-3 bg-dark/40 backdrop-blur-lg border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+            : 'py-5 lg:py-6 bg-transparent border-b border-transparent'
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
       >
@@ -86,7 +89,7 @@ export default function Navbar() {
           <img
             src={logo}
             alt="Dolphin Dive Baja"
-            className={`transition-all duration-500 w-auto object-contain drop-shadow-lg group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'
+            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'
               }`}
           />
         </Link>
@@ -99,12 +102,15 @@ export default function Navbar() {
               onMouseEnter={() => setHoveredMenu(item.name)}
               onMouseLeave={() => setHoveredMenu(null)}
             >
+              {/* 👇 2. Enlaces con brillo cyan al pasar el mouse */}
               <Link
                 to={item.path}
-                className="flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest text-white transition-colors hover:text-cyan-400 py-4"
+                className="relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest text-white transition-colors hover:text-cyan-400 py-4 drop-shadow-md"
               >
                 {item.name}
                 <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-400' : 'text-white/50'}`}></i>
+                {/* Línea inferior brillante en hover */}
+                <span className={`absolute bottom-2 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
               </Link>
 
               <AnimatePresence>
@@ -116,9 +122,10 @@ export default function Navbar() {
                     transition={{ duration: 0.2, ease: "easeOut" }}
                     className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-64 z-50"
                   >
-                    <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-900/40 border-t border-l border-white/20 rotate-45 backdrop-blur-2xl z-0 rounded-sm"></div>
+                    {/* 👇 3. Flechita y contenedor adaptados al color Dark */}
+                    <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-4 h-4 bg-dark/60 border-t border-l border-white/20 rotate-45 backdrop-blur-2xl z-0 rounded-sm"></div>
 
-                    <div className="relative z-10 bg-slate-900/50 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.5)] p-2 text-left ring-1 ring-white/5">
+                    <div className="relative z-10 bg-dark/70 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.6)] p-2 text-left ring-1 ring-white/5">
                       {item.submenu.map((subItem, idx) => (
                         subItem.link.startsWith('http') ? (
                           <a
@@ -152,13 +159,12 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4 shrink-0 z-50">
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2.5 font-title text-xs text-white backdrop-blur-md transition-all hover:bg-white/20 hover:scale-105 active:scale-95 shadow-lg"
+            className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2.5 font-title text-xs text-white backdrop-blur-md transition-all hover:bg-cyan-400/20 hover:border-cyan-400/40 hover:text-cyan-400 hover:scale-105 active:scale-95 shadow-lg group"
           >
-            <i className="ri-global-line text-lg opacity-80"></i>
+            <i className="ri-global-line text-lg opacity-80 group-hover:opacity-100 transition-opacity"></i>
             <span>{t.navbar.languageBtn}</span>
           </button>
 
-          {/* 👇 BOTÓN RESERVAR CON EFECTO LIQUID GLASS (Desktop) */}
           <a
             href="https://wa.me/526131182311"
             target="_blank"
@@ -173,7 +179,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3 lg:hidden z-50">
           <button
             onClick={toggleLanguage}
-            className="font-body text-xs font-bold text-white bg-white/10 px-3 py-2 rounded-full backdrop-blur-md border border-white/10"
+            className="font-body text-xs font-bold text-white bg-white/10 px-3 py-2 rounded-full backdrop-blur-md border border-white/10 hover:bg-white/20 transition-colors"
           >
             {t.navbar.languageBtn}
           </button>
@@ -188,13 +194,14 @@ export default function Navbar() {
       </header>
 
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[90] transition-opacity duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] transition-opacity duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
         onClick={() => setIsMenuOpen(false)}
       />
 
+      {/* 👇 4. Menú móvil adaptado a la profundidad (Dark) */}
       <aside
-        className={`fixed top-0 right-0 z-[90] h-full w-[85%] max-w-[320px] bg-slate-900/60 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 z-[90] h-full w-[85%] max-w-[320px] bg-dark/70 backdrop-blur-3xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
       >
         <div className="flex h-full flex-col justify-between px-6 pt-24 pb-10 overflow-y-auto">
@@ -204,7 +211,7 @@ export default function Navbar() {
               <div key={item.name} className="border-b border-white/5 pb-4 last:border-0">
                 <Link
                   to={item.path}
-                  className="text-xl font-title text-white transition-colors hover:text-cyan-400 block mb-3"
+                  className="text-xl font-title text-white transition-colors hover:text-cyan-400 block mb-3 drop-shadow-md"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -240,7 +247,6 @@ export default function Navbar() {
           </nav>
 
           <div className="mt-8 pt-6 border-t border-white/10">
-            {/* 👇 BOTÓN RESERVAR CON EFECTO LIQUID GLASS (Mobile) */}
             <a
               href="https://wa.me/526131182311"
               target="_blank"
