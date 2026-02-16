@@ -1,31 +1,20 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
-const features = [
-  {
-    icon: "ri-medal-line",
-    title: "PADI 5 Stars",
-    desc: "Único centro con la máxima calificación de calidad y seguridad en Loreto."
-  },
-  {
-    icon: "ri-group-line",
-    title: "Grupos Pequeños",
-    desc: "Máximo 6 buzos por guía para una atención 100% personalizada."
-  },
-  {
-    icon: "ri-leaf-line",
-    title: "Eco-Consciente",
-    desc: "Operaciones responsables dentro del Parque Nacional Bahía de Loreto."
-  },
-  {
-    icon: "ri-anchor-line",
-    title: "Cressi Dive Center",
-    desc: "Equipos de gama alta renovados constantemente para tu confort."
-  }
+// Arreglo de iconos estáticos que se mapearán con las traducciones
+const cardIcons = [
+  "ri-medal-line",       // PADI 5 Estrellas
+  "ri-group-line",       // Grupos Pequeños
+  "ri-check-double-line", // Todo Incluido
+  "ri-leaf-line"         // Nuestra Misión / Eco-consciente
 ];
 
 export default function Value() {
-  // Partículas bioluminiscentes flotantes
+  const { t } = useLanguage();
+  const content = t.home.valueProps;
+
+  // Partículas bioluminiscentes flotantes (Se calculan una vez por carga)
   const motes = useMemo(() => {
     return Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -38,19 +27,21 @@ export default function Value() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-dark py-24 z-0">
+    <section className="relative overflow-hidden bg-dark py-24 z-10">
 
-      {/* Luces de fondo (Bioluminiscencia sutil) */}
+      {/* =========================================
+          EFECTOS DE FONDO (Bioluminiscencia)
+      ========================================= */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <motion.div
           animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-cyan/10 blur-[100px]"
+          className="absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-[100px]"
         />
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]"
+          className="absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full bg-[#0C71A5]/15 blur-[120px]"
         />
       </div>
 
@@ -58,7 +49,7 @@ export default function Value() {
       {motes.map((mote) => (
         <motion.div
           key={mote.id}
-          className="absolute rounded-full bg-cyan/50 shadow-[0_0_10px_rgba(102,216,227,0.8)] z-0"
+          className="absolute rounded-full bg-cyan-400/50 shadow-[0_0_10px_rgba(34,211,238,0.8)] z-0"
           style={{
             width: mote.size,
             height: mote.size,
@@ -82,61 +73,66 @@ export default function Value() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-20">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
 
-          {/* Lado Izquierdo: Imagen principal */}
+          {/* =========================================
+              LADO IZQUIERDO: IMAGEN
+          ========================================= */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
             className="relative"
           >
             <motion.div
               whileHover={{ y: -10 }}
-              className="relative z-10 aspect-[4/5] overflow-hidden rounded-[3rem] shadow-2xl transition-all border border-white/5"
+              className="relative z-10 aspect-[4/5] overflow-hidden rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all border border-white/10"
             >
               <img
-                src="https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&q=80&w=800"
+                src="/assets/images/colash3.webp" // Reemplazado por una imagen local tuya
                 alt="Buceo de calidad en Loreto"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[2s] hover:scale-110"
               />
-              {/* Overlay oscuro para la imagen */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-dark/80 to-transparent mix-blend-overlay" />
+              {/* Overlay oscuro para la imagen (Liquid Glass) */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-dark/90 via-dark/20 to-transparent opacity-80" />
             </motion.div>
 
             {/* Marco decorativo estilo cristal oscuro */}
-            <div className="absolute -left-6 -bottom-6 -z-10 h-full w-full rounded-[3rem] border-2 border-cyan/20 bg-white/5 backdrop-blur-sm" />
+            <div className="absolute -left-6 -bottom-6 -z-10 h-full w-full rounded-[3rem] border border-cyan-400/30 bg-cyan-400/5 backdrop-blur-md" />
           </motion.div>
 
-          {/* Lado Derecho: Contenido */}
+          {/* =========================================
+              LADO DERECHO: TEXTO Y TARJETAS
+          ========================================= */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <span className="font-body text-xs font-bold uppercase tracking-[0.3em] text-cyan">
-              Por qué elegirnos
+            <span className="font-body text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-cyan-400 drop-shadow-md">
+              {content.tag}
             </span>
-            <h2 className="mb-6 mt-4 font-title text-4xl text-white md:text-5xl">
-              Seguridad, Calidad y <br /><span className="text-yellow drop-shadow-sm">Consciencia</span>
+            <h2 className="mb-6 mt-4 font-title text-4xl md:text-5xl text-white drop-shadow-lg leading-tight">
+              {content.titleStart} <br className="hidden md:block" /><span className="text-yellow-400">{content.titleHighlight}</span>
             </h2>
-            <p className="mb-12 font-body text-lg leading-relaxed text-slate-300">
-              No solo te llevamos al agua; creamos un entorno donde puedes relajarte y disfrutar de la vida marina sabiendo que estás en manos de profesionales capacitados con los más altos estándares internacionales.
+            <p className="mb-12 font-body text-base md:text-lg leading-relaxed text-slate-300">
+              {content.desc}
             </p>
 
             {/* Grid de Beneficios (Dark Glassmorphism) */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {features.map((feature, index) => (
+            <div className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2">
+              {content.cards.map((card, index) => (
                 <motion.div
                   key={index}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur-md transition-all hover:border-cyan/30 hover:bg-white/10 hover:shadow-[0_8px_30px_rgba(102,216,227,0.15)]"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-dark/40 p-6 shadow-xl backdrop-blur-md transition-all hover:border-cyan-400/40 hover:bg-white/5 hover:shadow-[0_15px_30px_rgba(102,216,227,0.15)]"
                 >
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-inner transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110 group-hover:border-cyan/50 group-hover:bg-cyan/20">
-                    <i className={`${feature.icon} text-2xl text-cyan transition-colors group-hover:text-yellow`}></i>
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-inner transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 group-hover:border-cyan-400/50 group-hover:bg-cyan-400/20">
+                    <i className={`${cardIcons[index]} text-2xl text-cyan-400 transition-colors group-hover:text-yellow-400 drop-shadow-md`}></i>
                   </div>
-                  <h3 className="mb-2 font-title text-xl text-white">{feature.title}</h3>
-                  <p className="font-body text-sm leading-relaxed text-slate-400">{feature.desc}</p>
+                  <h3 className="mb-2 font-title text-lg md:text-xl text-white group-hover:text-cyan-400 transition-colors">{card.title}</h3>
+                  <p className="font-body text-xs md:text-sm leading-relaxed text-slate-400 group-hover:text-slate-300 transition-colors">{card.desc}</p>
                 </motion.div>
               ))}
             </div>
