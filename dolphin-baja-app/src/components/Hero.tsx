@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-// 👇 Importamos el contexto de idioma
+// Importamos el contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
 
 import slide1 from '/assets/images/slide1.webp';
@@ -15,12 +15,12 @@ const slideImages = [slide1, slide2, slide3];
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 👇 Obtenemos las traducciones del Home Hero
+  // Obtenemos las traducciones del Home Hero
   const { t } = useLanguage();
   const heroContent = t.home.hero;
   const translatedSlides = heroContent.slides;
 
-  // 1. MEJORA DE FLUIDEZ: Pre-carga de imágenes en caché
+  // MEJORA DE FLUIDEZ: Pre-carga de imágenes en caché
   useEffect(() => {
     slideImages.forEach((src) => {
       const img = new Image();
@@ -37,13 +37,13 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-dark min-h-[600px] h-[85vh] md:h-screen">
+    // 👇 AJUSTE CLAVE: h-[100dvh] asegura 100% de alto dinámico en móviles reales
+    <section className="relative w-full overflow-hidden bg-dark h-[100dvh] min-h-[600px] md:h-screen">
 
       {/* =========================================
           FONDOS DE IMAGEN (Crossfade Fluido)
           ========================================= */}
       <div className="absolute inset-0 z-0 bg-dark">
-        {/* Quitamos mode="wait" para que se mezclen suavemente */}
         <AnimatePresence>
           <motion.div
             key={currentIndex}
@@ -58,7 +58,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-dark/30 mix-blend-multiply" />
 
             {/* Gradiente principal para legibilidad (Tonos oceánicos) */}
-            <div className="absolute inset-0 bg-gradient-to-r from-dark/95 via-navy/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/60 to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -74,19 +74,19 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-4xl pt-20 md:pt-0"
+            className="max-w-4xl pt-16 md:pt-0"
           >
-            {/* Texto decorativo superior (Aporta al estilo premium) */}
+            {/* Texto decorativo superior */}
             <span className="block font-body text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-cyan-400 mb-4 drop-shadow-md">
               {heroContent.tag}
             </span>
 
             <h1
-              className="mb-6 font-title text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
+              className="mb-6 font-title text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
               dangerouslySetInnerHTML={{ __html: translatedSlides[currentIndex].title }}
             />
 
-            <p className="mb-10 max-w-xl font-body text-base md:text-lg lg:text-xl text-slate-200 drop-shadow-md font-medium leading-relaxed">
+            <p className="mb-10 max-w-xl font-body text-lg md:text-xl text-slate-200 drop-shadow-md font-medium leading-relaxed">
               {translatedSlides[currentIndex].subtitle}
             </p>
 
@@ -98,7 +98,7 @@ export default function Hero() {
                 href="https://wa.me/526131182311"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-3.5 font-title text-sm text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400/20 hover:border-yellow-400/50 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(254,217,102,0.15)] group"
+                className="flex items-center justify-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-4 font-title text-sm tracking-widest uppercase text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
               >
                 <i className="ri-whatsapp-line text-xl group-hover:scale-110 transition-transform"></i>
                 {heroContent.btnBook}
@@ -107,7 +107,7 @@ export default function Hero() {
               {/* Botón Secundario (Cyan Glass) */}
               <Link
                 to="/servicios"
-                className="flex items-center justify-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-8 py-3.5 font-title text-sm text-cyan-400 backdrop-blur-md transition-all hover:bg-cyan-400/20 hover:border-cyan-400/50 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(102,216,227,0.15)] group"
+                className="flex items-center justify-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-8 py-4 font-title text-sm tracking-widest uppercase text-cyan-400 backdrop-blur-md transition-all hover:bg-cyan-400 hover:text-dark hover:border-cyan-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(34,211,238,0.15)] group"
               >
                 {heroContent.btnServices} <i className="ri-arrow-right-line text-lg group-hover:translate-x-1 transition-transform"></i>
               </Link>
@@ -120,7 +120,7 @@ export default function Hero() {
       {/* =========================================
           CONTROLES (Dots estilo burbuja)
           ========================================= */}
-      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-3 z-20">
+      <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-3 z-20">
         {slideImages.map((_, index) => (
           <button
             key={index}
