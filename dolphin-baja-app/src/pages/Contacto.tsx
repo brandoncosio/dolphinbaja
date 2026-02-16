@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SplashScreen from '../components/SplashScreen';
 import contactBg from '/assets/images/slide2.webp';
@@ -7,7 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function Contacto() {
     const [isLoading, setIsLoading] = useState(true);
-    const { t } = useLanguage();
+    const { t, lang } = useLanguage();
 
     useEffect(() => {
         const hasLoaded = sessionStorage.getItem('hasLoadedContact');
@@ -39,194 +39,215 @@ export default function Contacto() {
     const whatsappLink = `https://wa.me/526131182311?text=${encodeURIComponent(whatsappMessage)}`;
 
     return (
-        <>
+        <div key={lang}>
             <AnimatePresence>
                 {isLoading && <SplashScreen key="splash" />}
             </AnimatePresence>
 
-            <main className="bg-slate-900 min-h-screen text-white pb-20">
+            <main className="relative bg-dark min-h-screen text-white pb-20 selection:bg-cyan-400 selection:text-dark overflow-hidden">
 
-                {/* HERO DE CONTACTO */}
-                <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+                {/* Luces marinas de fondo */}
+                <div className="absolute top-1/2 left-0 w-[60%] h-[50%] bg-cyan-400/5 blur-[150px] rounded-full mix-blend-screen pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-[50%] h-[60%] bg-[#0C71A5]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none" />
+
+                {/* =========================================
+                    HERO DE CONTACTO
+                ========================================= */}
+                <section className="relative min-h-[600px] md:min-h-[650px] flex items-center justify-center overflow-hidden pt-24">
                     <div className="absolute inset-0 z-0">
                         <img
                             src={contactBg}
                             alt="Contacto Dolphin Dive"
-                            className="w-full h-full object-cover object-center opacity-60"
+                            className="w-full h-full object-cover object-center opacity-50"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/50 to-slate-900" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/50 to-dark" />
                     </div>
 
-                    <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20 pb-32">
+                    {/* Damos mucho padding inferior (pb-32) para asegurar que las tarjetas no tapen el texto en móvil */}
+                    <div className="relative z-10 text-center px-4 md:px-6 max-w-4xl mx-auto pb-32 md:pb-40">
                         <motion.span
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="font-body text-xs font-bold uppercase tracking-[0.4em] text-cyan-400 block mb-4"
+                            className="font-body text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-cyan-400 block mb-4 drop-shadow-md"
                         >
                             {t.contact.hero.subtitle}
                         </motion.span>
+
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="font-title text-4xl md:text-6xl text-white mb-6"
+                            className="font-title text-5xl md:text-6xl lg:text-7xl text-white mb-6 drop-shadow-lg leading-[1.1]"
                         >
-                            {t.contact.hero.titleStart} <span className="text-yellow-400">{t.contact.hero.titleHighlight}</span>
+                            {t.contact.hero.titleStart} <br className="hidden md:block" />
+                            <span className="text-yellow-400">{t.contact.hero.titleHighlight}</span>
                         </motion.h1>
+
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
-                            className="font-body text-slate-300 text-lg max-w-2xl mx-auto"
+                            className="font-body text-slate-300 text-base md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md px-4"
                         >
                             {t.contact.hero.text}
                         </motion.p>
                     </div>
                 </section>
 
-                {/* GRID DE CONTACTO */}
-                <section className="px-6 md:px-20 -mt-20 relative z-20">
-                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* =========================================
+                    GRID DE CONTACTO (Tarjetas Glassmorphism)
+                ========================================= */}
+                <section className="px-6 md:px-20 -mt-20 md:-mt-32 relative z-20">
+                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
 
                         {/* Tarjeta: Ubicación */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-slate-800/80 backdrop-blur-xl border border-white/5 p-8 rounded-3xl flex flex-col items-center text-center hover:border-cyan-400/30 transition-colors group"
+                            className="bg-dark/40 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-[2.5rem] flex flex-col items-center text-center hover:border-cyan-400/30 hover:bg-white/5 transition-all duration-300 group shadow-[0_15px_40px_rgba(0,0,0,0.4)]"
                         >
-                            <div className="w-16 h-16 rounded-2xl bg-slate-700/50 flex items-center justify-center mb-6 group-hover:bg-cyan-400 text-cyan-400 group-hover:text-slate-900 transition-colors">
+                            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-cyan-400 text-cyan-400 group-hover:text-dark transition-colors duration-300">
                                 <i className="ri-map-pin-2-fill text-3xl"></i>
                             </div>
-                            <h3 className="font-title text-xl text-white mb-2">{t.contact.cards.visit.title}</h3>
-                            <p className="font-body text-slate-400 text-sm mb-6 flex-grow">
+                            <h3 className="font-title text-xl md:text-2xl text-white mb-3">{t.contact.cards.visit.title}</h3>
+                            <p className="font-body text-slate-300 text-sm md:text-base mb-6 flex-grow leading-relaxed">
                                 {t.contact.cards.visit.text}
                             </p>
-                            <a href="#ubicacion" className="text-cyan-400 font-bold text-sm hover:underline">
-                                {t.contact.cards.visit.link}
+                            <a href="#ubicacion" className="inline-flex items-center gap-2 text-cyan-400 font-title text-sm tracking-widest uppercase hover:text-white transition-colors">
+                                {t.contact.cards.visit.link} <i className="ri-arrow-down-line"></i>
                             </a>
                         </motion.div>
 
-                        {/* Tarjeta: WhatsApp */}
+                        {/* Tarjeta: WhatsApp (Highlight Central) */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="bg-gradient-to-b from-slate-800 to-slate-900 border border-cyan-400/50 p-8 rounded-3xl flex flex-col items-center text-center shadow-[0_0_50px_rgba(34,211,238,0.15)] transform md:-translate-y-4"
+                            className="bg-dark/60 backdrop-blur-xl border border-cyan-400/30 p-8 md:p-10 rounded-[2.5rem] flex flex-col items-center text-center shadow-[0_0_50px_rgba(34,211,238,0.15)] transform md:-translate-y-8 relative overflow-hidden group"
                         >
-                            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-6 shadow-lg animate-pulse">
+                            <div className="absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                            <div className="relative z-10 w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-6 shadow-[0_10px_20px_rgba(34,197,94,0.3)] animate-bounce-slow">
                                 <i className="ri-whatsapp-line text-4xl text-white"></i>
                             </div>
-                            <h3 className="font-title text-2xl text-white mb-2">{t.contact.cards.whatsapp.title}</h3>
-                            <p className="font-body text-slate-300 text-sm mb-8">
+                            <h3 className="relative z-10 font-title text-2xl md:text-3xl text-white mb-3">{t.contact.cards.whatsapp.title}</h3>
+                            <p className="relative z-10 font-body text-slate-200 text-sm md:text-base mb-8 leading-relaxed">
                                 {t.contact.cards.whatsapp.text}
                             </p>
                             <a
                                 href={whatsappLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-full py-4 bg-green-500 hover:bg-green-400 text-white font-title rounded-xl transition-all shadow-lg hover:shadow-green-500/20 flex items-center justify-center gap-2"
+                                className="relative z-10 w-full py-4 bg-green-500 hover:bg-green-400 text-white font-title text-base tracking-widest uppercase rounded-xl transition-all shadow-[0_10px_20px_rgba(34,197,94,0.2)] hover:shadow-[0_15px_25px_rgba(34,197,94,0.4)] flex items-center justify-center gap-3 hover:-translate-y-1"
                             >
-                                <i className="ri-chat-1-line"></i> {t.contact.cards.whatsapp.btn}
+                                <i className="ri-chat-1-line text-xl"></i> {t.contact.cards.whatsapp.btn}
                             </a>
                         </motion.div>
 
                         {/* Tarjeta: Email */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
-                            className="bg-slate-800/80 backdrop-blur-xl border border-white/5 p-8 rounded-3xl flex flex-col items-center text-center hover:border-yellow-400/30 transition-colors group"
+                            className="bg-dark/40 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-[2.5rem] flex flex-col items-center text-center hover:border-yellow-400/30 hover:bg-white/5 transition-all duration-300 group shadow-[0_15px_40px_rgba(0,0,0,0.4)]"
                         >
-                            <div className="w-16 h-16 rounded-2xl bg-slate-700/50 flex items-center justify-center mb-6 group-hover:bg-yellow-400 text-yellow-400 group-hover:text-slate-900 transition-colors">
+                            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-yellow-400 text-yellow-400 group-hover:text-dark transition-colors duration-300">
                                 <i className="ri-mail-send-fill text-3xl"></i>
                             </div>
-                            <h3 className="font-title text-xl text-white mb-2">{t.contact.cards.email.title}</h3>
-                            <p className="font-body text-slate-400 text-sm mb-6 flex-grow">
+                            <h3 className="font-title text-xl md:text-2xl text-white mb-3">{t.contact.cards.email.title}</h3>
+                            <p className="font-body text-slate-300 text-sm md:text-base mb-6 flex-grow leading-relaxed">
                                 {t.contact.cards.email.text}
                             </p>
-                            <a href="mailto:ventas@dolphindivebaja.com" className="text-yellow-400 font-bold text-sm hover:underline">
-                                {t.contact.cards.email.link}
+                            <a href="mailto:ventas@dolphindivebaja.com" className="inline-flex items-center gap-2 text-yellow-400 font-title text-sm tracking-widest uppercase hover:text-white transition-colors">
+                                {t.contact.cards.email.link} <i className="ri-arrow-right-line"></i>
                             </a>
                         </motion.div>
 
                     </div>
                 </section>
 
-                {/* MAPA */}
-                <section id="ubicacion" className="py-24 px-6 md:px-20 scroll-mt-24">
+                {/* =========================================
+                    MAPA 
+                ========================================= */}
+                <section id="ubicacion" className="py-24 px-6 md:px-20 scroll-mt-24 relative z-10">
                     <div className="max-w-5xl mx-auto">
                         <div className="text-center mb-12">
-                            <h2 className="font-title text-3xl text-white">{t.contact.map.title}</h2>
-                            <p className="text-slate-400 font-body mt-2">{t.contact.map.text}</p>
+                            <h2 className="font-title text-3xl md:text-4xl text-white drop-shadow-md">{t.contact.map.title}</h2>
+                            <p className="text-cyan-400 font-body mt-3 font-bold tracking-wider uppercase text-sm">{t.contact.map.text}</p>
                         </div>
 
-                        <div className="w-full h-[400px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-slate-800 relative group">
+                        <div className="w-full h-[400px] md:h-[500px] rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-dark relative group">
+                            <div className="absolute inset-0 bg-cyan-900/20 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
+
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3596.696660144983!2d-111.34568868498844!3d26.00898898352513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86b5e6727787c9f3%3A0x6e93136272553755!2sDolphin%20Dive%20Baja!5e0!3m2!1ses-419!2smx!4v1675800000000!5m2!1ses-419!2smx"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3550.043743477156!2d-111.34567!3d26.01234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86c75c58b4b1a45d%3A0x6b8eb77ef4c8d5c4!2sDolphin%20Dive%20Baja!5e0!3m2!1ses!2smx!4v1700000000000!5m2!1ses!2smx"
                                 width="100%"
                                 height="100%"
-                                style={{ border: 0, filter: 'grayscale(100%) invert(90%) hue-rotate(180deg) contrast(85%)' }}
+                                style={{ border: 0, filter: 'grayscale(80%) invert(90%) hue-rotate(180deg) contrast(85%)' }}
                                 allowFullScreen={true}
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
                                 title="Ubicación Dolphin Dive Baja"
-                                className="group-hover:grayscale-0 group-hover:invert-0 group-hover:filter-none transition-all duration-700"
+                                className="group-hover:grayscale-[20%] group-hover:invert-0 group-hover:filter-none transition-all duration-[1.5s]"
                             ></iframe>
-                            <div className="absolute bottom-6 left-6 bg-white text-navy px-6 py-4 rounded-xl shadow-xl max-w-xs hidden md:block">
-                                <p className="font-bold font-title">Dolphin Dive Baja</p>
-                                <p className="text-xs font-body text-slate-600 mt-1">Benito Juárez, Centro, 23880 Loreto, B.C.S.</p>
+
+                            <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 bg-dark/80 backdrop-blur-xl border border-white/10 text-white px-6 py-4 rounded-2xl shadow-2xl max-w-xs hidden md:block z-20">
+                                <p className="font-bold font-title text-yellow-400 text-lg">Dolphin Dive Baja</p>
+                                <p className="text-sm font-body text-slate-300 mt-2">Benito Juárez, Centro, 23880 Loreto, B.C.S.</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* FAQ */}
-                <section id="faq" className="py-12 px-6 md:px-20 bg-slate-800/50 scroll-mt-24">
+                {/* =========================================
+                    FAQ (Glassmorphism)
+                ========================================= */}
+                <section id="faq" className="py-20 px-6 md:px-20 scroll-mt-24 relative z-10 border-t border-white/5 bg-dark/30">
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-16">
-                            <span className="text-cyan-400 font-bold text-xs uppercase tracking-widest">{t.contact.faq.subtitle}</span>
-                            <h2 className="font-title text-3xl md:text-4xl text-white mt-2">{t.contact.faq.title}</h2>
+                            <span className="text-cyan-400 font-bold text-xs md:text-sm uppercase tracking-[0.3em] drop-shadow-md">{t.contact.faq.subtitle}</span>
+                            <h2 className="font-title text-3xl md:text-5xl text-white mt-4 drop-shadow-md">{t.contact.faq.title}</h2>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                             {t.contact.faq.list.map((faq, idx) => (
                                 <motion.div
                                     key={idx}
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="bg-slate-900 border border-white/5 p-6 rounded-2xl hover:border-white/10 transition-colors"
+                                    transition={{ delay: idx * 0.1, duration: 0.5 }}
+                                    className="bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-[2rem] hover:border-cyan-400/30 hover:bg-white/10 transition-all duration-300 shadow-lg"
                                 >
-                                    <h4 className="font-title text-lg text-yellow-400 mb-3 flex items-start gap-2">
-                                        <i className="ri-question-line mt-1 opacity-50"></i>
+                                    <h4 className="font-title text-lg md:text-xl text-yellow-400 mb-4 flex items-start gap-3">
+                                        <i className="ri-questionnaire-line mt-1 opacity-70 text-cyan-400"></i>
                                         {faq.q}
                                     </h4>
-                                    <p className="font-body text-slate-400 text-sm leading-relaxed">
+                                    <p className="font-body text-slate-300 text-sm md:text-base leading-relaxed pl-8">
                                         {faq.a}
                                     </p>
                                 </motion.div>
                             ))}
                         </div>
 
-                        <div className="mt-12 text-center">
-                            <p className="text-slate-400 font-body mb-4">{t.contact.faq.more}</p>
+                        <div className="mt-16 text-center">
+                            <p className="text-slate-300 font-body mb-4">{t.contact.faq.more}</p>
                             <a
                                 href={whatsappLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-cyan-400 font-bold hover:text-white transition-colors"
+                                className="inline-flex items-center gap-3 text-dark font-title text-sm tracking-widest uppercase bg-cyan-400 px-8 py-4 rounded-full font-bold hover:bg-cyan-300 transition-colors shadow-[0_10px_20px_rgba(102,216,227,0.3)] hover:-translate-y-1"
                             >
-                                {t.contact.faq.link} <i className="ri-arrow-right-line"></i>
+                                {t.contact.faq.link} <i className="ri-whatsapp-line text-lg"></i>
                             </a>
                         </div>
                     </div>
                 </section>
 
             </main>
-        </>
+        </div>
     );
 }
