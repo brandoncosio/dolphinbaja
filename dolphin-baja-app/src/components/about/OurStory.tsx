@@ -1,100 +1,115 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function OurStory() {
+  const { t } = useLanguage();
+  const content = t.aboutPage.story;
+
   return (
-    <section className="bg-slate-900 py-24 px-6 relative overflow-hidden">
+    // Quitamos bg-slate-900 ya que el fondo principal está en Nosotros.tsx
+    <section className="relative py-24 px-6 overflow-hidden z-10">
       <div className="max-w-7xl mx-auto">
-        
-        {/* PARTE 1: HISTORIA Y STATS */}
+
+        {/* =========================================
+            PARTE 1: HISTORIA Y STATS
+        ========================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
-          
-          {/* Texto */}
-          <motion.div 
+
+          {/* Columna Texto */}
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-6"
           >
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-              Desde 2010
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400 drop-shadow-md">
+              {content.since}
             </span>
-            <h2 className="font-title text-3xl md:text-4xl text-white leading-tight">
-              Un negocio familiar en el corazón de Loreto
+            <h2 className="font-title text-3xl md:text-5xl text-white leading-tight drop-shadow-md">
+              {content.title}
             </h2>
-            <div className="space-y-4 font-body text-slate-400 text-lg leading-relaxed">
-              <p>
-                Somos Rafa (abogado) y María (mercadóloga). Llegamos a este paraíso buscando una vida tranquila para nuestros hijos, quienes hoy son orgullosamente loretanos.
-              </p>
-              <p>
-                El destino nos trajo al mar y la comunidad nos acogió. Hoy, los cuatro trabajamos para devolver un poco de lo recibido, ofreciendo experiencias auténticas donde tú eres el invitado de honor en nuestra casa: el Mar de Cortés.
-              </p>
+            <div className="space-y-4 font-body text-slate-300 text-lg md:text-xl leading-relaxed">
+              <p>{content.p1}</p>
+              <p>{content.p2}</p>
             </div>
 
-            {/* Chips de Valores */}
-            <div className="flex flex-wrap gap-3 pt-4">
-              {["Familia", "Comunidad", "Respeto", "Pasión"].map((val) => (
-                <span key={val} className="px-4 py-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-400 text-sm font-bold uppercase tracking-wider">
+            {/* Chips de Valores (Glassmorphism) */}
+            <div className="flex flex-wrap gap-3 pt-6">
+              {content.values.map((val, idx) => (
+                <span
+                  key={idx}
+                  className="px-4 py-2 rounded-full border border-cyan-400/20 bg-dark/40 backdrop-blur-md text-cyan-400 text-xs md:text-sm font-bold uppercase tracking-widest shadow-lg"
+                >
                   {val}
                 </span>
               ))}
             </div>
           </motion.div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { num: "2010", label: "Año de inicio" },
-              { num: "15+", label: "Años en Loreto" },
-              { num: "4", label: "Miembros familia" },
-              { num: "100%", label: "Pasión por el mar" }
-            ].map((stat, idx) => (
+          {/* Columna Stats Grid (Tarjetas Glass) */}
+          <div className="grid grid-cols-2 gap-4 md:gap-6">
+            {content.stats.map((stat, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-slate-800 p-8 rounded-3xl border border-white/5 text-center hover:border-yellow-400/30 transition-colors"
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                className="bg-dark/40 backdrop-blur-xl p-8 rounded-[2rem] border border-white/10 text-center hover:border-yellow-400/30 transition-colors shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_40px_rgba(250,204,21,0.1)] group"
               >
-                <span className="block font-title text-4xl text-white mb-2">{stat.num}</span>
-                <span className="text-sm text-slate-400 font-body font-medium uppercase tracking-wide">{stat.label}</span>
+                <span className="block font-title text-4xl md:text-5xl text-white mb-2 group-hover:text-yellow-400 transition-colors duration-300 drop-shadow-md">
+                  {stat.num}
+                </span>
+                <span className="text-xs md:text-sm text-slate-400 font-body font-bold uppercase tracking-widest group-hover:text-slate-200 transition-colors">
+                  {stat.label}
+                </span>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* PARTE 2: MISIÓN BANNER */}
-        <motion.div 
+        {/* =========================================
+            PARTE 2: MISIÓN BANNER (Ocean Depth)
+        ========================================= */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative rounded-[2.5rem] overflow-hidden min-h-[400px] flex items-center justify-center text-center px-6 py-20"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="relative rounded-[2.5rem] md:rounded-[3rem] overflow-hidden min-h-[400px] flex items-center justify-center text-center px-6 py-20 md:py-24 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5"
         >
-          {/* Fondo Peces */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center z-0"
-            style={{ backgroundImage: 'url("/nosotros/assets/imagenes/peces.webp")' }}
+          {/* Fondo Imagen (Corregida la ruta para usar la estructura pública estándar) */}
+          <div
+            className="absolute inset-0 bg-cover bg-center z-0 scale-105"
+            style={{ backgroundImage: 'url("/assets/images/colash1.webp")' }}
           />
-          <div className="absolute inset-0 bg-slate-900/80 z-10" /> {/* Overlay oscuro */}
+          {/* Overlay oscuro para legibilidad (Liquid Dark) */}
+          <div className="absolute inset-0 bg-dark/80 backdrop-blur-[2px] z-10" />
 
-          <div className="relative z-20 max-w-3xl mx-auto">
-            <p className="text-yellow-400 font-bold uppercase tracking-[0.2em] text-sm mb-6">Nuestra Misión</p>
-            <h3 className="font-title text-3xl md:text-5xl text-white leading-tight mb-8">
-              Educar sobre qué <span className="text-cyan-400">ES</span> el mar, <br/>
-              ¡para <span className="text-cyan-400">PROTEGERLO</span>!
-            </h3>
-            <p className="font-body text-xl text-slate-300 italic mb-10">
-              "Primero los animales, segundo los animales, tercero los animales. <br/>
-              Nosotros somos los visitantes."
+          {/* Luces sutiles internas */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-cyan-400/10 blur-[80px] z-10 pointer-events-none" />
+
+          <div className="relative z-20 max-w-4xl mx-auto flex flex-col items-center">
+            <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-xs md:text-sm mb-6 drop-shadow-md">
+              {content.mission.tag}
             </p>
-            
-            <a 
+
+            <h3 className="font-title text-3xl md:text-5xl lg:text-6xl text-white leading-tight mb-10 drop-shadow-lg">
+              {content.mission.titleStart} <span className="text-cyan-400">{content.mission.titleHighlight1}</span> <span dangerouslySetInnerHTML={{ __html: content.mission.titleMid }} /> <span className="text-cyan-400">{content.mission.titleHighlight2}</span>{content.mission.titleEnd}
+            </h3>
+
+            <p
+              className="font-body text-lg md:text-2xl text-slate-300 italic mb-12 leading-relaxed drop-shadow-md"
+              dangerouslySetInnerHTML={{ __html: content.mission.quote }}
+            />
+
+            <a
               href="mailto:ventas@dolphindivebaja.com"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-bold hover:bg-white/20 transition-all group"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white/5 backdrop-blur-md border border-white/20 rounded-full text-white font-title text-sm tracking-widest uppercase hover:bg-cyan-400 hover:text-dark hover:border-cyan-400 transition-all duration-300 group shadow-lg"
             >
-              <i className="ri-mail-send-line text-xl group-hover:text-yellow-400 transition-colors"></i>
-              Contáctanos por correo
+              <i className="ri-mail-send-line text-xl group-hover:scale-110 transition-transform"></i>
+              {content.mission.btn}
             </a>
           </div>
         </motion.div>

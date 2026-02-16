@@ -91,7 +91,6 @@ export const translations = {
             }
         },
         servicesPage: {
-            // Textos para el componente del Home
             tag: "Nuestros Servicios",
             titleStart: "Vive el",
             titleHighlight: "Mar de Cortés",
@@ -101,7 +100,6 @@ export const translations = {
                 { id: "02", title: "Snorkeling Adventure", description: "Perfecto para familias. Conecta con la vida marina en aguas cristalinas y disfruta de un lunch en playas vírgenes.", tags: ["Familiar", "Equipo Incluido", "Lunch"] },
                 { id: "03", title: "Cursos de Buceo", description: "¿Quieres aprender? Desde tu primera burbuja hasta certificaciones avanzadas con el único centro PADI 5 Estrellas.", tags: ["Open Water", "Referidos", "e-Learning"] }
             ],
-            // Textos para la página completa de Servicios
             catalogTitle: "Catálogo de Aventuras",
             heroTitle: "Elige tu próxima",
             heroHighlight: "Inmersión",
@@ -155,6 +153,72 @@ export const translations = {
             ui: {
                 includes: "Incluye:",
                 bookNow: "Reservar ahora"
+            }
+        },
+        aboutPage: {
+            hero: {
+                tag: "Nuestra Esencia",
+                titleStart: "Más que buceo,<br/>somos",
+                titleHighlight: "Familia",
+                desc: "Conectando personas con la vida marina del Parque Nacional Bahía de Loreto a través de experiencias responsables y humanas."
+            },
+            story: {
+                since: "Desde 2010",
+                title: "Un negocio familiar en el corazón de Loreto",
+                p1: "Somos Rafa (abogado) y María (mercadóloga). Llegamos a este paraíso buscando una vida tranquila para nuestros hijos, quienes hoy son orgullosamente loretanos.",
+                p2: "El destino nos trajo al mar y la comunidad nos acogió. Hoy, los cuatro trabajamos para devolver un poco de lo recibido, ofreciendo experiencias auténticas donde tú eres el invitado de honor en nuestra casa: el Mar de Cortés.",
+                values: ["Familia", "Comunidad", "Respeto", "Pasión"],
+                stats: [
+                    { num: "2010", label: "Año de inicio" },
+                    { num: "15+", label: "Años en Loreto" },
+                    { num: "4", label: "Miembros familia" },
+                    { num: "100%", label: "Pasión por el mar" }
+                ],
+                mission: {
+                    tag: "Nuestra Misión",
+                    titleStart: "Educar sobre qué",
+                    titleHighlight1: "ES",
+                    titleMid: "el mar,<br/>¡para",
+                    titleHighlight2: "PROTEGERLO",
+                    titleEnd: "!",
+                    quote: '"Primero los animales, segundo los animales, tercero los animales.<br/>Nosotros somos los visitantes."',
+                    btn: "Contáctanos por correo"
+                }
+            },
+            history: {
+                title: "Un Poco de Historia...",
+                events: [
+                    { year: "2013", title: "Nace Dolphin Dive Baja", desc: "Bruce Williams y Susan Speck nos pasan la estafeta. Le agregamos el 'Baja' y comenzamos esta aventura.", img: "/assets/nosotros/time1.webp" },
+                    { year: "PADI", title: "26 Años de Excelencia", desc: "Mantenemos el estatus de PADI Dive Center 5 Estrellas, celebrando más de dos décadas de seguridad y calidad.", img: "/assets/nosotros/time2.webp" },
+                    { year: "AWARE", title: "Compromiso Ambiental", desc: "Trabajamos activamente en el proyecto PADI AWARE para mantener nuestro océano limpio y protegido.", img: "/assets/nosotros/time3.webp" },
+                    { year: "2022", title: "Somos Cressi Point", desc: "Nos convertimos en Centro de Buceo Cressi (CDC), garantizando el mejor equipo y tecnología para ti.", img: "/assets/nosotros/time4.webp" }
+                ]
+            },
+            team: {
+                tag: "Nuestro Recurso Humano",
+                title: "Equipo local y profesional",
+                desc: "Creemos en el desarrollo profesional. Hemos formado 7 Dive Masters mexicanos y nuestros capitanes son gente de mar que conoce cada rincón del Parque Nacional.",
+                members: [
+                    { name: "Kaliman", role: "Capitán", img: "/assets/nosotros/kaliman2.png" },
+                    { name: "Alex", role: "Dive Master", img: "/assets/nosotros/alex.webp" },
+                    { name: "Pablo", role: "Dive Master", img: "/assets/nosotros/pablo.webp" },
+                    { name: "Luis", role: "Capitán", img: "/assets/nosotros/luis.webp" },
+                    { name: "Fiona", role: "DM Training", img: "/assets/nosotros/fiona.webp" },
+                    { name: "Rafa Jr", role: "DM Training", img: "/assets/nosotros/rafa3.webp" },
+                    { name: "Rafa", role: "Instructor", img: "/assets/nosotros/rafa2.webp" },
+                    { name: "María", role: "Assistant Inst.", img: "/assets/nosotros/maria.webp" }
+                ]
+            },
+            gallery: {
+                cressi: {
+                    tag: "Cressi Point",
+                    title: "Pasión y tecnología bajo el mar",
+                    desc: "Somos el único distribuidor autorizado Cressi en Loreto. Calidad y servicio para garantizar que tu equipo esté a la altura de tu aventura.",
+                    cta: "Visítanos o contáctanos"
+                },
+                collage: {
+                    title: "Atrévete a vivir la experiencia"
+                }
             }
         },
         contact: {
@@ -302,7 +366,6 @@ export const translations = {
             }
         },
         servicesPage: {
-            // Textos para el componente del Home
             tag: "Our Services",
             titleStart: "Experience the",
             titleHighlight: "Sea of Cortez",
@@ -312,7 +375,6 @@ export const translations = {
                 { id: "02", title: "Snorkeling Adventure", description: "Perfect for families. Connect with marine life in crystal clear waters and enjoy lunch at pristine beaches.", tags: ["Family", "Gear Included", "Lunch"] },
                 { id: "03", title: "Diving Courses", description: "Want to learn? From your first bubble to advanced certifications with the only PADI 5-Star Center.", tags: ["Open Water", "Referrals", "e-Learning"] }
             ],
-            // Textos para la página completa de Servicios
             catalogTitle: "Adventure Catalog",
             heroTitle: "Choose your next",
             heroHighlight: "Dive",
@@ -366,6 +428,72 @@ export const translations = {
             ui: {
                 includes: "Includes:",
                 bookNow: "Book now"
+            }
+        },
+        aboutPage: {
+            hero: {
+                tag: "Our Essence",
+                titleStart: "More than diving,<br/>we are",
+                titleHighlight: "Family",
+                desc: "Connecting people with the marine life of the Loreto Bay National Park through responsible and human experiences."
+            },
+            story: {
+                since: "Since 2010",
+                title: "A family business in the heart of Loreto",
+                p1: "We are Rafa (lawyer) and Maria (marketer). We arrived in this paradise looking for a quiet life for our children, who today are proudly from Loreto.",
+                p2: "Fate brought us to the sea and the community welcomed us. Today, the four of us work to give back a little of what we received, offering authentic experiences where you are the guest of honor in our home: the Sea of Cortez.",
+                values: ["Family", "Community", "Respect", "Passion"],
+                stats: [
+                    { num: "2010", label: "Starting Year" },
+                    { num: "15+", label: "Years in Loreto" },
+                    { num: "4", label: "Family Members" },
+                    { num: "100%", label: "Passion for the sea" }
+                ],
+                mission: {
+                    tag: "Our Mission",
+                    titleStart: "Educate on what the sea",
+                    titleHighlight1: "IS",
+                    titleMid: ",<br/>in order to",
+                    titleHighlight2: "PROTECT IT",
+                    titleEnd: "!",
+                    quote: '"Animals first, animals second, animals third.<br/>We are the visitors."',
+                    btn: "Contact us by email"
+                }
+            },
+            history: {
+                title: "A Little Bit of History...",
+                events: [
+                    { year: "2013", title: "Dolphin Dive Baja is Born", desc: "Bruce Williams and Susan Speck passed the torch to us. We added 'Baja' and started this adventure.", img: "/assets/nosotros/time1.webp" },
+                    { year: "PADI", title: "26 Years of Excellence", desc: "We maintain the 5-Star PADI Dive Center status, celebrating over two decades of safety and quality.", img: "/assets/nosotros/time2.webp" },
+                    { year: "AWARE", title: "Environmental Commitment", desc: "We actively work with the PADI AWARE project to keep our ocean clean and protected.", img: "/assets/nosotros/time3.webp" },
+                    { year: "2022", title: "We are Cressi Point", desc: "We became a Cressi Dive Center (CDC), guaranteeing the best gear and technology for you.", img: "/assets/nosotros/time4.webp" }
+                ]
+            },
+            team: {
+                tag: "Our Human Resource",
+                title: "Local and Professional Team",
+                desc: "We believe in professional development. We have trained 7 Mexican Dive Masters and our captains are seafarers who know every corner of the National Park.",
+                members: [
+                    { name: "Kaliman", role: "Captain", img: "/assets/nosotros/kaliman2.png" },
+                    { name: "Alex", role: "Dive Master", img: "/assets/nosotros/alex.webp" },
+                    { name: "Pablo", role: "Dive Master", img: "/assets/nosotros/pablo.webp" },
+                    { name: "Luis", role: "Captain", img: "/assets/nosotros/luis.webp" },
+                    { name: "Fiona", role: "DM Training", img: "/assets/nosotros/fiona.webp" },
+                    { name: "Rafa Jr", role: "DM Training", img: "/assets/nosotros/rafa3.webp" },
+                    { name: "Rafa", role: "Instructor", img: "/assets/nosotros/rafa2.webp" },
+                    { name: "María", role: "Assistant Inst.", img: "/assets/nosotros/maria.webp" }
+                ]
+            },
+            gallery: {
+                cressi: {
+                    tag: "Cressi Point",
+                    title: "Passion and technology under the sea",
+                    desc: "We are the only authorized Cressi dealer in Loreto. Quality and service to ensure your gear matches the level of your adventure.",
+                    cta: "Visit or contact us"
+                },
+                collage: {
+                    title: "Dare to live the experience"
+                }
             }
         },
         contact: {
