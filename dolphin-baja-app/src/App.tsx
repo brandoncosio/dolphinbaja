@@ -2,8 +2,8 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
-// Provider de Idioma
-import { LanguageProvider } from './context/LanguageContext';
+// Provider y Hook de Idioma
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
 // Componentes Globales
 import Navbar from './components/Navbar';
@@ -23,6 +23,31 @@ const PageLoader = () => (
   </div>
 );
 
+// Componente interno para acceder al context
+function AppContent() {
+  const { lang } = useLanguage(); // Escuchamos el cambio de idioma
+
+  return (
+    <div className="relative min-h-screen bg-slate-900 text-white font-body selection:bg-cyan-400 selection:text-slate-900">
+      <Navbar />
+
+      {/* 👇 La 'key={lang}' fuerza a las páginas lazy a actualizarse al cambiar idioma */}
+      <Suspense fallback={<PageLoader />}>
+        <main key={lang}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/servicios" element={<Servicios />} />
+            <Route path="/nosotros" element={<Nosotros />} />
+            <Route path="/contacto" element={<Contacto />} />
+          </Routes>
+        </main>
+      </Suspense>
+
+      <Footer />
+    </div>
+  );
+}
+
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,31 +59,14 @@ export default function App() {
   }, []);
 
   return (
-    // 👇 Envolvemos TODO con el proveedor de idioma
     <LanguageProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <AnimatePresence>
+          {isLoading && <SplashScreen key="splash" />}
+        </AnimatePresence>
 
-        <div className="relative min-h-screen bg-slate-900 text-white font-body selection:bg-cyan-400 selection:text-slate-900">
-
-          <AnimatePresence>
-            {isLoading && <SplashScreen key="splash" />}
-          </AnimatePresence>
-
-          <Navbar />
-
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/servicios" element={<Servicios />} />
-              <Route path="/nosotros" element={<Nosotros />} />
-              <Route path="/contacto" element={<Contacto />} />
-            </Routes>
-          </Suspense>
-
-          <Footer />
-
-        </div>
+        <AppContent />
       </BrowserRouter>
     </LanguageProvider>
   );
