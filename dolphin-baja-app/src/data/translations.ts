@@ -18,6 +18,78 @@ export const translations = {
                 faq: "Preguntas Frecuentes"
             }
         },
+        home: {
+            hero: {
+                tag: "Parque Nacional Bahía de Loreto",
+                btnBook: "Reservar experiencia",
+                btnServices: "Ver servicios",
+                slides: [
+                    {
+                        title: "MÁS QUE BUCEO,<br/>UNA EXPERIENCIA INOLVIDABLE",
+                        subtitle: "Cada inmersión está diseñada para conectarte con el océano y la naturaleza."
+                    },
+                    {
+                        title: "EXPLORA LORETO<br/>DESDE EL MAR",
+                        subtitle: "Tours guiados y excursiones para descubrir paisajes submarinos únicos."
+                    },
+                    {
+                        title: "SNORKEL Y AVENTURA<br/>PARA TODOS",
+                        subtitle: "Vive el océano con actividades diseñadas para familias y amantes del mar."
+                    }
+                ]
+            },
+            highlights: {
+                tag: "Explora",
+                titleStart: "Elige tu próxima",
+                titleHighlight: "Experiencia en Loreto",
+                desc: "Tours, experiencias y el mar como debe vivirse: en grupos pequeños y con respeto total por la vida marina.",
+                cardLink: "Ver detalles",
+                cards: [
+                    { kicker: "Servicios", title: "Fun Dives & Aventuras" },
+                    { kicker: "Experiencias", title: "Snorkeling & Familia" },
+                    { kicker: "Nosotros", title: "Familia y Misión" },
+                    { kicker: "Planifica", title: "Ubicación y Contacto" }
+                ]
+            },
+            valueProps: {
+                tag: "Te ofrecemos",
+                titleStart: "Buceo responsable y",
+                titleHighlight: "experiencias auténticas",
+                desc: "En Dolphin Dive Baja no solo te llevamos a bucear. Creamos experiencias seguras, humanas y conscientes dentro del Parque Nacional Bahía de Loreto.",
+                cards: [
+                    { title: "Centro PADI 5 Estrellas", desc: "Somos el único Centro PADI 5 Estrellas y Cressi Dive Center en Loreto, cumpliendo con los más altos estándares." },
+                    { title: "Grupos Pequeños", desc: "Máximo 6 buzos por Dive Master o 8 snorkelistas por guía. Atención humana y personalizada." },
+                    { title: "Todo Incluido", desc: "Brazaletes del parque, lunch y bebidas incluidos para que solo te preocupes por disfrutar." },
+                    { title: "Nuestra Misión", desc: "Educar para proteger. Primero los animales, segundo los animales, tercero los animales." }
+                ]
+            },
+            gallery: {
+                tag: "Galería",
+                title: "Instantes Inolvidables",
+                btnInsta: "Ver más en Instagram",
+                images: [
+                    "Arrecifes de Coral",
+                    "Vida Nocturna",
+                    "Lobos Marinos",
+                    "Aguas Cristalinas",
+                    "Cardúmenes",
+                    "Exploración",
+                    "Tortugas Marinas",
+                    "Atardeceres Mágicos"
+                ]
+            },
+            destination: {
+                tag: "Destino",
+                hashtag: "#Loreto_donde_el_lujo_es_la_",
+                hashtagHighlight: "naturaleza",
+                desc: "Loreto es un paraíso natural dentro del Parque Nacional Bahía de Loreto: islas, arrecifes y biodiversidad incomparable.",
+                card: {
+                    title: "Visítanos",
+                    text: "Estamos ubicados en el corazón de Loreto, listos para planear tu aventura.",
+                    link: "Ver en Google Maps"
+                }
+            }
+        },
         contact: {
             hero: {
                 subtitle: "Estamos para ayudarte",
@@ -77,6 +149,78 @@ export const translations = {
                 location: "Location",
                 whatsapp: "Direct WhatsApp",
                 faq: "FAQ"
+            }
+        },
+        home: {
+            hero: {
+                tag: "Loreto Bay National Park",
+                btnBook: "Book experience",
+                btnServices: "View services",
+                slides: [
+                    {
+                        title: "MORE THAN DIVING,<br/>AN UNFORGETTABLE EXPERIENCE",
+                        subtitle: "Each dive is designed to connect you with the ocean and nature."
+                    },
+                    {
+                        title: "EXPLORE LORETO<br/>FROM THE SEA",
+                        subtitle: "Guided tours and excursions to discover unique underwater landscapes."
+                    },
+                    {
+                        title: "SNORKEL AND ADVENTURE<br/>FOR EVERYONE",
+                        subtitle: "Experience the ocean with activities designed for families and sea lovers."
+                    }
+                ]
+            },
+            highlights: {
+                tag: "Explore",
+                titleStart: "Choose your next",
+                titleHighlight: "Experience in Loreto",
+                desc: "Tours, experiences, and the sea as it should be lived: in small groups and with total respect for marine life.",
+                cardLink: "View details",
+                cards: [
+                    { kicker: "Services", title: "Fun Dives & Adventures" },
+                    { kicker: "Experiences", title: "Snorkeling & Family" },
+                    { kicker: "About Us", title: "Family and Mission" },
+                    { kicker: "Plan", title: "Location & Contact" }
+                ]
+            },
+            valueProps: {
+                tag: "We offer you",
+                titleStart: "Responsible diving and",
+                titleHighlight: "authentic experiences",
+                desc: "At Dolphin Dive Baja, we don't just take you diving. We create safe, human, and conscious experiences within the Loreto Bay National Park.",
+                cards: [
+                    { title: "5-Star PADI Center", desc: "We are the only 5-Star PADI Center and Cressi Dive Center in Loreto, meeting the highest standards." },
+                    { title: "Small Groups", desc: "Maximum 6 divers per Dive Master or 8 snorkelers per guide. Human and personalized attention." },
+                    { title: "All Inclusive", desc: "Park bracelets, lunch, and drinks included so you only worry about enjoying." },
+                    { title: "Our Mission", desc: "Educate to protect. Animals first, animals second, animals third." }
+                ]
+            },
+            gallery: {
+                tag: "Gallery",
+                title: "Unforgettable Moments",
+                btnInsta: "See more on Instagram",
+                images: [
+                    "Coral Reefs",
+                    "Night Life",
+                    "Sea Lions",
+                    "Crystal Clear Waters",
+                    "Schools of Fish",
+                    "Exploration",
+                    "Sea Turtles",
+                    "Magical Sunsets"
+                ]
+            },
+            destination: {
+                tag: "Destination",
+                hashtag: "#Loreto_where_luxury_is_",
+                hashtagHighlight: "nature",
+                desc: "Loreto is a natural paradise within the Loreto Bay National Park: islands, reefs, and incomparable biodiversity.",
+                card: {
+                    title: "Visit Us",
+                    text: "We are located in the heart of Loreto, ready to plan your adventure.",
+                    link: "View on Google Maps"
+                }
             }
         },
         contact: {
