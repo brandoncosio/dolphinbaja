@@ -10,17 +10,14 @@ import Destination from '../components/Destination';
 import SplashScreen from '../components/SplashScreen';
 
 export default function Home() {
-  // Estado para el Splash Screen
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Revisamos si ya se mostró el splash en esta sesión
     const hasLoaded = sessionStorage.getItem('hasLoaded');
 
     if (hasLoaded) {
       setIsLoading(false);
     } else {
-      // Si es la primera vez, esperamos 2.5s y guardamos la marca
       const timer = setTimeout(() => {
         setIsLoading(false);
         sessionStorage.setItem('hasLoaded', 'true');
@@ -31,28 +28,39 @@ export default function Home() {
 
   return (
     <>
-      {/* Splash Screen (Solo aparece una vez por sesión) */}
       <AnimatePresence>
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
 
-      {/* Contenido Principal */}
-      <main className="bg-slate-900 text-white w-full overflow-x-hidden">
+      {/* Contenedor Principal: Color base de profundidad oceánica */}
+      <main className="relative bg-[#071a24] text-white w-full min-h-screen overflow-x-hidden selection:bg-cyan-400 selection:text-[#071a24]">
 
-        {/* 1. Hero Slider (Portada) */}
-        <Hero />
+        {/* =========================================================
+            EFECTO UNDERWATER GLOBAL (Liquid Light)
+            Estas luces se quedan fijas en el fondo creando la ilusión 
+            de volumen y agua profunda detrás de los componentes.
+        ========================================================= */}
+        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+          {/* Luz superior izquierda (Reflejo de la superficie) */}
+          <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] bg-[#66D8E3]/10 blur-[120px] rounded-full mix-blend-screen"></div>
 
-        {/* 2. Mosaico de Experiencias (Highlights) */}
-        <Highlights />
+          {/* Luz profunda derecha (Tono marino) */}
+          <div className="absolute top-[40%] -right-[15%] w-[45%] h-[60%] bg-[#0C71A5]/15 blur-[150px] rounded-full mix-blend-screen"></div>
 
-        {/* 3. Propuesta de Valor (PADI 5 Estrellas, etc.) */}
-        <ValueProps />
+          {/* Sombra abisal inferior (Profundidad) */}
+          <div className="absolute -bottom-[20%] left-[20%] w-[60%] h-[50%] bg-[#0E3D59]/30 blur-[130px] rounded-full mix-blend-multiply"></div>
+        </div>
 
-        {/* 4. Galería Visual (Bento Grid) */}
-        <HomeGallery />
-
-        {/* 5. Mapa y Ubicación */}
-        <Destination />
+        {/* =========================================================
+            COMPONENTES (Z-10 para estar sobre el agua)
+        ========================================================= */}
+        <div className="relative z-10">
+          <Hero />
+          <Highlights />
+          <ValueProps />
+          <HomeGallery />
+          <Destination />
+        </div>
 
       </main>
     </>
