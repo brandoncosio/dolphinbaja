@@ -33,22 +33,20 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Contenedor Principal: Color base de profundidad oceánica */}
-      <main className="relative bg-[#071a24] text-white w-full min-h-screen overflow-x-hidden selection:bg-cyan-400 selection:text-[#071a24]">
+      <main className="relative bg-dark text-white w-full min-h-screen overflow-x-hidden selection:bg-cyan-400 selection:text-dark">
 
         {/* =========================================================
-            EFECTO UNDERWATER GLOBAL (Liquid Light)
-            Estas luces se quedan fijas en el fondo creando la ilusión 
-            de volumen y agua profunda detrás de los componentes.
+            EFECTO UNDERWATER GLOBAL (Liquid Light) - 100% Responsivo
         ========================================================= */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
           {/* Luz superior izquierda (Reflejo de la superficie) */}
-          <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] bg-[#66D8E3]/10 blur-[120px] rounded-full mix-blend-screen"></div>
+          <div className="absolute -top-[5%] -left-[10%] w-[80%] md:w-[50%] h-[40%] md:h-[50%] bg-cyan-400/10 blur-[100px] md:blur-[120px] rounded-full mix-blend-screen"></div>
 
           {/* Luz profunda derecha (Tono marino) */}
-          <div className="absolute top-[40%] -right-[15%] w-[45%] h-[60%] bg-[#0C71A5]/15 blur-[150px] rounded-full mix-blend-screen"></div>
+          <div className="absolute top-[40%] -right-[20%] md:-right-[15%] w-[80%] md:w-[45%] h-[50%] md:h-[60%] bg-ocean/15 blur-[120px] md:blur-[150px] rounded-full mix-blend-screen"></div>
 
           {/* Sombra abisal inferior (Profundidad) */}
-          <div className="absolute -bottom-[20%] left-[20%] w-[60%] h-[50%] bg-[#0E3D59]/30 blur-[130px] rounded-full mix-blend-multiply"></div>
+          <div className="absolute -bottom-[10%] md:-bottom-[20%] left-[10%] md:left-[20%] w-[90%] md:w-[60%] h-[40%] md:h-[50%] bg-navy/30 blur-[100px] md:blur-[130px] rounded-full mix-blend-multiply"></div>
         </div>
 
         {/* =========================================================
