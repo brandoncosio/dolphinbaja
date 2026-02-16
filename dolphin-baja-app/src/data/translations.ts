@@ -90,6 +90,32 @@ export const translations = {
                 }
             }
         },
+        servicesPage: {
+            tag: "Nuestros Servicios",
+            titleStart: "Vive el",
+            titleHighlight: "Mar de Cortés",
+            btnDetails: "Ver detalles",
+            list: [
+                {
+                    id: "01",
+                    title: "Fun Dives",
+                    description: "Inmersiones de dos tanques para buzos certificados. Explora los mejores arrecifes de las islas Coronados y Carmen.",
+                    tags: ["2 Tanques", "PADI", "Guía Pro"]
+                },
+                {
+                    id: "02",
+                    title: "Snorkeling Adventure",
+                    description: "Perfecto para familias. Conecta con la vida marina en aguas cristalinas y disfruta de un lunch en playas vírgenes.",
+                    tags: ["Familiar", "Equipo Incluido", "Lunch"]
+                },
+                {
+                    id: "03",
+                    title: "Cursos de Buceo",
+                    description: "¿Quieres aprender? Desde tu primera burbuja hasta certificaciones avanzadas con el único centro PADI 5 Estrellas.",
+                    tags: ["Open Water", "Referidos", "e-Learning"]
+                }
+            ]
+        },
         contact: {
             hero: {
                 subtitle: "Estamos para ayudarte",
@@ -233,6 +259,32 @@ export const translations = {
                     link: "View on Google Maps"
                 }
             }
+        },
+        servicesPage: {
+            tag: "Our Services",
+            titleStart: "Experience the",
+            titleHighlight: "Sea of Cortez",
+            btnDetails: "View details",
+            list: [
+                {
+                    id: "01",
+                    title: "Fun Dives",
+                    description: "Two-tank dives for certified divers. Explore the best reefs of Coronados and Carmen islands.",
+                    tags: ["2 Tanks", "PADI", "Pro Guide"]
+                },
+                {
+                    id: "02",
+                    title: "Snorkeling Adventure",
+                    description: "Perfect for families. Connect with marine life in crystal clear waters and enjoy lunch at pristine beaches.",
+                    tags: ["Family", "Gear Included", "Lunch"]
+                },
+                {
+                    id: "03",
+                    title: "Diving Courses",
+                    description: "Want to learn? From your first bubble to advanced certifications with the only PADI 5-Star Center.",
+                    tags: ["Open Water", "Referrals", "e-Learning"]
+                }
+            ]
         },
         contact: {
             hero: {
