@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
+import { useLanguage } from '../context/LanguageContext';
 import SplashScreen from '../components/SplashScreen';
 
-// Imágenes
+// Imágenes importadas
 import funDivesImg from '/assets/images/colash1.webp';
 import coronadosImg from '/assets/images/colash11.webp';
 import nightDiveImg from '/assets/images/colash2.webp';
@@ -14,191 +15,102 @@ import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/slider1-celular.webp';
 
-const categories = [
-  { id: 'fundives', label: 'Fun Dives', icon: 'ri-anchor-line' },
-  { id: 'cursos', label: 'Cursos & Programas', icon: 'ri-medal-line' },
-  { id: 'snorkel', label: 'Snorkel & Tours', icon: 'ri-sun-line' }
-];
-
-const servicesData = {
-  fundives: [
-    {
-      title: "Local Dive (Loreto Bay)",
-      price: "$110 USD",
-      duration: "4 Horas",
-      desc: "Explora los arrecifes volcánicos del Parque Nacional. Vida marina abundante y formaciones rocosas impresionantes.",
-      includes: ["2 Tanques", "Lastre y Cinturón", "Snacks y Bebidas", "Guía PADI"],
-      image: funDivesImg
-    },
-    {
-      title: "Coronados Island",
-      price: "$140 USD",
-      duration: "5 Horas",
-      desc: "Nuestra inmersión más popular. Juega con lobos marinos y explora barcos hundidos llenos de vida.",
-      includes: ["2 Tanques", "Equipo Completo", "Lunch en playa", "Permisos"],
-      image: coronadosImg
-    },
-    {
-      title: "Night Dive",
-      price: "$95 USD",
-      duration: "2.5 Horas",
-      desc: "Descubre la bioluminiscencia y las criaturas que solo salen al caer el sol. Una experiencia mística.",
-      includes: ["1 Tanque", "Linterna Primaria", "Luz de Tanque", "Solo Avanzados"],
-      image: nightDiveImg
-    }
-  ],
-  cursos: [
-    {
-      title: "Discover Scuba (Bautizo)",
-      price: "$160 USD",
-      duration: "1 Día",
-      desc: "¿Primera vez? Aprende lo básico en piscina y realiza tu primera inmersión en el mar bajo supervisión directa.",
-      includes: ["Clase Teórica", "Práctica en Alberca", "1 Inmersión en Mar", "Equipo Completo"],
-      image: coursesImg
-    },
-    {
-      title: "Open Water Diver",
-      price: "$480 USD",
-      duration: "3-4 Días",
-      desc: "Tu certificación de por vida. Aprende a bucear de forma autónoma hasta 18 metros de profundidad.",
-      includes: ["eLearning", "5 Módulos Alberca", "4 Inmersiones Mar", "Certificación"],
-      image: coursesImg
-    },
-    {
-      title: "Refresher (Refresh)",
-      price: "Consultar",
-      duration: "1 Día",
-      desc: "¿Más de 1 año sin bucear? Retoma confianza y técnica en un área controlada antes de explorar.",
-      includes: ["1 Tanque Habilidades", "1 Tanque Exploración", "Equipo NO incluido"],
-      image: refreshImg
-    },
-    {
-      title: "Bubble Makers",
-      price: "Consultar",
-      duration: "Medio día",
-      desc: "Introducción segura y divertida para niños de 8 a 11 años. Máximo 2 metros de profundidad.",
-      includes: ["1 Tanque", "Equipo Incluido", "Instructor PADI", "Lunch"],
-      image: bubbleImg
-    }
-  ],
-  snorkel: [
-    {
-      title: "Tour Isla Coronados",
-      price: "$85 USD",
-      duration: "4 Horas",
-      desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.",
-      includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"],
-      image: snorkelImg
-    },
-    {
-      title: "Sunset Cruise",
-      price: "$60 USD",
-      duration: "3 Horas",
-      desc: "Disfruta del atardecer en el Mar de Cortés con música suave y bebidas refrescantes.",
-      includes: ["Bebidas (No alcohólicas)", "Botana", "Capitán Bilingüe", "Fotos"],
-      image: experienciasImg
-    }
-  ]
-};
-
-const scheduleData = {
-  fundives: {
-    morning: { time: "08:00 – 12:30", note: "Cita 07:30 AM", season: "Todo el año" },
-    afternoon: { time: "13:00 – 17:30", note: "Cita 12:30 PM", season: "Mayo – Octubre" },
-    night: { time: "18:00 – 20:00", note: "Cita 17:30 PM", season: "Julio – Octubre" },
-    rules: ["Equipo de buceo NO incluido en tarifa Fun Dives.", "Mínimo 2 personas para salir.", "Buzos solos: tarifa privada."]
-  },
-  cursos: {
-    morning: { time: "08:00 – 13:00", note: "Teoría + Alberca", season: "Todo el año" },
-    afternoon: { time: "13:00 – 17:00", note: "Inmersiones", season: "Todo el año" },
-    night: null,
-    rules: ["Incluye todo el material didáctico.", "Certificación digital PADI incluida.", "Requiere llenado de formulario médico."]
-  },
-  snorkel: {
-    morning: { time: "08:00 – 12:30", note: "Cita 07:30 AM", season: "Todo el año" },
-    afternoon: { time: "13:00 – 17:30", note: "Cita 12:30 PM", season: "Mayo – Octubre" },
-    night: null,
-    rules: ["Equipo de snorkel SÍ incluido.", "Mínimo 3 personas.", "Chaleco salvavidas obligatorio en el agua."]
-  }
+// Diccionario para mapear las imágenes
+const imageDict: Record<string, string> = {
+  funDivesImg,
+  coronadosImg,
+  nightDiveImg,
+  coursesImg,
+  snorkelImg,
+  experienciasImg,
+  refreshImg,
+  bubbleImg
 };
 
 export default function Servicios() {
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('fundives');
+  const [activeTab, setActiveTab] = useState<'fundives' | 'cursos' | 'snorkel'>('fundives');
 
   const location = useLocation();
+  const { t, lang } = useLanguage(); // Extraemos el idioma
+  const content = t.servicesPage;    // Extraemos la sección específica
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     if (location.hash) {
-      const tabId = location.hash.replace('#', '');
-      if (categories.some(cat => cat.id === tabId)) {
+      const tabId = location.hash.replace('#', '') as 'fundives' | 'cursos' | 'snorkel';
+      if (['fundives', 'cursos', 'snorkel'].includes(tabId)) {
         setActiveTab(tabId);
         const element = document.getElementById('catalogo-top');
         if (element) {
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }, 200);
+          setTimeout(() => element.scrollIntoView({ behavior: 'smooth' }), 200);
         }
       }
     }
   }, [location]);
 
-  const currentSchedule = scheduleData[activeTab as keyof typeof scheduleData];
+  // Construimos las categorías dinámicamente con las traducciones
+  const categories = [
+    { id: 'fundives', label: content.categories.fundives, icon: 'ri-anchor-line' },
+    { id: 'cursos', label: content.categories.cursos, icon: 'ri-medal-line' },
+    { id: 'snorkel', label: content.categories.snorkel, icon: 'ri-sun-line' }
+  ] as const;
+
+  const currentSchedule = content.schedules[activeTab];
 
   return (
-    <>
+    <div key={lang} className="min-h-screen bg-dark pt-32 pb-20 selection:bg-cyan-400 selection:text-dark">
       <AnimatePresence>
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-slate-900 pt-32 pb-20">
+      {/* Luces de profundidad (Liquid Light) */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[10%] -left-[10%] w-[50%] h-[50%] bg-cyan-400/10 blur-[120px] rounded-full mix-blend-screen" />
+        <div className="absolute bottom-[20%] -right-[15%] w-[45%] h-[60%] bg-ocean/15 blur-[150px] rounded-full mix-blend-screen" />
+      </div>
 
-        <div className="relative px-6 md:px-20 mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="font-body text-xs font-bold uppercase tracking-[0.4em] text-cyan-400">
-              Catálogo de Aventuras
+      <div className="relative z-10">
+        {/* ENCABEZADO */}
+        <div className="px-6 md:px-20 mb-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
+            <span className="font-body text-xs font-bold uppercase tracking-[0.4em] text-cyan-400 drop-shadow-md">
+              {content.catalogTitle}
             </span>
-            <h1 className="mt-4 font-title text-4xl text-white md:text-6xl">
-              Elige tu próxima <br /> <span className="text-yellow-400">Inmersión</span>
+            <h1 className="mt-4 font-title text-4xl text-white md:text-6xl drop-shadow-lg leading-tight">
+              {content.heroTitle} <br className="hidden md:block" /> <span className="text-yellow-400">{content.heroHighlight}</span>
             </h1>
-            <p className="mt-6 text-slate-400 font-body text-lg">
-              Desde tu primera respiración bajo el agua hasta expediciones técnicas.
-              Todo nuestro equipo es Cressi® y se renueva cada temporada.
+            <p className="mt-6 text-slate-300 font-body text-base md:text-lg leading-relaxed drop-shadow-md">
+              {content.heroDesc}
             </p>
           </motion.div>
         </div>
 
-        <div id="catalogo-top" className="relative z-40 py-4 mb-12 px-4">
-          <div className="mx-auto max-w-lg rounded-full border border-white/10 bg-slate-900/80 p-1.5 backdrop-blur-xl shadow-2xl">
+        {/* TABS NAVEGACIÓN */}
+        <div id="catalogo-top" className="py-4 mb-12 px-4 scroll-mt-24">
+          <div className="mx-auto max-w-2xl rounded-full border border-white/10 bg-dark/60 p-1.5 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
             <div className="flex justify-between">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
-                  className={`relative flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold transition-colors ${activeTab === cat.id ? 'text-slate-900' : 'text-slate-400 hover:text-white'
+                  className={`relative flex flex-1 items-center justify-center gap-2 rounded-full px-2 py-3 md:px-4 md:py-3 text-xs md:text-sm font-bold transition-colors ${activeTab === cat.id ? 'text-dark' : 'text-slate-300 hover:text-white'
                     }`}
                 >
                   {activeTab === cat.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+                      className="absolute inset-0 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(102,216,227,0.5)]"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
-                  <span className="relative z-10 flex items-center gap-2 font-title uppercase tracking-wider">
-                    <i className={`${cat.icon} text-lg`}></i>
-                    <span className="hidden md:inline">{cat.label}</span>
+                  <span className="relative z-10 flex items-center gap-1 md:gap-2 font-title uppercase tracking-wider">
+                    <i className={`${cat.icon} text-base md:text-lg`}></i>
+                    <span className="hidden sm:inline">{cat.label}</span>
                   </span>
                 </button>
               ))}
@@ -206,6 +118,7 @@ export default function Servicios() {
           </div>
         </div>
 
+        {/* GRID DE SERVICIOS */}
         <div className="max-w-7xl mx-auto px-6 md:px-20 min-h-[400px]">
           <AnimatePresence mode="wait">
             <motion.div
@@ -213,58 +126,65 @@ export default function Servicios() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              transition={{ duration: 0.4 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             >
-              {servicesData[activeTab as keyof typeof servicesData].map((item, index) => (
+              {content.services[activeTab].map((item, index) => (
                 <div
                   key={index}
-                  className="group relative bg-slate-800 rounded-[2rem] overflow-hidden border border-white/5 hover:border-cyan-400/30 transition-all duration-300 flex flex-col hover:-translate-y-2 hover:shadow-2xl"
+                  className="group relative bg-dark/40 backdrop-blur-md rounded-[2rem] overflow-hidden border border-white/10 hover:border-cyan-400/40 transition-all duration-500 flex flex-col hover:-translate-y-2 shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_20px_40px_rgba(102,216,227,0.15)]"
                 >
-                  {/* 👇 ESTRATEGIA 3 AQUÍ: 'aspect-[4/3]' para móvil, 'md:aspect-video' para escritorio */}
+                  {/* IMAGEN DE LA TARJETA */}
                   <div className="w-full aspect-[4/3] md:aspect-video overflow-hidden relative">
                     <img
-                      src={item.image}
+                      src={imageDict[item.imgKey]}
                       alt={item.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
                     />
-                    <div className="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-md text-yellow-400 font-title px-4 py-2 rounded-xl text-sm border border-yellow-400/20 shadow-lg">
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent opacity-80" />
+
+                    <div className="absolute top-4 right-4 bg-dark/70 backdrop-blur-xl text-yellow-400 font-title px-4 py-2 rounded-xl text-xs md:text-sm border border-yellow-400/20 shadow-lg">
                       {item.price}
                     </div>
                   </div>
 
-                  <div className="p-8 flex flex-col flex-grow">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-title text-2xl text-white group-hover:text-cyan-400 transition-colors">{item.title}</h3>
+                  {/* CONTENIDO DE LA TARJETA */}
+                  <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10 -mt-10">
+                    <h3 className="font-title text-xl md:text-2xl text-white group-hover:text-cyan-400 transition-colors drop-shadow-md mb-2">
+                      {item.title}
+                    </h3>
+
+                    <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4 font-body">
+                      <i className="ri-time-line"></i> {item.duration}
                     </div>
 
-                    <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-wider mb-4 border-b border-white/5 pb-4 font-body">
-                      <i className="ri-time-line text-cyan-400"></i> {item.duration}
-                    </div>
-
-                    <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow font-body">
+                    <p className="text-slate-300 text-sm leading-relaxed mb-6 flex-grow font-body">
                       {item.desc}
                     </p>
 
-                    <div className="mb-8">
-                      <p className="text-[10px] text-slate-500 mb-3 font-bold uppercase tracking-widest font-body">Incluye:</p>
+                    {/* INCLUYE (Pills) */}
+                    <div className="mb-8 border-t border-white/5 pt-4">
+                      <p className="text-[10px] text-slate-400 mb-3 font-bold uppercase tracking-widest font-body">
+                        {content.ui.includes}
+                      </p>
                       <div className="flex flex-wrap gap-2">
                         {item.includes.map((inc, i) => (
-                          <span key={i} className="text-[11px] bg-white/5 text-slate-300 px-3 py-1.5 rounded-lg border border-white/5 font-body">
+                          <span key={i} className="text-[11px] bg-white/5 backdrop-blur-sm text-slate-200 px-3 py-1.5 rounded-lg border border-white/10 font-body">
                             {inc}
                           </span>
                         ))}
                       </div>
                     </div>
 
+                    {/* BOTÓN RESERVAR LIQUID GLASS */}
                     <a
                       href="https://wa.me/526131182311"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-4 bg-gradient-to-r from-cyan-400/10 to-transparent border border-cyan-400/20 text-cyan-400 font-title rounded-2xl hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300 flex items-center justify-center gap-2"
+                      className="w-full py-3.5 bg-cyan-400/10 backdrop-blur-md border border-cyan-400/30 text-cyan-400 font-title text-sm rounded-xl hover:bg-cyan-400 hover:text-dark transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-[0_4px_15px_rgba(102,216,227,0.1)] hover:shadow-[0_8px_25px_rgba(102,216,227,0.3)]"
                     >
-                      Reservar ahora <i className="ri-whatsapp-line"></i>
+                      {content.ui.bookNow} <i className="ri-whatsapp-line text-lg group-hover/btn:scale-110 transition-transform"></i>
                     </a>
                   </div>
                 </div>
@@ -273,61 +193,71 @@ export default function Servicios() {
           </AnimatePresence>
         </div>
 
-        <div className="mt-24 max-w-5xl mx-auto px-6">
+        {/* SECCIÓN HORARIOS (Glassmorphism Premium) */}
+        <div className="mt-20 md:mt-24 max-w-5xl mx-auto px-6">
           <motion.div
             layout
-            className="bg-slate-800 rounded-[3rem] p-8 md:p-12 border border-white/5 relative overflow-hidden shadow-2xl"
+            className="bg-dark/40 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 border border-white/10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/5 rounded-full blur-[80px] -z-0"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/10 rounded-full blur-[80px] -z-0"></div>
 
             <div className="relative z-10">
-              <h3 className="font-title text-2xl text-white mb-8 flex items-center gap-3">
-                <i className="ri-calendar-check-line text-yellow-400"></i>
-                Horarios y Detalles Operativos
+              <h3 className="font-title text-xl md:text-2xl text-white mb-6 md:mb-8 flex items-center gap-3 drop-shadow-md">
+                <div className="w-10 h-10 rounded-xl bg-yellow-400/10 flex items-center justify-center border border-yellow-400/20 text-yellow-400">
+                  <i className="ri-calendar-check-line text-xl"></i>
+                </div>
+                {content.schedules.title}
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
-                  <div className="flex justify-between items-start mb-2">
-                    <p className="text-cyan-400 font-title text-lg">Mañana</p>
-                    <span className="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-300 font-body">{currentSchedule.morning.season}</span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+                {/* MAÑANA */}
+                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-cyan-400/30 transition-colors">
+                  <div className="flex justify-between items-start mb-3">
+                    <p className="text-cyan-400 font-title text-base">{content.schedules.morning}</p>
+                    <span className="text-[10px] bg-dark/80 px-2 py-1 rounded text-slate-300 font-body border border-white/5">{currentSchedule.morning.season}</span>
                   </div>
-                  <p className="text-3xl text-white font-title mb-1">{currentSchedule.morning.time}</p>
+                  <p className="text-2xl md:text-3xl text-white font-title mb-1 drop-shadow-md">{currentSchedule.morning.time}</p>
                   <p className="text-xs text-slate-400 font-body">{currentSchedule.morning.note}</p>
                 </div>
 
-                <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
-                  <div className="flex justify-between items-start mb-2">
-                    <p className="text-yellow-400 font-title text-lg">Tarde</p>
-                    <span className="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-300 font-body">{currentSchedule.afternoon.season}</span>
+                {/* TARDE */}
+                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-yellow-400/30 transition-colors">
+                  <div className="flex justify-between items-start mb-3">
+                    <p className="text-yellow-400 font-title text-base">{content.schedules.afternoon}</p>
+                    <span className="text-[10px] bg-dark/80 px-2 py-1 rounded text-slate-300 font-body border border-white/5">{currentSchedule.afternoon.season}</span>
                   </div>
-                  <p className="text-3xl text-white font-title mb-1">{currentSchedule.afternoon.time}</p>
+                  <p className="text-2xl md:text-3xl text-white font-title mb-1 drop-shadow-md">{currentSchedule.afternoon.time}</p>
                   <p className="text-xs text-slate-400 font-body">{currentSchedule.afternoon.note}</p>
                 </div>
 
-                {currentSchedule.night ? (
-                  <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
-                    <div className="flex justify-between items-start mb-2">
-                      <p className="text-purple-400 font-title text-lg">Nocturno</p>
-                      <span className="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-300 font-body">{currentSchedule.night.season}</span>
+                {/* NOCHE */}
+                {(currentSchedule as any).night ? (
+                  <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-purple-400/30 transition-colors">
+                    <div className="flex justify-between items-start mb-3">
+                      <p className="text-purple-400 font-title text-base">{content.schedules.night}</p>
+                      <span className="text-[10px] bg-dark/80 px-2 py-1 rounded text-slate-300 font-body border border-white/5">{(currentSchedule as any).night.season}</span>
                     </div>
-                    <p className="text-3xl text-white font-title mb-1">{currentSchedule.night.time}</p>
-                    <p className="text-xs text-slate-400 font-body">{currentSchedule.night.note}</p>
+                    <p className="text-2xl md:text-3xl text-white font-title mb-1 drop-shadow-md">{(currentSchedule as any).night.time}</p>
+                    <p className="text-xs text-slate-400 font-body">{(currentSchedule as any).night.note}</p>
                   </div>
                 ) : (
-                  <div className="bg-slate-900/30 p-6 rounded-2xl border border-white/5 flex flex-col justify-center items-center text-center opacity-50">
+                  <div className="bg-dark/30 p-6 rounded-2xl border border-white/5 flex flex-col justify-center items-center text-center opacity-50">
                     <i className="ri-moon-clear-line text-2xl text-slate-500 mb-2"></i>
-                    <p className="text-sm text-slate-500 font-body">No disponible en esta modalidad</p>
+                    <p className="text-xs md:text-sm text-slate-500 font-body">{content.schedules.notAvailable}</p>
                   </div>
                 )}
               </div>
 
-              <div className="bg-yellow-400/5 border border-yellow-400/10 rounded-2xl p-6">
-                <h4 className="font-title text-yellow-400 text-sm mb-4 uppercase tracking-widest">Información Importante</h4>
+              {/* REGLAS IMPORTANTE */}
+              <div className="bg-yellow-400/5 border border-yellow-400/20 rounded-2xl p-5 md:p-6 backdrop-blur-sm">
+                <h4 className="font-title text-yellow-400 text-xs md:text-sm mb-4 uppercase tracking-widest flex items-center gap-2">
+                  <i className="ri-alert-line text-lg"></i>
+                  {content.schedules.important}
+                </h4>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {currentSchedule.rules.map((rule, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-300 font-body">
-                      <i className="ri-alert-line text-yellow-400 mt-0.5"></i>
+                    <li key={idx} className="flex items-start gap-2 text-xs md:text-sm text-slate-300 font-body">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-1.5 shrink-0"></span>
                       {rule}
                     </li>
                   ))}
@@ -337,8 +267,7 @@ export default function Servicios() {
             </div>
           </motion.div>
         </div>
-
       </div>
-    </>
+    </div>
   );
 }
