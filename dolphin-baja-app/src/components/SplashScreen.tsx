@@ -2,151 +2,125 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 export default function SplashScreen() {
-  // 1. Generación de Burbujas Premium (Física y Profundidad)
+  // 1. Burbujas Optimizadas para iOS (Menos cantidad, cálculos más ligeros)
   const bubbles = useMemo(() => {
-    return Array.from({ length: 40 }).map((_, i) => {
-      // 3 capas de profundidad para mayor inmersión
+    return Array.from({ length: 15 }).map((_, i) => { // Reducido a 15 burbujas
       const depthLayer = Math.random();
-      let size, blur, opacity, duration, zIndex;
+      let size, opacity, duration, zIndex;
 
-      if (depthLayer > 0.8) {
-        // Frente (Muy nítidas y grandes, rápidas)
-        size = Math.random() * 25 + 15;
-        blur = '0px';
-        opacity = Math.random() * 0.3 + 0.3; // 0.3 a 0.6
-        duration = Math.random() * 2 + 2.5; // 2.5s - 4.5s
+      if (depthLayer > 0.7) {
+        size = Math.random() * 20 + 10;
+        opacity = Math.random() * 0.3 + 0.2; // Opacidad en lugar de Blur para simular profundidad
+        duration = Math.random() * 2 + 2.5;
         zIndex = 30;
-      } else if (depthLayer > 0.4) {
-        // Medio (Tamaño normal, ligero desenfoque)
-        size = Math.random() * 12 + 8;
-        blur = '1px';
-        opacity = Math.random() * 0.2 + 0.1; // 0.1 a 0.3
-        duration = Math.random() * 3 + 4; // 4s - 7s
+      } else if (depthLayer > 0.3) {
+        size = Math.random() * 10 + 6;
+        opacity = Math.random() * 0.2 + 0.1;
+        duration = Math.random() * 3 + 4;
         zIndex = 20;
       } else {
-        // Fondo (Pequeñas, muy desenfocadas, lentas)
-        size = Math.random() * 6 + 3;
-        blur = '4px';
-        opacity = Math.random() * 0.1 + 0.05; // 0.05 a 0.15
-        duration = Math.random() * 4 + 6; // 6s - 10s
+        size = Math.random() * 5 + 3;
+        opacity = Math.random() * 0.1 + 0.05;
+        duration = Math.random() * 4 + 6;
         zIndex = 10;
       }
 
       return {
         id: `splash-bubble-${i}`,
         size,
-        left: Math.random() * 100, // Distribución horizontal
+        left: Math.random() * 100,
         duration,
-        delay: Math.random() * 1.5, // Salen escalonadas
-        blur,
+        delay: Math.random() * 1.5,
         opacity,
         zIndex,
-        wobble: Math.random() * 20 + 10 // Qué tanto zigzaguean (10px a 30px)
+        wobble: Math.random() * 15 + 5
       };
     });
   }, []);
 
   return (
     <motion.div
-      // La salida: El fondo se desvanece y la cámara hace un sutil zoom hacia el océano
-      exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      // Salida simplificada para evitar flashes blancos en iOS
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
       className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-dark"
     >
       {/* =========================================
-          FONDO ABISAL (Luz penetrando el mar)
+          FONDO ABISAL (Optimizado sin mix-blend)
       ========================================= */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Luz de la superficie (Arriba al centro) */}
-        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[150%] md:w-[100%] h-[80%] bg-gradient-radial from-cyan-400/20 via-cyan-900/5 to-transparent mix-blend-screen" />
-
-        {/* Profundidad oscura (Abajo) */}
-        <div className="absolute bottom-0 left-0 w-full h-[40%] bg-gradient-to-t from-[#02080B] to-transparent" />
-
-        {/* Rayos de luz volumétrica (Opcional, muy sutil) */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%] bg-[conic-gradient(at_top_center,rgba(34,211,238,0.05)_0deg,transparent_60deg,transparent_300deg,rgba(34,211,238,0.05)_360deg)] mix-blend-overlay" />
+        {/* Luz superior simulada con radial-gradient nativo */}
+        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[150%] md:w-[100%] h-[80%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-400/20 via-cyan-900/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[40%] bg-gradient-to-t from-[#010406] to-transparent" />
       </div>
 
       {/* =========================================
-          CAPA 1: BURBUJAS 3D REALISTAS
+          CAPA 1: BURBUJAS (Aceleración por hardware)
       ========================================= */}
       {bubbles.map((bubble) => (
         <motion.div
           key={bubble.id}
-          className="absolute bottom-[-100px] rounded-full border border-white/20 bg-gradient-to-tr from-white/5 to-white/30 backdrop-blur-sm shadow-[inset_0_0_10px_rgba(255,255,255,0.1),0_0_15px_rgba(255,255,255,0.05)]"
+          // Quitamos backdrop-blur que crashea Safari
+          className="absolute bottom-[-80px] rounded-full border border-white/20 bg-gradient-to-tr from-white/10 to-white/30 shadow-[inset_0_0_10px_rgba(255,255,255,0.1)]"
           style={{
             width: bubble.size,
             height: bubble.size,
             left: `${bubble.left}%`,
-            filter: `blur(${bubble.blur})`,
             opacity: bubble.opacity,
             zIndex: bubble.zIndex,
+            willChange: "transform", // 👈 ESTO SALVA LA GPU DEL IPHONE
           }}
-          initial={{ y: "10vh", x: 0, scale: 0.8 }}
+          initial={{ y: "10vh", x: 0 }}
           animate={{
-            y: "-120vh", // Suben hasta salir de la pantalla
-            x: ["0px", `${bubble.wobble}px`, `-${bubble.wobble}px`, "0px"], // Zigzag dinámico
-            scale: [0.8, 1.2, 1], // Expansión natural al subir por la presión
+            y: "-110vh",
+            x: ["0px", `${bubble.wobble}px`, `-${bubble.wobble}px`, "0px"],
           }}
           transition={{
             y: { duration: bubble.duration, repeat: Infinity, ease: "linear", delay: bubble.delay },
             x: { duration: bubble.duration / 1.5, repeat: Infinity, ease: "easeInOut", delay: bubble.delay },
-            scale: { duration: bubble.duration, repeat: Infinity, ease: "easeOut", delay: bubble.delay }
           }}
         />
       ))}
 
       {/* =========================================
-          CAPA 2: LOGO CENTRAL FLOTANTE (Liquid Glass)
+          CAPA 2: LOGO Y BARRA DE CARGA
       ========================================= */}
       <motion.div
-        initial={{ scale: 0.8, opacity: 0, y: 30 }}
-        animate={{
-          scale: 1,
-          opacity: 1,
-          y: [0, -12, 0] // Efecto de flotación rítmica (respiración)
-        }}
-        transition={{
-          scale: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }, // Curva de resorte suave
-          opacity: { duration: 1, ease: "easeOut" },
-          y: { duration: 4, repeat: Infinity, ease: "easeInOut" } // Flota infinitamente
-        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative z-50 flex flex-col items-center"
       >
-        {/* Halo de luz oceánica detrás del logo */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-cyan-400/20 blur-[80px] rounded-full mix-blend-screen pointer-events-none" />
+        {/* Halo de luz estático */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-64 md:h-64 bg-cyan-400/20 blur-[50px] rounded-full pointer-events-none" />
 
         {/* Logo */}
         <img
           src="/assets/images/logodolphin.webp"
           alt="Dolphin Dive Baja - Cargando"
-          className="w-48 md:w-64 lg:w-72 drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] relative z-10"
+          className="w-48 md:w-64 lg:w-72 drop-shadow-2xl relative z-10"
         />
 
-        {/* Barra de carga minimalista (Neon Edge) */}
+        {/* Barra de carga minimalista */}
         <motion.div
-          className="mt-10 w-40 md:w-48 h-1 bg-white/10 rounded-full overflow-hidden backdrop-blur-xl relative"
+          className="mt-10 w-40 md:w-48 h-1 bg-white/10 rounded-full overflow-hidden relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.4 }}
         >
           <motion.div
             className="h-full bg-cyan-400 relative"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 1.8, ease: "easeInOut" }} // Sincronizado con la carga general (1.5s - 2s)
-          >
-            {/* Brillo en la punta de la barra */}
-            <div className="absolute top-0 right-0 bottom-0 w-4 bg-white/80 blur-[2px]" />
-            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-8 h-8 bg-cyan-400/50 blur-md rounded-full" />
-          </motion.div>
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          />
         </motion.div>
 
-        {/* Texto de Carga muy sutil */}
+        {/* Texto de Carga */}
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.6 }}
           className="mt-3 font-title text-[10px] tracking-[0.3em] uppercase text-cyan-400/50"
         >
           Sumergiendo...
