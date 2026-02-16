@@ -1,28 +1,50 @@
-/* 1. IMPORTACIÓN CORRECTA PARA TAILWIND V4 */
+/* 1. IMPORTACIÓN NATIVA DE TAILWIND V4 */
 @import "tailwindcss";
 
-/* 2. ESTILOS BASE */
+/* 2. CONFIGURACIÓN DEL TEMA (Reemplaza al tailwind.config.js) */
+@theme {
+  /* Tu paleta de marca original */
+  --color-navy: #0E3D59;
+  --color-ocean: #0C71A5;
+  --color-cyan: #66D8E3;
+  --color-yellow: #FED966;
+  --color-offwhite: #F5F2E3;
+  --color-pale: #CCEAEA;
+  --color-dark: #071a24;
+
+  /* Tus fuentes personalizadas */
+  --font-title: 'Bungee', cursive;
+  --font-body: 'Montserrat', sans-serif;
+
+  /* Tu transición personalizada */
+  --ease-dolphin: cubic-bezier(.22, .61, .36, 1);
+}
+
+/* 3. ESTILOS BASE */
 @layer base {
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    background-color: #071a24;
+    background-color: var(--color-dark);
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-body);
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4 {
-    font-family: 'Bungee', cursive;
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-title);
     letter-spacing: 0.05em;
   }
 }
 
-/* 3. CLASES PERSONALIZADAS */
+/* 4. CLASES PERSONALIZADAS */
 @layer utilities {
   .wrap {
     margin-left: auto;
