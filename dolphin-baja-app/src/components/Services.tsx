@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 // Imágenes
 import funDivesImg from '/assets/images/colash1.webp';
-import snorkelImg from '/assets/images/realsonrkell.jpeg'; // Cuidado con el typo en el nombre real del archivo
+import snorkelImg from '/assets/images/realsonrkell.jpeg';
 import coursesImg from '/assets/images/certificacionpadi.jpeg';
 
 export default function Services() {
@@ -36,18 +36,19 @@ export default function Services() {
   }, []);
 
   return (
-    // Agregamos pt-32 para dar espacio suficiente a la Navbar que ahora es flotante
+    // Agregamos pt-32 para dar espacio suficiente a la Navbar flotante
     <section key={lang} className="relative overflow-hidden bg-dark pt-32 pb-24 min-h-screen">
 
       {/* =========================================
-          ANIMACIÓN DE ALGAS (Optimizadas)
+          ANIMACIÓN DE ALGAS (Sutiles y Optimizadas)
       ========================================= */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {seaweeds.map((sw) => (
           <motion.svg
             key={sw.id}
             viewBox="0 0 40 200"
-            className="absolute bottom-0 text-cyan-400"
+            // Color turquesa para complementar el fondo Azul Arrecife
+            className="absolute bottom-0 text-cyan-300"
             style={{
               left: `${sw.left}%`,
               height: `${sw.height}px`,
@@ -76,17 +77,19 @@ export default function Services() {
       </div>
 
       {/* =========================================
-          LUCES DE PROFUNDIDAD (Mismo estilo que Home)
+          LUCES DE PROFUNDIDAD (Aguas Someras)
       ========================================= */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ willChange: 'transform' }}>
-        <div className="absolute top-[10%] -left-[10%] w-[80%] h-[40%] bg-cyan-400/10 blur-[120px] rounded-full" />
-        <div className="absolute top-[40%] -right-[20%] w-[60%] h-[50%] bg-ocean/15 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[0%] left-[10%] w-[80%] h-[30%] bg-navy/60 blur-[100px] rounded-full" />
+        <div className="absolute top-[10%] -left-[10%] w-[80%] h-[40%] bg-cyan-400/20 blur-[130px] rounded-full" />
+        <div className="absolute top-[40%] -right-[20%] w-[60%] h-[50%] bg-ocean/25 blur-[150px] rounded-full" />
+        <div className="absolute bottom-[0%] left-[10%] w-[80%] h-[30%] bg-navy/40 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-20">
 
-        {/* ENCABEZADO */}
+        {/* =========================================
+            ENCABEZADO
+        ========================================= */}
         <div className="mb-20 md:mb-32 text-center md:text-left">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -99,13 +102,15 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-tight drop-shadow-lg"
+            className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
           >
             {content.titleStart} <span className="text-yellow-400">{content.titleHighlight}</span>
           </motion.h2>
         </div>
 
-        {/* LISTA DE SERVICIOS */}
+        {/* =========================================
+            LISTA DE SERVICIOS (Layout Zig-Zag)
+        ========================================= */}
         <div className="flex flex-col gap-28 md:gap-40">
           {content.list.map((service, index) => (
             <motion.div
@@ -116,17 +121,16 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              // Añadimos scroll-mt-32 para que el Navbar flotante no tape el título al hacer clic en un ancla
-              className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 lg:gap-24 scroll-mt-32 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''
-                }`}
+              // Añadimos scroll-mt-32 para que el Navbar flotante no tape el título
+              className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 lg:gap-24 scroll-mt-32 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
             >
 
               {/* BLOQUE IMAGEN */}
               <div className="group relative w-full md:w-1/2">
                 {/* Efecto Apple Glass en la imagen: 
-                  Fondo blanco semitransparente, borde sutil y sin multiplicar colores. 
+                  Aumentamos backdrop-blur-xl para un borde esmerilado más premium y sombra más difusa
                 */}
-                <div className="relative aspect-[4/3] sm:aspect-video md:aspect-[4/3] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_20px_60px_rgba(102,216,227,0.15)]" style={{ willChange: 'transform' }}>
+                <div className="relative aspect-[4/3] sm:aspect-video md:aspect-[4/3] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/20 bg-white/5 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_20px_60px_rgba(102,216,227,0.25)]" style={{ willChange: 'transform' }}>
 
                   <img
                     src={imageMap[service.id]}
@@ -136,44 +140,44 @@ export default function Services() {
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] ease-out md:group-hover:scale-105 will-change-transform"
                   />
 
-                  {/* Degradado solo en la base para estilizar, pero muy suave */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-0 md:opacity-50 md:group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
+                  {/* Degradado solo en la base (Usando Navy) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 md:opacity-40 md:group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
                 </div>
 
-                {/* Número Gigante en el fondo */}
-                <span className={`absolute -top-12 md:-top-16 ${index % 2 !== 0 ? 'right-0 md:-right-8' : 'left-0 md:-left-8'} select-none font-title text-[6rem] md:text-[10rem] lg:text-[12rem] text-white/[0.03] z-[-1] leading-none`}>
+                {/* Número Gigante de Fondo (Marca de agua aumentada de 0.03 a 0.08 para visibilidad) */}
+                <span className={`absolute -top-10 md:-top-16 ${index % 2 !== 0 ? 'right-0 md:-right-8' : 'left-0 md:-left-8'} select-none font-title text-[6rem] md:text-[10rem] lg:text-[12rem] text-white/[0.08] z-[-1] leading-none mix-blend-overlay pointer-events-none`}>
                   {service.id}
                 </span>
               </div>
 
               {/* BLOQUE TEXTO */}
               <div className="w-full md:w-1/2 text-left relative z-10">
-                <h3 className="mb-4 md:mb-6 font-title text-3xl sm:text-4xl lg:text-5xl text-white leading-tight drop-shadow-md">
+                <h3 className="mb-4 md:mb-6 font-title text-3xl sm:text-4xl lg:text-5xl text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                   {service.title}
                 </h3>
 
-                <p className="mb-8 md:mb-10 font-body text-base md:text-lg leading-relaxed text-slate-200 drop-shadow-md">
+                <p className="mb-8 md:mb-10 font-body text-base md:text-lg leading-relaxed text-slate-100 font-medium drop-shadow-sm">
                   {service.description}
                 </p>
 
-                {/* Etiquetas */}
+                {/* 👇 ETIQUETAS (Convertidas en píldoras de cristal esmerilado) */}
                 <div className="mb-10 flex flex-wrap gap-2 md:gap-3">
                   {service.tags.map(tag => (
                     <span
                       key={tag}
-                      className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 md:px-5 py-2 font-body text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-400 backdrop-blur-md shadow-sm"
+                      className="rounded-full border border-white/20 bg-white/10 px-4 md:px-5 py-2 font-body text-[10px] md:text-xs font-bold uppercase tracking-widest text-white backdrop-blur-md shadow-sm"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                {/* Botón de Reservar (Reutilizado desde el Home para consistencia de UX) */}
+                {/* Botón de Reservar (Amarillo Liquid Glass) */}
                 <a
                   href={`https://wa.me/526131182311?text=Hola, estoy interesado en reservar la experiencia: ${service.title}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-4 font-title text-sm tracking-widest uppercase text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:-translate-y-1 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-4 font-title text-sm tracking-widest uppercase text-yellow-400 backdrop-blur-xl transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:-translate-y-1 active:scale-95 shadow-[0_8px_20px_rgba(250,204,21,0.15)] group w-full sm:w-auto"
                 >
                   <i className="ri-whatsapp-line text-xl group-hover:scale-110 transition-transform"></i>
                   {content.btnDetails}
