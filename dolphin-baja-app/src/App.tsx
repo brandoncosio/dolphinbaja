@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+// 👇 Importamos el Provider de Helmet
+import { HelmetProvider } from 'react-helmet-async';
 
 // Provider y Hook de Idioma
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
@@ -18,7 +20,8 @@ const Nosotros = lazy(() => import('./pages/Nosotros'));
 const Contacto = lazy(() => import('./pages/Contacto'));
 
 const PageLoader = () => (
-  <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+  // Actualizado de bg-slate-900 a bg-dark
+  <div className="min-h-screen bg-dark flex items-center justify-center">
     <div className="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
@@ -28,7 +31,8 @@ function AppContent() {
   const { lang } = useLanguage(); // Escuchamos el cambio de idioma
 
   return (
-    <div className="relative min-h-screen bg-slate-900 text-white font-body selection:bg-cyan-400 selection:text-slate-900">
+    // Actualizado de bg-slate-900 a bg-dark
+    <div className="relative min-h-screen bg-dark text-white font-body selection:bg-cyan-400 selection:text-dark">
       <Navbar />
 
       {/* 👇 La 'key={lang}' fuerza a las páginas lazy a actualizarse al cambiar idioma */}
@@ -59,15 +63,18 @@ export default function App() {
   }, []);
 
   return (
-    <LanguageProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <AnimatePresence>
-          {isLoading && <SplashScreen key="splash" />}
-        </AnimatePresence>
+    // 👇 Envolvemos toda la aplicación en el HelmetProvider
+    <HelmetProvider>
+      <LanguageProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <AnimatePresence>
+            {isLoading && <SplashScreen key="splash" />}
+          </AnimatePresence>
 
-        <AppContent />
-      </BrowserRouter>
-    </LanguageProvider>
+          <AppContent />
+        </BrowserRouter>
+      </LanguageProvider>
+    </HelmetProvider>
   );
 }
