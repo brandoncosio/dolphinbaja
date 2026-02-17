@@ -325,6 +325,13 @@ export const translations = {
             rights: "Dolphin Dive Baja. Todos los derechos reservados.",
             privacy: "Aviso de Privacidad",
             terms: "Términos y Condiciones"
+        },
+        cookies: {
+            title: "Preferencias de Cookies",
+            text: "Usamos cookies propias y de terceros para asegurar que tengas la mejor experiencia de navegación en el Mar de Cortés.",
+            link: "Ver Política",
+            accept: "Aceptar Todo",
+            decline: "Solo necesarias"
         }
     },
     en: {
@@ -653,6 +660,13 @@ export const translations = {
             rights: "Dolphin Dive Baja. All rights reserved.",
             privacy: "Privacy Policy",
             terms: "Terms and Conditions"
+        },
+        cookies: {
+            title: "Cookie Preferences",
+            text: "We use our own and third-party cookies to ensure you have the best browsing experience in the Sea of Cortez.",
+            link: "View Policy",
+            accept: "Accept All",
+            decline: "Necessary only"
         }
     }
 };
