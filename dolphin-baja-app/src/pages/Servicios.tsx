@@ -32,8 +32,8 @@ export default function Servicios() {
   const [activeTab, setActiveTab] = useState<'fundives' | 'cursos' | 'snorkel'>('fundives');
 
   const location = useLocation();
-  const { t, lang } = useLanguage(); // Extraemos el idioma
-  const content = t.servicesPage;    // Extraemos la sección específica
+  const { t, lang } = useLanguage();
+  const content = t.servicesPage;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500);
@@ -53,7 +53,6 @@ export default function Servicios() {
     }
   }, [location]);
 
-  // Construimos las categorías dinámicamente con las traducciones
   const categories = [
     { id: 'fundives', label: content.categories.fundives, icon: 'ri-anchor-line' },
     { id: 'cursos', label: content.categories.cursos, icon: 'ri-medal-line' },
@@ -68,10 +67,13 @@ export default function Servicios() {
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
 
-      {/* Luces de profundidad (Liquid Light) */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[10%] -left-[10%] w-[50%] h-[50%] bg-cyan-400/10 blur-[120px] rounded-full mix-blend-screen" />
-        <div className="absolute bottom-[20%] -right-[15%] w-[45%] h-[60%] bg-ocean/15 blur-[150px] rounded-full mix-blend-screen" />
+      {/* =========================================
+          LUCES DE PROFUNDIDAD (Liquid Light Apple-Style)
+          Optimizadas: Sin mix-blend-screen, puro blur nativo
+      ======================================== */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" style={{ willChange: 'transform' }}>
+        <div className="absolute top-[10%] -left-[10%] w-[50%] h-[50%] bg-cyan-400/15 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[20%] -right-[15%] w-[45%] h-[60%] bg-ocean/20 blur-[150px] rounded-full" />
       </div>
 
       <div className="relative z-10">
@@ -84,7 +86,7 @@ export default function Servicios() {
             <h1 className="mt-4 font-title text-4xl text-white md:text-6xl drop-shadow-lg leading-tight">
               {content.heroTitle} <br className="hidden md:block" /> <span className="text-yellow-400">{content.heroHighlight}</span>
             </h1>
-            <p className="mt-6 text-slate-300 font-body text-base md:text-lg leading-relaxed drop-shadow-md">
+            <p className="mt-6 text-slate-200 font-body text-base md:text-lg leading-relaxed drop-shadow-md">
               {content.heroDesc}
             </p>
           </motion.div>
@@ -92,7 +94,7 @@ export default function Servicios() {
 
         {/* TABS NAVEGACIÓN */}
         <div id="catalogo-top" className="py-4 mb-12 px-4 scroll-mt-24">
-          <div className="mx-auto max-w-2xl rounded-full border border-white/10 bg-dark/60 p-1.5 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+          <div className="mx-auto max-w-2xl rounded-full border border-white/10 bg-white/5 p-1.5 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
             <div className="flex justify-between">
               {categories.map((cat) => (
                 <button
@@ -132,7 +134,9 @@ export default function Servicios() {
               {content.services[activeTab].map((item, index) => (
                 <div
                   key={index}
-                  className="group relative bg-dark/40 backdrop-blur-md rounded-[2rem] overflow-hidden border border-white/10 hover:border-cyan-400/40 transition-all duration-500 flex flex-col hover:-translate-y-2 shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_20px_40px_rgba(102,216,227,0.15)]"
+                  // 👇 TARJETAS LUMINOSAS: bg-white/5 en lugar de bg-dark/40
+                  className="group relative bg-white/5 backdrop-blur-xl rounded-[2rem] overflow-hidden border border-white/10 hover:border-cyan-400/40 transition-all duration-500 flex flex-col hover:-translate-y-2 shadow-[0_15px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_rgba(102,216,227,0.15)]"
+                  style={{ willChange: 'transform' }} // GPU Boost
                 >
                   {/* IMAGEN DE LA TARJETA */}
                   <div className="w-full aspect-[4/3] md:aspect-video overflow-hidden relative">
@@ -140,37 +144,39 @@ export default function Servicios() {
                       src={imageDict[item.imgKey]}
                       alt={item.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 will-change-transform"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent opacity-80" />
+                    {/* 👇 DEGRADADO APPLE: Oscurece solo abajo y se vuelve transparente rápido */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent opacity-90" />
 
-                    <div className="absolute top-4 right-4 bg-dark/70 backdrop-blur-xl text-yellow-400 font-title px-4 py-2 rounded-xl text-xs md:text-sm border border-yellow-400/20 shadow-lg">
+                    <div className="absolute top-4 right-4 bg-dark/70 backdrop-blur-md text-yellow-400 font-title px-4 py-2 rounded-xl text-xs md:text-sm border border-yellow-400/20 shadow-lg">
                       {item.price}
                     </div>
                   </div>
 
                   {/* CONTENIDO DE LA TARJETA */}
-                  <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10 -mt-10">
-                    <h3 className="font-title text-xl md:text-2xl text-white group-hover:text-cyan-400 transition-colors drop-shadow-md mb-2">
+                  <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10 -mt-12">
+                    {/* 👇 Drop-shadow en el texto para que resalte sobre el fondo de la imagen */}
+                    <h3 className="font-title text-xl md:text-2xl text-white group-hover:text-cyan-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-2 leading-tight">
                       {item.title}
                     </h3>
 
-                    <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4 font-body">
+                    <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4 font-body drop-shadow-md">
                       <i className="ri-time-line"></i> {item.duration}
                     </div>
 
-                    <p className="text-slate-300 text-sm leading-relaxed mb-6 flex-grow font-body">
+                    <p className="text-slate-200 text-sm leading-relaxed mb-6 flex-grow font-body">
                       {item.desc}
                     </p>
 
                     {/* INCLUYE (Pills) */}
-                    <div className="mb-8 border-t border-white/5 pt-4">
+                    <div className="mb-8 border-t border-white/10 pt-5">
                       <p className="text-[10px] text-slate-400 mb-3 font-bold uppercase tracking-widest font-body">
                         {content.ui.includes}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {item.includes.map((inc, i) => (
-                          <span key={i} className="text-[11px] bg-white/5 backdrop-blur-sm text-slate-200 px-3 py-1.5 rounded-lg border border-white/10 font-body">
+                          <span key={i} className="text-[11px] bg-white/10 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg border border-white/10 font-body shadow-sm">
                             {inc}
                           </span>
                         ))}
@@ -179,10 +185,10 @@ export default function Servicios() {
 
                     {/* BOTÓN RESERVAR LIQUID GLASS */}
                     <a
-                      href="https://wa.me/526131182311"
+                      href={`https://wa.me/526131182311?text=Hola, quiero información sobre: ${item.title}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-3.5 bg-cyan-400/10 backdrop-blur-md border border-cyan-400/30 text-cyan-400 font-title text-sm rounded-xl hover:bg-cyan-400 hover:text-dark transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-[0_4px_15px_rgba(102,216,227,0.1)] hover:shadow-[0_8px_25px_rgba(102,216,227,0.3)]"
+                      className="w-full py-3.5 bg-cyan-400/10 backdrop-blur-md border border-cyan-400/30 text-cyan-400 font-title text-sm tracking-widest uppercase rounded-xl hover:bg-cyan-400 hover:text-dark transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-[0_4px_15px_rgba(102,216,227,0.1)] hover:shadow-[0_8px_25px_rgba(102,216,227,0.3)] active:scale-95"
                     >
                       {content.ui.bookNow} <i className="ri-whatsapp-line text-lg group-hover/btn:scale-110 transition-transform"></i>
                     </a>
@@ -197,7 +203,8 @@ export default function Servicios() {
         <div className="mt-20 md:mt-24 max-w-5xl mx-auto px-6">
           <motion.div
             layout
-            className="bg-dark/40 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 border border-white/10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            // Usamos bg-white/5 para seguir la estética de cristal sobre el mar profundo
+            className="bg-white/5 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 border border-white/10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/10 rounded-full blur-[80px] -z-0"></div>
 
@@ -211,39 +218,39 @@ export default function Servicios() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
                 {/* MAÑANA */}
-                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-cyan-400/30 transition-colors">
+                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-cyan-400/30 transition-colors shadow-lg">
                   <div className="flex justify-between items-start mb-3">
                     <p className="text-cyan-400 font-title text-base">{content.schedules.morning}</p>
                     <span className="text-[10px] bg-dark/80 px-2 py-1 rounded text-slate-300 font-body border border-white/5">{currentSchedule.morning.season}</span>
                   </div>
                   <p className="text-2xl md:text-3xl text-white font-title mb-1 drop-shadow-md">{currentSchedule.morning.time}</p>
-                  <p className="text-xs text-slate-400 font-body">{currentSchedule.morning.note}</p>
+                  <p className="text-xs text-slate-300 font-body">{currentSchedule.morning.note}</p>
                 </div>
 
                 {/* TARDE */}
-                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-yellow-400/30 transition-colors">
+                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-yellow-400/30 transition-colors shadow-lg">
                   <div className="flex justify-between items-start mb-3">
                     <p className="text-yellow-400 font-title text-base">{content.schedules.afternoon}</p>
                     <span className="text-[10px] bg-dark/80 px-2 py-1 rounded text-slate-300 font-body border border-white/5">{currentSchedule.afternoon.season}</span>
                   </div>
                   <p className="text-2xl md:text-3xl text-white font-title mb-1 drop-shadow-md">{currentSchedule.afternoon.time}</p>
-                  <p className="text-xs text-slate-400 font-body">{currentSchedule.afternoon.note}</p>
+                  <p className="text-xs text-slate-300 font-body">{currentSchedule.afternoon.note}</p>
                 </div>
 
                 {/* NOCHE */}
                 {(currentSchedule as any).night ? (
-                  <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-purple-400/30 transition-colors">
+                  <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-purple-400/30 transition-colors shadow-lg">
                     <div className="flex justify-between items-start mb-3">
                       <p className="text-purple-400 font-title text-base">{content.schedules.night}</p>
                       <span className="text-[10px] bg-dark/80 px-2 py-1 rounded text-slate-300 font-body border border-white/5">{(currentSchedule as any).night.season}</span>
                     </div>
                     <p className="text-2xl md:text-3xl text-white font-title mb-1 drop-shadow-md">{(currentSchedule as any).night.time}</p>
-                    <p className="text-xs text-slate-400 font-body">{(currentSchedule as any).night.note}</p>
+                    <p className="text-xs text-slate-300 font-body">{(currentSchedule as any).night.note}</p>
                   </div>
                 ) : (
-                  <div className="bg-dark/30 p-6 rounded-2xl border border-white/5 flex flex-col justify-center items-center text-center opacity-50">
-                    <i className="ri-moon-clear-line text-2xl text-slate-500 mb-2"></i>
-                    <p className="text-xs md:text-sm text-slate-500 font-body">{content.schedules.notAvailable}</p>
+                  <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/5 flex flex-col justify-center items-center text-center opacity-70">
+                    <i className="ri-moon-clear-line text-2xl text-slate-400 mb-2"></i>
+                    <p className="text-xs md:text-sm text-slate-400 font-body">{content.schedules.notAvailable}</p>
                   </div>
                 )}
               </div>
@@ -256,8 +263,8 @@ export default function Servicios() {
                 </h4>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {currentSchedule.rules.map((rule, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs md:text-sm text-slate-300 font-body">
-                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-1.5 shrink-0"></span>
+                    <li key={idx} className="flex items-start gap-2 text-xs md:text-sm text-slate-200 font-body">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-1.5 shrink-0 shadow-[0_0_5px_rgba(250,204,21,0.8)]"></span>
                       {rule}
                     </li>
                   ))}
