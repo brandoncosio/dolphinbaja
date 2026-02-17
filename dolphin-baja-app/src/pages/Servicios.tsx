@@ -1,33 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async'; // 👇 Importación para SEO
 
 import { useLanguage } from '../context/LanguageContext';
 import SplashScreen from '../components/SplashScreen';
 
-// Imágenes importadas
+// Imágenes
 import funDivesImg from '/assets/images/colash1.webp';
-import coronadosImg from '/assets/images/colash11.webp';
-import nightDiveImg from '/assets/images/colash2.webp';
-import coursesImg from '/assets/images/certificacionpadi.jpeg';
 import snorkelImg from '/assets/images/realsonrkell.jpeg';
-import experienciasImg from '/assets/images/experiencias.webp';
-import refreshImg from '/assets/images/slider5-celular.webp';
-import bubbleImg from '/assets/images/slider1-celular.webp';
+import coursesImg from '/assets/images/certificacionpadi.jpeg';
 
-// Diccionario para mapear las imágenes
-const imageDict: Record<string, string> = {
-  funDivesImg,
-  coronadosImg,
-  nightDiveImg,
-  coursesImg,
-  snorkelImg,
-  experienciasImg,
-  refreshImg,
-  bubbleImg
-};
-
-export default function Servicios() {
+export default function Services() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'fundives' | 'cursos' | 'snorkel'>('fundives');
 
@@ -36,7 +20,7 @@ export default function Servicios() {
   const content = t.servicesPage;
 
   useEffect(() => {
-    // Al cargar directo, subir al top
+    // Scroll to top al cargar la página si no hay hash
     if (!window.location.hash) {
       window.scrollTo(0, 0);
     }
@@ -65,231 +49,183 @@ export default function Servicios() {
 
   const currentSchedule = content.schedules[activeTab];
 
+  const imageMap: Record<string, string> = {
+    "01": funDivesImg,
+    "02": snorkelImg,
+    "03": coursesImg
+  };
+
+  const seaweeds = useMemo(() => {
+    return Array.from({ length: 12 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      height: Math.random() * 200 + 150,
+      duration: Math.random() * 4 + 6,
+      delay: Math.random() * 2,
+      opacity: Math.random() * 0.1 + 0.05,
+    }));
+  }, []);
+
   return (
-    <div key={lang} className="min-h-screen bg-dark pt-32 pb-20 selection:bg-cyan-400 selection:text-dark">
+    <>
+      {/* =========================================
+          METADATOS DINÁMICOS (SEO & Open Graph)
+      ========================================= */}
+      <Helmet>
+        <title>
+          {lang === 'es'
+            ? 'Servicios y Tours de Buceo | Dolphin Dive Baja Loreto'
+            : 'Diving Services & Tours | Dolphin Dive Baja Loreto'}
+        </title>
+        <meta
+          name="description"
+          content={content.heroDesc}
+        />
+        <meta property="og:title" content={content.catalogTitle} />
+        <meta property="og:description" content={content.heroDesc} />
+        <meta property="og:image" content={funDivesImg} />
+      </Helmet>
+
       <AnimatePresence>
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
 
-      {/* =========================================
-          LUCES DE PROFUNDIDAD (Aguas Someras)
-      ======================================== */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" style={{ willChange: 'transform' }}>
-        <div className="absolute top-[5%] -left-[10%] w-[60%] h-[50%] bg-cyan-400/20 blur-[130px] rounded-full" />
-        <div className="absolute bottom-[10%] -right-[10%] w-[50%] h-[60%] bg-ocean/25 blur-[150px] rounded-full" />
-      </div>
-
-      <div className="relative z-10">
+      <section key={lang} className="relative overflow-hidden bg-dark pt-32 pb-24 min-h-screen">
 
         {/* =========================================
-            ENCABEZADO
-        ======================================== */}
-        <div className="px-6 md:px-20 mb-12">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
-            <span className="font-body text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-cyan-400 drop-shadow-md">
-              {content.catalogTitle}
-            </span>
-            <h1 className="mt-4 font-title text-4xl md:text-6xl lg:text-7xl text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] leading-tight">
-              {content.heroTitle} <br className="hidden md:block" /> <span className="text-yellow-400">{content.heroHighlight}</span>
-            </h1>
-            <p className="mt-6 text-slate-100 font-body text-base md:text-lg leading-relaxed drop-shadow-sm font-medium">
-              {content.heroDesc}
-            </p>
-          </motion.div>
+            ANIMACIÓN DE ALGAS
+        ========================================= */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          {seaweeds.map((sw) => (
+            <motion.svg
+              key={sw.id}
+              viewBox="0 0 40 200"
+              className="absolute bottom-0 text-cyan-300"
+              style={{
+                left: `${sw.left}%`,
+                height: `${sw.height}px`,
+                width: '40px',
+                opacity: sw.opacity,
+                transformOrigin: 'bottom center',
+                willChange: 'transform'
+              }}
+              animate={{
+                skewX: [-5, 5, -5],
+                rotate: [-3, 3, -3]
+              }}
+              transition={{
+                duration: sw.duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: sw.delay
+              }}
+            >
+              <path
+                d="M20,200 C0,150 40,100 20,50 C0,20 20,0 20,0 C20,0 40,20 20,50 C0,100 40,150 20,200 Z"
+                fill="currentColor"
+              />
+            </motion.svg>
+          ))}
         </div>
 
         {/* =========================================
-            TABS NAVEGACIÓN (Píldora Flotante)
-        ======================================== */}
-        <div id="catalogo-top" className="py-4 mb-16 px-4 scroll-mt-32">
-          <div className="mx-auto max-w-2xl rounded-full border border-white/20 bg-white/5 p-1.5 backdrop-blur-2xl shadow-[0_15px_30px_rgba(0,0,0,0.2)]">
-            <div className="flex justify-between">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveTab(cat.id)}
-                  className={`relative flex flex-1 items-center justify-center gap-2 rounded-full px-2 py-3.5 md:px-4 md:py-4 text-xs md:text-sm font-bold transition-all duration-300 ${activeTab === cat.id ? 'text-dark shadow-md' : 'text-slate-200 hover:text-white hover:bg-white/5'
-                    }`}
-                >
-                  {activeTab === cat.id && (
-                    <motion.div
-                      layoutId="activeTabIndicator"
-                      className="absolute inset-0 rounded-full bg-cyan-400"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-1.5 md:gap-2 font-title uppercase tracking-wider">
-                    <i className={`${cat.icon} text-base md:text-lg`}></i>
-                    <span className="hidden sm:inline">{cat.label}</span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
+            LUCES DE PROFUNDIDAD
+        ========================================= */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ willChange: 'transform' }}>
+          <div className="absolute top-[10%] -left-[10%] w-[80%] h-[40%] bg-cyan-400/20 blur-[130px] rounded-full" />
+          <div className="absolute top-[40%] -right-[20%] w-[60%] h-[50%] bg-ocean/25 blur-[150px] rounded-full" />
+          <div className="absolute bottom-[0%] left-[10%] w-[80%] h-[30%] bg-navy/40 blur-[120px] rounded-full" />
         </div>
 
-        {/* =========================================
-            CATÁLOGO DE SERVICIOS (Layout Híbrido)
-        ======================================== */}
-        <div className="max-w-6xl mx-auto px-6 md:px-12 min-h-[400px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
+        <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-20">
+
+          {/* =========================================
+              ENCABEZADO
+          ========================================= */}
+          <div className="mb-20 md:mb-32 text-center md:text-left">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 font-body text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-cyan-400 drop-shadow-md"
+            >
+              {content.tag}
+            </motion.p>
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              // En móvil es 1 columna, en PC sigue siendo 1 columna pero el contenido interior será horizontal
-              className="flex flex-col gap-8 md:gap-12"
+              transition={{ delay: 0.1 }}
+              className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
             >
-              {content.services[activeTab].map((item, index) => (
-                <div
-                  key={index}
-                  // Diseño Horizontal en PC, Vertical en Móvil
-                  className="group relative bg-white/5 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 hover:border-cyan-400/40 transition-all duration-500 flex flex-col md:flex-row hover:-translate-y-1 shadow-[0_15px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_rgba(102,216,227,0.2)]"
-                  style={{ willChange: 'transform' }}
-                >
-                  {/* IMAGEN DE LA TARJETA (Ocupa 40% en PC) */}
-                  <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:h-auto relative overflow-hidden shrink-0 border-b md:border-b-0 md:border-r border-white/10">
+              {content.titleStart} <span className="text-yellow-400">{content.titleHighlight}</span>
+            </motion.h2>
+          </div>
+
+          {/* =========================================
+              LISTA DE SERVICIOS
+          ========================================= */}
+          <div className="flex flex-col gap-28 md:gap-40">
+            {content.list.map((service, index) => (
+              <motion.div
+                id={service.id === "01" ? "fundives" : service.id === "02" ? "snorkel" : "cursos"}
+                key={service.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 lg:gap-24 scroll-mt-32 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+              >
+
+                {/* BLOQUE IMAGEN */}
+                <div className="group relative w-full md:w-1/2">
+                  <div className="relative aspect-[4/3] sm:aspect-video md:aspect-[4/3] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/20 bg-white/5 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_20px_60px_rgba(102,216,227,0.25)]" style={{ willChange: 'transform' }}>
                     <img
-                      src={imageDict[item.imgKey]}
-                      alt={item.title}
+                      src={imageMap[service.id]}
+                      alt={service.title}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] ease-out md:group-hover:scale-105 will-change-transform"
                     />
-                    {/* Etiqueta de Precio Flotante */}
-                    <div className="absolute top-4 left-4 bg-dark/80 backdrop-blur-md text-yellow-400 font-title px-4 py-2 rounded-xl text-xs md:text-sm border border-yellow-400/20 shadow-lg z-10">
-                      {item.price}
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 md:opacity-40 md:group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
                   </div>
+                  <span className={`absolute -top-10 md:-top-16 ${index % 2 !== 0 ? 'right-0 md:-right-8' : 'left-0 md:-left-8'} select-none font-title text-[6rem] md:text-[10rem] lg:text-[12rem] text-white/[0.08] z-[-1] leading-none mix-blend-overlay pointer-events-none`}>
+                    {service.id}
+                  </span>
+                </div>
 
-                  {/* CONTENIDO DE LA TARJETA (Ocupa 60% en PC) */}
-                  <div className="p-6 md:p-10 lg:p-12 flex flex-col flex-grow relative z-10 justify-center">
-
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                      <h3 className="font-title text-2xl md:text-3xl lg:text-4xl text-white group-hover:text-cyan-300 transition-colors drop-shadow-sm leading-tight">
-                        {item.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-cyan-400 text-xs md:text-sm font-bold uppercase tracking-wider font-body bg-cyan-400/10 px-3 py-1.5 rounded-lg border border-cyan-400/20 shrink-0 self-start sm:self-auto">
-                        <i className="ri-time-line"></i> {item.duration}
-                      </div>
-                    </div>
-
-                    <p className="text-slate-200 text-sm md:text-base leading-relaxed mb-6 font-body font-medium">
-                      {item.desc}
-                    </p>
-
-                    {/* INCLUYE (Pills) */}
-                    <div className="mb-8 border-t border-white/10 pt-6">
-                      <p className="text-[10px] md:text-xs text-slate-300 mb-3 font-bold uppercase tracking-widest font-body">
-                        {content.ui.includes}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {item.includes.map((inc, i) => (
-                          <span key={i} className="text-[11px] md:text-xs bg-white/10 text-white px-3.5 py-1.5 rounded-lg border border-white/10 font-body shadow-sm">
-                            {inc}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* BOTÓN RESERVAR (Liquid Glass Avanzado) */}
-                    <div className="mt-auto">
-                      <a
-                        href={`https://wa.me/526131182311?text=Hola, quiero información sobre: ${item.title}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex w-full md:w-auto py-3.5 px-8 bg-cyan-400/10 backdrop-blur-md border border-cyan-400/30 text-cyan-400 font-title text-sm tracking-widest uppercase rounded-xl hover:bg-cyan-400 hover:text-dark transition-all duration-300 items-center justify-center gap-2 group/btn shadow-[0_4px_15px_rgba(102,216,227,0.1)] hover:shadow-[0_8px_25px_rgba(102,216,227,0.3)] active:scale-95"
+                {/* BLOQUE TEXTO */}
+                <div className="w-full md:w-1/2 text-left relative z-10">
+                  <h3 className="mb-4 md:mb-6 font-title text-3xl sm:text-4xl lg:text-5xl text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+                    {service.title}
+                  </h3>
+                  <p className="mb-8 md:mb-10 font-body text-base md:text-lg leading-relaxed text-slate-100 font-medium drop-shadow-sm">
+                    {service.description}
+                  </p>
+                  <div className="mb-10 flex flex-wrap gap-2 md:gap-3">
+                    {service.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/20 bg-white/10 px-4 md:px-5 py-2 font-body text-[10px] md:text-xs font-bold uppercase tracking-widest text-white backdrop-blur-md shadow-sm"
                       >
-                        {content.ui.bookNow} <i className="ri-whatsapp-line text-lg group-hover/btn:scale-110 transition-transform"></i>
-                      </a>
-                    </div>
-
+                        {tag}
+                      </span>
+                    ))}
                   </div>
+                  <a
+                    href={`https://wa.me/526131182311?text=Hola, estoy interesado en reservar la experiencia: ${service.title}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-4 font-title text-sm tracking-widest uppercase text-yellow-400 backdrop-blur-xl transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:-translate-y-1 active:scale-95 shadow-[0_8px_20px_rgba(250,204,21,0.15)] group w-full sm:w-auto"
+                  >
+                    <i className="ri-whatsapp-line text-xl group-hover:scale-110 transition-transform"></i>
+                    {content.btnDetails}
+                  </a>
                 </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+
+              </motion.div>
+            ))}
+          </div>
+
         </div>
-
-        {/* =========================================
-            SECCIÓN HORARIOS (Holográfico Premium)
-        ======================================== */}
-        <div className="mt-20 md:mt-32 max-w-5xl mx-auto px-6">
-          <motion.div
-            layout
-            className="bg-white/5 backdrop-blur-2xl rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 border border-white/20 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.2)]"
-          >
-            {/* Luz interior de la tarjeta */}
-            <div className="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-cyan-400/10 via-transparent to-transparent -z-0"></div>
-
-            <div className="relative z-10">
-              <h3 className="font-title text-xl md:text-3xl text-white mb-8 md:mb-12 flex items-center gap-4 drop-shadow-md">
-                <div className="w-12 h-12 rounded-xl bg-yellow-400 border border-yellow-400 flex items-center justify-center text-dark shadow-[0_0_15px_rgba(250,204,21,0.5)]">
-                  <i className="ri-calendar-check-fill text-2xl"></i>
-                </div>
-                {content.schedules.title}
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
-                {/* MAÑANA */}
-                <div className="bg-dark/40 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 hover:border-cyan-400/50 transition-colors shadow-inner group">
-                  <div className="flex justify-between items-start mb-4">
-                    <p className="text-cyan-400 font-title text-sm md:text-base tracking-wider">{content.schedules.morning}</p>
-                    <span className="text-[10px] bg-white/10 px-2.5 py-1 rounded text-white font-body border border-white/10">{currentSchedule.morning.season}</span>
-                  </div>
-                  <p className="text-2xl md:text-4xl text-white font-title mb-2 group-hover:text-cyan-300 transition-colors">{currentSchedule.morning.time}</p>
-                  <p className="text-xs md:text-sm text-slate-300 font-body font-medium">{currentSchedule.morning.note}</p>
-                </div>
-
-                {/* TARDE */}
-                <div className="bg-dark/40 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 hover:border-yellow-400/50 transition-colors shadow-inner group">
-                  <div className="flex justify-between items-start mb-4">
-                    <p className="text-yellow-400 font-title text-sm md:text-base tracking-wider">{content.schedules.afternoon}</p>
-                    <span className="text-[10px] bg-white/10 px-2.5 py-1 rounded text-white font-body border border-white/10">{currentSchedule.afternoon.season}</span>
-                  </div>
-                  <p className="text-2xl md:text-4xl text-white font-title mb-2 group-hover:text-yellow-400 transition-colors">{currentSchedule.afternoon.time}</p>
-                  <p className="text-xs md:text-sm text-slate-300 font-body font-medium">{currentSchedule.afternoon.note}</p>
-                </div>
-
-                {/* NOCHE */}
-                {(currentSchedule as any).night ? (
-                  <div className="bg-dark/40 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 hover:border-purple-400/50 transition-colors shadow-inner group">
-                    <div className="flex justify-between items-start mb-4">
-                      <p className="text-purple-400 font-title text-sm md:text-base tracking-wider">{content.schedules.night}</p>
-                      <span className="text-[10px] bg-white/10 px-2.5 py-1 rounded text-white font-body border border-white/10">{(currentSchedule as any).night.season}</span>
-                    </div>
-                    <p className="text-2xl md:text-4xl text-white font-title mb-2 group-hover:text-purple-400 transition-colors">{(currentSchedule as any).night.time}</p>
-                    <p className="text-xs md:text-sm text-slate-300 font-body font-medium">{(currentSchedule as any).night.note}</p>
-                  </div>
-                ) : (
-                  <div className="bg-dark/20 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-center items-center text-center opacity-70">
-                    <i className="ri-moon-clear-line text-3xl text-slate-400 mb-3"></i>
-                    <p className="text-xs md:text-sm text-slate-400 font-body tracking-wide">{content.schedules.notAvailable}</p>
-                  </div>
-                )}
-              </div>
-
-              {/* REGLAS IMPORTANTE */}
-              <div className="bg-gradient-to-r from-yellow-400/10 to-transparent border-l-4 border-yellow-400 rounded-r-2xl p-6 md:p-8 mt-10">
-                <h4 className="font-title text-yellow-400 text-sm md:text-base mb-4 uppercase tracking-widest flex items-center gap-2">
-                  <i className="ri-information-fill text-xl"></i>
-                  {content.schedules.important}
-                </h4>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {currentSchedule.rules.map((rule, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-slate-200 font-body font-medium">
-                      <span className="w-2 h-2 rounded-full bg-yellow-400 mt-2 shrink-0 shadow-[0_0_8px_rgba(250,204,21,0.8)]"></span>
-                      {rule}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
