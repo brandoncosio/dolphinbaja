@@ -3,21 +3,30 @@
 
 /* 2. CONFIGURACIÓN DEL TEMA (Reemplaza al tailwind.config.js) */
 @theme {
-  /* PALETA DE MARCA ACTUALIZADA (Apple-Style UX)
-    Pasamos de tonos casi negros a azules marinos profundos y vibrantes
-  */
-  --color-navy: #061624;
-  /* Azul abisal (Para sombras y contrastes profundos) */
-  --color-ocean: #0883B5;
-  /* Azul cálido y vibrante (Para luz volumétrica y destellos) */
+  /* =======================================================
+     PALETA DE MARCA ACTUALIZADA: "AGUAS SOMERAS" (Luminoso)
+     Pasamos de profundidades oscuras a un azul vibrante de arrecife
+     ======================================================= */
+
+  /* Azul base de sombras (Más claro que el anterior, adiós al negro) */
+  --color-navy: #0A253D;
+
+  /* Azul brillante para las luces de fondo (Más turquesa y vivo) */
+  --color-ocean: #0099CC;
+
+  /* Tu Cyan original (Para acentos, botones y textos destacados) */
   --color-cyan: #66D8E3;
-  /* Tu Cyan original (Para acentos y CTA) */
+
+  /* Tu Amarillo original (Para llamadas a la acción) */
   --color-yellow: #FED966;
-  /* Tu Amarillo original (Para botones primarios) */
+
+  /* Colores claros de soporte */
   --color-offwhite: #F5F2E3;
   --color-pale: #CCEAEA;
-  --color-dark: #081D2E;
-  /* EL CAMBIO MAESTRO: Azul Marino Profundo que reemplaza al fondo oscuro estresante */
+
+  /* EL CAMBIO MAESTRO: Azul Arrecife que reemplaza al fondo oscuro. 
+     Esto le da a toda la página una sensación de día soleado en el mar. */
+  --color-dark: #133E60;
 
   /* Tus fuentes personalizadas */
   --font-title: 'Bungee', cursive;
