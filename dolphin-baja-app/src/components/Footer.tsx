@@ -42,7 +42,7 @@ export default function Footer() {
     <footer className="relative pt-24 md:pt-32 pb-8 md:pb-10 overflow-hidden bg-dark text-slate-200 border-t border-white/5 md:min-h-[550px] flex flex-col justify-end">
 
       {/* =========================================
-          FONDO OCEÁNICO PROFUNDO (Optimizado Safari & Luminosidad)
+          FONDO OCEÁNICO PROFUNDO (Sintonizado a Aguas Someras)
       ========================================= */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
@@ -50,14 +50,15 @@ export default function Footer() {
           alt="Fondo marino"
           loading="lazy"
           decoding="async"
+          // Mantenemos la opacidad baja, pero al no haber negro puro debajo, la foto se verá más azulada
           className="w-full h-full object-cover object-center opacity-20 grayscale"
         />
-        {/* 👇 EL SECRETO DEL AZUL PROFUNDO: Terminamos en '#04111B' (Azul Marino Súper Oscuro) en lugar de negro puro */}
-        <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark/90 to-[#04111B]" />
+        {/* 👇 El gradiente ahora baja hacia 'navy', unificando el diseño y evitando el "agujero negro" */}
+        <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark/80 to-navy" />
 
         {/* Luz abisal con aceleración por hardware */}
         <div
-          className="absolute -bottom-[10%] md:-bottom-[20%] left-1/2 -translate-x-1/2 w-[120%] md:w-[600px] h-[200px] md:h-[300px] bg-cyan-500/10 blur-[80px] md:blur-[120px] rounded-full"
+          className="absolute -bottom-[10%] md:-bottom-[20%] left-1/2 -translate-x-1/2 w-[120%] md:w-[600px] h-[200px] md:h-[300px] bg-cyan-400/15 blur-[80px] md:blur-[120px] rounded-full"
           style={{ willChange: 'transform' }}
         />
       </div>
@@ -65,7 +66,7 @@ export default function Footer() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full">
 
         {/* =========================================
-            GRID PRINCIPAL (Mejorado para móvil)
+            GRID PRINCIPAL
         ========================================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16 md:mb-20">
 
@@ -78,7 +79,8 @@ export default function Footer() {
                 className="h-20 md:h-24 w-auto drop-shadow-2xl md:group-hover:scale-105 transition-transform duration-500"
               />
             </Link>
-            <p className="font-body text-slate-300 leading-relaxed text-sm md:text-base max-w-[280px] sm:max-w-none">
+            {/* Texto ligeramente más claro para resaltar sobre el fondo vibrante */}
+            <p className="font-body text-slate-200 leading-relaxed text-sm md:text-base max-w-[280px] sm:max-w-none">
               {content.desc}
             </p>
           </div>
@@ -94,7 +96,8 @@ export default function Footer() {
                   <li key={i}>
                     <Link
                       to={link.path}
-                      className="text-slate-300 hover:text-white transition-colors inline-flex items-center justify-center sm:justify-start gap-2 group text-base w-full sm:w-auto py-2 sm:py-0"
+                      // Actualizado el hover de 'text-white' a 'text-cyan-300' para mejor feedback visual
+                      className="text-slate-300 hover:text-cyan-300 transition-colors inline-flex items-center justify-center sm:justify-start gap-2 group text-base w-full sm:w-auto py-2 sm:py-0"
                     >
                       <i className="ri-arrow-right-s-line text-cyan-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline-block"></i>
                       <span className="sm:group-hover:translate-x-1 transition-transform duration-300">{link.label}</span>
@@ -139,7 +142,8 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={social.label}
                   style={{ willChange: 'transform' }}
-                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 shadow-lg hover:bg-cyan-400/20 hover:text-cyan-400 hover:border-cyan-400/40 hover:-translate-y-1 transition-all duration-300 group"
+                  // Transparencia Apple Glass para los botones sociales
+                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/20 flex items-center justify-center text-slate-200 shadow-lg hover:bg-cyan-400/20 hover:text-cyan-300 hover:border-cyan-400/40 hover:-translate-y-1 transition-all duration-300 group"
                 >
                   <i className={`${social.icon} text-xl md:group-hover:scale-110 transition-transform`}></i>
                 </a>
@@ -152,8 +156,7 @@ export default function Footer() {
         {/* =========================================
             BARRA INFERIOR (Copyright y Legales)
         ========================================= */}
-        {/* 👇 Aclaramos un tono (text-slate-400) para mejor contraste de lectura */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 font-body text-xs md:text-sm text-slate-400 text-center md:text-left">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 font-body text-xs md:text-sm text-slate-300 text-center md:text-left">
           <p className="tracking-wide">© {currentYear} {content.rights}</p>
           <div className="flex flex-wrap justify-center md:justify-end gap-6 md:gap-8">
             <Link to="/privacidad" className="hover:text-cyan-400 transition-colors py-2 md:py-0">{content.privacy}</Link>

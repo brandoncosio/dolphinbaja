@@ -83,9 +83,10 @@ export default function Navbar() {
   return (
     <>
       <header
+        // Usamos el nuevo color base (Dark -> #133E60) con alta transparencia para que el cristal sea notable
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 xl:px-20 transition-all duration-500 ${isScrolled
-            ? 'py-3 bg-[#081D2E]/70 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-            : 'py-5 lg:py-6 bg-[#081D2E]/0 border-b border-transparent shadow-none'
+            ? 'py-3 bg-dark/60 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+            : 'py-5 lg:py-6 bg-dark/0 border-b border-transparent shadow-none'
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
         style={{ willChange: 'backdrop-filter, background-color' }}
@@ -118,7 +119,7 @@ export default function Navbar() {
                 <span className={`absolute bottom-4 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
               </Link>
 
-              {/* 👇 SUBMENÚ DROPDOWN (Corrección de Transparencia) */}
+              {/* 👇 SUBMENÚ DROPDOWN CRISTALINO */}
               <AnimatePresence>
                 {hoveredMenu === item.name && (
                   <motion.div
@@ -126,35 +127,39 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64 z-50"
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-64 z-50"
                   >
-                    {/* Triangulito superior: Ahora usa fondo semi-transparente y desenfoque para fusionarse con el menú */}
-                    <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-4 h-4 bg-black/40 backdrop-blur-xl border-t border-l border-white/20 rotate-45 z-0 rounded-sm" />
+                    {/* Contenedor del Dropdown usando bg-white/10 sobre el azul oscuro para lograr puro efecto Glassmorphism */}
+                    <div className="relative z-10 bg-dark/40 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-2 text-left overflow-hidden">
 
-                    {/* Menú Principal: Usamos 'bg-black/40' o 'bg-[#081D2E]/60' para permitir que el 'backdrop-blur-2xl' trabaje correctamente */}
-                    <div className="relative z-10 bg-[#081D2E]/60 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-2 text-left ring-1 ring-white/5 overflow-hidden">
-                      {item.submenu.map((subItem, idx) => (
-                        subItem.link.startsWith('http') ? (
-                          <a
-                            key={idx}
-                            href={subItem.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
-                          >
-                            <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
-                            <i className="ri-external-link-line opacity-50 group-hover/link:opacity-100 transition-opacity"></i>
-                          </a>
-                        ) : (
-                          <Link
-                            key={idx}
-                            to={subItem.link}
-                            className="block px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
-                          >
-                            <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
-                          </Link>
-                        )
-                      ))}
+                      {/* Triangulito superior fusionado con el contenedor */}
+                      <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-4 h-4 bg-dark/40 border-t border-l border-white/20 rotate-45 z-0 rounded-tl-sm pointer-events-none" />
+
+                      {/* Lista de Enlaces */}
+                      <div className="relative z-10">
+                        {item.submenu.map((subItem, idx) => (
+                          subItem.link.startsWith('http') ? (
+                            <a
+                              key={idx}
+                              href={subItem.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between px-4 py-3 text-sm font-body font-medium text-slate-100 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
+                            >
+                              <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
+                              <i className="ri-external-link-line opacity-50 group-hover/link:opacity-100 transition-opacity"></i>
+                            </a>
+                          ) : (
+                            <Link
+                              key={idx}
+                              to={subItem.link}
+                              className="block px-4 py-3 text-sm font-body font-medium text-slate-100 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
+                            >
+                              <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
+                            </Link>
+                          )
+                        ))}
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -167,7 +172,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4 shrink-0 z-50">
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2.5 font-title text-xs text-white backdrop-blur-md transition-all hover:bg-cyan-400/20 hover:border-cyan-400/40 hover:text-cyan-400 hover:scale-105 active:scale-95 shadow-lg group"
+            className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 font-title text-xs text-white backdrop-blur-md transition-all hover:bg-cyan-400/20 hover:border-cyan-400/40 hover:text-cyan-300 hover:scale-105 active:scale-95 shadow-md group"
           >
             <i className="ri-global-line text-lg opacity-80 group-hover:opacity-100 transition-opacity"></i>
             <span>{t.navbar.languageBtn}</span>
@@ -177,7 +182,7 @@ export default function Navbar() {
             href="https://wa.me/526131182311"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-6 py-2.5 font-title text-xs text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-[#081D2E] hover:border-yellow-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
+            className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-6 py-2.5 font-title text-xs text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
           >
             <i className="ri-whatsapp-line text-lg group-hover:scale-110 transition-transform"></i>
             {t.navbar.cta}
@@ -195,7 +200,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-all active:bg-white/20 active:scale-95"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-all active:bg-white/20 active:scale-95 shadow-md"
           >
             {isMenuOpen ? <i className="ri-close-line text-xl"></i> : <i className="ri-menu-3-line text-xl"></i>}
           </button>
@@ -204,15 +209,15 @@ export default function Navbar() {
 
       {/* MENÚ MÓVIL (Overlay oscuro) */}
       <div
-        className={`fixed inset-0 bg-[#061624]/80 backdrop-blur-md z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-navy/60 backdrop-blur-md z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
         style={{ willChange: 'opacity' }}
         onClick={() => setIsMenuOpen(false)}
       />
 
-      {/* MENÚ MÓVIL (Sidebar lateral) */}
+      {/* MENÚ MÓVIL (Sidebar lateral de cristal) */}
       <aside
-        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-[#081D2E]/90 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.6)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-dark/60 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.4)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         style={{
           willChange: 'transform',
@@ -223,16 +228,16 @@ export default function Navbar() {
 
           <nav className="flex flex-col gap-6">
             {navItems.map((item) => (
-              <div key={item.name} className="border-b border-white/5 pb-5 last:border-0">
+              <div key={item.name} className="border-b border-white/10 pb-5 last:border-0">
                 <Link
                   to={item.path}
-                  className="text-2xl font-title text-white transition-colors active:text-cyan-400 block mb-4 drop-shadow-md"
+                  className="text-2xl font-title text-white transition-colors active:text-cyan-300 block mb-4 drop-shadow-md"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
 
-                <div className="pl-4 flex flex-col gap-4 border-l border-cyan-400/20">
+                <div className="pl-4 flex flex-col gap-4 border-l border-cyan-400/30">
                   {item.submenu.map((sub, i) => (
                     sub.link.startsWith('http') ? (
                       <a
@@ -240,7 +245,7 @@ export default function Navbar() {
                         href={sub.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-base text-slate-300 font-body active:text-white transition-colors flex items-center justify-between"
+                        className="text-base text-slate-200 font-body active:text-cyan-300 transition-colors flex items-center justify-between"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sub.label} <i className="ri-external-link-line opacity-50 text-sm"></i>
@@ -249,7 +254,7 @@ export default function Navbar() {
                       <Link
                         key={i}
                         to={sub.link}
-                        className="text-base text-slate-300 font-body active:text-white transition-colors block"
+                        className="text-base text-slate-200 font-body active:text-cyan-300 transition-colors block"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sub.label}
@@ -266,7 +271,7 @@ export default function Navbar() {
               href="https://wa.me/526131182311"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 rounded-xl border border-yellow-400/30 bg-yellow-400/10 backdrop-blur-md py-4 font-title text-sm tracking-widest uppercase text-yellow-400 shadow-[0_8px_32px_rgba(254,217,102,0.1)] active:scale-95 active:bg-yellow-400 active:text-[#081D2E] transition-all w-full"
+              className="flex items-center justify-center gap-3 rounded-xl border border-yellow-400/30 bg-yellow-400/10 backdrop-blur-md py-4 font-title text-sm tracking-widest uppercase text-yellow-400 shadow-[0_8px_32px_rgba(254,217,102,0.2)] active:scale-95 active:bg-yellow-400 active:text-dark transition-all w-full"
             >
               <i className="ri-whatsapp-line text-xl"></i>
               {t.navbar.cta}
