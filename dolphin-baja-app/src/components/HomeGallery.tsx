@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 // Importamos el contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
 
-// Imágenes para la galería ampliadas (Asegúrate de que estas rutas existan)
+// --- IMÁGENES ORIGINALES (Estas funcionan como import porque Vite ya las tiene cacheadas o están en src) ---
 import img1 from '/assets/images/colash1.webp';
 import img2 from '/assets/images/colash2.webp';
 import img3 from '/assets/images/colash3.webp';
@@ -12,16 +12,31 @@ import img5 from '/assets/images/colash5.webp';
 import img6 from '/assets/images/colash6.webp';
 import img7 from '/assets/images/colash7.webp';
 import img8 from '/assets/images/colash8.webp';
-// Nuevas imágenes (Puedes usar las que tengas, aquí asumo nombres estándar)
+// Imágenes de nosotros
 import img9 from '/assets/nosotros/tienda1.webp';
 import img10 from '/assets/nosotros/team.webp';
+
+// --- NUEVAS IMÁGENES (Definidas como ruta de texto para evitar el error de Vite) ---
+// Nota: "caballitos de mar.webp" tiene espacios, asegúrate de que el nombre del archivo sea exacto.
+const imgAlebrijes = "/assets/images/alebrije.webp";
+const imgCaballitos = "/assets/images/caballitos de mar.webp";
+const imgFocahome = "/assets/images/focahome.webp";
+const imgHomecar = "/assets/images/homecar.webp";
+const imgHomef = "/assets/images/homef.webp";
+const imgHomein = "/assets/images/homein.webp";
+const imgMarprofundo = "/assets/images/marprofundo.webp";
+const imgPzcolor = "/assets/images/pzcolor.webp";
+const imgPzcolor2 = "/assets/images/pzcolor2.webp";
+const imgVdmar = "/assets/images/vdmar.webp";
+const imgVol = "/assets/images/vol.webp";
 
 export default function HomeGallery() {
     const { t } = useLanguage();
     const content = t.home.gallery;
 
-    // Ampliamos el mosaico a 10 elementos para un layout asimétrico más espectacular
+    // Ampliamos el mosaico mezclando las nuevas imágenes
     const galleryItems = [
+        // --- TUS 10 IMÁGENES ORIGINALES (INTACTAS) ---
         { id: 1, src: img1, title: content.images[0] || "Explorando profundidades", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
         { id: 2, src: img2, title: content.images[1] || "Aventuras únicas", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 3, src: img3, title: content.images[2] || "Vida marina", size: "col-span-1 row-span-2 md:col-span-1 md:row-span-2" },
@@ -29,10 +44,24 @@ export default function HomeGallery() {
         { id: 5, src: img5, title: content.images[4] || "Nuestro Staff", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
         { id: 6, src: img6, title: content.images[5] || "El Mar de Cortés", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 7, src: img7, title: content.images[6] || "Experiencias PADI", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        // Modificamos el layout de las últimas para encajar las nuevas
         { id: 8, src: img8, title: content.images[7] || "Aguas cristalinas", size: "col-span-2 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 9, src: img9, title: content.images[8] || "Equipamiento", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 10, src: img10, title: content.images[9] || "Únete hoy", size: "col-span-1 row-span-1 md:col-span-2 md:row-span-1" },
+
+        // --- NUEVAS IMÁGENES AGREGADAS ---
+        { id: 11, src: imgAlebrijes, title: "Alebrijes del Mar", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 12, src: imgCaballitos, title: "Caballitos de Mar", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        // Destacada grande (2x2)
+        { id: 13, src: imgFocahome, title: "Nuestros Amigos", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" }, 
+        { id: 14, src: imgHomecar, title: "Detalles Únicos", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 15, src: imgHomef, title: "Biodiversidad", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 16, src: imgHomein, title: "Inmersión Total", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 17, src: imgMarprofundo, title: "Mar Profundo", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        // Panorámica (2x1)
+        { id: 18, src: imgPzcolor, title: "Colores Vivos", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" }, 
+        { id: 19, src: imgPzcolor2, title: "Arrecifes", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 20, src: imgVdmar, title: "Vida Marina", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 21, src: imgVol, title: "Aventuras", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
     ];
 
     return (
@@ -69,7 +98,7 @@ export default function HomeGallery() {
                 {/* =========================================
                     GRID MOSAICO (Apple-Style Glass)
                 ========================================= */}
-                {/* El grid ahora se adapta perfectamente a 10 imágenes */}
+                {/* El grid ahora se adapta perfectamente a todas las imágenes */}
                 <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[120px] sm:auto-rows-[150px] md:auto-rows-[200px] gap-2 md:gap-4">
                     {galleryItems.map((item, index) => (
                         <motion.div
