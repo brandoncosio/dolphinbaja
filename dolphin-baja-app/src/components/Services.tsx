@@ -1,22 +1,22 @@
-import React, { useMemo, useEffect } from 'react'; // Agregamos useEffect
+import { useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 // Imágenes
 import funDivesImg from '/assets/images/colash1.webp';
-import snorkelImg from '/assets/images/realsonrkell.jpeg';
+import snorkelImg from '/assets/images/realsonrkell.jpeg'; // Cuidado con el typo en el nombre real del archivo
 import coursesImg from '/assets/images/certificacionpadi.jpeg';
 
 export default function Services() {
   const { t, lang } = useLanguage();
   const content = t.servicesPage;
 
-  // DEBUG: Revisa tu consola (F12) al dar clic al botón. 
-  // Si no sale este mensaje, el problema es el botón de la Navbar.
   useEffect(() => {
-    console.log("Idioma cambiado a:", lang);
-    console.log("Contenido actual de servicios:", content);
-  }, [lang, content]);
+    // Scroll to top al cargar la página si no hay hash
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   const imageMap: Record<string, string> = {
     "01": funDivesImg,
@@ -36,10 +36,12 @@ export default function Services() {
   }, []);
 
   return (
-    // 👇 AGREGAMOS LA KEY AQUÍ PARA FORZAR EL REFRESCO
-    <section key={lang} className="relative overflow-hidden bg-dark py-24">
+    // Agregamos pt-32 para dar espacio suficiente a la Navbar que ahora es flotante
+    <section key={lang} className="relative overflow-hidden bg-dark pt-32 pb-24 min-h-screen">
 
-      {/* ANIMACIÓN DE ALGAS */}
+      {/* =========================================
+          ANIMACIÓN DE ALGAS (Optimizadas)
+      ========================================= */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {seaweeds.map((sw) => (
           <motion.svg
@@ -51,7 +53,8 @@ export default function Services() {
               height: `${sw.height}px`,
               width: '40px',
               opacity: sw.opacity,
-              transformOrigin: 'bottom center'
+              transformOrigin: 'bottom center',
+              willChange: 'transform' // 👈 Salva a iOS de recalcular el layout
             }}
             animate={{
               skewX: [-5, 5, -5],
@@ -72,19 +75,23 @@ export default function Services() {
         ))}
       </div>
 
-      {/* Luces de profundidad */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[20%] -right-[10%] w-[40%] h-[40%] bg-cyan-400/5 blur-[120px] rounded-full mix-blend-screen"></div>
-        <div className="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-500/5 blur-[120px] rounded-full mix-blend-screen"></div>
+      {/* =========================================
+          LUCES DE PROFUNDIDAD (Mismo estilo que Home)
+      ========================================= */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ willChange: 'transform' }}>
+        <div className="absolute top-[10%] -left-[10%] w-[80%] h-[40%] bg-cyan-400/10 blur-[120px] rounded-full" />
+        <div className="absolute top-[40%] -right-[20%] w-[60%] h-[50%] bg-ocean/15 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[0%] left-[10%] w-[80%] h-[30%] bg-navy/60 blur-[100px] rounded-full" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-20">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-20">
 
-        <div className="mb-20 text-center md:text-left">
+        {/* ENCABEZADO */}
+        <div className="mb-20 md:mb-32 text-center md:text-left">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-4 font-body text-xs font-bold uppercase tracking-[0.5em] text-cyan-400"
+            className="mb-4 font-body text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-cyan-400 drop-shadow-md"
           >
             {content.tag}
           </motion.p>
@@ -92,69 +99,87 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="font-title text-4xl text-white md:text-6xl leading-tight"
+            className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-tight drop-shadow-lg"
           >
             {content.titleStart} <span className="text-yellow-400">{content.titleHighlight}</span>
           </motion.h2>
         </div>
 
-        <div className="flex flex-col gap-24 md:gap-40">
+        {/* LISTA DE SERVICIOS */}
+        <div className="flex flex-col gap-28 md:gap-40">
           {content.list.map((service, index) => (
             <motion.div
+              // Usamos el ID del servicio como Hash para que el Navbar haga scroll hasta aquí
+              id={service.id === "01" ? "fundives" : service.id === "02" ? "snorkel" : "cursos"}
               key={service.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className={`flex flex-col md:flex-row items-center gap-10 md:gap-20 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''
+              // Añadimos scroll-mt-32 para que el Navbar flotante no tape el título al hacer clic en un ancla
+              className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 lg:gap-24 scroll-mt-32 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''
                 }`}
             >
+
+              {/* BLOQUE IMAGEN */}
               <div className="group relative w-full md:w-1/2">
-                <div className="aspect-[4/3] overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 group-hover:border-cyan-400/30 group-hover:shadow-[0_20px_60px_rgba(102,216,227,0.15)]">
-                  <motion.img
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                {/* Efecto Apple Glass en la imagen: 
+                  Fondo blanco semitransparente, borde sutil y sin multiplicar colores. 
+                */}
+                <div className="relative aspect-[4/3] sm:aspect-video md:aspect-[4/3] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_20px_60px_rgba(102,216,227,0.15)]" style={{ willChange: 'transform' }}>
+
+                  <img
                     src={imageMap[service.id]}
                     alt={service.title}
-                    className="h-full w-full object-cover"
+                    loading="lazy"
+                    // Movimiento sutil mediante clases nativas para mejor perf
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] ease-out md:group-hover:scale-105 will-change-transform"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+
+                  {/* Degradado solo en la base para estilizar, pero muy suave */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-0 md:opacity-50 md:group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
                 </div>
 
-                <span className={`absolute -top-10 ${index % 2 !== 0 ? '-right-4' : '-left-4'} select-none font-title text-7xl md:text-9xl text-white/[0.05] z-[-1]`}>
+                {/* Número Gigante en el fondo */}
+                <span className={`absolute -top-12 md:-top-16 ${index % 2 !== 0 ? 'right-0 md:-right-8' : 'left-0 md:-left-8'} select-none font-title text-[6rem] md:text-[10rem] lg:text-[12rem] text-white/[0.03] z-[-1] leading-none`}>
                   {service.id}
                 </span>
               </div>
 
-              <div className="w-full md:w-1/2 text-left">
-                <h3 className="mb-6 font-title text-3xl text-white md:text-5xl leading-tight drop-shadow-md">
+              {/* BLOQUE TEXTO */}
+              <div className="w-full md:w-1/2 text-left relative z-10">
+                <h3 className="mb-4 md:mb-6 font-title text-3xl sm:text-4xl lg:text-5xl text-white leading-tight drop-shadow-md">
                   {service.title}
                 </h3>
-                <p className="mb-8 font-body text-base md:text-lg leading-relaxed text-slate-300">
+
+                <p className="mb-8 md:mb-10 font-body text-base md:text-lg leading-relaxed text-slate-200 drop-shadow-md">
                   {service.description}
                 </p>
 
-                <div className="mb-10 flex flex-wrap gap-3">
+                {/* Etiquetas */}
+                <div className="mb-10 flex flex-wrap gap-2 md:gap-3">
                   {service.tags.map(tag => (
                     <span
                       key={tag}
-                      className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-5 py-2 font-body text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-400 backdrop-blur-md shadow-lg"
+                      className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 md:px-5 py-2 font-body text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-400 backdrop-blur-md shadow-sm"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <motion.button
-                  whileHover={{ x: 10 }}
-                  className="group flex items-center gap-5 font-title text-sm md:text-base text-white tracking-widest uppercase transition-colors hover:text-cyan-400"
+                {/* Botón de Reservar (Reutilizado desde el Home para consistencia de UX) */}
+                <a
+                  href={`https://wa.me/526131182311?text=Hola, estoy interesado en reservar la experiencia: ${service.title}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-4 font-title text-sm tracking-widest uppercase text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:-translate-y-1 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group w-full sm:w-auto"
                 >
+                  <i className="ri-whatsapp-line text-xl group-hover:scale-110 transition-transform"></i>
                   {content.btnDetails}
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-cyan-400 group-hover:border-cyan-400 group-hover:text-dark group-hover:shadow-[0_0_20px_rgba(102,216,227,0.5)]">
-                    <i className="ri-arrow-right-line text-xl"></i>
-                  </span>
-                </motion.button>
+                </a>
               </div>
+
             </motion.div>
           ))}
         </div>
