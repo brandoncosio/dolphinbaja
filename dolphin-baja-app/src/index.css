@@ -3,14 +3,21 @@
 
 /* 2. CONFIGURACIÓN DEL TEMA (Reemplaza al tailwind.config.js) */
 @theme {
-  /* Tu paleta de marca original */
-  --color-navy: #0E3D59;
-  --color-ocean: #0C71A5;
+  /* PALETA DE MARCA ACTUALIZADA (Apple-Style UX)
+    Pasamos de tonos casi negros a azules marinos profundos y vibrantes
+  */
+  --color-navy: #061624;
+  /* Azul abisal (Para sombras y contrastes profundos) */
+  --color-ocean: #0883B5;
+  /* Azul cálido y vibrante (Para luz volumétrica y destellos) */
   --color-cyan: #66D8E3;
+  /* Tu Cyan original (Para acentos y CTA) */
   --color-yellow: #FED966;
+  /* Tu Amarillo original (Para botones primarios) */
   --color-offwhite: #F5F2E3;
   --color-pale: #CCEAEA;
-  --color-dark: #071a24;
+  --color-dark: #081D2E;
+  /* EL CAMBIO MAESTRO: Azul Marino Profundo que reemplaza al fondo oscuro estresante */
 
   /* Tus fuentes personalizadas */
   --font-title: 'Bungee', cursive;
@@ -27,6 +34,7 @@
   }
 
   body {
+    /* Automáticamente toda la app usará el nuevo azul profundo y elegante */
     background-color: var(--color-dark);
     color: white;
     font-family: var(--font-body);
