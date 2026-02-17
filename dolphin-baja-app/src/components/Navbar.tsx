@@ -28,7 +28,7 @@ export default function Navbar() {
     if (hoveredMenu) setHoveredMenu(null);
   }, [location.pathname]);
 
-  // Scroll suave hacia los Hash (#) con retraso para asegurar que la página haya renderizado
+  // Scroll suave hacia los Hash (#)
   useEffect(() => {
     if (location.hash) {
       const elem = document.getElementById(location.hash.substring(1));
@@ -47,7 +47,6 @@ export default function Navbar() {
     } else {
       document.body.style.overflow = 'unset';
     }
-    // Cleanup en caso de que el componente se desmonte
     return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
 
@@ -84,12 +83,12 @@ export default function Navbar() {
   return (
     <>
       <header
-        // Cristal Esmerilado Inteligente al hacer scroll
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 xl:px-20 transition-all duration-500 ${isScrolled
-            ? 'py-3 bg-dark/60 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-            : 'py-5 lg:py-6 bg-transparent border-b border-transparent'
+            ? 'py-3 bg-[#081D2E]/70 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+            : 'py-5 lg:py-6 bg-[#081D2E]/0 border-b border-transparent shadow-none'
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
+        style={{ willChange: 'backdrop-filter, background-color' }}
       >
         {/* LOGO */}
         <Link to="/" className="flex items-center z-50 group shrink-0" onClick={() => setIsMenuOpen(false)}>
@@ -110,19 +109,16 @@ export default function Navbar() {
               onMouseEnter={() => setHoveredMenu(item.name)}
               onMouseLeave={() => setHoveredMenu(null)}
             >
-              {/* Enlace principal */}
               <Link
                 to={item.path}
                 className="relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest text-white transition-colors hover:text-cyan-400 py-6 drop-shadow-md"
               >
                 {item.name}
                 <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-400' : 'text-white/50'}`}></i>
-
-                {/* Línea inferior brillante animada */}
                 <span className={`absolute bottom-4 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
               </Link>
 
-              {/* Submenú Dropdown */}
+              {/* 👇 SUBMENÚ DROPDOWN (Corrección de Transparencia) */}
               <AnimatePresence>
                 {hoveredMenu === item.name && (
                   <motion.div
@@ -130,13 +126,13 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    // El padding top compensa el espacio entre el navbar y el menú para que el mouse no "salga" de la zona
                     className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64 z-50"
                   >
-                    {/* Triangulito superior ajustado al color Dark sólido para no generar bugs de blur */}
-                    <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-4 h-4 bg-[#0a1823] border-t border-l border-white/20 rotate-45 z-0 rounded-sm" />
+                    {/* Triangulito superior: Ahora usa fondo semi-transparente y desenfoque para fusionarse con el menú */}
+                    <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-4 h-4 bg-black/40 backdrop-blur-xl border-t border-l border-white/20 rotate-45 z-0 rounded-sm" />
 
-                    <div className="relative z-10 bg-dark/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] p-2 text-left ring-1 ring-white/5 overflow-hidden">
+                    {/* Menú Principal: Usamos 'bg-black/40' o 'bg-[#081D2E]/60' para permitir que el 'backdrop-blur-2xl' trabaje correctamente */}
+                    <div className="relative z-10 bg-[#081D2E]/60 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-2 text-left ring-1 ring-white/5 overflow-hidden">
                       {item.submenu.map((subItem, idx) => (
                         subItem.link.startsWith('http') ? (
                           <a
@@ -144,7 +140,7 @@ export default function Navbar() {
                             href={subItem.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-between px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/5 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
+                            className="flex items-center justify-between px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
                           >
                             <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                             <i className="ri-external-link-line opacity-50 group-hover/link:opacity-100 transition-opacity"></i>
@@ -153,7 +149,7 @@ export default function Navbar() {
                           <Link
                             key={idx}
                             to={subItem.link}
-                            className="block px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/5 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
+                            className="block px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
                           >
                             <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                           </Link>
@@ -181,7 +177,7 @@ export default function Navbar() {
             href="https://wa.me/526131182311"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-6 py-2.5 font-title text-xs text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
+            className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-6 py-2.5 font-title text-xs text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-[#081D2E] hover:border-yellow-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
           >
             <i className="ri-whatsapp-line text-lg group-hover:scale-110 transition-transform"></i>
             {t.navbar.cta}
@@ -206,30 +202,23 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* =========================================
-          MENÚ MÓVIL (Overlay oscuro)
-      ========================================= */}
+      {/* MENÚ MÓVIL (Overlay oscuro) */}
       <div
-        className={`fixed inset-0 bg-dark/80 backdrop-blur-sm z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-[#061624]/80 backdrop-blur-md z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
         style={{ willChange: 'opacity' }}
         onClick={() => setIsMenuOpen(false)}
       />
 
-      {/* =========================================
-          MENÚ MÓVIL (Sidebar lateral)
-      ========================================= */}
+      {/* MENÚ MÓVIL (Sidebar lateral) */}
       <aside
-        // h-[100dvh] previene problemas con la barra de navegación de Safari
-        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-dark/80 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.6)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-[#081D2E]/90 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.6)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
-        // Aceleración por hardware + Curva nativa de iOS para slide-in fluidos
         style={{
           willChange: 'transform',
           transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
         }}
       >
-        {/* Contenedor flexible que asegura que el botón de Whatsapp siempre quede abajo */}
         <div className="flex h-full flex-col justify-between px-6 pt-28 pb-10 overflow-y-auto">
 
           <nav className="flex flex-col gap-6">
@@ -277,7 +266,7 @@ export default function Navbar() {
               href="https://wa.me/526131182311"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 rounded-xl border border-yellow-400/30 bg-yellow-400/10 backdrop-blur-md py-4 font-title text-sm tracking-widest uppercase text-yellow-400 shadow-[0_8px_32px_rgba(254,217,102,0.1)] active:scale-95 active:bg-yellow-400 active:text-dark transition-all w-full"
+              className="flex items-center justify-center gap-3 rounded-xl border border-yellow-400/30 bg-yellow-400/10 backdrop-blur-md py-4 font-title text-sm tracking-widest uppercase text-yellow-400 shadow-[0_8px_32px_rgba(254,217,102,0.1)] active:scale-95 active:bg-yellow-400 active:text-[#081D2E] transition-all w-full"
             >
               <i className="ri-whatsapp-line text-xl"></i>
               {t.navbar.cta}

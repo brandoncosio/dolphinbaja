@@ -42,7 +42,7 @@ export default function Footer() {
     <footer className="relative pt-24 md:pt-32 pb-8 md:pb-10 overflow-hidden bg-dark text-slate-200 border-t border-white/5 md:min-h-[550px] flex flex-col justify-end">
 
       {/* =========================================
-          FONDO OCEÁNICO PROFUNDO (Optimizado Safari)
+          FONDO OCEÁNICO PROFUNDO (Optimizado Safari & Luminosidad)
       ========================================= */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
@@ -50,10 +50,10 @@ export default function Footer() {
           alt="Fondo marino"
           loading="lazy"
           decoding="async"
-          // Cambiamos mix-blend por grayscale y baja opacidad. Mismo efecto, 100x más rápido.
           className="w-full h-full object-cover object-center opacity-20 grayscale"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark/90 to-[#030a0f]" />
+        {/* 👇 EL SECRETO DEL AZUL PROFUNDO: Terminamos en '#04111B' (Azul Marino Súper Oscuro) en lugar de negro puro */}
+        <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark/90 to-[#04111B]" />
 
         {/* Luz abisal con aceleración por hardware */}
         <div
@@ -78,7 +78,7 @@ export default function Footer() {
                 className="h-20 md:h-24 w-auto drop-shadow-2xl md:group-hover:scale-105 transition-transform duration-500"
               />
             </Link>
-            <p className="font-body text-slate-400 leading-relaxed text-sm md:text-base max-w-[280px] sm:max-w-none">
+            <p className="font-body text-slate-300 leading-relaxed text-sm md:text-base max-w-[280px] sm:max-w-none">
               {content.desc}
             </p>
           </div>
@@ -94,7 +94,6 @@ export default function Footer() {
                   <li key={i}>
                     <Link
                       to={link.path}
-                      // Añadimos py-2 en móvil para facilitar el tap (SEO friendly)
                       className="text-slate-300 hover:text-white transition-colors inline-flex items-center justify-center sm:justify-start gap-2 group text-base w-full sm:w-auto py-2 sm:py-0"
                     >
                       <i className="ri-arrow-right-s-line text-cyan-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline-block"></i>
@@ -112,7 +111,6 @@ export default function Footer() {
               {content.contactTitle}
             </h4>
             <ul className="space-y-5 font-body mb-8 w-full">
-              {/* Forzamos items-start y flex-row para que el ícono no quede flotando solo arriba */}
               <li className="flex flex-row items-start justify-center sm:justify-start gap-3 text-slate-300">
                 <i className="ri-map-pin-2-fill text-cyan-400 text-lg mt-1 shrink-0"></i>
                 <span className="text-sm md:text-base leading-relaxed max-w-[200px] sm:max-w-none text-left">{content.address}</span>
@@ -140,7 +138,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  style={{ willChange: 'transform' }} // GPU boost
+                  style={{ willChange: 'transform' }}
                   className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 shadow-lg hover:bg-cyan-400/20 hover:text-cyan-400 hover:border-cyan-400/40 hover:-translate-y-1 transition-all duration-300 group"
                 >
                   <i className={`${social.icon} text-xl md:group-hover:scale-110 transition-transform`}></i>
@@ -154,7 +152,8 @@ export default function Footer() {
         {/* =========================================
             BARRA INFERIOR (Copyright y Legales)
         ========================================= */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 font-body text-xs md:text-sm text-slate-500 text-center md:text-left">
+        {/* 👇 Aclaramos un tono (text-slate-400) para mejor contraste de lectura */}
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 font-body text-xs md:text-sm text-slate-400 text-center md:text-left">
           <p className="tracking-wide">© {currentYear} {content.rights}</p>
           <div className="flex flex-wrap justify-center md:justify-end gap-6 md:gap-8">
             <Link to="/privacidad" className="hover:text-cyan-400 transition-colors py-2 md:py-0">{content.privacy}</Link>
