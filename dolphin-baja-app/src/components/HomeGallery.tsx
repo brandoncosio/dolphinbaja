@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 // --- IMÁGENES ORIGINALES ---
-import img1 from '/assets/nosotros/time2.webp';
+import img1 from '/assets/nosotros/coral.webp';
 import img2 from '/assets/images/colash2.webp';
 import img3 from '/assets/images/colash3.webp';
 import img4 from '/assets/images/colash4.webp';
