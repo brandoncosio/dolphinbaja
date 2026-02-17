@@ -26,7 +26,7 @@ export default function HomeGallery() {
         { id: 5, src: img5, title: content.images[4], size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
         { id: 6, src: img6, title: content.images[5], size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 7, src: img7, title: content.images[6], size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 8, src: img8, title: content.images[7], size: "col-span-2 row-span-1 md:col-span-1 md:row-span-1" }, // La última se hace ancha en móvil
+        { id: 8, src: img8, title: content.images[7], size: "col-span-2 row-span-1 md:col-span-1 md:row-span-1" },
     ];
 
     return (
@@ -38,7 +38,7 @@ export default function HomeGallery() {
                     ENCABEZADO
                 ========================================= */}
                 <div className="text-center mb-12 md:mb-16 relative">
-                    {/* Reflejo sutil detrás del título (Sin mix-blend) */}
+                    {/* Reflejo sutil detrás del título */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 rounded-full bg-cyan-400/10 blur-[80px] pointer-events-none" />
 
                     <motion.span
@@ -68,30 +68,31 @@ export default function HomeGallery() {
                     {galleryItems.map((item, index) => (
                         <motion.div
                             key={item.id}
-                            className={`relative group rounded-2xl md:rounded-3xl overflow-hidden bg-dark/20 border border-white/10 ${item.size}`}
+                            // 👇 CAMBIO 1: bg-white/5 en lugar de bg-dark/20 para dar base luminosa al cristal
+                            className={`relative group rounded-2xl md:rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:border-cyan-400/30 hover:shadow-[0_15px_40px_rgba(102,216,227,0.15)] transition-all duration-500 ${item.size}`}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
-                            style={{ willChange: "transform" }} // 👈 Obliga al uso de GPU en iOS
+                            style={{ willChange: "transform" }}
                         >
                             <img
                                 src={item.src}
                                 alt={item.title}
                                 loading="lazy"
                                 decoding="async"
-                                // Eliminamos MD:group-hover y lo dejamos en todo tamaño, pero sin blur para no causar lag
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 will-change-transform"
                             />
 
-                            {/* Overlay Oscuro Inteligente (Visible en móvil, dinámico en PC) */}
-                            {/* En móvil, un gradiente constante abajo. En PC, cubre todo al hacer hover. */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent md:bg-dark/40 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                            {/* 👇 CAMBIO 2: Overlay Luminoso. 
+                                Solo oscurece la parte inferior (from-dark/90) y se desvanece rápido (via-dark/10 to-transparent).
+                                En móvil siempre visible abajo. En PC invisible hasta hacer hover. 
+                            */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/10 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                             <div className="absolute inset-0 flex items-end md:items-center justify-center p-4 pb-6 md:p-2 z-10 pointer-events-none">
                                 {/* Título de la imagen */}
-                                {/* En móvil siempre visible abajo. En PC aparece en el centro al hacer hover. */}
-                                <p className="text-white font-title text-sm sm:text-base md:text-xl text-center md:transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] md:opacity-0 md:group-hover:opacity-100 leading-tight">
+                                <p className="text-white font-title text-sm sm:text-base md:text-xl text-center md:transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] md:opacity-0 md:group-hover:opacity-100 leading-tight">
                                     {item.title}
                                 </p>
                             </div>

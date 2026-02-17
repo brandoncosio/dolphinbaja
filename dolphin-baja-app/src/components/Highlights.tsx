@@ -21,7 +21,7 @@ export default function Highlights() {
       title: content.cards[0].title,
       image: imgTours,
       link: "/servicios",
-      // Móvil: rectángular. Tablet: ancho completo. Escritorio: Asimétrico grande.
+      // Móvil: rectangular. Tablet: ancho completo. Escritorio: Asimétrico grande.
       size: "aspect-[4/3] sm:col-span-2 md:col-span-2 md:row-span-2 md:aspect-auto",
       delay: 0
     },
@@ -68,8 +68,8 @@ export default function Highlights() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-12 md:mb-16 text-center md:text-left relative"
         >
-          {/* Luz decorativa suave */}
-          <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 w-32 rounded-full bg-cyan-400/20 blur-[60px]" />
+          {/* Luz decorativa suave con tu nuevo azul marino */}
+          <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 w-32 rounded-full bg-cyan-400/15 blur-[60px]" />
 
           <span className="text-xs font-bold uppercase tracking-[0.4em] text-cyan-400 block mb-4 drop-shadow-md">
             {content.tag}
@@ -77,13 +77,12 @@ export default function Highlights() {
           <h2 className="font-title text-3xl md:text-5xl lg:text-6xl text-white leading-tight drop-shadow-lg">
             {content.titleStart} <br className="hidden md:block" /> <span className="text-yellow-400">{content.titleHighlight}</span>
           </h2>
-          <p className="mt-4 md:mt-6 text-slate-300 max-w-2xl mx-auto md:mx-0 text-base md:text-lg leading-relaxed font-body font-medium drop-shadow-md">
+          <p className="mt-4 md:mt-6 text-slate-200 max-w-2xl mx-auto md:mx-0 text-base md:text-lg leading-relaxed font-body font-medium drop-shadow-md">
             {content.desc}
           </p>
         </motion.div>
 
         {/* BENTO GRID */}
-        {/* Cambiamos las alturas fijas por auto-rows para que fluya natural en PC */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[250px] gap-4 md:gap-6">
           {highlightsData.map((item) => (
             <Link
@@ -105,12 +104,11 @@ export default function Highlights() {
                   alt={item.title}
                   loading="lazy"
                   // 'will-change-transform' evita parpadeos en iOS al hacer hover
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 will-change-transform"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 will-change-transform"
                 />
 
-                {/* Degradados de Legibilidad */}
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/30 to-transparent mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-90" />
+                {/* 👇 EL SECRETO DE LUMINOSIDAD: Un solo gradiente que protege el texto y libera la foto */}
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/10 to-transparent transition-opacity duration-500 group-hover:via-dark/30" />
 
                 {/* Textos */}
                 <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full z-10 flex flex-col justify-end h-full">
@@ -118,7 +116,7 @@ export default function Highlights() {
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2 block drop-shadow-md">
                       {item.kicker}
                     </span>
-                    <h3 className="font-title text-xl md:text-2xl lg:text-3xl text-white mb-2 drop-shadow-lg leading-tight">
+                    <h3 className="font-title text-xl md:text-2xl lg:text-3xl text-white mb-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] leading-tight">
                       {item.title}
                     </h3>
 

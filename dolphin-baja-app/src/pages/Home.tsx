@@ -32,27 +32,24 @@ export default function Home() {
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
 
-      {/* Contenedor Principal */}
+      {/* Contenedor Principal: bg-dark ahora invoca tu nuevo Azul Marino de index.css */}
       <main className="relative bg-dark text-white w-full min-h-screen overflow-x-hidden selection:bg-cyan-400 selection:text-dark">
 
         {/* =========================================================
-            EFECTO UNDERWATER GLOBAL (Optimizado para Apple / Safari)
-            - Eliminamos mix-blend-mode (Causa lag al hacer scroll)
-            - Agregamos willChange: 'transform' (Fuerza uso de GPU)
-            - Tamaños relativos adaptados a móviles y escritorio
+            EFECTO UNDERWATER GLOBAL (Vibrante y Safari-Friendly)
         ========================================================= */}
         <div
           className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
-          style={{ willChange: 'transform' }}
+          style={{ willChange: 'transform' }} // 👈 Mantiene los 60fps en iPhone
         >
-          {/* Luz superior izquierda (Reflejo de la superficie) */}
-          <div className="absolute -top-[10%] -left-[20%] md:-top-[5%] md:-left-[10%] w-[120%] md:w-[50%] h-[50%] md:h-[50%] bg-cyan-400/10 blur-[80px] md:blur-[120px] rounded-full opacity-80 md:opacity-100" />
+          {/* Luz superior izquierda (El sol entrando al agua) */}
+          <div className="absolute -top-[10%] -left-[20%] md:-top-[5%] md:-left-[10%] w-[120%] md:w-[60%] h-[50%] md:h-[60%] bg-cyan-400/15 blur-[90px] md:blur-[130px] rounded-full opacity-90 md:opacity-100" />
 
-          {/* Luz profunda derecha (Tono marino) */}
-          <div className="absolute top-[30%] -right-[30%] md:top-[40%] md:-right-[15%] w-[120%] md:w-[45%] h-[60%] md:h-[60%] bg-[#0C71A5]/15 blur-[100px] md:blur-[150px] rounded-full opacity-70 md:opacity-100" />
+          {/* Luz media (Tono cálido de arrecife usando tu variable bg-ocean) */}
+          <div className="absolute top-[30%] -right-[30%] md:top-[40%] md:-right-[15%] w-[120%] md:w-[50%] h-[60%] md:h-[60%] bg-ocean/20 blur-[100px] md:blur-[150px] rounded-full opacity-80 md:opacity-100" />
 
-          {/* Sombra abisal inferior (Profundidad) */}
-          <div className="absolute -bottom-[20%] left-0 md:-bottom-[20%] md:left-[20%] w-[100%] md:w-[60%] h-[50%] bg-black/30 blur-[80px] md:blur-[130px] rounded-full" />
+          {/* Sombra abisal inferior (Eliminamos el negro, usamos bg-navy profundo) */}
+          <div className="absolute -bottom-[20%] left-0 md:-bottom-[20%] md:left-[10%] w-[100%] md:w-[80%] h-[50%] bg-navy/50 blur-[90px] md:blur-[140px] rounded-full" />
         </div>
 
         {/* =========================================================

@@ -52,14 +52,15 @@ export default function Hero() {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: `url(${slideImages[currentIndex]})`,
-              willChange: 'opacity, transform' // 👈 Optimización clave para iOS
+              willChange: 'opacity, transform' // Optimización clave para iOS
             }}
           >
-            {/* Capa de profundidad */}
-            <div className="absolute inset-0 bg-dark/20 mix-blend-multiply" />
-
-            {/* Gradiente principal adaptado para que el texto sea siempre legible */}
-            <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-dark/10 md:bg-gradient-to-r md:from-dark/95 md:via-dark/60 md:to-transparent" />
+            {/* 👇 EL SECRETO DE APPLE UX: 
+                 1. Eliminamos el 'mix-blend-multiply' por completo.
+                 2. El gradiente ahora cae a 'transparent' mucho más rápido. 
+                 En móvil viene de abajo, en PC viene de la izquierda (donde está el texto).
+            */}
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent md:bg-gradient-to-r md:from-dark/90 md:via-dark/30 md:to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -68,7 +69,7 @@ export default function Hero() {
           CONTENIDO DE TEXTO
           ========================================= */}
       {/* Usamos pt-24 md:pt-0 para dejar espacio al Navbar en móvil */}
-      <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-24 pb-20 md:py-0 md:px-20 lg:px-32">
+      <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-24 pb-20 md:py-0 md:px-20 lg:px-32 pointer-events-none">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -76,7 +77,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-3xl lg:max-w-4xl"
+            className="max-w-3xl lg:max-w-4xl pointer-events-auto"
           >
             {/* Texto decorativo superior */}
             <span className="block font-body text-[10px] md:text-sm font-bold uppercase tracking-[0.3em] text-cyan-400 mb-4 drop-shadow-md">
@@ -85,12 +86,12 @@ export default function Hero() {
 
             {/* Título adaptativo */}
             <h1
-              className="mb-4 md:mb-6 font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] md:leading-[1.1] text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
+              className="mb-4 md:mb-6 font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] md:leading-[1.1] text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]"
               dangerouslySetInnerHTML={{ __html: translatedSlides[currentIndex].title }}
             />
 
             {/* Subtítulo adaptativo */}
-            <p className="mb-8 md:mb-10 max-w-xl font-body text-base sm:text-lg lg:text-xl text-slate-200 drop-shadow-md font-medium leading-relaxed">
+            <p className="mb-8 md:mb-10 max-w-xl font-body text-base sm:text-lg lg:text-xl text-slate-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-medium leading-relaxed">
               {translatedSlides[currentIndex].subtitle}
             </p>
 
@@ -129,8 +130,8 @@ export default function Hero() {
             onClick={() => setCurrentIndex(index)}
             aria-label={`Ir al slide ${index + 1}`}
             className={`h-2.5 rounded-full transition-all duration-700 shadow-md backdrop-blur-sm ${index === currentIndex
-                ? "w-8 bg-cyan-400 border border-cyan-400/50"
-                : "w-2.5 bg-white/30 border border-white/20 hover:bg-white/60"
+              ? "w-8 bg-cyan-400 border border-cyan-400/50"
+              : "w-2.5 bg-white/30 border border-white/20 hover:bg-white/60"
               }`}
           />
         ))}

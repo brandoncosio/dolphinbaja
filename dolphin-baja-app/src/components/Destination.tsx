@@ -25,16 +25,16 @@ export default function Destination() {
             {content.tag}
           </p>
 
-          {/* CORRECCIÓN DE ALINEACIÓN: 
-              Usamos flex-wrap y items-baseline con gap-0. 
-              Esto une las dos partes del hashtag como imanes y evita el "espacio fantasma" de React.
+          {/* CORRECCIÓN FINAL DE ALINEACIÓN DEL HASHTAG:
+              - Se quitó 'flex flex-wrap'
+              - Se usa 'break-words' para que la palabra se adapte al contenedor sin separar los span
+              - Se pegan los span sin saltos de línea para evitar el espacio "fantasma" de React JSX.
           */}
-          <h2 className="font-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-6 md:mb-8 drop-shadow-lg flex flex-wrap justify-center items-baseline gap-0 max-w-4xl mx-auto">
-            <span className="opacity-90">{content.hashtag.trim()}</span>
-            <span className="text-yellow-400">{content.hashtagHighlight.trim()}</span>
+          <h2 className="font-title text-[1.3rem] sm:text-2xl md:text-3xl lg:text-4xl text-white mb-6 md:mb-8 drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)] leading-snug w-full px-2 break-words">
+            <span className="opacity-90">{content.hashtag.trim()}</span><span className="text-yellow-400">{content.hashtagHighlight.trim()}</span>
           </h2>
 
-          <p className="text-slate-300 mb-10 md:mb-12 max-w-2xl mx-auto text-sm sm:text-base md:text-lg font-body drop-shadow-md px-2 md:px-0 leading-relaxed">
+          <p className="text-slate-200 mb-10 md:mb-12 max-w-2xl mx-auto text-sm sm:text-base md:text-lg font-body drop-shadow-md px-2 md:px-0 leading-relaxed">
             {content.desc}
           </p>
         </motion.div>
@@ -47,14 +47,15 @@ export default function Destination() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="w-full h-[400px] md:h-[500px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative bg-dark group"
+          // Actualizamos el fondo a bg-white/5 para seguir la estética luminosa de las tarjetas anteriores
+          className="w-full h-[400px] md:h-[500px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative bg-white/5 group"
         >
           {/* Overlay interactivo para el mapa */}
           <div className="absolute inset-0 bg-cyan-900/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
 
-          {/* CORRECCIÓN DE MAPA: Enlace Embed real de Google Maps (Loreto, BCS) */}
+          {/* MAPA DE LORETO REAL: Enlace embebido oficial de Google Maps apuntando a Loreto, BCS */}
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113645.7171454593!2d-111.42484646706782!3d25.999602534571936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86c75765f0eebbd7%3A0x867ea7834bc6dfcb!2sLoreto%2C%20Baja%20California%20Sur%2C%20Mexico!5e0!3m2!1sen!2sus!4v1707000000000!5m2!1sen!2sus"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113402.13110993439!2d-111.41724039130765!3d25.99268383389025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86c757c96369c0d5%3A0xe54d24925828f73b!2sLoreto%2C%20B.C.S.!5e0!3m2!1sen!2smx!4v1709665322960!5m2!1sen!2smx"
             width="100%"
             height="100%"
             style={{ border: 0, filter: 'grayscale(80%) invert(90%) hue-rotate(180deg) contrast(85%)' }}
@@ -81,7 +82,7 @@ export default function Destination() {
               </p>
 
               <a
-                href="https://maps.app.goo.gl/q6Qn6hQj5G2Z3GqE6" /* Reemplaza por tu enlace corto real */
+                href="https://goo.gl/maps/tu-link-real" /* Recuerda actualizar este href con tu link de Maps */
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-full py-3 rounded-xl bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold font-title tracking-widest uppercase hover:bg-cyan-400 hover:text-dark hover:border-cyan-400 transition-all duration-300 gap-2"
