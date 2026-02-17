@@ -87,7 +87,18 @@ export const translations = {
                     "Tortugas Marinas",
                     "Atardeceres Mágicos",
                     "Equipamiento de Primera",
-                    "Únete a la Aventura"
+                    "Únete a la Aventura",
+                    "Alebrijes del Mar",
+                    "Caballitos de Mar",
+                    "Nuestros Amigos",
+                    "Detalles Únicos",
+                    "Biodiversidad",
+                    "Inmersión Total",
+                    "Mar Profundo",
+                    "Colores Vivos",
+                    "Arrecifes",
+                    "Vida Marina",
+                    "Aventuras"
                 ]
             },
             destination: {
@@ -422,7 +433,18 @@ export const translations = {
                     "Sea Turtles",
                     "Magical Sunsets",
                     "Top Tier Gear",
-                    "Join the Adventure"
+                    "Join the Adventure",
+                    "Sea Alebrijes",
+                    "Seahorses",
+                    "Our Friends",
+                    "Unique Details",
+                    "Biodiversity",
+                    "Total Immersion",
+                    "Deep Sea",
+                    "Vivid Colors",
+                    "Reefs",
+                    "Marine Life",
+                    "Adventures"
                 ]
             },
             destination: {
