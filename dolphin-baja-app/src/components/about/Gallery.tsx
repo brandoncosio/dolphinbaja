@@ -6,11 +6,11 @@ export default function Gallery() {
   const content = t.aboutPage.gallery;
 
   return (
-    // 👇 SOLUCIÓN AL FOOTER: Cambiamos pb-0 a pb-24 md:pb-32 para dar mucha respiración
-    <section id="galeria" className="relative pt-20 pb-24 md:pb-32 scroll-mt-20 z-10">
+    // 👇 AUMENTAMOS el padding bottom (pb-32 md:pb-48) para alejarlo completamente del Footer
+    <section id="galeria" className="relative pt-20 pb-32 md:pb-48 scroll-mt-20 z-10">
 
       {/* =========================================
-          1. SECCIÓN CRESSI POINT (Liquid Glass Avanzado)
+          1. SECCIÓN CRESSI POINT (Altura Dinámica)
       ========================================= */}
       <div className="px-6 md:px-20 mb-24 md:mb-32">
         <motion.div
@@ -21,14 +21,24 @@ export default function Gallery() {
           className="max-w-7xl mx-auto bg-white/5 backdrop-blur-2xl rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 flex flex-col md:flex-row shadow-[0_20px_50px_rgba(0,0,0,0.2)] group"
           style={{ willChange: 'transform' }}
         >
-          {/* Imágenes Tienda */}
-          <div className="w-full md:w-1/2 grid grid-cols-2 p-4 md:p-6 gap-3 md:gap-4 bg-white/5 border-b md:border-b-0 md:border-r border-white/10">
+          {/* 👇 CORRECCIÓN TIENDA: 
+                 Agregamos grid-rows-2 y quitamos el aspect-[4/3]. 
+                 Ahora las fotos obligatoriamente se estirarán para rellenar todo el bloque. 
+          */}
+          <div className="w-full md:w-1/2 grid grid-cols-2 grid-rows-2 p-4 md:p-6 gap-3 md:gap-4 bg-white/5 border-b md:border-b-0 md:border-r border-white/10">
             {['tienda4.webp', 'tienda2.webp', 'tienda3.webp', 'tienda1.webp'].map((img, idx) => (
               <div
                 key={idx}
-                className="rounded-xl md:rounded-2xl overflow-hidden aspect-[4/3] bg-cover bg-center border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.3)] transition-transform duration-[1s] hover:scale-[1.05]"
-                style={{ backgroundImage: `url("/assets/nosotros/${img}")`, willChange: "transform" }}
-              />
+                className="relative w-full h-full min-h-[140px] md:min-h-[180px] rounded-xl md:rounded-2xl overflow-hidden border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.3)] group/tienda"
+                style={{ willChange: "transform" }}
+              >
+                <img
+                  src={`/assets/nosotros/${img}`}
+                  alt={`Tienda Cressi ${idx + 1}`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/tienda:scale-110"
+                />
+              </div>
             ))}
           </div>
 
@@ -61,7 +71,7 @@ export default function Gallery() {
       </div>
 
       {/* =========================================
-          2. COLLAGE FINAL (Bento Grid Matemáticamente Perfecto)
+          2. COLLAGE FINAL (Matemática de Grid Perfecta)
       ========================================= */}
       <div className="w-full relative px-4 md:px-10">
         <motion.div
@@ -76,10 +86,13 @@ export default function Gallery() {
           <div className="h-1 w-20 bg-cyan-400 mx-auto mt-6 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.8)]"></div>
         </motion.div>
 
-        {/* Grid Asimétrico: Exactamente 20 celdas antes del banner final */}
+        {/* 👇 GRID ASIMÉTRICO CORREGIDO: 
+            Se eliminaron los "hidden md:block" para que en móvil las piezas siempre sumen un número par 
+            y no se generen huecos.
+        */}
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] md:auto-rows-[250px] gap-3 md:gap-4">
 
-          {/* FOTO 1: Grande (2x2) = 4 celdas */}
+          {/* FOTO 1: Grande (2x2) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -91,70 +104,69 @@ export default function Gallery() {
             <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           </motion.div>
 
-          {/* FOTO 2: Apaisada (2x1) = 2 celdas */}
+          {/* FOTO 2: Apaisada (2x1) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 row-span-1 border border-white/10 hidden md:block shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 row-span-1 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
             <img src="/assets/images/colash2.webp" alt="Vida Marina" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
           </motion.div>
 
-          {/* FOTO 3: Normal (1x1) = 1 celda */}
+          {/* FOTO 3: Normal (1x1) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-1 row-span-1 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
             <img src="/assets/images/colash3.webp" alt="Detalle" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
             <div className="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-overlay"></div>
           </motion.div>
 
-          {/* FOTO 4: Normal (1x1) = 1 celda */}
+          {/* FOTO 4: Normal (1x1) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-1 row-span-1 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
             <img src="/assets/images/colash4.webp" alt="Buceo" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
             <div className="absolute inset-0 bg-yellow-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-overlay"></div>
           </motion.div>
 
-          {/* 👇 SOLUCIÓN: FOTO 5 AHORA ES 1x1 (Normal) en lugar de vertical 
-              Esto evita el desajuste de celdas al final de la cuadrícula. */}
+          {/* FOTO 5: Normal (1x1) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 hidden md:block shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-1 row-span-1 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
             <img src="/assets/images/colash5.webp" alt="Descenso" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
           </motion.div>
 
-          {/* FOTO 6: Normal (1x1) = 1 celda */}
+          {/* FOTO 6: Normal (1x1) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-1 row-span-1 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
             <img src="/assets/images/colash6.webp" alt="Cardumen" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
           </motion.div>
 
-          {/* FOTO 7: Apaisada Instagram (2x1) = 2 celdas */}
+          {/* FOTO 7: Apaisada Instagram (2x1) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -170,7 +182,7 @@ export default function Gallery() {
             </div>
           </motion.div>
 
-          {/* FOTO 8: Equipo (Grande 2x2) = 4 celdas */}
+          {/* FOTO 8: Equipo (Grande 2x2) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -183,7 +195,7 @@ export default function Gallery() {
             <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           </motion.div>
 
-          {/* FOTOS PEQUEÑAS FINALES (1x1) = 4 celdas totales */}
+          {/* FOTOS PEQUEÑAS FINALES (1x1) */}
           {[
             { img: 'nati.webp', delay: 0.2 },
             { img: 'natmar.webp', delay: 0.3 },
@@ -196,7 +208,7 @@ export default function Gallery() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: item.delay }}
-              className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+              className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-1 row-span-1 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
               style={{ willChange: "transform" }}
             >
               <img src={`/assets/nosotros/${item.img}`} alt="Momento Dolphin" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
@@ -205,15 +217,15 @@ export default function Gallery() {
 
           {/* =========================================
               FOTO EXTRA (Equipof) - Banner Panorámico Final 
-              Ocupa col-span-4 perfecto sin espacios arriba.
           ========================================= */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
-            // Agregamos min-h-[300px] para que no se deforme al abarcar todo el ancho
-            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 md:col-span-4 border border-white/10 hidden md:block shadow-[0_15px_40px_rgba(0,0,0,0.4)] min-h-[300px] lg:min-h-[350px]"
+            // En móvil ocupa 2 columnas, en PC ocupa 4.
+            // min-h garantiza que no herede la altura pequeña del grid.
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 md:col-span-4 row-span-1 border border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.4)] min-h-[200px] sm:min-h-[250px] md:min-h-[350px]"
             style={{ willChange: "transform" }}
           >
             <img src="/assets/nosotros/equipof.webp" alt="Familia" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[3s] ease-out group-hover:scale-105 will-change-transform" />

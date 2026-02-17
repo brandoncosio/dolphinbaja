@@ -83,25 +83,28 @@ export default function Navbar() {
   return (
     <>
       <header
-        // Usamos el nuevo color base (Dark -> #133E60) con alta transparencia para que el cristal sea notable
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 xl:px-20 transition-all duration-500 ${isScrolled
-            ? 'py-3 bg-dark/60 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
-            : 'py-5 lg:py-6 bg-dark/0 border-b border-transparent shadow-none'
+          ? 'py-3 bg-dark/60 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+          : 'py-5 lg:py-6 bg-dark/0 border-b border-transparent shadow-none'
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
         style={{ willChange: 'backdrop-filter, background-color' }}
       >
-        {/* LOGO */}
+        {/* =========================================
+            LOGO 
+        ========================================= */}
         <Link to="/" className="flex items-center z-50 group shrink-0" onClick={() => setIsMenuOpen(false)}>
           <img
             src={logo}
             alt="Dolphin Dive Baja"
-            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'
+            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${isScrolled ? 'h-14 lg:h-16' : 'h-16 lg:h-20'
               }`}
           />
         </Link>
 
-        {/* NAVEGACIÓN DESKTOP */}
+        {/* =========================================
+            NAVEGACIÓN DESKTOP
+        ========================================= */}
         <nav className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-10 h-full">
           {navItems.map((item) => (
             <div
@@ -119,24 +122,24 @@ export default function Navbar() {
                 <span className={`absolute bottom-4 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
               </Link>
 
-              {/* 👇 SUBMENÚ DROPDOWN CRISTALINO */}
+              {/* 👇 SUBMENÚ DROPDOWN (Panel Flotante Moderno) */}
               <AnimatePresence>
                 {hoveredMenu === item.name && (
                   <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    exit={{ opacity: 0, y: 5, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-64 z-50"
+                    // Reducimos pt-3 a pt-1 para que el menú nazca casi pegado a la palabra
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-1 w-60 z-50"
                   >
-                    {/* Contenedor del Dropdown usando bg-white/10 sobre el azul oscuro para lograr puro efecto Glassmorphism */}
-                    <div className="relative z-10 bg-dark/40 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-2 text-left overflow-hidden">
+                    {/* 👇 Eliminamos la flecha vieja. Bajamos el borde a white/15 para que sea un cristal fino y elegante. */}
+                    <div className="relative z-10 bg-dark/80 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-2 text-left">
 
-                      {/* Triangulito superior fusionado con el contenedor */}
-                      <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-4 h-4 bg-dark/40 border-t border-l border-white/20 rotate-45 z-0 rounded-tl-sm pointer-events-none" />
+                      {/* Brillo superior interno para dar volumen 3D al cristal */}
+                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
-                      {/* Lista de Enlaces */}
-                      <div className="relative z-10">
+                      <div className="flex flex-col relative z-10">
                         {item.submenu.map((subItem, idx) => (
                           subItem.link.startsWith('http') ? (
                             <a
@@ -144,7 +147,8 @@ export default function Navbar() {
                               href={subItem.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center justify-between px-4 py-3 text-sm font-body font-medium text-slate-100 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
+                              // Ajustamos py-3 a py-2.5 para que las opciones se vean más compactas y unidas
+                              className="flex items-center justify-between px-4 py-2.5 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
                             >
                               <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                               <i className="ri-external-link-line opacity-50 group-hover/link:opacity-100 transition-opacity"></i>
@@ -153,7 +157,7 @@ export default function Navbar() {
                             <Link
                               key={idx}
                               to={subItem.link}
-                              className="block px-4 py-3 text-sm font-body font-medium text-slate-100 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
+                              className="block px-4 py-2.5 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
                             >
                               <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                             </Link>
@@ -168,11 +172,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CONTROLES DERECHA DESKTOP */}
+        {/* =========================================
+            CONTROLES DERECHA DESKTOP
+        ========================================= */}
         <div className="hidden lg:flex items-center gap-4 shrink-0 z-50">
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 font-title text-xs text-white backdrop-blur-md transition-all hover:bg-cyan-400/20 hover:border-cyan-400/40 hover:text-cyan-300 hover:scale-105 active:scale-95 shadow-md group"
+            className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 font-title text-xs text-white backdrop-blur-md transition-all hover:bg-cyan-400/20 hover:border-cyan-400/40 hover:text-cyan-300 hover:scale-105 active:scale-95 shadow-md group"
           >
             <i className="ri-global-line text-lg opacity-80 group-hover:opacity-100 transition-opacity"></i>
             <span>{t.navbar.languageBtn}</span>
@@ -189,20 +195,22 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* CONTROLES MÓVIL (Idioma + Hamburguesa) */}
+        {/* =========================================
+            CONTROLES MÓVIL
+        ========================================= */}
         <div className="flex items-center gap-3 lg:hidden z-50">
           <button
             onClick={toggleLanguage}
-            className="font-body text-[11px] font-bold tracking-widest uppercase text-white bg-white/10 px-4 py-2 rounded-full backdrop-blur-md border border-white/10 hover:bg-white/20 transition-colors"
+            className="font-body text-xs font-bold tracking-widest uppercase text-white bg-white/10 px-5 py-2.5 rounded-full backdrop-blur-md border border-white/30 hover:bg-white/20 transition-colors shadow-sm"
           >
             {t.navbar.languageBtn}
           </button>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-all active:bg-white/20 active:scale-95 shadow-md"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-all active:bg-white/20 active:scale-95 shadow-sm"
           >
-            {isMenuOpen ? <i className="ri-close-line text-xl"></i> : <i className="ri-menu-3-line text-xl"></i>}
+            {isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-3-line text-2xl"></i>}
           </button>
         </div>
       </header>
@@ -215,16 +223,16 @@ export default function Navbar() {
         onClick={() => setIsMenuOpen(false)}
       />
 
-      {/* MENÚ MÓVIL (Sidebar lateral de cristal) */}
+      {/* MENÚ MÓVIL (Sidebar lateral) */}
       <aside
-        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-dark/60 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.4)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-dark/70 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.5)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         style={{
           willChange: 'transform',
           transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
         }}
       >
-        <div className="flex h-full flex-col justify-between px-6 pt-28 pb-10 overflow-y-auto">
+        <div className="flex h-full flex-col justify-between px-6 pt-32 pb-10 overflow-y-auto">
 
           <nav className="flex flex-col gap-6">
             {navItems.map((item) => (

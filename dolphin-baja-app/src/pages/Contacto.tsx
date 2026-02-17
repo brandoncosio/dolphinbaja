@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async'; // 👇 Importación vital para SEO
 import SplashScreen from '../components/SplashScreen';
 import contactBg from '/assets/images/slide2.webp';
 
@@ -40,6 +41,27 @@ export default function Contacto() {
 
     return (
         <div key={lang}>
+            {/* =========================================
+                METADATOS DINÁMICOS (SEO & Redes Sociales)
+            ========================================= */}
+            <Helmet>
+                <title>
+                    {lang === 'es'
+                        ? 'Contacto y Ubicación | Dolphin Dive Baja Loreto'
+                        : 'Contact & Location | Dolphin Dive Baja Loreto'}
+                </title>
+                <meta
+                    name="description"
+                    content={lang === 'es'
+                        ? 'Reserva tu inmersión hoy. Contáctanos por WhatsApp, correo o visítanos en nuestro Centro de Buceo en el corazón de Loreto, Baja California Sur.'
+                        : 'Book your dive today. Contact us via WhatsApp, email, or visit our Dive Center in the heart of Loreto, Baja California Sur.'}
+                />
+                <meta property="og:title" content="Contacto - Dolphin Dive Baja" />
+                <meta property="og:description" content={t.contact.hero.text} />
+                {/* Usamos el fondo del Hero como imagen de preview al compartir */}
+                <meta property="og:image" content={contactBg} />
+            </Helmet>
+
             <AnimatePresence>
                 {isLoading && <SplashScreen key="splash" />}
             </AnimatePresence>
@@ -62,10 +84,11 @@ export default function Contacto() {
                         <img
                             src={contactBg}
                             alt="Contacto Dolphin Dive"
+                            fetchPriority="high" // 👈 Optimización LCP
+                            decoding="async"
                             className="w-full h-full object-cover object-center transition-transform duration-[5s] ease-out hover:scale-105"
                             style={{ willChange: 'transform' }}
                         />
-                        {/* 👇 Degradado Apple: Oscurece solo abajo usando navy para fusionar, dejando la foto clara */}
                         <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-dark/10" />
                     </div>
 
@@ -103,7 +126,6 @@ export default function Contacto() {
                     GRID DE CONTACTO (Bento Grid Apple Glass)
                 ========================================= */}
                 <section className="px-6 md:px-20 -mt-24 md:-mt-32 relative z-20">
-                    {/* 👇 Layout Asimétrico: WhatsApp principal, Email y Ubicación secundarios */}
                     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
                         {/* Tarjeta 1: WhatsApp (Gigante) */}
@@ -115,7 +137,6 @@ export default function Contacto() {
                             className="md:col-span-2 lg:col-span-1 bg-white/5 backdrop-blur-2xl border border-green-400/30 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] flex flex-col justify-center items-center text-center shadow-[0_20px_50px_rgba(34,197,94,0.15)] relative overflow-hidden group"
                             style={{ willChange: 'transform' }}
                         >
-                            {/* Glow verde interior */}
                             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                             <div className="relative z-10 w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-8 shadow-[0_10px_25px_rgba(34,197,94,0.4)] animate-bounce-slow">
@@ -209,7 +230,7 @@ export default function Contacto() {
                             ></iframe>
 
                             {/* Info Flotante (Glass Premium) */}
-                            <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 bg-dark/60 backdrop-blur-xl border border-white/20 text-white p-6 rounded-3xl shadow-2xl max-w-[280px] hidden md:block z-20">
+                            <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 bg-dark/80 backdrop-blur-xl border border-white/20 text-white p-6 rounded-3xl shadow-2xl max-w-[280px] hidden md:block z-20">
                                 <div className="flex items-center gap-3 mb-2">
                                     <i className="ri-anchor-fill text-yellow-400 text-xl"></i>
                                     <p className="font-bold font-title text-yellow-400 text-lg">Dolphin Dive Baja</p>
