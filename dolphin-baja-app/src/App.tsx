@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SplashScreen from './components/SplashScreen';
 import ScrollToTop from './components/ScrollToTop';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // Páginas Lazy
 const Home = lazy(() => import('./pages/Home'));
@@ -43,6 +44,7 @@ function AppContent() {
             <Route path="/servicios" element={<Servicios />} />
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/contacto" element={<Contacto />} />
+            <Route path="/privacidad" element={<PrivacyPolicy />} />
           </Routes>
         </main>
       </Suspense>

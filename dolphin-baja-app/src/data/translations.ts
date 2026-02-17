@@ -36,7 +36,6 @@ export const translations = {
                         title: "SNORKEL Y AVENTURA<br/>PARA TODOS",
                         subtitle: "Vive el océano con actividades diseñadas para familias y amantes del mar."
                     },
-                    // 👇 Nuevos textos para las imágenes 4 y 5 del Hero
                     {
                         title: "APRENDE A BUCEAR<br/>EN EL PARAÍSO",
                         subtitle: "Cursos PADI con los más altos estándares, desde nivel principiante hasta profesional."
@@ -54,7 +53,6 @@ export const translations = {
                 desc: "Tours, experiencias y el mar como debe vivirse: en grupos pequeños y con respeto total por la vida marina.",
                 cardLink: "Ver detalles",
                 cards: [
-                    // 👇 Actualizado para coincidir con las 6 tarjetas de Highlights.tsx
                     { kicker: "Servicios", title: "Fun Dives & Aventuras" },
                     { kicker: "Experiencias", title: "Snorkeling & Familia" },
                     { kicker: "Aprende", title: "Cursos PADI" },
@@ -88,7 +86,6 @@ export const translations = {
                     "Exploración",
                     "Tortugas Marinas",
                     "Atardeceres Mágicos",
-                    // 👇 Nuevos textos para las imágenes 9 y 10 del Mosaico
                     "Equipamiento de Primera",
                     "Únete a la Aventura"
                 ]
@@ -277,6 +274,47 @@ export const translations = {
                 ]
             }
         },
+        privacyPage: {
+            tag: "LEGAL · INFORMACIÓN",
+            title: "Política de Privacidad",
+            introShort: "Esta Política explica cómo Dolphin Baja usa y protege la información que proporcionas al utilizar este sitio web.",
+            summary: {
+                title: "Resumen Rápido",
+                list: [
+                    "Recopilamos datos para mejorar servicios.",
+                    "Podemos enviar correos; puedes cancelar.",
+                    "Usamos cookies para analítica.",
+                    "No vendemos tus datos sin permiso."
+                ]
+            },
+            sections: [
+                {
+                    title: "Información General",
+                    content: "El presente Política de Privacidad establece los términos en que Dolphin Baja usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios."
+                },
+                {
+                    title: "Información que es recogida",
+                    content: "Nuestro sitio web podrá recoger información personal por ejemplo: Nombre, información de contacto como su dirección de correo electrónica e información demográfica. Así mismo cuando sea necesario podrá ser requerida información específica para procesar algún pedido o realizar una entrega o facturación."
+                },
+                {
+                    title: "Uso de la información recogida",
+                    content: "Nuestro sitio web emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un registro de usuarios, de pedidos en caso que aplique, y mejorar nuestros productos y servicios.\nEs posible que sean enviados correos electrónicos periódicamente a través de nuestro sitio con ofertas especiales, nuevos productos y otra información publicitaria que consideremos relevante para usted o que pueda brindarle algún beneficio; estos correos electrónicos serán enviados a la dirección que usted proporcione y podrán ser cancelados en cualquier momento.\nDolphin Baja está altamente comprometido para cumplir con el compromiso de mantener su información segura. Usamos los sistemas más avanzados y los actualizamos constantemente para asegurarnos que no exista ningún acceso no autorizado."
+                },
+                {
+                    title: "Cookies",
+                    content: "Una cookie se refiere a un fichero que es enviado con la finalidad de solicitar permiso para almacenarse en su ordenador, al aceptar dicho fichero se crea y la cookie sirve entonces para tener información respecto al tráfico web, y también facilita las futuras visitas a una web recurrente.\nNuestro sitio web emplea las cookies para poder identificar las páginas que son visitadas y su frecuencia. Esta información es empleada únicamente para análisis estadístico y después la información se elimina de forma permanente. Usted puede eliminar las cookies en cualquier momento desde su ordenador.\nSin embargo las cookies ayudan a proporcionar un mejor servicio de los sitios web; estas no dan acceso a información de su ordenador ni de usted, a menos de que usted así lo quiera y la proporcione directamente. Usted puede aceptar o negar el uso de cookies; sin embargo la mayoría de navegadores aceptan cookies automáticamente."
+                },
+                {
+                    title: "Enlaces a Terceros",
+                    content: "Este sitio web pudiera contener enlaces a otros sitios que pudieran ser de su interés. Una vez que usted de clic en estos enlaces y abandone nuestra página, ya no tenemos control sobre al sitio al que es redirigido y por lo tanto no somos responsables de los términos o privacidad ni de la protección de sus datos en esos otros sitios terceros. Dichos sitios están sujetos a sus propias políticas de privacidad por lo cual es recomendable que los consulte para confirmar que usted está de acuerdo con estas."
+                },
+                {
+                    title: "Control de su información personal",
+                    content: "En cualquier momento usted puede restringir la recopilación o el uso de la información personal que es proporcionada a nuestro sitio web. Cada vez que se le solicite rellenar un formulario, como el de alta de usuario, puede marcar o desmarcar la opción de recibir información por correo electrónico. En caso de que haya marcado la opción de recibir nuestro boletín o publicidad usted puede cancelarla en cualquier momento.\nEsta compañía no venderá, cederá ni distribuirá la información personal que es recopilada sin su consentimiento, salvo que sea requerido por un juez con un orden judicial.\nDolphin Baja se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento."
+                }
+            ],
+            footer: "Última actualización: 2024"
+        },
         footer: {
             desc: "Explorando el 'Acuario del Mundo' con pasión, seguridad y respeto por la vida marina desde 2010. Tu familia en Loreto.",
             navTitle: "Navegación",
@@ -326,7 +364,6 @@ export const translations = {
                         title: "SNORKEL AND ADVENTURE<br/>FOR EVERYONE",
                         subtitle: "Experience the ocean with activities designed for families and sea lovers."
                     },
-                    // 👇 Nuevos textos en inglés
                     {
                         title: "LEARN TO DIVE<br/>IN PARADISE",
                         subtitle: "PADI courses with the highest standards, from beginner to professional levels."
@@ -344,7 +381,6 @@ export const translations = {
                 desc: "Tours, experiences, and the sea as it should be lived: in small groups and with total respect for marine life.",
                 cardLink: "View details",
                 cards: [
-                    // 👇 Actualizado a 6 tarjetas
                     { kicker: "Services", title: "Fun Dives & Adventures" },
                     { kicker: "Experiences", title: "Snorkeling & Family" },
                     { kicker: "Learn", title: "PADI Courses" },
@@ -378,7 +414,6 @@ export const translations = {
                     "Exploration",
                     "Sea Turtles",
                     "Magical Sunsets",
-                    // 👇 Nuevos textos en inglés
                     "Top Tier Gear",
                     "Join the Adventure"
                 ]
@@ -566,6 +601,47 @@ export const translations = {
                     { q: "Do you accept credit cards?", a: "Yes, we accept Visa, Mastercard, and cash (Pesos/USD). Card payments may have a small bank fee." }
                 ]
             }
+        },
+        privacyPage: {
+            tag: "LEGAL · INFORMATION",
+            title: "Privacy Policy",
+            introShort: "This Privacy Policy explains how Dolphin Dive Baja uses and protects the information you provide when using this website.",
+            summary: {
+                title: "Quick Summary",
+                list: [
+                    "We collect data to improve services.",
+                    "We may send emails; you can cancel anytime.",
+                    "We use cookies for analytics.",
+                    "We do not sell your data without consent."
+                ]
+            },
+            sections: [
+                {
+                    title: "General Information",
+                    content: "This Privacy Policy establishes the terms under which Dolphin Dive Baja uses and protects the information that is provided by its users when using its website. This company is committed to the security of its users' data. When we ask you to fill in personal information fields by which you can be identified, we do so ensuring that it will only be used in accordance with the terms of this document. However, this Privacy Policy may change over time or be updated, so we recommend and emphasize reviewing this page continuously to ensure you agree with such changes."
+                },
+                {
+                    title: "Information Collected",
+                    content: "Our website may collect personal information such as: Name, contact information like your email address, and demographic information. Likewise, when necessary, specific information may be required to process an order or make a delivery or billing."
+                },
+                {
+                    title: "Use of Collected Information",
+                    content: "Our website uses the information in order to provide the best possible service, particularly to maintain a user registry, orders if applicable, and improve our products and services.\nIt is possible that emails may be sent periodically through our site with special offers, new products, and other advertising information that we consider relevant to you or that may provide you with some benefit; these emails will be sent to the address you provide and may be canceled at any time.\nDolphin Dive Baja is highly committed to fulfilling the commitment to keep your information secure. We use the most advanced systems and update them constantly to ensure that there is no unauthorized access."
+                },
+                {
+                    title: "Cookies",
+                    content: "A cookie refers to a file that is sent with the purpose of requesting permission to be stored on your computer. Upon accepting said file, it is created and the cookie then serves to have information regarding web traffic, and also facilitates future visits to a recurring website.\nOur website uses cookies to identify the pages that are visited and their frequency. This information is used solely for statistical analysis and then the information is permanently deleted. You can delete cookies at any time from your computer.\nHowever, cookies help to provide a better service for websites; they do not give access to information from your computer or from you, unless you want it and provide it directly. You can accept or deny the use of cookies; however, most browsers accept cookies automatically."
+                },
+                {
+                    title: "Links to Third Parties",
+                    content: "This website may contain links to other sites that may be of your interest. Once you click on these links and leave our page, we no longer have control over the site to which you are redirected and therefore we are not responsible for the terms or privacy nor for the protection of your data on those other third-party sites. Said sites are subject to their own privacy policies, so it is recommended that you consult them to confirm that you agree with them."
+                },
+                {
+                    title: "Control of Your Personal Information",
+                    content: "At any time you may restrict the collection or use of personal information that is provided to our website. Each time you are asked to fill out a form, such as user registration, you can check or uncheck the option to receive information by email. In case you have checked the option to receive our newsletter or advertising, you can cancel it at any time.\nThis company will not sell, cede nor distribute personal information that is collected without your consent, unless required by a judge with a court order.\nDolphin Dive Baja reserves the right to change the terms of this Privacy Policy at any time."
+                }
+            ],
+            footer: "Last updated: 2024"
         },
         footer: {
             desc: "Exploring the 'Aquarium of the World' with passion, safety, and respect for marine life since 2010. Your family in Loreto.",
