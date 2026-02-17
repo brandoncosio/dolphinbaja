@@ -49,7 +49,7 @@ export default function Destination() {
           {/* Overlay interactivo para el mapa */}
           <div className="absolute inset-0 bg-cyan-900/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
 
-          {/* 👇 MAPA OFICIAL DE LORETO (El mismo que usamos en Contacto) */}
+          {/* 👇 MAPA OFICIAL DE LORETO */}
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113915.22851860012!2d-111.45524673322197!3d26.014524274944988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86b8408a2879ba2d%3A0x673998f4803d3c73!2sParque%20Nacional%20Bah%C3%ADa%20de%20Loreto!5e0!3m2!1ses!2smx!4v1707920155255!5m2!1ses!2smx"
             width="100%"
@@ -78,8 +78,8 @@ export default function Destination() {
               </p>
 
               <a
-                // 👇 Link real hacia las instrucciones de cómo llegar
-                href="https://maps.app.goo.gl/TU_LINK_REAL_AQUI"
+                // 👇 Link actualizado como solicitaste
+                href="https://maps.app.goo.gl/hp2SJhHSFD2o4xRe8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-full py-3 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 text-sm font-bold font-title tracking-widest uppercase hover:bg-cyan-400 hover:text-dark hover:border-cyan-400 hover:-translate-y-1 active:scale-95 transition-all duration-300 gap-2 shadow-[0_4px_10px_rgba(102,216,227,0.1)] hover:shadow-[0_8px_20px_rgba(102,216,227,0.3)]"

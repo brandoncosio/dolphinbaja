@@ -13,9 +13,27 @@ export default function Footer() {
   const content = t.footer;
 
   const socialLinks = [
-    { icon: 'ri-facebook-circle-fill', link: 'https://facebook.com', label: 'Facebook' },
-    { icon: 'ri-instagram-line', link: 'https://instagram.com', label: 'Instagram' },
-    { icon: 'ri-tripadvisor-fill', link: 'https://tripadvisor.com', label: 'TripAdvisor' }
+    { 
+        icon: 'ri-facebook-circle-fill', 
+        link: 'https://www.facebook.com/share/1H4r35gxtz/?mibextid=wwXIfr', 
+        label: 'Facebook' 
+    },
+    { 
+        icon: 'ri-instagram-line', 
+        link: 'https://www.instagram.com/dolphindivebajaloreto?igsh=MWxwMmIxYzM0dGU1cw==', 
+        label: 'Instagram' 
+    },
+    { 
+        icon: 'ri-youtube-fill', 
+        link: 'https://www.youtube.com/channel/UChMVDDccE3BLX6Xe5cLaBhQ', 
+        label: 'YouTube' 
+    },
+    { 
+        // 👇 Usamos 'ri-plane-fill' (Avión) para representar "Trip/Viajes" ya que el de marca no cargaba
+        icon: 'ri-plane-fill', 
+        link: 'https://www.tripadvisor.com/Attraction_Review-g150772-d627994-Reviews-Dolphin_Dive_Center-Loreto_Baja_California.html', 
+        label: 'TripAdvisor' 
+    }
   ];
 
   const footerLinks = [
@@ -133,7 +151,7 @@ export default function Footer() {
             </ul>
 
             {/* Redes Sociales */}
-            <div className="flex gap-4 justify-center sm:justify-start w-full">
+            <div className="flex gap-4 justify-center sm:justify-start w-full flex-wrap">
               {socialLinks.map((social, idx) => (
                 <a
                   key={idx}
