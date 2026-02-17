@@ -175,6 +175,100 @@ export default function Gallery() {
             </div>
           </motion.div>
 
+          {/* =========================================
+              NUEVAS IMÁGENES (Diseño sin huecos)
+          ========================================= */}
+
+          {/* FOTO 8: Equipo (Grande 2x2) - Izquierda */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative group overflow-hidden rounded-[1.5rem] md:col-span-2 md:row-span-2 border border-white/10"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/equipo.webp" alt="Nuestro Equipo" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          </motion.div>
+
+          {/* Bloque de 4 fotos pequeñas a la derecha */}
+          {/* FOTO 9: Nati (Normal 1x1) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/nati.webp" alt="Instructora" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+            <div className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          </motion.div>
+
+          {/* FOTO 10: Natmar (Normal 1x1) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/natmar.webp" alt="Guía" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+            <div className="absolute inset-0 bg-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          </motion.div>
+
+          {/* FOTO 11: Homecol (Normal 1x1) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/homecol.webp" alt="Nuestra Casa" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+          </motion.div>
+
+          {/* FOTO 12: Caracol (Normal 1x1) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.35 }}
+            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/caracol.webp" alt="Detalle Marino" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+          </motion.div>
+
+          {/* Fila final */}
+          {/* FOTO 13: Equipof (Apaisada 2x1) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="relative group overflow-hidden rounded-[1.5rem] md:col-span-2 md:row-span-1 border border-white/10"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/equipof.webp" alt="Familia Dolphin" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+          </motion.div>
+
+          {/* FOTO 14: Dolphin (Normal 1x1) - MODIFICADO A TAMAÑO NORMAL */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.45 }}
+            // Se eliminó md:col-span-2 para que sea 1x1 como caracol
+            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/dolphin.webp" alt="Espíritu Dolphin" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          </motion.div>
+
         </div>
       </div>
 
