@@ -6,26 +6,27 @@ export default function Gallery() {
   const content = t.aboutPage.gallery;
 
   return (
-    <section id="galeria" className="relative pt-20 pb-0 scroll-mt-20 z-10">
+    // 👇 SOLUCIÓN AL FOOTER: Cambiamos pb-0 a pb-24 md:pb-32 para dar mucha respiración
+    <section id="galeria" className="relative pt-20 pb-24 md:pb-32 scroll-mt-20 z-10">
 
       {/* =========================================
-          1. SECCIÓN CRESSI POINT (Liquid Glass Apple)
+          1. SECCIÓN CRESSI POINT (Liquid Glass Avanzado)
       ========================================= */}
-      <div className="px-6 md:px-20 mb-32">
+      <div className="px-6 md:px-20 mb-24 md:mb-32">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          // 👇 bg-white/5 para absorber la luz del fondo azul marino, sombra más sutil
-          className="max-w-7xl mx-auto bg-white/5 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 flex flex-col md:flex-row shadow-[0_15px_40px_rgba(0,0,0,0.3)] group"
+          className="max-w-7xl mx-auto bg-white/5 backdrop-blur-2xl rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 flex flex-col md:flex-row shadow-[0_20px_50px_rgba(0,0,0,0.2)] group"
+          style={{ willChange: 'transform' }}
         >
           {/* Imágenes Tienda */}
-          <div className="w-full md:w-1/2 grid grid-cols-2 p-4 md:p-6 gap-3 md:gap-4 bg-white/5">
+          <div className="w-full md:w-1/2 grid grid-cols-2 p-4 md:p-6 gap-3 md:gap-4 bg-white/5 border-b md:border-b-0 md:border-r border-white/10">
             {['tienda4.webp', 'tienda2.webp', 'tienda3.webp', 'tienda1.webp'].map((img, idx) => (
               <div
                 key={idx}
-                className="rounded-xl md:rounded-2xl overflow-hidden aspect-[4/3] bg-cover bg-center border border-white/10 shadow-md transition-transform duration-500 hover:scale-[1.03]"
+                className="rounded-xl md:rounded-2xl overflow-hidden aspect-[4/3] bg-cover bg-center border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.3)] transition-transform duration-[1s] hover:scale-[1.05]"
                 style={{ backgroundImage: `url("/assets/nosotros/${img}")`, willChange: "transform" }}
               />
             ))}
@@ -33,27 +34,26 @@ export default function Gallery() {
 
           {/* Texto de la Tienda */}
           <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center relative overflow-hidden">
-            {/* Brillo sutil de fondo (Luminoso) */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/10 rounded-full blur-[80px] -z-10 pointer-events-none transition-opacity duration-500 group-hover:bg-cyan-400/20" />
+            <div className="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-cyan-400/20 via-transparent to-transparent -z-10 pointer-events-none transition-opacity duration-500 group-hover:opacity-80" />
 
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400 mb-4 font-body drop-shadow-md">
+            <span className="text-xs font-bold uppercase tracking-[0.4em] text-yellow-400 mb-4 font-body drop-shadow-md">
               {content.cressi.tag}
             </span>
-            <h2 className="font-title text-3xl md:text-5xl text-white mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] leading-tight">
+            <h2 className="font-title text-3xl md:text-5xl lg:text-6xl text-white mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] leading-tight">
               {content.cressi.title}
             </h2>
-            <p className="font-body text-base md:text-lg text-slate-200 mb-8 leading-relaxed">
+            <p className="font-body text-base md:text-lg text-slate-100 font-medium mb-8 leading-relaxed drop-shadow-sm">
               {content.cressi.desc}
             </p>
             <a
               href="https://wa.me/526131182311"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 text-cyan-400 font-bold hover:text-cyan-300 transition-colors font-title tracking-widest uppercase text-sm group/btn"
+              className="inline-flex items-center gap-3 text-cyan-400 font-bold hover:text-cyan-300 transition-colors font-title tracking-widest uppercase text-sm group/btn self-start"
             >
               {content.cressi.cta}
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 transition-colors group-hover/btn:bg-cyan-400 group-hover/btn:text-dark">
-                <i className="ri-arrow-right-line text-lg transition-transform group-hover/btn:translate-x-1"></i>
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 transition-colors group-hover/btn:bg-cyan-400 group-hover/btn:text-dark group-hover/btn:shadow-[0_0_20px_rgba(102,216,227,0.5)]">
+                <i className="ri-arrow-right-line text-xl transition-transform group-hover/btn:translate-x-1"></i>
               </span>
             </a>
           </div>
@@ -61,9 +61,9 @@ export default function Gallery() {
       </div>
 
       {/* =========================================
-          2. COLLAGE FINAL (Diseño Asimétrico / Editorial)
+          2. COLLAGE FINAL (Bento Grid Matemáticamente Perfecto)
       ========================================= */}
-      <div className="w-full relative px-4 md:px-10 pb-20">
+      <div className="w-full relative px-4 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,205 +73,155 @@ export default function Gallery() {
           <h2 className="font-title text-3xl md:text-5xl text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
             {content.collage.title}
           </h2>
-          <div className="h-1 w-20 bg-cyan-400 mx-auto mt-6 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.5)]"></div>
+          <div className="h-1 w-20 bg-cyan-400 mx-auto mt-6 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.8)]"></div>
         </motion.div>
 
-        {/* Grid Asimétrico (Masonry Style CSS) */}
+        {/* Grid Asimétrico: Exactamente 20 celdas antes del banner final */}
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] md:auto-rows-[250px] gap-3 md:gap-4">
 
-          {/* FOTO 1: Grande */}
+          {/* FOTO 1: Grande (2x2) = 4 celdas */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:col-span-2 md:row-span-2 border border-white/10"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 row-span-2 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
-            <img src="/assets/images/colash1.webp" alt="Dolphin Dive 1" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            {/* 👇 Degradado suave en lugar de bg-dark/80 masivo */}
+            <img src="/assets/images/colash1.webp" alt="Exploración" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           </motion.div>
 
-          {/* FOTO 2: Apaisada */}
+          {/* FOTO 2: Apaisada (2x1) = 2 celdas */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:col-span-2 md:row-span-1 border border-white/10 hidden md:block"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 row-span-1 border border-white/10 hidden md:block shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
-            <img src="/assets/images/colash2.webp" alt="Dolphin Dive 2" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            <img src="/assets/images/colash2.webp" alt="Vida Marina" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
           </motion.div>
 
-          {/* FOTO 3: Normal */}
+          {/* FOTO 3: Normal (1x1) = 1 celda */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
-            <img src="/assets/images/colash3.webp" alt="Dolphin Dive 3" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            {/* 👇 Fuera mix-blend-overlay. Tinte cyan ligero en hover */}
-            <div className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            <img src="/assets/images/colash3.webp" alt="Detalle" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
+            <div className="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-overlay"></div>
           </motion.div>
 
-          {/* FOTO 4: Normal */}
+          {/* FOTO 4: Normal (1x1) = 1 celda */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
-            <img src="/assets/images/colash4.webp" alt="Dolphin Dive 4" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            {/* 👇 Tinte yellow ligero en hover */}
-            <div className="absolute inset-0 bg-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            <img src="/assets/images/colash4.webp" alt="Buceo" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
+            <div className="absolute inset-0 bg-yellow-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-overlay"></div>
           </motion.div>
 
-          {/* FOTO 5: Vertical */}
+          {/* 👇 SOLUCIÓN: FOTO 5 AHORA ES 1x1 (Normal) en lugar de vertical 
+              Esto evita el desajuste de celdas al final de la cuadrícula. */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:row-span-2 border border-white/10 hidden md:block"
+            transition={{ delay: 0.1 }}
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 hidden md:block shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
-            <img src="/assets/images/colash5.webp" alt="Dolphin Dive 5" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ocean/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            <img src="/assets/images/colash5.webp" alt="Descenso" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
           </motion.div>
 
-          {/* FOTO 6: Normal */}
+          {/* FOTO 6: Normal (1x1) = 1 celda */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
+            transition={{ delay: 0.2 }}
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             style={{ willChange: "transform" }}
           >
-            <img src="/assets/images/colash6.webp" alt="Dolphin Dive 6" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
+            <img src="/assets/images/colash6.webp" alt="Cardumen" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
           </motion.div>
 
-          {/* FOTO 7: Apaisada inferior (Instagram) */}
+          {/* FOTO 7: Apaisada Instagram (2x1) = 2 celdas */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 row-span-1 border border-white/10 cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            style={{ willChange: "transform" }}
+            onClick={() => window.open('https://www.instagram.com/dolphindivebajaloreto', '_blank')}
+          >
+            <img src="/assets/images/colash7.webp" alt="Síguenos" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
+            <div className="absolute inset-0 bg-navy/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+              <i className="ri-instagram-line text-6xl text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] scale-50 group-hover:scale-100 transition-transform duration-500"></i>
+            </div>
+          </motion.div>
+
+          {/* FOTO 8: Equipo (Grande 2x2) = 4 celdas */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 row-span-2 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            style={{ willChange: "transform" }}
+          >
+            <img src="/assets/nosotros/equipo.webp" alt="Equipo Dolphin" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          </motion.div>
+
+          {/* FOTOS PEQUEÑAS FINALES (1x1) = 4 celdas totales */}
+          {[
+            { img: 'nati.webp', delay: 0.2 },
+            { img: 'natmar.webp', delay: 0.3 },
+            { img: 'homecol.webp', delay: 0.4 },
+            { img: 'caracol.webp', delay: 0.5 },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: item.delay }}
+              className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+              style={{ willChange: "transform" }}
+            >
+              <img src={`/assets/nosotros/${item.img}`} alt="Momento Dolphin" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform" />
+            </motion.div>
+          ))}
+
+          {/* =========================================
+              FOTO EXTRA (Equipof) - Banner Panorámico Final 
+              Ocupa col-span-4 perfecto sin espacios arriba.
+          ========================================= */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:col-span-2 md:row-span-1 border border-white/10 cursor-pointer"
-            style={{ willChange: "transform" }}
-            onClick={() => window.open('https://www.instagram.com/dolphindivebajaloreto', '_blank')}
-          >
-            <img src="/assets/images/colash7.webp" alt="Dolphin Dive 7" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            {/* 👇 Overlay Instagram más limpio y cristalino */}
-            <div className="absolute inset-0 bg-navy/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-              <i className="ri-instagram-line text-5xl text-white drop-shadow-[0_4px_15px_rgba(0,0,0,0.5)] scale-50 group-hover:scale-100 transition-transform duration-500"></i>
-            </div>
-          </motion.div>
-
-          {/* =========================================
-              NUEVAS IMÁGENES (Diseño sin huecos)
-          ========================================= */}
-
-          {/* FOTO 8: Equipo (Grande 2x2) - Izquierda */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:col-span-2 md:row-span-2 border border-white/10"
+            // Agregamos min-h-[300px] para que no se deforme al abarcar todo el ancho
+            className="relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] col-span-2 md:col-span-4 border border-white/10 hidden md:block shadow-[0_15px_40px_rgba(0,0,0,0.4)] min-h-[300px] lg:min-h-[350px]"
             style={{ willChange: "transform" }}
           >
-            <img src="/assets/nosotros/equipo.webp" alt="Nuestro Equipo" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-          </motion.div>
-
-          {/* Bloque de 4 fotos pequeñas a la derecha */}
-          {/* FOTO 9: Nati (Normal 1x1) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
-            style={{ willChange: "transform" }}
-          >
-            <img src="/assets/nosotros/nati.webp" alt="Instructora" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            <div className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-          </motion.div>
-
-          {/* FOTO 10: Natmar (Normal 1x1) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
-            style={{ willChange: "transform" }}
-          >
-            <img src="/assets/nosotros/natmar.webp" alt="Guía" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            <div className="absolute inset-0 bg-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-          </motion.div>
-
-          {/* FOTO 11: Homecol (Normal 1x1) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
-            style={{ willChange: "transform" }}
-          >
-            <img src="/assets/nosotros/homecol.webp" alt="Nuestra Casa" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-          </motion.div>
-
-          {/* FOTO 12: Caracol (Normal 1x1) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.35 }}
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
-            style={{ willChange: "transform" }}
-          >
-            <img src="/assets/nosotros/caracol.webp" alt="Detalle Marino" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-          </motion.div>
-
-          {/* Fila final */}
-          {/* FOTO 13: Equipof (Apaisada 2x1) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="relative group overflow-hidden rounded-[1.5rem] md:col-span-2 md:row-span-1 border border-white/10"
-            style={{ willChange: "transform" }}
-          >
-            <img src="/assets/nosotros/equipof.webp" alt="Familia Dolphin" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-          </motion.div>
-
-          {/* FOTO 14: Dolphin (Normal 1x1) - MODIFICADO A TAMAÑO NORMAL */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.45 }}
-            // Se eliminó md:col-span-2 para que sea 1x1 como caracol
-            className="relative group overflow-hidden rounded-[1.5rem] border border-white/10"
-            style={{ willChange: "transform" }}
-          >
-            <img src="/assets/nosotros/dolphin.webp" alt="Espíritu Dolphin" loading="lazy" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            <img src="/assets/nosotros/equipof.webp" alt="Familia" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[3s] ease-out group-hover:scale-105 will-change-transform" />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           </motion.div>
 
         </div>
       </div>
-
     </section>
   );
 }
