@@ -5,18 +5,26 @@ import { Link } from 'react-router-dom';
 // Importamos el contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
 
+// Importamos 5 imágenes para más variedad
 import slide1 from '/assets/images/slide1.webp';
 import slide2 from '/assets/images/slide2.webp';
 import slide3 from '/assets/images/slide3.webp';
+import slide4 from '/assets/images/colash1.webp';
+import slide5 from '/assets/images/colash2.webp';
 
-const slideImages = [slide1, slide2, slide3];
+const slideImages = [slide1, slide2, slide3, slide4, slide5];
 
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const { t, lang } = useLanguage();
   const heroContent = t.home.hero;
+
+  // Distribuimos los textos cíclicamente para no romper la app si hay más fotos que textos.
   const translatedSlides = heroContent.slides;
+  const getSlideContent = (index: number) => {
+    return translatedSlides[index % translatedSlides.length];
+  };
 
   // Pre-carga de imágenes en caché
   useEffect(() => {
@@ -35,8 +43,8 @@ export default function Hero() {
   }, []);
 
   return (
-    // 'h-[100dvh]' asegura 100% de alto dinámico en móviles. key={lang} fuerza refresco de idioma.
-    <section key={lang} className="relative w-full overflow-hidden bg-dark h-[100dvh] min-h-[600px] md:min-h-[700px]">
+    // 'h-[100dvh]' asegura 100% de alto dinámico en móviles.
+    <section key={lang} className="relative w-full overflow-hidden bg-dark h-[100dvh] min-h-[600px]">
 
       {/* =========================================
           FONDOS DE IMAGEN (Crossfade Fluido)
@@ -52,24 +60,21 @@ export default function Hero() {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: `url(${slideImages[currentIndex]})`,
-              willChange: 'opacity, transform' // Optimización clave para iOS
+              willChange: 'opacity, transform'
             }}
           >
-            {/* 👇 EL SECRETO DE APPLE UX: 
-                 1. Eliminamos el 'mix-blend-multiply' por completo.
-                 2. El gradiente ahora cae a 'transparent' mucho más rápido. 
-                 En móvil viene de abajo, en PC viene de la izquierda (donde está el texto).
-            */}
-            <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent md:bg-gradient-to-r md:from-dark/90 md:via-dark/30 md:to-transparent" />
+            {/* Gradiente adaptado al nuevo color 'dark' luminoso. */}
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent md:bg-gradient-to-r md:from-dark/90 md:via-dark/40 md:to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* =========================================
-          CONTENIDO DE TEXTO
+          CONTENIDO DE TEXTO Y BOTONES
           ========================================= */}
-      {/* Usamos pt-24 md:pt-0 para dejar espacio al Navbar en móvil */}
-      <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-24 pb-20 md:py-0 md:px-20 lg:px-32 pointer-events-none">
+      {/* Ajustamos flex y margins para evitar solapamientos. Usamos pb-32 en móvil. */}
+      <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-20 pb-32 md:py-0 md:px-20 lg:px-32 pointer-events-none">
+
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -86,13 +91,13 @@ export default function Hero() {
 
             {/* Título adaptativo */}
             <h1
-              className="mb-4 md:mb-6 font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] md:leading-[1.1] text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]"
-              dangerouslySetInnerHTML={{ __html: translatedSlides[currentIndex].title }}
+              className="mb-4 md:mb-6 font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] md:leading-[1.1] text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)]"
+              dangerouslySetInnerHTML={{ __html: getSlideContent(currentIndex).title }}
             />
 
             {/* Subtítulo adaptativo */}
-            <p className="mb-8 md:mb-10 max-w-xl font-body text-base sm:text-lg lg:text-xl text-slate-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-medium leading-relaxed">
-              {translatedSlides[currentIndex].subtitle}
+            <p className="mb-8 md:mb-10 max-w-xl font-body text-base sm:text-lg lg:text-xl text-slate-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] font-medium leading-relaxed">
+              {getSlideContent(currentIndex).subtitle}
             </p>
 
             {/* BOTONES LIQUID GLASS */}
@@ -102,7 +107,7 @@ export default function Hero() {
                 href="https://wa.me/526131182311"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-3.5 md:py-4 font-title text-sm tracking-widest uppercase text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
+                className="flex items-center justify-center gap-3 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-8 py-3.5 md:py-4 font-title text-sm tracking-widest uppercase text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:-translate-y-1 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
               >
                 <i className="ri-whatsapp-line text-xl group-hover:scale-110 transition-transform"></i>
                 {heroContent.btnBook}
@@ -111,7 +116,7 @@ export default function Hero() {
               {/* Botón Secundario (Cyan Glass) */}
               <Link
                 to="/servicios"
-                className="flex items-center justify-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-8 py-3.5 md:py-4 font-title text-sm tracking-widest uppercase text-cyan-400 backdrop-blur-md transition-all hover:bg-cyan-400 hover:text-dark hover:border-cyan-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(34,211,238,0.15)] group"
+                className="flex items-center justify-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-8 py-3.5 md:py-4 font-title text-sm tracking-widest uppercase text-cyan-400 backdrop-blur-md transition-all hover:bg-cyan-400 hover:text-dark hover:border-cyan-400 hover:-translate-y-1 active:scale-95 shadow-[0_4px_15px_rgba(34,211,238,0.15)] group"
               >
                 {heroContent.btnServices} <i className="ri-arrow-right-line text-lg group-hover:translate-x-1 transition-transform"></i>
               </Link>
@@ -123,7 +128,8 @@ export default function Hero() {
       {/* =========================================
           CONTROLES (Dots estilo burbuja)
           ========================================= */}
-      <div className="absolute bottom-8 md:bottom-12 left-1/2 flex -translate-x-1/2 gap-3 z-20">
+      {/* Subimos a bottom-10/12 para garantizar espacio seguro lejos de los botones */}
+      <div className="absolute bottom-10 md:bottom-12 left-1/2 flex -translate-x-1/2 gap-3 z-20">
         {slideImages.map((_, index) => (
           <button
             key={index}

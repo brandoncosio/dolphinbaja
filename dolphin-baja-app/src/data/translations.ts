@@ -35,6 +35,15 @@ export const translations = {
                     {
                         title: "SNORKEL Y AVENTURA<br/>PARA TODOS",
                         subtitle: "Vive el océano con actividades diseñadas para familias y amantes del mar."
+                    },
+                    // 👇 Nuevos textos para las imágenes 4 y 5 del Hero
+                    {
+                        title: "APRENDE A BUCEAR<br/>EN EL PARAÍSO",
+                        subtitle: "Cursos PADI con los más altos estándares, desde nivel principiante hasta profesional."
+                    },
+                    {
+                        title: "DESCUBRE LA MAGIA<br/>DE LAS ISLAS",
+                        subtitle: "Expediciones inolvidables a Isla Coronado e Isla del Carmen."
                     }
                 ]
             },
@@ -45,10 +54,13 @@ export const translations = {
                 desc: "Tours, experiencias y el mar como debe vivirse: en grupos pequeños y con respeto total por la vida marina.",
                 cardLink: "Ver detalles",
                 cards: [
+                    // 👇 Actualizado para coincidir con las 6 tarjetas de Highlights.tsx
                     { kicker: "Servicios", title: "Fun Dives & Aventuras" },
                     { kicker: "Experiencias", title: "Snorkeling & Familia" },
-                    { kicker: "Nosotros", title: "Familia y Misión" },
-                    { kicker: "Planifica", title: "Ubicación y Contacto" }
+                    { kicker: "Aprende", title: "Cursos PADI" },
+                    { kicker: "Nosotros", title: "Nuestro Equipo" },
+                    { kicker: "Planifica", title: "Ubicación y Contacto" },
+                    { kicker: "Inspírate", title: "Nuestra Galería" }
                 ]
             },
             valueProps: {
@@ -58,7 +70,7 @@ export const translations = {
                 desc: "En Dolphin Dive Baja no solo te llevamos a bucear. Creamos experiencias seguras, humanas y conscientes dentro del Parque Nacional Bahía de Loreto.",
                 cards: [
                     { title: "Centro PADI 5 Estrellas", desc: "Somos el único Centro PADI 5 Estrellas y Cressi Dive Center en Loreto, cumpliendo con los más altos estándares." },
-                    { title: "Grupos Pequeños", desc: "Máximo 6 buzos por Dive Master o 8 snorkelistas por guía. Atención humana y personalizada." },
+                    { title: "Grupos Pequeños", desc: "Máximo 6 buzos por Dive Master u 8 snorkelistas por guía. Atención humana y personalizada." },
                     { title: "Todo Incluido", desc: "Brazaletes del parque, lunch y bebidas incluidos para que solo te preocupes por disfrutar." },
                     { title: "Nuestra Misión", desc: "Educar para proteger. Primero los animales, segundo los animales, tercero los animales." }
                 ]
@@ -75,7 +87,10 @@ export const translations = {
                     "Cardúmenes",
                     "Exploración",
                     "Tortugas Marinas",
-                    "Atardeceres Mágicos"
+                    "Atardeceres Mágicos",
+                    // 👇 Nuevos textos para las imágenes 9 y 10 del Mosaico
+                    "Equipamiento de Primera",
+                    "Únete a la Aventura"
                 ]
             },
             destination: {
@@ -310,6 +325,15 @@ export const translations = {
                     {
                         title: "SNORKEL AND ADVENTURE<br/>FOR EVERYONE",
                         subtitle: "Experience the ocean with activities designed for families and sea lovers."
+                    },
+                    // 👇 Nuevos textos en inglés
+                    {
+                        title: "LEARN TO DIVE<br/>IN PARADISE",
+                        subtitle: "PADI courses with the highest standards, from beginner to professional levels."
+                    },
+                    {
+                        title: "DISCOVER THE MAGIC<br/>OF THE ISLANDS",
+                        subtitle: "Unforgettable expeditions to Coronado and del Carmen Islands."
                     }
                 ]
             },
@@ -320,10 +344,13 @@ export const translations = {
                 desc: "Tours, experiences, and the sea as it should be lived: in small groups and with total respect for marine life.",
                 cardLink: "View details",
                 cards: [
+                    // 👇 Actualizado a 6 tarjetas
                     { kicker: "Services", title: "Fun Dives & Adventures" },
                     { kicker: "Experiences", title: "Snorkeling & Family" },
-                    { kicker: "About Us", title: "Family and Mission" },
-                    { kicker: "Plan", title: "Location & Contact" }
+                    { kicker: "Learn", title: "PADI Courses" },
+                    { kicker: "About Us", title: "Our Team" },
+                    { kicker: "Plan", title: "Location & Contact" },
+                    { kicker: "Get Inspired", title: "Our Gallery" }
                 ]
             },
             valueProps: {
@@ -350,7 +377,10 @@ export const translations = {
                     "Schools of Fish",
                     "Exploration",
                     "Sea Turtles",
-                    "Magical Sunsets"
+                    "Magical Sunsets",
+                    // 👇 Nuevos textos en inglés
+                    "Top Tier Gear",
+                    "Join the Adventure"
                 ]
             },
             destination: {

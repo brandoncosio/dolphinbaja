@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 // Importamos el contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
 
-// Imágenes para la galería
+// Imágenes para la galería ampliadas (Asegúrate de que estas rutas existan)
 import img1 from '/assets/images/colash1.webp';
 import img2 from '/assets/images/colash2.webp';
 import img3 from '/assets/images/colash3.webp';
@@ -12,34 +12,39 @@ import img5 from '/assets/images/colash5.webp';
 import img6 from '/assets/images/colash6.webp';
 import img7 from '/assets/images/colash7.webp';
 import img8 from '/assets/images/colash8.webp';
+// Nuevas imágenes (Puedes usar las que tengas, aquí asumo nombres estándar)
+import img9 from '/assets/nosotros/tienda1.webp';
+import img10 from '/assets/nosotros/team.webp';
 
 export default function HomeGallery() {
     const { t } = useLanguage();
     const content = t.home.gallery;
 
+    // Ampliamos el mosaico a 10 elementos para un layout asimétrico más espectacular
     const galleryItems = [
-        // En móvil (grid-cols-2): Mantenemos proporciones asimétricas pero ajustadas a 2 columnas
-        { id: 1, src: img1, title: content.images[0], size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
-        { id: 2, src: img2, title: content.images[1], size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 3, src: img3, title: content.images[2], size: "col-span-1 row-span-2 md:col-span-1 md:row-span-2" },
-        { id: 4, src: img4, title: content.images[3], size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 5, src: img5, title: content.images[4], size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
-        { id: 6, src: img6, title: content.images[5], size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 7, src: img7, title: content.images[6], size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 8, src: img8, title: content.images[7], size: "col-span-2 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 1, src: img1, title: content.images[0] || "Explorando profundidades", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
+        { id: 2, src: img2, title: content.images[1] || "Aventuras únicas", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 3, src: img3, title: content.images[2] || "Vida marina", size: "col-span-1 row-span-2 md:col-span-1 md:row-span-2" },
+        { id: 4, src: img4, title: content.images[3] || "Momentos de paz", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 5, src: img5, title: content.images[4] || "Nuestro Staff", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
+        { id: 6, src: img6, title: content.images[5] || "El Mar de Cortés", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 7, src: img7, title: content.images[6] || "Experiencias PADI", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        // Modificamos el layout de las últimas para encajar las nuevas
+        { id: 8, src: img8, title: content.images[7] || "Aguas cristalinas", size: "col-span-2 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 9, src: img9, title: content.images[8] || "Equipamiento", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+        { id: 10, src: img10, title: content.images[9] || "Únete hoy", size: "col-span-1 row-span-1 md:col-span-2 md:row-span-1" },
     ];
 
     return (
         <section className="relative z-10 w-full py-16 md:py-24 px-4 md:px-12 overflow-hidden">
-
             <div className="max-w-[1400px] mx-auto relative z-20">
 
                 {/* =========================================
-                    ENCABEZADO
+                    ENCABEZADO LUMINOSO
                 ========================================= */}
                 <div className="text-center mb-12 md:mb-16 relative">
-                    {/* Reflejo sutil detrás del título */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 rounded-full bg-cyan-400/10 blur-[80px] pointer-events-none" />
+                    {/* Reflejo oceánico detrás del título - ajustado al azul arrecife */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 md:w-96 rounded-full bg-cyan-400/20 blur-[80px] pointer-events-none" />
 
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
@@ -55,27 +60,29 @@ export default function HomeGallery() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                        className="font-title text-3xl md:text-5xl lg:text-6xl text-white drop-shadow-lg leading-tight"
+                        className="font-title text-3xl md:text-5xl lg:text-6xl text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] leading-tight"
                     >
                         {content.title}
                     </motion.h2>
                 </div>
 
                 {/* =========================================
-                    GRID MOSAICO (Bento Grid Seguro para iOS)
+                    GRID MOSAICO (Apple-Style Glass)
                 ========================================= */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[120px] sm:auto-rows-[150px] md:auto-rows-[200px] gap-2 md:gap-4">
+                {/* El grid ahora se adapta perfectamente a 10 imágenes */}
+                <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[120px] sm:auto-rows-[150px] md:auto-rows-[200px] gap-2 md:gap-4">
                     {galleryItems.map((item, index) => (
                         <motion.div
                             key={item.id}
-                            // 👇 CAMBIO 1: bg-white/5 en lugar de bg-dark/20 para dar base luminosa al cristal
-                            className={`relative group rounded-2xl md:rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:border-cyan-400/30 hover:shadow-[0_15px_40px_rgba(102,216,227,0.15)] transition-all duration-500 ${item.size}`}
+                            // Base de cristal (bg-white/5) para que los contornos destaquen sin ensuciar la foto
+                            className={`relative group rounded-2xl md:rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:border-cyan-400/40 hover:shadow-[0_15px_40px_rgba(102,216,227,0.2)] transition-all duration-500 ${item.size}`}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
+                            transition={{ duration: 0.5, delay: (index % 4) * 0.05, ease: "easeOut" }} // Delay cíclico para rendimiento
                             style={{ willChange: "transform" }}
                         >
+                            {/* FOTO HD: Mantenemos sus colores originales al máximo */}
                             <img
                                 src={item.src}
                                 alt={item.title}
@@ -84,15 +91,14 @@ export default function HomeGallery() {
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 will-change-transform"
                             />
 
-                            {/* 👇 CAMBIO 2: Overlay Luminoso. 
-                                Solo oscurece la parte inferior (from-dark/90) y se desvanece rápido (via-dark/10 to-transparent).
-                                En móvil siempre visible abajo. En PC invisible hasta hacer hover. 
-                            */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/10 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                            {/* 👇 PROTECCIÓN DE TEXTO (Navy Gradient)
+                                Reemplazamos el negro (from-dark) por Azul Marino (from-navy) 
+                                para mantener la luminosidad tropical. */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/10 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                             <div className="absolute inset-0 flex items-end md:items-center justify-center p-4 pb-6 md:p-2 z-10 pointer-events-none">
                                 {/* Título de la imagen */}
-                                <p className="text-white font-title text-sm sm:text-base md:text-xl text-center md:transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] md:opacity-0 md:group-hover:opacity-100 leading-tight">
+                                <p className="text-white font-title text-sm sm:text-base md:text-xl text-center md:transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] md:opacity-0 md:group-hover:opacity-100 leading-tight">
                                     {item.title}
                                 </p>
                             </div>
@@ -101,7 +107,7 @@ export default function HomeGallery() {
                 </div>
 
                 {/* =========================================
-                    BOTÓN INSTAGRAM (Liquid Glass)
+                    BOTÓN INSTAGRAM (Liquid Glass Apple)
                 ========================================= */}
                 <div className="mt-12 md:mt-16 text-center">
                     <motion.a
@@ -112,7 +118,7 @@ export default function HomeGallery() {
                         href="https://www.instagram.com/dolphindivebajaloreto"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-title text-sm tracking-widest uppercase hover:bg-cyan-400/20 hover:text-cyan-400 hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(102,216,227,0.2)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 group shadow-lg w-full sm:w-auto"
+                        className="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl text-white font-title text-sm tracking-widest uppercase hover:bg-cyan-400/20 hover:text-cyan-300 hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(102,216,227,0.2)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 group shadow-[0_10px_20px_rgba(0,0,0,0.2)] w-full sm:w-auto"
                     >
                         <i className="ri-instagram-line text-xl group-hover:scale-110 transition-transform"></i>
                         {content.btnInsta}
