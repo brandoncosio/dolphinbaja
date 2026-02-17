@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import logo from '/assets/images/logodolphin.webp';
@@ -10,9 +10,10 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
-  const { lang, t, toggleLanguage } = useLanguage();
+  const { t, toggleLanguage } = useLanguage();
   const location = useLocation();
 
+  // Control del fondo de la Navbar al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -21,11 +22,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Cerrar menús al cambiar de ruta
   useEffect(() => {
     if (isMenuOpen) setIsMenuOpen(false);
     if (hoveredMenu) setHoveredMenu(null);
   }, [location.pathname]);
 
+  // Scroll suave hacia los Hash (#) con retraso para asegurar que la página haya renderizado
   useEffect(() => {
     if (location.hash) {
       const elem = document.getElementById(location.hash.substring(1));
@@ -37,12 +40,15 @@ export default function Navbar() {
     }
   }, [location]);
 
+  // Bloquear el scroll del cuerpo cuando el menú móvil está abierto
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
+    // Cleanup en caso de que el componente se desmonte
+    return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
 
   const navItems = [
@@ -78,41 +84,45 @@ export default function Navbar() {
   return (
     <>
       <header
-        // 👇 1. Cristal Esmerilado Inteligente al hacer scroll
-        className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 transition-all duration-500 xl:px-20 ${isScrolled
-            ? 'py-3 bg-dark/40 backdrop-blur-lg border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+        // Cristal Esmerilado Inteligente al hacer scroll
+        className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 xl:px-20 transition-all duration-500 ${isScrolled
+            ? 'py-3 bg-dark/60 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
             : 'py-5 lg:py-6 bg-transparent border-b border-transparent'
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
       >
-        <Link to="/" className="flex items-center z-50 group shrink-0">
+        {/* LOGO */}
+        <Link to="/" className="flex items-center z-50 group shrink-0" onClick={() => setIsMenuOpen(false)}>
           <img
             src={logo}
             alt="Dolphin Dive Baja"
-            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'
+            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'
               }`}
           />
         </Link>
 
-        <nav className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-10">
+        {/* NAVEGACIÓN DESKTOP */}
+        <nav className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-10 h-full">
           {navItems.map((item) => (
             <div
               key={item.name}
-              className="relative group h-full flex items-center justify-center"
+              className="relative group h-full flex items-center justify-center cursor-pointer"
               onMouseEnter={() => setHoveredMenu(item.name)}
               onMouseLeave={() => setHoveredMenu(null)}
             >
-              {/* 👇 2. Enlaces con brillo cyan al pasar el mouse */}
+              {/* Enlace principal */}
               <Link
                 to={item.path}
-                className="relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest text-white transition-colors hover:text-cyan-400 py-4 drop-shadow-md"
+                className="relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest text-white transition-colors hover:text-cyan-400 py-6 drop-shadow-md"
               >
                 {item.name}
                 <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-400' : 'text-white/50'}`}></i>
-                {/* Línea inferior brillante en hover */}
-                <span className={`absolute bottom-2 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
+
+                {/* Línea inferior brillante animada */}
+                <span className={`absolute bottom-4 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
               </Link>
 
+              {/* Submenú Dropdown */}
               <AnimatePresence>
                 {hoveredMenu === item.name && (
                   <motion.div
@@ -120,12 +130,13 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-64 z-50"
+                    // El padding top compensa el espacio entre el navbar y el menú para que el mouse no "salga" de la zona
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64 z-50"
                   >
-                    {/* 👇 3. Flechita y contenedor adaptados al color Dark */}
-                    <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-4 h-4 bg-dark/60 border-t border-l border-white/20 rotate-45 backdrop-blur-2xl z-0 rounded-sm"></div>
+                    {/* Triangulito superior ajustado al color Dark sólido para no generar bugs de blur */}
+                    <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-4 h-4 bg-[#0a1823] border-t border-l border-white/20 rotate-45 z-0 rounded-sm" />
 
-                    <div className="relative z-10 bg-dark/70 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.6)] p-2 text-left ring-1 ring-white/5">
+                    <div className="relative z-10 bg-dark/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] p-2 text-left ring-1 ring-white/5 overflow-hidden">
                       {item.submenu.map((subItem, idx) => (
                         subItem.link.startsWith('http') ? (
                           <a
@@ -133,7 +144,7 @@ export default function Navbar() {
                             href={subItem.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-between px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
+                            className="flex items-center justify-between px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/5 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
                           >
                             <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                             <i className="ri-external-link-line opacity-50 group-hover/link:opacity-100 transition-opacity"></i>
@@ -142,7 +153,7 @@ export default function Navbar() {
                           <Link
                             key={idx}
                             to={subItem.link}
-                            className="block px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
+                            className="block px-4 py-3 text-sm font-body font-medium text-slate-200 hover:bg-white/5 hover:text-cyan-400 rounded-xl transition-all duration-300 group/link"
                           >
                             <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                           </Link>
@@ -156,6 +167,7 @@ export default function Navbar() {
           ))}
         </nav>
 
+        {/* CONTROLES DERECHA DESKTOP */}
         <div className="hidden lg:flex items-center gap-4 shrink-0 z-50">
           <button
             onClick={toggleLanguage}
@@ -169,55 +181,69 @@ export default function Navbar() {
             href="https://wa.me/526131182311"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-6 py-2.5 font-title text-xs text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400/20 hover:border-yellow-400/50 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(254,217,102,0.15)] group"
+            className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-6 py-2.5 font-title text-xs text-yellow-400 backdrop-blur-md transition-all hover:bg-yellow-400 hover:text-dark hover:border-yellow-400 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(250,204,21,0.15)] group"
           >
             <i className="ri-whatsapp-line text-lg group-hover:scale-110 transition-transform"></i>
             {t.navbar.cta}
           </a>
         </div>
 
+        {/* CONTROLES MÓVIL (Idioma + Hamburguesa) */}
         <div className="flex items-center gap-3 lg:hidden z-50">
           <button
             onClick={toggleLanguage}
-            className="font-body text-xs font-bold text-white bg-white/10 px-3 py-2 rounded-full backdrop-blur-md border border-white/10 hover:bg-white/20 transition-colors"
+            className="font-body text-[11px] font-bold tracking-widest uppercase text-white bg-white/10 px-4 py-2 rounded-full backdrop-blur-md border border-white/10 hover:bg-white/20 transition-colors"
           >
             {t.navbar.languageBtn}
           </button>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-all active:bg-white/20"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-all active:bg-white/20 active:scale-95"
           >
             {isMenuOpen ? <i className="ri-close-line text-xl"></i> : <i className="ri-menu-3-line text-xl"></i>}
           </button>
         </div>
       </header>
 
+      {/* =========================================
+          MENÚ MÓVIL (Overlay oscuro)
+      ========================================= */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] transition-opacity duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-dark/80 backdrop-blur-sm z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
+        style={{ willChange: 'opacity' }}
         onClick={() => setIsMenuOpen(false)}
       />
 
-      {/* 👇 4. Menú móvil adaptado a la profundidad (Dark) */}
+      {/* =========================================
+          MENÚ MÓVIL (Sidebar lateral)
+      ========================================= */}
       <aside
-        className={`fixed top-0 right-0 z-[90] h-full w-[85%] max-w-[320px] bg-dark/70 backdrop-blur-3xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        // h-[100dvh] previene problemas con la barra de navegación de Safari
+        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-dark/80 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.6)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
+        // Aceleración por hardware + Curva nativa de iOS para slide-in fluidos
+        style={{
+          willChange: 'transform',
+          transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
+        }}
       >
-        <div className="flex h-full flex-col justify-between px-6 pt-24 pb-10 overflow-y-auto">
+        {/* Contenedor flexible que asegura que el botón de Whatsapp siempre quede abajo */}
+        <div className="flex h-full flex-col justify-between px-6 pt-28 pb-10 overflow-y-auto">
 
           <nav className="flex flex-col gap-6">
             {navItems.map((item) => (
-              <div key={item.name} className="border-b border-white/5 pb-4 last:border-0">
+              <div key={item.name} className="border-b border-white/5 pb-5 last:border-0">
                 <Link
                   to={item.path}
-                  className="text-xl font-title text-white transition-colors hover:text-cyan-400 block mb-3 drop-shadow-md"
+                  className="text-2xl font-title text-white transition-colors active:text-cyan-400 block mb-4 drop-shadow-md"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
 
-                <div className="pl-3 flex flex-col gap-3 border-l-2 border-cyan-400/30">
+                <div className="pl-4 flex flex-col gap-4 border-l border-cyan-400/20">
                   {item.submenu.map((sub, i) => (
                     sub.link.startsWith('http') ? (
                       <a
@@ -225,16 +251,16 @@ export default function Navbar() {
                         href={sub.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-slate-300 font-body hover:text-white transition-colors cursor-pointer flex items-center justify-between group"
+                        className="text-base text-slate-300 font-body active:text-white transition-colors flex items-center justify-between"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {sub.label} <i className="ri-external-link-line opacity-50 text-xs"></i>
+                        {sub.label} <i className="ri-external-link-line opacity-50 text-sm"></i>
                       </a>
                     ) : (
                       <Link
                         key={i}
                         to={sub.link}
-                        className="text-sm text-slate-300 font-body hover:text-white transition-colors cursor-pointer"
+                        className="text-base text-slate-300 font-body active:text-white transition-colors block"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sub.label}
@@ -246,17 +272,18 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="mt-8 pt-6 border-t border-white/10">
+          <div className="mt-8 pt-6 border-t border-white/10 shrink-0">
             <a
               href="https://wa.me/526131182311"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-xl border border-yellow-400/20 bg-yellow-400/10 backdrop-blur-md py-3.5 font-title text-sm text-yellow-400 shadow-[0_8px_32px_rgba(254,217,102,0.1)] active:scale-95 transition-all w-full hover:bg-yellow-400/20"
+              className="flex items-center justify-center gap-3 rounded-xl border border-yellow-400/30 bg-yellow-400/10 backdrop-blur-md py-4 font-title text-sm tracking-widest uppercase text-yellow-400 shadow-[0_8px_32px_rgba(254,217,102,0.1)] active:scale-95 active:bg-yellow-400 active:text-dark transition-all w-full"
             >
-              <i className="ri-whatsapp-line text-lg"></i>
+              <i className="ri-whatsapp-line text-xl"></i>
               {t.navbar.cta}
             </a>
           </div>
+
         </div>
       </aside>
     </>
