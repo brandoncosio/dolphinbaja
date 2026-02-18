@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 export default function SplashScreen() {
-  // Burbujas Optimizadas para iOS
+  // Burbujas (Lógica intacta)
   const bubbles = useMemo(() => {
     return Array.from({ length: 15 }).map((_, i) => {
       const depthLayer = Math.random();
@@ -42,32 +42,43 @@ export default function SplashScreen() {
     <motion.div
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
-      // bg-dark ahora invoca el Azul Arrecife de tu index.css
-      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-dark"
+      // Fondo adaptable: Azul Arrecife vs Blanco Hielo
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden transition-colors duration-500 dark:bg-dark bg-slate-50"
     >
       {/* =========================================
-          FONDO ABISAL LUMINOSO (Aguas Someras)
-      ========================================= */}
+          FONDO DE LUZ (Atmosfera)
+          ========================================= */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* 👇 AUMENTAMOS LA LUZ: from-cyan-400/30 y via-ocean/30 para que los rayos de sol destaquen más sobre el nuevo fondo azul */}
-        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[150%] md:w-[100%] h-[80%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-400/40 via-ocean/30 to-transparent" />
+        {/* Luz Superior: */}
+        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[150%] md:w-[100%] h-[80%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] transition-all duration-500
+          dark:from-cyan-400/40 dark:via-ocean/30 dark:to-transparent
+          from-cyan-400/20 via-blue-300/20 to-transparent"
+        />
 
-        {/* navy ahora es un azul oscuro vibrante, no negro */}
-        <div className="absolute bottom-0 left-0 w-full h-[40%] bg-gradient-to-t from-navy to-transparent" />
+        {/* Profundidad Inferior: */}
+        <div className="absolute bottom-0 left-0 w-full h-[40%] bg-gradient-to-t transition-colors duration-500
+          dark:from-navy dark:to-transparent
+          from-transparent to-transparent"
+        />
       </div>
 
       {/* =========================================
-          CAPA 1: BURBUJAS 
-      ========================================= */}
+          CAPA 1: BURBUJAS (Ahora Azules en Modo Claro)
+          ========================================= */}
       {bubbles.map((bubble) => (
         <motion.div
           key={bubble.id}
-          className="absolute bottom-[-80px] rounded-full border border-white/20 bg-gradient-to-tr from-white/10 to-white/30 shadow-[inset_0_0_10px_rgba(255,255,255,0.1)]"
+          // 👇 CAMBIO AQUÍ: 
+          // - Dark: Blancas brillantes (Como aire bajo el agua oscura).
+          // - Light: AZULES SÓLIDOS (border-blue-500 y bg-blue-500) para verse claras contra el blanco.
+          className="absolute bottom-[-80px] rounded-full transition-colors duration-500
+            dark:border-white/20 dark:bg-gradient-to-tr dark:from-white/10 dark:to-white/30 dark:shadow-[inset_0_0_10px_rgba(255,255,255,0.1)]
+            border-blue-400/40 bg-gradient-to-tr from-cyan-400/30 to-blue-500/30 shadow-[inset_0_0_8px_rgba(59,130,246,0.2)]"
           style={{
             width: bubble.size,
             height: bubble.size,
             left: `${bubble.left}%`,
-            opacity: bubble.opacity,
+            opacity: bubble.opacity, // Mantenemos la opacidad original para el movimiento
             zIndex: bubble.zIndex,
             willChange: "transform",
           }}
@@ -85,15 +96,18 @@ export default function SplashScreen() {
 
       {/* =========================================
           CAPA 2: LOGO Y BARRA DE CARGA
-      ========================================= */}
+          ========================================= */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative z-50 flex flex-col items-center"
       >
-        {/* Halo de luz tras el logo más intenso para compensar */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-64 md:h-64 bg-cyan-400/25 blur-[50px] rounded-full pointer-events-none" />
+        {/* Halo de luz tras el logo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-64 md:h-64 rounded-full pointer-events-none blur-[50px] transition-colors duration-500
+          dark:bg-cyan-400/25 
+          bg-cyan-400/10"
+        />
 
         {/* Logo */}
         <img
@@ -102,15 +116,19 @@ export default function SplashScreen() {
           className="w-48 md:w-64 lg:w-72 drop-shadow-2xl relative z-10"
         />
 
-        {/* Barra de carga minimalista */}
+        {/* Barra de carga */}
         <motion.div
-          className="mt-10 w-40 md:w-48 h-1 bg-white/20 rounded-full overflow-hidden relative shadow-[0_0_10px_rgba(255,255,255,0.1)]"
+          className="mt-10 w-40 md:w-48 h-1 rounded-full overflow-hidden relative transition-colors duration-500
+            dark:bg-white/20 dark:shadow-[0_0_10px_rgba(255,255,255,0.1)]
+            bg-blue-100"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
         >
           <motion.div
-            className="h-full bg-cyan-400 relative shadow-[0_0_8px_rgba(102,216,227,1)]"
+            className="h-full relative shadow-[0_0_8px_rgba(102,216,227,1)] transition-colors duration-500
+              dark:bg-cyan-400 
+              bg-blue-500"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -122,7 +140,9 @@ export default function SplashScreen() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-4 font-title text-[10px] tracking-[0.3em] uppercase text-cyan-300 drop-shadow-md"
+          className="mt-4 font-title text-[10px] tracking-[0.3em] uppercase drop-shadow-md transition-colors duration-500
+            dark:text-cyan-300 
+            text-blue-600"
         >
           Sumergiendo...
         </motion.span>
