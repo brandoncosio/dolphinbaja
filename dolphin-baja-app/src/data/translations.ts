@@ -229,7 +229,8 @@ export const translations = {
                     { name: "Fiona", role: "DM Training", img: "/assets/nosotros/fiona.webp" },
                     { name: "Rafa Jr", role: "DM Training", img: "/assets/nosotros/rafa3.webp" },
                     { name: "Rafa", role: "Instructor", img: "/assets/nosotros/rafa2.webp" },
-                    { name: "María", role: "Assistant Inst.", img: "/assets/nosotros/maria.webp" }
+                    { name: "María", role: "Assistant Inst.", img: "/assets/nosotros/maria.webp" },
+                    { name: "Erubiel", role: "Capitán", img: "/assets/nosotros/CapEru.webp" }
                 ]
             },
             gallery: {
@@ -575,7 +576,8 @@ export const translations = {
                     { name: "Fiona", role: "DM Training", img: "/assets/nosotros/fiona.webp" },
                     { name: "Rafa Jr", role: "DM Training", img: "/assets/nosotros/rafa3.webp" },
                     { name: "Rafa", role: "Instructor", img: "/assets/nosotros/rafa2.webp" },
-                    { name: "María", role: "Assistant Inst.", img: "/assets/nosotros/maria.webp" }
+                    { name: "María", role: "Assistant Inst.", img: "/assets/nosotros/maria.webp" },
+                    { name: "Erubiel", role: "Captain", img: "/assets/nosotros/CapEru.webp" }
                 ]
             },
             gallery: {
