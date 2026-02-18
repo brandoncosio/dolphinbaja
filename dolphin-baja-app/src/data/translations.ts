@@ -144,9 +144,9 @@ export const translations = {
                     { title: "Refresher (Refresh)", price: "Consultar", duration: "1 Día", desc: "¿Más de 1 año sin bucear? Retoma confianza y técnica en un área controlada antes de explorar.", includes: ["1 Tanque Habilidades", "1 Tanque Exploración", "Equipo NO incluido"], imgKey: "refreshImg" },
                     { title: "Bubble Makers", price: "Consultar", duration: "Medio día", desc: "Introducción segura y divertida para niños de 8 a 11 años. Máximo 2 metros de profundidad.", includes: ["1 Tanque", "Equipo Incluido", "Instructor PADI", "Lunch"], imgKey: "bubbleImg" }
                 ],
+                // 👇 AQUÍ SE ELIMINÓ EL SUNSET CRUISE
                 snorkel: [
-                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "snorkelImg" },
-                    { title: "Sunset Cruise", price: "$60 USD", duration: "3 Horas", desc: "Disfruta del atardecer en el Mar de Cortés con música suave y bebidas refrescantes.", includes: ["Bebidas (No alcohólicas)", "Botana", "Capitán Bilingüe", "Fotos"], imgKey: "experienciasImg" }
+                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "snorkelImg" }
                 ]
             },
             schedules: {
@@ -490,9 +490,9 @@ export const translations = {
                     { title: "Refresher", price: "Inquire", duration: "1 Day", desc: "More than 1 year without diving? Regain confidence and technique in a controlled area before exploring.", includes: ["1 Skills Tank", "1 Exploration Tank", "Gear NOT included"], imgKey: "refreshImg" },
                     { title: "Bubble Makers", price: "Inquire", duration: "Half day", desc: "Safe and fun introduction for kids 8 to 11 years old. Maximum 2 meters deep.", includes: ["1 Tank", "Gear Included", "PADI Instructor", "Lunch"], imgKey: "bubbleImg" }
                 ],
+                // 👇 AQUÍ SE ELIMINÓ EL SUNSET CRUISE
                 snorkel: [
-                    { title: "Coronados Island Tour", price: "$85 USD", duration: "4 Hours", desc: "For the whole family. White sand beaches, turquoise waters, and dolphin watching on the way.", includes: ["Snorkel Gear", "Life Jacket", "Lunch Box", "Beach Shade"], imgKey: "snorkelImg" },
-                    { title: "Sunset Cruise", price: "$60 USD", duration: "3 Hours", desc: "Enjoy the sunset in the Sea of Cortez with soft music and refreshing drinks.", includes: ["Drinks (Non-alcoholic)", "Snacks", "Bilingual Captain", "Photos"], imgKey: "experienciasImg" }
+                    { title: "Coronados Island Tour", price: "$85 USD", duration: "4 Hours", desc: "For the whole family. White sand beaches, turquoise waters, and dolphin watching on the way.", includes: ["Snorkel Gear", "Life Jacket", "Lunch Box", "Beach Shade"], imgKey: "snorkelImg" }
                 ]
             },
             schedules: {
