@@ -10,27 +10,33 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    // 1. Verificar preferencia del sistema o localStorage
+
+    // 👇 AQUÍ ESTÁ EL CAMBIO CLAVE
     const [theme, setTheme] = useState<Theme>(() => {
         if (typeof window !== 'undefined') {
+            // 1. Revisamos si el usuario ya guardó una preferencia anteriormente
+            // (Si ya visitó la web y cambió el tema, respetamos su elección)
             const savedTheme = localStorage.getItem('dolphin_theme') as Theme;
             if (savedTheme) return savedTheme;
-
-            // Si no hay guardado, checar preferencia del sistema
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark';
-            }
         }
-        return 'light'; // Default a Claro para complacer a la clienta
+
+        // 2. SI ES LA PRIMERA VEZ (O no hay nada guardado):
+        // Retornamos DIRECTAMENTE 'light'.
+        // Hemos eliminado la comprobación de (prefers-color-scheme: dark)
+        // para que ignore la configuración del sistema operativo.
+        return 'light';
     });
 
     useEffect(() => {
         const root = window.document.documentElement;
-        // Remover la clase anterior
+
+        // Remover la clase anterior para evitar conflictos
         root.classList.remove('light', 'dark');
-        // Agregar la nueva
+
+        // Agregar la clase actual al HTML (esto activa el CSS de Tailwind)
         root.classList.add(theme);
-        // Guardar en local
+
+        // Guardar la elección en el navegador para futuras visitas
         localStorage.setItem('dolphin_theme', theme);
     }, [theme]);
 
