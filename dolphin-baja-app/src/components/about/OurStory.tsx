@@ -17,10 +17,12 @@ export default function OurStory() {
   `;
 
   // 2. Textos Generales
-  // 👇 CORRECCIÓN: Se añadió drop-shadow-[0_4px_10px_rgba(0,0,0,0.3)] para igualar al Hero
+  // 👇 CORRECCIÓN: Ajustamos el drop-shadow en modo claro para darle profundidad
   const headingClass = `
     font-title text-3xl md:text-5xl lg:text-6xl leading-[1.1] transition-colors duration-500
-    text-navy drop-shadow-[0_2px_8px_rgba(0,0,0,0.1)]
+    /* LIGHT: Sombra más marcada para dar volumen al texto oscuro */
+    text-navy drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]
+    /* DARK: Sombra blanca sutil para separar del fondo oscuro */
     dark:text-white dark:drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]
   `;
 
@@ -49,6 +51,12 @@ export default function OurStory() {
     dark:text-white dark:group-hover:text-yellow-400
   `;
 
+  const statLabelClass = `
+    text-xs md:text-sm font-body font-bold uppercase tracking-[0.2em] transition-colors
+    text-slate-500 group-hover:text-slate-700
+    dark:text-slate-300 dark:group-hover:text-slate-100
+  `;
+
   // 4. Banner de Misión (Fusión con el fondo)
   const missionOverlayClass = `
     absolute inset-0 bg-gradient-to-t z-10 pointer-events-none transition-opacity duration-500
@@ -58,7 +66,7 @@ export default function OurStory() {
 
   return (
     <section className="relative py-24 px-6 overflow-hidden z-10">
-      {/* Gradiente para conectar con el Hero */}
+      {/* 👇 Gradiente para conectar con el Hero */}
       <div className={entryGradientClass} />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -105,9 +113,7 @@ export default function OurStory() {
                 style={{ willChange: "transform" }}
               >
                 <span className={statNumClass}>{stat.num}</span>
-                <span className="text-xs md:text-sm font-body font-bold uppercase tracking-[0.2em] transition-colors text-slate-500 dark:text-slate-300">
-                  {stat.label}
-                </span>
+                <span className={statLabelClass}>{stat.label}</span>
               </motion.div>
             ))}
           </div>
@@ -127,6 +133,7 @@ export default function OurStory() {
             style={{ backgroundImage: 'url("/assets/images/colash1.webp")', willChange: 'transform' }}
           />
 
+          {/* 👇 Overlay que se funde con el fondo Dark para evitar líneas */}
           <div className={missionOverlayClass} />
 
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 blur-[100px] z-10 pointer-events-none bg-cyan-400/10 dark:bg-white/5" />
