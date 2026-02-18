@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { Helmet } from 'react-helmet-async'; // 👇 Importación vital para SEO
+import { Helmet } from 'react-helmet-async';
 
 // Contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
@@ -23,9 +23,50 @@ export default function Nosotros() {
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // Carga un poco más rápida para páginas internas
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
+
+  // ========================================================================
+  // 🎨 ESTILOS SEPARADOS (Clean Code)
+  // ========================================================================
+
+  // 1. Contenedor Principal
+  const pageContainerClass = `
+    relative min-h-screen w-full overflow-x-hidden transition-colors duration-500 selection:bg-cyan-400 selection:text-dark
+    bg-slate-50 text-slate-600
+    dark:bg-dark dark:text-slate-200
+  `;
+
+  // 2. Contenedor Atmósfera (Luces de fondo)
+  const atmosphereContainerClass = `
+    fixed inset-0 pointer-events-none z-0 overflow-hidden transition-opacity duration-500
+    /* LIGHT: Muy sutil (40%) para que se vea limpio */
+    opacity-40
+    /* DARK: Total (100%) para profundidad */
+    dark:opacity-100
+  `;
+
+  // 3. Luz Superior Izquierda
+  const blobTopLeftClass = `
+    absolute top-[5%] -left-[10%] w-[80%] md:w-[60%] h-[40%] md:h-[50%] rounded-full blur-[120px] md:blur-[130px] transition-colors duration-500
+    bg-cyan-400/10
+    dark:bg-cyan-400/20
+  `;
+
+  // 4. Luz Derecha Profunda
+  const blobRightClass = `
+    absolute top-[40%] -right-[15%] w-[70%] md:w-[50%] h-[50%] md:h-[60%] rounded-full blur-[130px] md:blur-[150px] transition-colors duration-500
+    bg-blue-400/10
+    dark:bg-ocean/25
+  `;
+
+  // 5. Sombra Inferior
+  const blobBottomClass = `
+    absolute -bottom-[10%] left-[10%] w-[80%] h-[40%] rounded-full blur-[120px] transition-colors duration-500
+    bg-slate-200/50
+    dark:bg-navy/40
+  `;
 
   return (
     <>
@@ -53,41 +94,37 @@ export default function Nosotros() {
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
 
-      {/* 👇 Fondo Dark Corporativo (Ahora usa el vibrante Azul Arrecife) */}
-      <main key={lang} className="relative min-h-screen bg-dark text-white w-full overflow-x-hidden selection:bg-cyan-400 selection:text-dark">
+      <main key={lang} className={pageContainerClass}>
 
         {/* =========================================================
-            EFECTO UNDERWATER GLOBAL (Aguas Someras)
+            EFECTO UNDERWATER GLOBAL (Atmósfera)
         ========================================================= */}
-        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" style={{ willChange: 'transform' }}>
-          {/* Luz superior izquierda (Aumentamos intensidad a /20) */}
-          <div className="absolute top-[5%] -left-[10%] w-[80%] md:w-[60%] h-[40%] md:h-[50%] bg-cyan-400/20 blur-[120px] md:blur-[130px] rounded-full" />
-
-          {/* Luz profunda derecha (Usando la variable ocean) */}
-          <div className="absolute top-[40%] -right-[15%] w-[70%] md:w-[50%] h-[50%] md:h-[60%] bg-ocean/25 blur-[130px] md:blur-[150px] rounded-full" />
-
-          {/* Sombra de profundidad usando navy para dar contraste sin usar negro */}
-          <div className="absolute -bottom-[10%] left-[10%] w-[80%] h-[40%] bg-navy/40 blur-[120px] rounded-full" />
+        <div className={atmosphereContainerClass} style={{ willChange: 'transform' }}>
+          <div className={blobTopLeftClass} />
+          <div className={blobRightClass} />
+          <div className={blobBottomClass} />
         </div>
 
         {/* =========================================================
             CONTENIDO (Z-10 para flotar sobre el agua)
         ========================================================= */}
         <div className="relative z-10 flex flex-col">
-          {/* 1. Hero con foto del equipo */}
+
+          {/* 1. Hero */}
           <AboutHero />
 
-          {/* 2. Historia, Misión y Estadísticas (¡Ya pulido al inicio!) */}
+          {/* 2. Historia & Misión */}
           <OurStory />
 
-          {/* 3. Línea de Tiempo (Timeline) */}
+          {/* 3. Timeline */}
           <History />
 
-          {/* 4. Grid del Equipo (Staff) (¡Ya pulido al inicio!) */}
+          {/* 4. Staff */}
           <Team />
 
-          {/* 5. Tienda Cressi y Galería */}
+          {/* 5. Galería */}
           <Gallery />
+
         </div>
       </main>
     </>
