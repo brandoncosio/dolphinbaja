@@ -54,6 +54,47 @@ export default function HomeGallery() {
         { id: 21, src: imgVol, title: content.images[20] || "Aventuras", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
     ];
 
+    // ========================================================================
+    // 🎨 ESTILOS SEPARADOS (Clean Code)
+    // ========================================================================
+
+    // 1. Estilo para las Tarjetas de Fotos (Mosaico)
+    const photoCardClass = `
+      relative group rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-500
+      
+      /* LIGHT MODE: Limpio, elevado, bordes grises suaves */
+      bg-slate-100 border-slate-200 shadow-md 
+      hover:border-cyan-500/40 hover:shadow-cyan-200/50
+
+      /* DARK MODE: Matte Glass, oscuro, bordes sutiles, sin neón */
+      dark:bg-white/5 dark:border-white/10 dark:shadow-none 
+      dark:hover:border-white/20
+    `;
+
+    // 2. Estilo para el Botón de Instagram
+    const instaBtnClass = `
+      inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-full font-title text-sm tracking-widest uppercase backdrop-blur-xl transition-all duration-300 group shadow-lg w-full sm:w-auto hover:-translate-y-1 active:translate-y-0
+      
+      /* LIGHT MODE: Azul Marino Sólido (Elegante) */
+      bg-navy text-white border-navy/10 
+      hover:bg-cyan-600 hover:border-cyan-600 hover:shadow-cyan-200/50
+
+      /* DARK MODE: Cristal Mate Oscuro (Moderno) */
+      dark:bg-white/5 dark:text-white dark:border-white/20 
+      dark:hover:bg-white/10 dark:hover:border-white/30 dark:shadow-none
+    `;
+
+    // 3. Estilo para la Luz de Fondo (Atmósfera)
+    const bgLightClass = `
+      absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 md:w-96 rounded-full blur-[80px] pointer-events-none transition-colors duration-500
+      
+      /* LIGHT MODE: Casi invisible */
+      bg-cyan-400/5
+      
+      /* DARK MODE: Cyan profundo y tenue (No neón) */
+      dark:bg-cyan-500/10
+    `;
+
     return (
         <section className="relative z-10 w-full py-16 md:py-24 px-4 md:px-12 overflow-hidden transition-colors duration-500">
             <div className="max-w-[1400px] mx-auto relative z-20">
@@ -62,11 +103,8 @@ export default function HomeGallery() {
                     ENCABEZADO LUMINOSO (Adaptable)
                 ========================================= */}
                 <div className="text-center mb-12 md:mb-16 relative">
-                    {/* Luz de fondo adaptable (casi invisible en día) */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 md:w-96 rounded-full blur-[80px] pointer-events-none transition-colors duration-500
-                        dark:bg-cyan-400/20 
-                        bg-cyan-400/5"
-                    />
+                    {/* Luz de fondo adaptable */}
+                    <div className={bgLightClass} />
 
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
@@ -74,7 +112,7 @@ export default function HomeGallery() {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-4 block drop-shadow-md transition-colors duration-500
-                        dark:text-cyan-400 text-cyan-600"
+                        text-cyan-600 dark:text-cyan-400"
                     >
                         {content.tag}
                     </motion.span>
@@ -83,8 +121,8 @@ export default function HomeGallery() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                        className="font-title text-3xl md:text-5xl lg:text-6xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.2)] leading-tight transition-colors duration-500
-                        dark:text-white text-navy"
+                        className="font-title text-3xl md:text-5xl lg:text-6xl drop-shadow-sm leading-tight transition-colors duration-500
+                        text-navy dark:text-white"
                     >
                         {content.title}
                     </motion.h2>
@@ -97,10 +135,7 @@ export default function HomeGallery() {
                     {galleryItems.map((item, index) => (
                         <motion.div
                             key={item.id}
-                            // BORDES Y SOMBRAS ADAPTABLES
-                            className={`relative group rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-500 ${item.size}
-                                dark:bg-white/5 dark:border-white/10 dark:shadow-[0_8px_30px_rgba(0,0,0,0.15)] dark:hover:border-cyan-400/40 dark:hover:shadow-[0_15px_40px_rgba(102,216,227,0.2)]
-                                bg-slate-100 border-slate-200 shadow-md hover:border-cyan-500/40 hover:shadow-cyan-200/50`}
+                            className={`${photoCardClass} ${item.size}`}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true, margin: "-50px" }}
@@ -138,9 +173,7 @@ export default function HomeGallery() {
                         href="https://www.instagram.com/dolphindivebajaloreto"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-full font-title text-sm tracking-widest uppercase backdrop-blur-xl transition-all duration-300 group shadow-lg w-full sm:w-auto hover:-translate-y-1 active:translate-y-0
-                        dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-cyan-400/20 dark:hover:text-cyan-300 dark:hover:border-cyan-400/50 dark:hover:shadow-[0_0_25px_rgba(102,216,227,0.2)]
-                        border-navy/10 bg-navy text-white hover:bg-cyan-600 hover:border-cyan-600 hover:shadow-cyan-200/50"
+                        className={instaBtnClass}
                     >
                         <i className="ri-instagram-line text-xl group-hover:scale-110 transition-transform"></i>
                         {content.btnInsta}
