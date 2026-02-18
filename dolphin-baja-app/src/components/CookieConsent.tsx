@@ -33,58 +33,104 @@ export default function CookieConsent() {
         setIsVisible(false);
     };
 
+    // ========================================================================
+    // 🎨 ESTILOS SEPARADOS (Clean & Matte Fix)
+    // ========================================================================
+
+    // 1. Tarjeta Principal
+    const cardClass = `
+    backdrop-blur-2xl border p-5 md:p-6 rounded-2xl transition-colors duration-500
+    /* LIGHT MODE: Blanco sólido, flotante con sombra gris suave */
+    bg-white border-slate-200 shadow-2xl shadow-slate-300/50
+    /* DARK MODE: Navy profundo, Mate (Sombra negra suave, sin colores extraños) */
+    dark:bg-navy/90 dark:border-white/10 dark:shadow-[0_10px_40px_rgba(0,0,0,0.6)]
+  `;
+
+    // 2. Icono de Cookie
+    const iconContainerClass = `
+    mt-1 p-2 rounded-full shrink-0 border transition-colors
+    /* LIGHT */
+    bg-yellow-50 border-yellow-100
+    /* DARK */
+    dark:bg-white/5 dark:border-white/10
+  `;
+
+    // 3. Textos
+    const titleClass = `
+    font-title text-sm md:text-base mb-1 transition-colors
+    text-navy dark:text-white
+  `;
+
+    const textClass = `
+    text-xs md:text-sm font-body leading-relaxed transition-colors
+    text-slate-600 dark:text-slate-300
+  `;
+
+    const linkClass = `
+    font-medium transition-colors whitespace-nowrap underline underline-offset-2 ml-1
+    text-cyan-600 hover:text-cyan-500
+    dark:text-cyan-400 dark:hover:text-cyan-300
+  `;
+
+    // 4. Botones
+    const declineBtnClass = `
+    px-4 py-2 rounded-lg text-xs font-bold transition-all font-body tracking-wide border border-transparent
+    text-slate-500 hover:bg-slate-100 hover:text-slate-700
+    dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10
+  `;
+
+    // 👇 CORRECCIÓN: Botón "Aceptar" en Dark Mode ahora es plano (shadow-none)
+    const acceptBtnClass = `
+    px-6 py-2 rounded-lg text-xs font-bold tracking-widest uppercase transition-all font-title shadow-md hover:-translate-y-0.5
+    /* LIGHT: Cyan vibrante con sombra de color */
+    bg-cyan-500 text-white hover:bg-cyan-600 hover:shadow-cyan-200/50
+    /* DARK: Cyan sólido mate, SIN SOMBRA NEÓN */
+    dark:bg-cyan-400 dark:text-dark dark:hover:bg-cyan-300 dark:shadow-none
+  `;
+
     return (
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    // Animación suave de entrada/salida
                     initial={{ opacity: 0, y: 20, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    // CAMBIO: Posicionamiento en la esquina inferior izquierda (flotante)
+                    // Posicionamiento flotante
                     className="fixed bottom-4 left-4 right-4 md:left-6 md:bottom-6 md:right-auto md:max-w-sm z-[100]"
                     style={{ willChange: "transform, opacity" }}
                 >
-                    {/* Tarjeta Glassmorphism Premium */}
-                    <div className="bg-navy/80 backdrop-blur-2xl border border-white/20 p-5 md:p-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    {/* Tarjeta */}
+                    <div className={cardClass}>
 
                         <div className="flex items-start gap-4 mb-4">
-                            {/* Icono sutil */}
-                            <div className="mt-1 p-2 bg-white/5 border border-white/10 rounded-full shrink-0">
-                                <i className="ri-cookie-2-line text-lg text-yellow-400"></i>
+                            {/* Icono */}
+                            <div className={iconContainerClass}>
+                                <i className="ri-cookie-2-line text-lg text-yellow-500 dark:text-yellow-400"></i>
                             </div>
 
-                            {/* Texto */}
+                            {/* Contenido */}
                             <div>
-                                <h4 className="font-title text-white text-sm md:text-base mb-1">{content.title}</h4>
-                                <p className="text-slate-300 text-xs md:text-sm font-body leading-relaxed">
-                                    {content.text}{" "}
-                                    <Link
-                                        to="/privacidad"
-                                        className="text-cyan-400 hover:text-cyan-300 transition-colors whitespace-nowrap underline underline-offset-2"
-                                    >
+                                <h4 className={titleClass}>{content.title}</h4>
+                                <p className={textClass}>
+                                    {content.text}
+                                    <Link to="/privacidad" className={linkClass}>
                                         {content.link}
                                     </Link>
                                 </p>
                             </div>
                         </div>
 
-                        {/* Botones */}
+                        {/* Acciones */}
                         <div className="flex gap-3 justify-end mt-2">
-                            <button
-                                onClick={handleDecline}
-                                className="px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white hover:bg-white/10 transition-all font-body tracking-wide"
-                            >
+                            <button onClick={handleDecline} className={declineBtnClass}>
                                 {content.decline}
                             </button>
-                            <button
-                                onClick={handleAccept}
-                                className="px-6 py-2 rounded-lg bg-cyan-400 text-dark text-xs font-bold tracking-widest uppercase hover:bg-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all font-title"
-                            >
+                            <button onClick={handleAccept} className={acceptBtnClass}>
                                 {content.accept}
                             </button>
                         </div>
+
                     </div>
                 </motion.div>
             )}
