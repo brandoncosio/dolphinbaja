@@ -1,55 +1,90 @@
 /* 1. IMPORTACIÓN NATIVA DE TAILWIND V4 */
 @import "tailwindcss";
 
-/* 2. CONFIGURACIÓN DEL TEMA (Reemplaza al tailwind.config.js) */
+/* 2. CONFIGURACIÓN DEL TEMA (Primitivos y Fuentes) */
 @theme {
   /* =======================================================
-     PALETA DE MARCA ACTUALIZADA: "AGUAS SOMERAS" (Luminoso)
-     Pasamos de profundidades oscuras a un azul vibrante de arrecife
+     PALETA DE MARCA (Colores Fijos)
+     Estos colores siempre se ven igual, sin importar el modo.
      ======================================================= */
 
-  /* Azul base de sombras (Más claro que el anterior, adiós al negro) */
+  /* Azul Arrecife (Tu nuevo fondo oscuro base) */
+  --color-reef: #133E60;
+
+  /* Azul Navy (Sombras y Textos en modo claro) */
   --color-navy: #0A253D;
 
-  /* Azul brillante para las luces de fondo (Más turquesa y vivo) */
+  /* Azul Océano (Luces brillantes) */
   --color-ocean: #0099CC;
 
-  /* Tu Cyan original (Para acentos, botones y textos destacados) */
+  /* Acentos */
   --color-cyan: #66D8E3;
-
-  /* Tu Amarillo original (Para llamadas a la acción) */
   --color-yellow: #FED966;
 
-  /* Colores claros de soporte */
+  /* Neutros */
   --color-offwhite: #F5F2E3;
   --color-pale: #CCEAEA;
 
-  /* EL CAMBIO MAESTRO: Azul Arrecife que reemplaza al fondo oscuro. 
-     Esto le da a toda la página una sensación de día soleado en el mar. */
+  /* Mapeo de la variable "dark" para compatibilidad con tu código actual */
   --color-dark: #133E60;
 
-  /* Tus fuentes personalizadas */
+  /* Fuentes y Animaciones */
   --font-title: 'Bungee', cursive;
   --font-body: 'Montserrat', sans-serif;
-
-  /* Tu transición personalizada */
   --ease-dolphin: cubic-bezier(.22, .61, .36, 1);
 }
 
-/* 3. ESTILOS BASE */
+/* 3. LÓGICA DE TEMA (Claro / Oscuro) */
 @layer base {
+
+  /* --- VARIABLES SEMÁNTICAS (Cambian según el tema) --- */
+  :root {
+    /* ☀️ MODO CLARO (Default - "Superficie / Playa") */
+    /* Fondo: Un blanco "hielo" muy sutil para que las fotos resalten */
+    --bg-main: #F8FAFC;
+
+    /* Texto: Azul Navy profundo (elegante y legible sobre blanco) */
+    --text-main: #0A253D;
+    --text-secondary: #334155;
+
+    /* Cristal: Blanco translúcido con bordes grises suaves */
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(203, 213, 225, 0.6);
+    --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  :root.dark {
+    /* 🌙 MODO OSCURO ("Profundidad / Arrecife") */
+    /* Fondo: Tu Azul Arrecife (#133E60) */
+    --bg-main: #133E60;
+
+    /* Texto: Blanco puro */
+    --text-main: #FFFFFF;
+    --text-secondary: #CBD5E1;
+
+    /* Cristal: Blanco muy transparente (efecto agua profunda) */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  }
+
+  /* 4. APLICACIÓN GLOBAL */
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    /* Automáticamente toda la app usará el nuevo azul profundo y elegante */
-    background-color: var(--color-dark);
-    color: white;
+    /* Usamos las variables dinámicas aquí */
+    background-color: var(--bg-main);
+    color: var(--text-main);
     font-family: var(--font-body);
+
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    /* Transición suave al cambiar de tema (0.5s) */
+    transition: background-color 0.5s var(--ease-dolphin), color 0.5s var(--ease-dolphin);
   }
 
   h1,
@@ -61,7 +96,7 @@
   }
 }
 
-/* 4. CLASES PERSONALIZADAS */
+/* 5. UTILIDADES PERSONALIZADAS */
 @layer utilities {
   .wrap {
     margin-left: auto;
@@ -70,5 +105,14 @@
     max-width: 1200px;
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  /* Clase maestra para el efecto cristal adaptable */
+  .glass-panel {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    /* Tailwind: backdrop-blur-xl */
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
   }
 }

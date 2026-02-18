@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import logo from '/assets/images/logodolphin.webp';
 
 import { useLanguage } from '../context/LanguageContext';
+// 👇 1. Importamos el hook del Tema
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,6 +13,8 @@ export default function Navbar() {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
   const { t, toggleLanguage } = useLanguage();
+  // 👇 2. Obtenemos el tema actual y la función para cambiarlo
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   // Control del fondo de la Navbar al hacer scroll
@@ -83,9 +87,13 @@ export default function Navbar() {
   return (
     <>
       <header
+        // 👇 3. LÓGICA DE FONDO DUAL: 
+        // - Modo Oscuro (dark:): bg-dark/60 (Azul oscuro translúcido)
+        // - Modo Claro (default): bg-white/70 (Blanco hielo translúcido)
+        // - Texto: dark:text-white vs text-navy
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 xl:px-20 transition-all duration-500 ${isScrolled
-          ? 'py-3 bg-dark/60 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
-          : 'py-5 lg:py-6 bg-dark/0 border-b border-transparent shadow-none'
+          ? 'py-3 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border-b dark:bg-dark/60 bg-white/80 dark:border-white/10 border-slate-200/50'
+          : 'py-5 lg:py-6 bg-transparent border-b border-transparent shadow-none'
           }`}
         onMouseLeave={() => setHoveredMenu(null)}
         style={{ willChange: 'backdrop-filter, background-color' }}
@@ -115,14 +123,15 @@ export default function Navbar() {
             >
               <Link
                 to={item.path}
-                className="relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest text-white transition-colors hover:text-cyan-400 py-6 drop-shadow-md"
+                // 👇 4. TEXTO DUAL: dark:text-white (blanco en noche) | text-navy (azul marino en día)
+                className="relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest transition-colors py-6 drop-shadow-md dark:text-white text-navy hover:text-cyan-500 dark:hover:text-cyan-400"
               >
                 {item.name}
-                <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-400' : 'text-white/50'}`}></i>
+                <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-500 dark:text-cyan-400' : 'opacity-50'}`}></i>
                 <span className={`absolute bottom-4 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
               </Link>
 
-              {/* 👇 SUBMENÚ DROPDOWN (Panel Flotante Moderno) */}
+              {/* SUBMENÚ DROPDOWN */}
               <AnimatePresence>
                 {hoveredMenu === item.name && (
                   <motion.div
@@ -130,14 +139,12 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 5, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    // Reducimos pt-3 a pt-1 para que el menú nazca casi pegado a la palabra
                     className="absolute top-full left-1/2 -translate-x-1/2 pt-1 w-60 z-50"
                   >
-                    {/* 👇 Eliminamos la flecha vieja. Bajamos el borde a white/15 para que sea un cristal fino y elegante. */}
-                    <div className="relative z-10 bg-dark/80 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-2 text-left">
+                    {/* 👇 5. DROPDOWN DUAL: Fondo oscuro en dark, fondo blanco en light */}
+                    <div className="relative z-10 backdrop-blur-2xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] p-2 text-left overflow-hidden dark:bg-dark/90 dark:border-white/15 bg-white/90 border-slate-200 border">
 
-                      {/* Brillo superior interno para dar volumen 3D al cristal */}
-                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/20"></div>
 
                       <div className="flex flex-col relative z-10">
                         {item.submenu.map((subItem, idx) => (
@@ -147,8 +154,7 @@ export default function Navbar() {
                               href={subItem.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              // Ajustamos py-3 a py-2.5 para que las opciones se vean más compactas y unidas
-                              className="flex items-center justify-between px-4 py-2.5 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
+                              className="flex items-center justify-between px-4 py-2.5 text-sm font-body font-medium rounded-xl transition-all duration-300 group/link dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-cyan-300 text-slate-700 hover:bg-slate-100 hover:text-cyan-600"
                             >
                               <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                               <i className="ri-external-link-line opacity-50 group-hover/link:opacity-100 transition-opacity"></i>
@@ -157,7 +163,7 @@ export default function Navbar() {
                             <Link
                               key={idx}
                               to={subItem.link}
-                              className="block px-4 py-2.5 text-sm font-body font-medium text-slate-200 hover:bg-white/10 hover:text-cyan-300 rounded-xl transition-all duration-300 group/link"
+                              className="block px-4 py-2.5 text-sm font-body font-medium rounded-xl transition-all duration-300 group/link dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-cyan-300 text-slate-700 hover:bg-slate-100 hover:text-cyan-600"
                             >
                               <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
                             </Link>
@@ -175,10 +181,32 @@ export default function Navbar() {
         {/* =========================================
             CONTROLES DERECHA DESKTOP
         ========================================= */}
-        <div className="hidden lg:flex items-center gap-4 shrink-0 z-50">
+        <div className="hidden lg:flex items-center gap-3 shrink-0 z-50">
+
+          {/* 👇 6. BOTÓN DE TEMA (SOL / LUNA) - DESKTOP */}
+          <button
+            onClick={toggleTheme}
+            className="group flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition-all hover:scale-110 active:scale-95 shadow-sm 
+            dark:bg-white/10 dark:border-white/30 dark:text-yellow-400 dark:hover:bg-white/20
+            bg-white/50 border-slate-300 text-navy hover:bg-white hover:text-cyan-600"
+            title={theme === 'dark' ? 'Cambiar a modo claro' : 'Switch to dark mode'}
+          >
+            {/* Animación de rotación al cambiar */}
+            <motion.div
+              key={theme}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              {theme === 'dark' ? <i className="ri-sun-fill text-xl"></i> : <i className="ri-moon-clear-fill text-xl"></i>}
+            </motion.div>
+          </button>
+
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 font-title text-xs text-white backdrop-blur-md transition-all hover:bg-cyan-400/20 hover:border-cyan-400/40 hover:text-cyan-300 hover:scale-105 active:scale-95 shadow-md group"
+            className="flex items-center gap-2 rounded-full border px-5 py-2.5 font-title text-xs backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-md group
+            dark:bg-white/10 dark:border-white/30 dark:text-white dark:hover:bg-cyan-400/20 dark:hover:text-cyan-300
+            bg-white/50 border-slate-300 text-navy hover:bg-white hover:text-cyan-600"
           >
             <i className="ri-global-line text-lg opacity-80 group-hover:opacity-100 transition-opacity"></i>
             <span>{t.navbar.languageBtn}</span>
@@ -198,17 +226,32 @@ export default function Navbar() {
         {/* =========================================
             CONTROLES MÓVIL
         ========================================= */}
-        <div className="flex items-center gap-3 lg:hidden z-50">
+        <div className="flex items-center gap-2 lg:hidden z-50">
+
+          {/* 👇 7. BOTÓN DE TEMA - MÓVIL */}
+          <button
+            onClick={toggleTheme}
+            className="flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition-all active:scale-95 shadow-sm
+            dark:bg-white/10 dark:border-white/30 dark:text-yellow-400
+            bg-white/50 border-slate-300 text-navy"
+          >
+            {theme === 'dark' ? <i className="ri-sun-fill text-lg"></i> : <i className="ri-moon-clear-fill text-lg"></i>}
+          </button>
+
           <button
             onClick={toggleLanguage}
-            className="font-body text-xs font-bold tracking-widest uppercase text-white bg-white/10 px-5 py-2.5 rounded-full backdrop-blur-md border border-white/30 hover:bg-white/20 transition-colors shadow-sm"
+            className="font-body text-[10px] font-bold tracking-widest uppercase px-4 py-2.5 rounded-full backdrop-blur-md border transition-colors shadow-sm
+            dark:bg-white/10 dark:border-white/30 dark:text-white dark:hover:bg-white/20
+            bg-white/50 border-slate-300 text-navy hover:bg-white"
           >
             {t.navbar.languageBtn}
           </button>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-all active:bg-white/20 active:scale-95 shadow-sm"
+            className="flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition-all active:bg-white/20 active:scale-95 shadow-sm
+            dark:bg-white/10 dark:border-white/30 dark:text-white
+            bg-white/50 border-slate-300 text-navy"
           >
             {isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-3-line text-2xl"></i>}
           </button>
@@ -217,16 +260,17 @@ export default function Navbar() {
 
       {/* MENÚ MÓVIL (Overlay oscuro) */}
       <div
-        className={`fixed inset-0 bg-navy/60 backdrop-blur-md z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-          }`}
+        className={`fixed inset-0 z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          } bg-navy/60 backdrop-blur-md`}
         style={{ willChange: 'opacity' }}
         onClick={() => setIsMenuOpen(false)}
       />
 
       {/* MENÚ MÓVIL (Sidebar lateral) */}
       <aside
-        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] bg-dark/70 backdrop-blur-2xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.5)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+        // 👇 8. SIDEBAR DUAL: Fondo y bordes adaptables
+        className={`fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] backdrop-blur-2xl border-l shadow-[-20px_0_50px_rgba(0,0,0,0.5)] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          } dark:bg-dark/80 dark:border-white/10 bg-white/90 border-slate-200`}
         style={{
           willChange: 'transform',
           transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
@@ -236,10 +280,10 @@ export default function Navbar() {
 
           <nav className="flex flex-col gap-6">
             {navItems.map((item) => (
-              <div key={item.name} className="border-b border-white/10 pb-5 last:border-0">
+              <div key={item.name} className="border-b dark:border-white/10 border-slate-200 pb-5 last:border-0">
                 <Link
                   to={item.path}
-                  className="text-2xl font-title text-white transition-colors active:text-cyan-300 block mb-4 drop-shadow-md"
+                  className="text-2xl font-title transition-colors active:text-cyan-500 block mb-4 drop-shadow-md dark:text-white text-navy"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -253,7 +297,7 @@ export default function Navbar() {
                         href={sub.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-base text-slate-200 font-body active:text-cyan-300 transition-colors flex items-center justify-between"
+                        className="text-base font-body active:text-cyan-500 transition-colors flex items-center justify-between dark:text-slate-200 text-slate-600"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sub.label} <i className="ri-external-link-line opacity-50 text-sm"></i>
@@ -262,7 +306,7 @@ export default function Navbar() {
                       <Link
                         key={i}
                         to={sub.link}
-                        className="text-base text-slate-200 font-body active:text-cyan-300 transition-colors block"
+                        className="text-base font-body active:text-cyan-500 transition-colors block dark:text-slate-200 text-slate-600"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sub.label}
@@ -274,7 +318,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="mt-8 pt-6 border-t border-white/10 shrink-0">
+          <div className="mt-8 pt-6 border-t dark:border-white/10 border-slate-200 shrink-0">
             <a
               href="https://wa.me/526131182311"
               target="_blank"

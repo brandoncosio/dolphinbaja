@@ -1,11 +1,12 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-// 👇 Importamos el Provider de Helmet
 import { HelmetProvider } from 'react-helmet-async';
 
-// Provider y Hook de Idioma
+// Contextos
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
+// 👇 1. IMPORTAMOS EL THEME PROVIDER
+import { ThemeProvider } from './context/ThemeContext';
 
 // Componentes Globales
 import Navbar from './components/Navbar';
@@ -22,22 +23,26 @@ const Nosotros = lazy(() => import('./pages/Nosotros'));
 const Contacto = lazy(() => import('./pages/Contacto'));
 
 const PageLoader = () => (
-  // Actualizado de bg-slate-900 a bg-dark
-  <div className="min-h-screen bg-dark flex items-center justify-center">
+  // 👇 Actualizado: Fondo dinámico (oscuro en dark mode, blanco en light mode)
+  <div className="min-h-screen flex items-center justify-center dark:bg-dark bg-slate-50">
     <div className="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
 // Componente interno para acceder al context
 function AppContent() {
-  const { lang } = useLanguage(); // Escuchamos el cambio de idioma
+  const { lang } = useLanguage();
 
   return (
-    // Actualizado de bg-slate-900 a bg-dark
-    <div className="relative min-h-screen bg-dark text-white font-body selection:bg-cyan-400 selection:text-dark">
+    // 👇 CAMBIO CRÍTICO DE DISEÑO:
+    // Quitamos 'bg-dark' fijo. Usamos clases duales:
+    // - dark:bg-dark (Fondo azul arrecife en modo noche)
+    // - bg-slate-50 (Fondo blanco hielo en modo día)
+    // - dark:text-white (Texto blanco en noche)
+    // - text-navy (Texto azul marino en día)
+    <div className="relative min-h-screen font-body selection:bg-cyan-400 selection:text-dark transition-colors duration-500 dark:bg-dark bg-slate-50 dark:text-white text-navy">
       <Navbar />
 
-      {/* 👇 La 'key={lang}' fuerza a las páginas lazy a actualizarse al cambiar idioma */}
       <Suspense fallback={<PageLoader />}>
         <main key={lang}>
           <Routes>
@@ -46,13 +51,11 @@ function AppContent() {
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
-            
           </Routes>
         </main>
       </Suspense>
 
       <Footer />
-      {/* 👇 Aquí agregamos el componente de Cookies */}
       <CookieConsent />
     </div>
   );
@@ -69,17 +72,19 @@ export default function App() {
   }, []);
 
   return (
-    // 👇 Envolvemos toda la aplicación en el HelmetProvider
     <HelmetProvider>
       <LanguageProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <AnimatePresence>
-            {isLoading && <SplashScreen key="splash" />}
-          </AnimatePresence>
+        {/* 👇 2. ENVOLVEMOS TODO CON EL THEME PROVIDER */}
+        <ThemeProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <AnimatePresence>
+              {isLoading && <SplashScreen key="splash" />}
+            </AnimatePresence>
 
-          <AppContent />
-        </BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        </ThemeProvider>
       </LanguageProvider>
     </HelmetProvider>
   );
