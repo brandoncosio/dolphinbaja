@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 // Importamos el contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
 
-// --- IMÁGENES ORIGINALES ---
+// --- IMÁGENES ---
 import img1 from '/assets/nosotros/coral.webp';
 import img2 from '/assets/images/colash2.webp';
 import img3 from '/assets/images/colash3.webp';
@@ -12,11 +12,8 @@ import img5 from '/assets/images/colash5.webp';
 import img6 from '/assets/images/colash6.webp';
 import img7 from '/assets/images/colash7.webp';
 import img8 from '/assets/images/colash8.webp';
-// Imágenes de nosotros
 import img9 from '/assets/nosotros/tienda1.webp';
 import img10 from '/assets/nosotros/team.webp';
-
-// --- NUEVAS IMÁGENES (Rutas de texto) ---
 const imgAlebrijes = "/assets/images/alebrije.webp";
 const imgCaballitos = "/assets/images/caballitos de mar.webp";
 const imgFocahome = "/assets/images/focahome.webp";
@@ -33,9 +30,7 @@ export default function HomeGallery() {
     const { t } = useLanguage();
     const content = t.home.gallery;
 
-    // Ampliamos el mosaico mezclando las nuevas imágenes
     const galleryItems = [
-        // --- TUS 10 IMÁGENES ORIGINALES (INTACTAS) ---
         { id: 1, src: img1, title: content.images[0] || "Explorando profundidades", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
         { id: 2, src: img2, title: content.images[1] || "Aventuras únicas", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 3, src: img3, title: content.images[2] || "Vida marina", size: "col-span-1 row-span-2 md:col-span-1 md:row-span-2" },
@@ -46,39 +41,40 @@ export default function HomeGallery() {
         { id: 8, src: img8, title: content.images[7] || "Aguas cristalinas", size: "col-span-2 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 9, src: img9, title: content.images[8] || "Equipamiento", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 10, src: img10, title: content.images[9] || "Únete hoy", size: "col-span-1 row-span-1 md:col-span-2 md:row-span-1" },
-
-        // --- NUEVAS IMÁGENES AGREGADAS (Ahora conectadas a translations.js) ---
         { id: 11, src: imgAlebrijes, title: content.images[10] || "Alebrijes del Mar", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 12, src: imgCaballitos, title: content.images[11] || "Caballitos de Mar", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        // Destacada grande (2x2)
-        { id: 13, src: imgFocahome, title: content.images[12] || "Nuestros Amigos", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" }, 
+        { id: 13, src: imgFocahome, title: content.images[12] || "Nuestros Amigos", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
         { id: 14, src: imgHomecar, title: content.images[13] || "Detalles Únicos", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 15, src: imgHomef, title: content.images[14] || "Biodiversidad", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 16, src: imgHomein, title: content.images[15] || "Inmersión Total", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 17, src: imgMarprofundo, title: content.images[16] || "Mar Profundo", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        // Panorámica (2x1)
-        { id: 18, src: imgPzcolor, title: content.images[17] || "Colores Vivos", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" }, 
+        { id: 18, src: imgPzcolor, title: content.images[17] || "Colores Vivos", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
         { id: 19, src: imgPzcolor2, title: content.images[18] || "Arrecifes", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 20, src: imgVdmar, title: content.images[19] || "Vida Marina", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
         { id: 21, src: imgVol, title: content.images[20] || "Aventuras", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
     ];
 
     return (
-        <section className="relative z-10 w-full py-16 md:py-24 px-4 md:px-12 overflow-hidden">
+        <section className="relative z-10 w-full py-16 md:py-24 px-4 md:px-12 overflow-hidden transition-colors duration-500">
             <div className="max-w-[1400px] mx-auto relative z-20">
 
                 {/* =========================================
-                    ENCABEZADO LUMINOSO
+                    ENCABEZADO LUMINOSO (Adaptable)
                 ========================================= */}
                 <div className="text-center mb-12 md:mb-16 relative">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 md:w-96 rounded-full bg-cyan-400/20 blur-[80px] pointer-events-none" />
+                    {/* Luz de fondo adaptable (casi invisible en día) */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 md:w-96 rounded-full blur-[80px] pointer-events-none transition-colors duration-500
+                        dark:bg-cyan-400/20 
+                        bg-cyan-400/5"
+                    />
 
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-cyan-400 block mb-4 drop-shadow-md"
+                        className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-4 block drop-shadow-md transition-colors duration-500
+                        dark:text-cyan-400 text-cyan-600"
                     >
                         {content.tag}
                     </motion.span>
@@ -87,7 +83,8 @@ export default function HomeGallery() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                        className="font-title text-3xl md:text-5xl lg:text-6xl text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] leading-tight"
+                        className="font-title text-3xl md:text-5xl lg:text-6xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.2)] leading-tight transition-colors duration-500
+                        dark:text-white text-navy"
                     >
                         {content.title}
                     </motion.h2>
@@ -100,7 +97,10 @@ export default function HomeGallery() {
                     {galleryItems.map((item, index) => (
                         <motion.div
                             key={item.id}
-                            className={`relative group rounded-2xl md:rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:border-cyan-400/40 hover:shadow-[0_15px_40px_rgba(102,216,227,0.2)] transition-all duration-500 ${item.size}`}
+                            // BORDES Y SOMBRAS ADAPTABLES
+                            className={`relative group rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-500 ${item.size}
+                                dark:bg-white/5 dark:border-white/10 dark:shadow-[0_8px_30px_rgba(0,0,0,0.15)] dark:hover:border-cyan-400/40 dark:hover:shadow-[0_15px_40px_rgba(102,216,227,0.2)]
+                                bg-slate-100 border-slate-200 shadow-md hover:border-cyan-500/40 hover:shadow-cyan-200/50`}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true, margin: "-50px" }}
@@ -127,7 +127,7 @@ export default function HomeGallery() {
                 </div>
 
                 {/* =========================================
-                    BOTÓN INSTAGRAM (Liquid Glass Apple)
+                    BOTÓN INSTAGRAM (Liquid Glass Adaptable)
                 ========================================= */}
                 <div className="mt-12 md:mt-16 text-center">
                     <motion.a
@@ -138,7 +138,9 @@ export default function HomeGallery() {
                         href="https://www.instagram.com/dolphindivebajaloreto"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl text-white font-title text-sm tracking-widest uppercase hover:bg-cyan-400/20 hover:text-cyan-300 hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(102,216,227,0.2)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 group shadow-[0_10px_20px_rgba(0,0,0,0.2)] w-full sm:w-auto"
+                        className="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-full font-title text-sm tracking-widest uppercase backdrop-blur-xl transition-all duration-300 group shadow-lg w-full sm:w-auto hover:-translate-y-1 active:translate-y-0
+                        dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-cyan-400/20 dark:hover:text-cyan-300 dark:hover:border-cyan-400/50 dark:hover:shadow-[0_0_25px_rgba(102,216,227,0.2)]
+                        border-navy/10 bg-navy text-white hover:bg-cyan-600 hover:border-cyan-600 hover:shadow-cyan-200/50"
                     >
                         <i className="ri-instagram-line text-xl group-hover:scale-110 transition-transform"></i>
                         {content.btnInsta}

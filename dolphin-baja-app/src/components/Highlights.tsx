@@ -4,19 +4,18 @@ import { Link } from 'react-router-dom';
 // Importamos el contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
 
-// Imágenes (Importamos más opciones que ya tienes en tu proyecto para las nuevas tarjetas)
+// Imágenes
 import imgTours from '/assets/images/tours.webp';
 import imgExperiencias from '/assets/images/experiencias.webp';
-import imgCursos from '/assets/images/certificacionpadi.jpeg'; // Nueva
+import imgCursos from '/assets/images/certificacionpadi.jpeg';
 import imgStaff from '/assets/images/staff.webp';
 import imgPlanifica from '/assets/images/planifica2.webp';
-import imgGaleria from '/assets/images/colash3.webp'; // Nueva
+import imgGaleria from '/assets/images/colash3.webp';
 
 export default function Highlights() {
   const { t } = useLanguage();
   const content = t.home.highlights;
 
-  // Ampliamos a 6 tarjetas para un Bento Grid perfecto
   const highlightsData = [
     {
       id: 1,
@@ -24,7 +23,6 @@ export default function Highlights() {
       title: content.cards[0]?.title || "Tours de Buceo",
       image: imgTours,
       link: "/servicios#fundives",
-      // Grande: 2 columnas x 2 filas
       size: "aspect-[4/3] sm:col-span-2 md:col-span-2 md:row-span-2 md:aspect-auto",
       delay: 0
     },
@@ -34,18 +32,15 @@ export default function Highlights() {
       title: content.cards[1]?.title || "Snorkel",
       image: imgExperiencias,
       link: "/servicios#snorkel",
-      // Cuadrado pequeño: 1 col x 1 fila
       size: "aspect-square sm:aspect-auto md:col-span-1 md:row-span-1",
       delay: 0.1
     },
     {
       id: 3,
-      // Usamos fallback por si aún no has agregado las traducciones 3, 4 y 5 a tu JSON
       kicker: content.cards[2]?.kicker || "Aprende",
       title: content.cards[2]?.title || "Cursos PADI",
       image: imgCursos,
       link: "/servicios#cursos",
-      // Cuadrado pequeño: 1 col x 1 fila
       size: "aspect-square sm:aspect-auto md:col-span-1 md:row-span-1",
       delay: 0.2
     },
@@ -55,7 +50,6 @@ export default function Highlights() {
       title: content.cards[3]?.title || "Nuestro Equipo",
       image: imgStaff,
       link: "/nosotros#equipo",
-      // Vertical alta: 1 col x 2 filas
       size: "aspect-[4/3] sm:col-span-2 md:col-span-1 md:row-span-2 md:aspect-auto",
       delay: 0.3
     },
@@ -65,7 +59,6 @@ export default function Highlights() {
       title: content.cards[4]?.title || "Planifica tu Viaje",
       image: imgPlanifica,
       link: "/contacto",
-      // Apaisada ancha: 2 col x 1 fila
       size: "aspect-[4/3] sm:col-span-2 md:col-span-2 md:row-span-1 md:aspect-auto",
       delay: 0.4
     },
@@ -75,17 +68,18 @@ export default function Highlights() {
       title: content.cards[5]?.title || "Galería",
       image: imgGaleria,
       link: "/nosotros#galeria",
-      // Apaisada ancha: 2 col x 1 fila
       size: "aspect-[4/3] sm:col-span-2 md:col-span-2 md:row-span-1 md:aspect-auto",
       delay: 0.5
     }
   ];
 
   return (
-    <section className="relative z-10 w-full py-16 md:py-24 px-6 md:px-20 overflow-hidden">
+    <section className="relative z-10 w-full py-16 md:py-24 px-6 md:px-20 overflow-hidden transition-colors duration-500">
       <div className="max-w-7xl mx-auto">
 
-        {/* ENCABEZADO */}
+        {/* =========================================
+            ENCABEZADO (Adaptable Light/Dark)
+            ========================================= */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -93,29 +87,44 @@ export default function Highlights() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-12 md:mb-16 text-center md:text-left relative"
         >
-          {/* Luz decorativa suave */}
-          <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 w-32 rounded-full bg-cyan-400/25 blur-[60px]" />
+          {/* Luz decorativa suave (Casi invisible en modo claro para limpieza) */}
+          <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 w-32 rounded-full blur-[60px] transition-colors duration-500
+            dark:bg-cyan-400/25 
+            bg-cyan-400/10"
+          />
 
-          <span className="text-xs font-bold uppercase tracking-[0.4em] text-cyan-400 block mb-4 drop-shadow-md">
+          <span className="text-xs font-bold uppercase tracking-[0.4em] mb-4 block drop-shadow-md transition-colors duration-500
+            dark:text-cyan-400 text-cyan-600">
             {content.tag}
           </span>
-          <h2 className="font-title text-3xl md:text-5xl lg:text-6xl text-white leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-            {content.titleStart} <br className="hidden md:block" /> <span className="text-yellow-400">{content.titleHighlight}</span>
+
+          <h2 className="font-title text-3xl md:text-5xl lg:text-6xl leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.2)] transition-colors duration-500
+            dark:text-white text-navy">
+            {content.titleStart} <br className="hidden md:block" /> <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
           </h2>
-          <p className="mt-4 md:mt-6 text-slate-200 max-w-2xl mx-auto md:mx-0 text-base md:text-lg leading-relaxed font-body font-medium drop-shadow-md">
+
+          <p className="mt-4 md:mt-6 max-w-2xl mx-auto md:mx-0 text-base md:text-lg leading-relaxed font-body font-medium drop-shadow-md transition-colors duration-500
+            dark:text-slate-200 text-slate-600">
             {content.desc}
           </p>
         </motion.div>
 
-        {/* BENTO GRID DE 6 TARJETAS */}
+        {/* =========================================
+            BENTO GRID DE 6 TARJETAS
+            ========================================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[250px] gap-4 md:gap-6">
           {highlightsData.map((item) => (
             <Link
               to={item.link}
               key={item.id}
-              // Magia Apple Glass: bg-white/5, hover translúcido y elevación táctil
-              className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:border-cyan-400/40 hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(102,216,227,0.2)] hover:-translate-y-1 transition-all duration-500 block ${item.size}`}
-              style={{ willChange: 'transform' }} // Optimización Safari
+              // BORDES Y SOMBRAS ADAPTABLES:
+              // Dark: border-white/10 (Sutil)
+              // Light: border-slate-200 (Definido) | shadow-lg (Para separarlo del fondo blanco)
+              className={`group relative overflow-hidden rounded-[2rem] backdrop-blur-xl transition-all duration-500 block ${item.size}
+                dark:bg-white/5 dark:border-white/10 dark:shadow-[0_15px_30px_rgba(0,0,0,0.3)]
+                bg-white border-slate-200 shadow-xl
+                hover:border-cyan-400/40 hover:shadow-[0_20px_40px_rgba(102,216,227,0.2)] hover:-translate-y-1`}
+              style={{ willChange: 'transform' }}
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -130,14 +139,16 @@ export default function Highlights() {
                   alt={item.title}
                   loading="lazy"
                   decoding="async"
-                  // 'will-change-transform' evita parpadeos en iOS al hacer hover
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 will-change-transform"
                 />
 
-                {/* TEXT PROTECTION: Usamos 'navy' para la base, dejando que la foto respire arriba */}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/95 via-navy/30 to-transparent md:via-navy/20 transition-opacity duration-500 group-hover:via-navy/40 pointer-events-none" />
+                {/* TEXT PROTECTION (Siempre oscuro porque el texto encima es blanco) */}
+                <div className="absolute inset-0 bg-gradient-to-t transition-opacity duration-500 pointer-events-none
+                  from-navy/95 via-navy/30 to-transparent md:via-navy/20 
+                  group-hover:via-navy/40"
+                />
 
-                {/* Textos */}
+                {/* Textos (Siempre Blanco para contrastar con la foto oscura) */}
                 <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full z-10 flex flex-col justify-end h-full pointer-events-none">
                   <div className="transform transition-transform duration-500 md:group-hover:-translate-y-2">
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2 block drop-shadow-md">
@@ -155,7 +166,9 @@ export default function Highlights() {
                 </div>
 
                 {/* Botón flotante top-right (Solo Desktop) */}
-                <div className="hidden md:flex absolute top-6 right-6 h-12 w-12 bg-white/10 backdrop-blur-md rounded-full items-center justify-center border border-white/20 text-white shadow-lg group-hover:bg-cyan-400 group-hover:text-dark group-hover:border-cyan-400 transition-all duration-500 z-10">
+                <div className="hidden md:flex absolute top-6 right-6 h-12 w-12 backdrop-blur-md rounded-full items-center justify-center border text-white shadow-lg transition-all duration-500 z-10
+                  bg-white/10 border-white/20 
+                  group-hover:bg-cyan-400 group-hover:text-dark group-hover:border-cyan-400">
                   <i className="ri-arrow-right-up-line text-xl group-hover:rotate-45 transition-transform duration-300"></i>
                 </div>
               </motion.div>

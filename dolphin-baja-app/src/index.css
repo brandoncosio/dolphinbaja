@@ -1,6 +1,10 @@
 /* 1. IMPORTACIÓN NATIVA DE TAILWIND V4 */
 @import "tailwindcss";
 
+/* ⚠️ NUEVA LÍNEA VITAL (Esto arregla el botón del Navbar): 
+   Habilita manualmente el modo oscuro usando clases (.dark) en lugar de la preferencia del sistema. */
+@variant dark (&:where(.dark, .dark *));
+
 /* 2. CONFIGURACIÓN DEL TEMA (Primitivos y Fuentes) */
 @theme {
   /* =======================================================
