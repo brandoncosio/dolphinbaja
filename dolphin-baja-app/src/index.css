@@ -32,9 +32,10 @@
   /* Mapeo de la variable "dark" para compatibilidad con tu código actual */
   --color-dark: #133E60;
 
-  /* Fuentes y Animaciones */
-  --font-title: 'Bungee', cursive;
-  --font-body: 'Montserrat', sans-serif;
+  /* 👇 CAMBIO AQUÍ: Fuentes "Divertidas" y animadas */
+  --font-title: 'Lilita One', cursive;
+  --font-body: 'Quicksand', sans-serif;
+  
   --ease-dolphin: cubic-bezier(.22, .61, .36, 1);
 }
 
@@ -96,7 +97,8 @@
   h3,
   h4 {
     font-family: var(--font-title);
-    letter-spacing: 0.05em;
+    /* Le damos un poco de espaciado porque Lilita One es muy robusta */
+    letter-spacing: 0.04em; 
   }
 }
 
