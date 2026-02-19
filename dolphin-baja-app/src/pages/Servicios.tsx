@@ -15,10 +15,12 @@ import snorkelImg from '/assets/images/realsonrkell.jpeg';
 import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/slider1-celular.webp';
+// 👇 Nueva imagen importada
+import colorFImg from '/assets/images/ColorF.webp'; 
 
 const imageDict: Record<string, string> = {
   funDivesImg, coronadosImg, nightDiveImg, coursesImg,
-  snorkelImg, experienciasImg, refreshImg, bubbleImg
+  snorkelImg, experienciasImg, refreshImg, bubbleImg, colorFImg
 };
 
 export default function Servicios() {
@@ -138,7 +140,7 @@ export default function Servicios() {
     dark:bg-white/5 dark:border-white/5
   `;
 
-  // 8. 👇 CAJA DE INFORMACIÓN IMPORTANTE (CORREGIDA)
+  // 8. CAJA DE INFORMACIÓN IMPORTANTE
   const importantInfoClass = `
     border-l-4 rounded-r-2xl p-6 md:p-8 mt-10 transition-colors duration-500
     
@@ -239,7 +241,8 @@ export default function Servicios() {
                     {/* IMAGEN */}
                     <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:h-auto relative overflow-hidden shrink-0 border-b md:border-b-0 md:border-r border-slate-100 dark:border-white/10">
                       <img
-                        src={imageDict[item.imgKey]}
+                        // 👇 CONDICIÓN: Si el título incluye "Open Water", muestra ColorF, si no, usa la imagen normal
+                        src={item.title.includes('Open Water') ? colorFImg : imageDict[item.imgKey]}
                         alt={item.title}
                         loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform"
