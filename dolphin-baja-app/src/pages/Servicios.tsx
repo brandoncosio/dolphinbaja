@@ -105,18 +105,7 @@ export default function Servicios() {
     dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
   `;
 
-  // 5. Etiqueta de Precio
-  const priceTagClass = `
-    absolute top-4 left-4 font-title px-4 py-2 rounded-xl text-xs md:text-sm shadow-lg z-10 border
-    
-    /* LIGHT */
-    bg-white/95 text-navy border-slate-200
-    
-    /* DARK */
-    dark:bg-black/60 dark:backdrop-blur-md dark:text-yellow-400 dark:border-yellow-400/30
-  `;
-
-  // 6. Botón Reservar
+  // 5. Botón Reservar
   const bookBtnClass = `
     inline-flex w-full md:w-auto py-3.5 px-8 font-title text-sm tracking-widest uppercase rounded-xl transition-all duration-300 items-center justify-center gap-2 group/btn shadow-md active:scale-95 border
     
@@ -127,7 +116,7 @@ export default function Servicios() {
     dark:bg-cyan-400/10 dark:border-cyan-400/30 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-dark
   `;
 
-  // 7. Tarjeta de Horarios (Contenedor)
+  // 6. Tarjeta de Horarios (Contenedor)
   const scheduleCardClass = `
     rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 border relative overflow-hidden shadow-xl
     
@@ -138,7 +127,7 @@ export default function Servicios() {
     dark:bg-white/5 dark:backdrop-blur-2xl dark:border-white/10 dark:shadow-none
   `;
 
-  // 8. Bloque de Tiempo (Mañana/Tarde/Noche)
+  // 7. Bloque de Tiempo (Mañana/Tarde/Noche)
   const timeBlockClass = `
     p-6 md:p-8 rounded-2xl border transition-colors shadow-sm group
     
@@ -149,7 +138,7 @@ export default function Servicios() {
     dark:bg-white/5 dark:border-white/5
   `;
 
-  // 9. 👇 CAJA DE INFORMACIÓN IMPORTANTE (CORREGIDA)
+  // 8. 👇 CAJA DE INFORMACIÓN IMPORTANTE (CORREGIDA)
   const importantInfoClass = `
     border-l-4 rounded-r-2xl p-6 md:p-8 mt-10 transition-colors duration-500
     
@@ -255,10 +244,6 @@ export default function Servicios() {
                         loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform"
                       />
-                      {/* Precio */}
-                      <div className={priceTagClass}>
-                        {item.price}
-                      </div>
                     </div>
 
                     {/* CONTENIDO */}
