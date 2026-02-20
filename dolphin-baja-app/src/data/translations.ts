@@ -220,7 +220,7 @@ export const translations = {
             team: {
                 tag: "Nuestro Recurso Humano",
                 title: "Equipo local y profesional",
-                desc: "Creemos en el desarrollo profesional. Hemos formado 7 Dive Masters mexicanos y nuestros capitanes son gente de mar que conoce cada rincón del Parque Nacional.",
+                desc: "Creemos en el desarrollo profesional de nuestra comunidad. Desde 2016 hemos formado a 7 Dive Masters mexicanos, con nuevos talentos en proceso para este 2026. Además, el alma de nuestras expediciones son nuestros capitanes: gente de mar que creció en Loreto y conoce perfectamente cada isla y arrecife del Parque Nacional.",
                 members: [
                     { name: "Kaliman", role: "Capitán", img: "/assets/nosotros/kaliman2.png" },
                     { name: "Alex", role: "Dive Master", img: "/assets/nosotros/alex.webp" },
@@ -567,7 +567,7 @@ export const translations = {
             team: {
                 tag: "Our Human Resource",
                 title: "Local and Professional Team",
-                desc: "We believe in professional development. We have trained 7 Mexican Dive Masters and our captains are seafarers who know every corner of the National Park.",
+                desc: "We believe in the professional development of our community. Since 2016, we have trained 7 Mexican Dive Masters, with new talents in training for 2026. Furthermore, the soul of our expeditions are our captains: local seafarers who grew up in Loreto and perfectly know every island and reef of the National Park.",
                 members: [
                     { name: "Kaliman", role: "Captain", img: "/assets/nosotros/kaliman2.png" },
                     { name: "Alex", role: "Dive Master", img: "/assets/nosotros/alex.webp" },
