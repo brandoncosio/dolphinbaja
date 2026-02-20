@@ -159,15 +159,21 @@ export const translations = {
                 instruction: "Haz clic en los marcadores del mapa para ver una foto de la isla y del sitio de buceo."
             },
             interactiveMap: {
-                map1Label: "Zona Sur",
-                placeholder: "Espacio para nuevo mapa",
+                mapLabel: "Parque Nacional Bahía de Loreto",
                 exteriorView: "Vista Exterior",
                 underwaterView: "Bajo el Agua",
                 points: [
                     {
-                        id: 1,
                         name: "Isla Danzante",
                         desc: "Famosa por sus impresionantes cañones submarinos, paredes cubiertas de coloridos abanicos de mar y una increíble diversidad que va desde pequeños nudibranquios hasta grandes bancos de peces tropicales."
+                    },
+                    {
+                        name: "Isla del Carmen",
+                        desc: "La isla más grande del parque. Aquí exploramos el famoso pecio C-54, un barco hundido lleno de vida, además de impresionantes paredes y arrecifes rocosos."
+                    },
+                    {
+                        name: "Isla Coronado",
+                        desc: "Nuestra expedición más popular. Podrás bucear y jugar con amigables lobos marinos en su hábitat natural, rodeado de hermosas formaciones de roca volcánica."
                     }
                 ]
             }
@@ -598,15 +604,21 @@ export const translations = {
                 instruction: "Click on the map markers to see a photo of the island and the dive site."
             },
             interactiveMap: {
-                map1Label: "South Zone",
-                placeholder: "Space for new map",
+                mapLabel: "Loreto Bay National Park",
                 exteriorView: "Exterior View",
                 underwaterView: "Underwater",
                 points: [
                     {
-                        id: 1,
                         name: "Danzante Island",
                         desc: "Famous for its impressive underwater canyons, walls covered in colorful sea fans, and incredible diversity ranging from tiny nudibranchs to large schools of tropical fish."
+                    },
+                    {
+                        name: "Carmen Island",
+                        desc: "The largest island in the park. Here we explore the famous C-54 wreck, a sunken ship full of marine life, along with stunning walls and rocky reefs."
+                    },
+                    {
+                        name: "Coronado Island",
+                        desc: "Our most popular expedition. You'll be able to dive and play with friendly sea lions in their natural habitat, surrounded by beautiful volcanic rock formations."
                     }
                 ]
             }

@@ -2,10 +2,20 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
-// Importaciones exactas que me pediste
+// 🗺️ IMAGEN DEL MAPA BASE
 import mapImg from '/assets/images/isladanzante.webp'; 
+
+// 📍 IMÁGENES ISLA DANZANTE (Punto 1)
 import islaImg from '/assets/images/isla.webp'; 
 import buceoImg from '/assets/images/buceo.webp';  
+
+// 📍 IMÁGENES ISLA DEL CARMEN (Punto 2)
+import carmenIslaImg from '/assets/images/carmen.webp'; 
+import carmenBuceoImg from '/assets/images/carmensur.webp';  
+
+// 📍 IMÁGENES ISLA CORONADO (Punto 3)
+import coronadoIslaImg from '/assets/images/fuera.webp'; 
+import coronadoBuceoImg from '/assets/images/fondo.webp';  
 
 export default function DiveSites() {
   const { t } = useLanguage();
@@ -14,13 +24,34 @@ export default function DiveSites() {
   // Estado para controlar el punto seleccionado
   const [selectedPoint, setSelectedPoint] = useState<any | null>(null);
 
-  // 📍 PINES DE BUCEO EN EL MAPA 1 (Isla Danzante)
-  const mapPointsDanzante = content.interactiveMap.points.map((point: any) => ({
-    ...point,
-    top: "50%", left: "50%", // Coordenadas del pin en el mapa
-    imgIsland: islaImg, 
-    imgSite: buceoImg, 
-  }));
+  // 📍 CONFIGURACIÓN DE LOS 3 PINES EN EL MAPA
+  // Ajusta 'top' y 'left' para mover el pin rojo sobre tu imagen del mapa.
+  const mapPoints = [
+    { 
+      id: 1, 
+      name: content.interactiveMap.points[0].name, 
+      desc: content.interactiveMap.points[0].desc,
+      top: "75%", left: "45%", // <-- Posición Danzante (Sur)
+      imgIsland: islaImg, 
+      imgSite: buceoImg, 
+    },
+    { 
+      id: 2, 
+      name: content.interactiveMap.points[1].name, 
+      desc: content.interactiveMap.points[1].desc,
+      top: "45%", left: "55%", // <-- Posición Carmen (Centro)
+      imgIsland: carmenIslaImg, 
+      imgSite: carmenBuceoImg, 
+    },
+    { 
+      id: 3, 
+      name: content.interactiveMap.points[2].name, 
+      desc: content.interactiveMap.points[2].desc,
+      top: "30%", left: "50%", // <-- Posición Coronado (Norte)
+      imgIsland: coronadoIslaImg, 
+      imgSite: coronadoBuceoImg, 
+    }
+  ];
 
   const glassCardClass = `
     p-8 rounded-[2rem] border transition-all duration-500 shadow-lg relative overflow-hidden group
@@ -44,7 +75,7 @@ export default function DiveSites() {
         </p>
       </div>
 
-      {/* SECCIÓN DE MAPAS INTERACTIVOS */}
+      {/* MAPA INTERACTIVO ÚNICO */}
       <div className="mb-20">
         <div className="text-center mb-8">
           <h3 className="font-title text-2xl text-navy dark:text-white flex items-center justify-center gap-3">
@@ -56,46 +87,36 @@ export default function DiveSites() {
           </p>
         </div>
 
-        {/* GRID PARA MÚLTIPLES MAPAS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {/* MAPA PRINCIPAL CENTRADO */}
+        <div className="relative w-full max-w-4xl mx-auto rounded-[2rem] overflow-hidden border border-slate-200 dark:border-white/10 shadow-xl bg-cyan-50 dark:bg-cyan-900/5 group">
           
-          {/* MAPA 1: ISLA DANZANTE */}
-          <div className="relative w-full rounded-[2rem] overflow-hidden border border-slate-200 dark:border-white/10 shadow-xl bg-cyan-50 dark:bg-cyan-900/5 group">
-            <img 
-              src={mapImg} 
-              alt={content.interactiveMap.points[0].name} 
-              className="w-full h-auto object-contain mx-auto" 
-            />
+          {/* Imagen ajustada para mantener su proporción natural */}
+          <img 
+            src={mapImg} 
+            alt="Mapa Parque Nacional" 
+            className="w-full h-auto object-contain mx-auto" 
+          />
 
-            {/* PINES INTERACTIVOS DEL MAPA 1 */}
-            {mapPointsDanzante.map((point: any) => (
-              <button
-                key={point.id}
-                onClick={() => setSelectedPoint(point)}
-                className="absolute w-6 h-6 md:w-8 md:h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600 text-white shadow-[0_0_20px_rgba(220,38,38,0.9)] border-[3px] border-white dark:border-dark hover:scale-125 transition-transform flex items-center justify-center z-10 hover:z-20 group/pin"
-                style={{ top: point.top, left: point.left }}
-              >
-                <i className="ri-pushpin-fill text-[10px] md:text-xs pointer-events-none"></i>
-                <span className="absolute opacity-0 group-hover/pin:opacity-100 pointer-events-none transition-opacity bg-navy dark:bg-dark text-white text-[10px] font-bold whitespace-nowrap px-3 py-1.5 rounded-full bottom-full mb-3 left-1/2 -translate-x-1/2 font-body shadow-md">
-                  {point.name}
-                </span>
-              </button>
-            ))}
+          {/* RENDERIZADO DE LOS 3 PINES */}
+          {mapPoints.map((point) => (
+            <button
+              key={point.id}
+              onClick={() => setSelectedPoint(point)}
+              className="absolute w-6 h-6 md:w-8 md:h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600 text-white shadow-[0_0_20px_rgba(220,38,38,0.9)] border-[3px] border-white dark:border-dark hover:scale-125 transition-transform flex items-center justify-center z-10 hover:z-20 group/pin"
+              style={{ top: point.top, left: point.left }}
+            >
+              <i className="ri-pushpin-fill text-[10px] md:text-xs pointer-events-none"></i>
+              {/* Tooltip Hover */}
+              <span className="absolute opacity-0 group-hover/pin:opacity-100 pointer-events-none transition-opacity bg-navy dark:bg-dark text-white text-[10px] font-bold whitespace-nowrap px-3 py-1.5 rounded-full bottom-full mb-3 left-1/2 -translate-x-1/2 font-body shadow-md">
+                {point.name}
+              </span>
+            </button>
+          ))}
 
-            {/* Etiqueta del mapa */}
-            <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-dark/80 backdrop-blur-md px-4 py-1.5 rounded-xl text-navy dark:text-white font-title text-xs tracking-widest uppercase border border-slate-200 dark:border-white/10 shadow-sm">
-              {content.interactiveMap.map1Label}
-            </div>
+          {/* Etiqueta Global del mapa */}
+          <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-dark/80 backdrop-blur-md px-4 py-1.5 rounded-xl text-navy dark:text-white font-title text-xs tracking-widest uppercase border border-slate-200 dark:border-white/10 shadow-sm">
+            {content.interactiveMap.mapLabel}
           </div>
-
-          {/* MAPA 2: ESPACIO RESERVADO PARA EL FUTURO */}
-          <div className="relative w-full rounded-[2rem] border-2 border-dashed border-slate-300 dark:border-white/20 bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center min-h-[300px] md:min-h-full transition-colors hover:bg-slate-100 dark:hover:bg-white/10">
-            <i className="ri-map-2-line text-4xl text-slate-400 dark:text-slate-500 mb-3 opacity-50"></i>
-            <p className="font-body text-slate-500 dark:text-slate-400 text-sm tracking-wider uppercase font-bold opacity-70">
-              {content.interactiveMap.placeholder}
-            </p>
-          </div>
-
         </div>
       </div>
 
@@ -198,7 +219,7 @@ export default function DiveSites() {
 
       </div>
 
-      {/* POPUP / MODAL DEL MAPA - TAMAÑO COMPACTO Y CON SCROLL */}
+      {/* POPUP / MODAL DEL MAPA - SCROLL INTERNO INTACTO */}
       <AnimatePresence>
         {selectedPoint && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 py-6">
@@ -212,7 +233,7 @@ export default function DiveSites() {
               className="absolute inset-0 bg-navy/80 dark:bg-dark/90 backdrop-blur-sm cursor-pointer"
             />
             
-            {/* Contenedor del Modal: Ancho reducido a max-w-2xl y altura máxima 85vh */}
+            {/* Contenedor del Modal */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }} 
               animate={{ opacity: 1, scale: 1, y: 0 }} 
@@ -237,7 +258,7 @@ export default function DiveSites() {
               {/* Contenido Scrolleable */}
               <div className="p-4 md:p-6 overflow-y-auto custom-scrollbar relative z-10 bg-slate-50/50 dark:bg-transparent">
                 
-                {/* Fotos en proporción 16:9 (aspect-video) para que no sean tan altas */}
+                {/* Fotos en proporción 16:9 (aspect-video) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mb-6">
                   {/* Foto Isla */}
                   <div className="rounded-2xl overflow-hidden border border-slate-200/50 dark:border-white/10 relative group aspect-video shadow-md bg-slate-100 dark:bg-white/5">
