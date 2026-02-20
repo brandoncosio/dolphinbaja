@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import SplashScreen from '../components/SplashScreen';
 import contactBg from '/assets/images/slide2.webp';
+import VisitorGuide from '../components/VisitorGuide';
 
 import { useLanguage } from '../context/LanguageContext';
 
@@ -333,7 +334,7 @@ export default function Contacto() {
                         </div>
                     </div>
                 </section>
-
+            <VisitorGuide />
                 {/* =========================================
             FAQ
         ========================================= */}

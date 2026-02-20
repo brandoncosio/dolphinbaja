@@ -76,6 +76,8 @@ export default function Navbar() {
       path: '/contacto',
       submenu: [
         { label: t.navbar.submenu.location, link: '/contacto#ubicacion' },
+        // 👇 AQUÍ AGREGAMOS LA NUEVA SECCIÓN DE GUÍA DE VIAJE
+        { label: t.contact.visitorGuide.tag, link: '/contacto#guia' },
         { label: t.navbar.submenu.whatsapp, link: 'https://wa.me/526131182311' },
         { label: t.navbar.submenu.faq, link: '/contacto#faq' }
       ]

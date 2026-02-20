@@ -144,7 +144,6 @@ export const translations = {
                     { title: "Refresher (Refresh)", price: "Consultar", duration: "1 Día", desc: "¿Más de 1 año sin bucear? Retoma confianza y técnica en un área controlada antes de explorar.", includes: ["1 Tanque Habilidades", "1 Tanque Exploración", "Equipo NO incluido"], imgKey: "refreshImg" },
                     { title: "Bubble Makers", price: "Consultar", duration: "Medio día", desc: "Introducción segura y divertida para niños de 8 a 11 años. Máximo 2 metros de profundidad.", includes: ["1 Tanque", "Equipo Incluido", "Instructor PADI", "Lunch"], imgKey: "bubbleImg" }
                 ],
-                // 👇 AQUÍ SE ELIMINÓ EL SUNSET CRUISE
                 snorkel: [
                     { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "snorkelImg" }
                 ]
@@ -237,7 +236,7 @@ export const translations = {
                 cressi: {
                     tag: "Cressi Point",
                     title: "Pasión y tecnología bajo el mar",
-                    desc: "Somos el único distribuidor autorizado Cressi en Loreto. Calidad y servicio para garantizar que tu equipo esté a la altura de tu aventura.",
+                    desc: "Compartimos estos valores para ser el único Cressi Point en Loreto. Ofrecemos la mejor combinación de servicios turísticos y productos de alta calidad para buceo, apnea y snorkel, además de recuerdos únicos relacionados con el mar.",
                     cta: "Visítanos o contáctanos"
                 },
                 collage: {
@@ -251,6 +250,36 @@ export const translations = {
                 titleStart: "Hablemos de tu próxima",
                 titleHighlight: "Aventura",
                 text: "Sin formularios largos. Atención directa y personalizada para planear tu inmersión perfecta en Loreto."
+            },
+            // 👇 NUEVA SECCIÓN: GUÍA DE VIAJE (ESPAÑOL)
+            visitorGuide: {
+                tag: "Guía de Viaje",
+                title: "Planea tu viaje a Loreto",
+                location: {
+                    title: "Nuestra Ubicación",
+                    text: "Estamos ubicados en el Parque Nacional Bahía de Loreto, en Baja California Sur, México, en el hermoso puerto de Loreto. Nos encontrarás en el centro, a una cuadra del malecón y cerca de la marina, justo en la esquina de la Calle Madero y Benito Juárez."
+                },
+                flights: {
+                    title: "Llegar por Avión",
+                    text: "La forma más común de llegar es por aire. Contamos con vuelos directos desde:",
+                    routes: [
+                        { route: "Los Ángeles (LAX)", airline: "Alaska Airlines" },
+                        { route: "Calgary (YYC)", airline: "WestJet" },
+                        { route: "Phoenix (PHX)", airline: "American Airlines" },
+                        { route: "Dallas (DFW)", airline: "American Airlines" },
+                        { route: "Tijuana (TIJ)", airline: "Volaris" }
+                    ]
+                },
+                road: {
+                    title: "Llegar por Carretera",
+                    text: "Puedes rentar un auto y disfrutar los paisajes de la carretera transpeninsular (14 hrs desde Tijuana, 4 hrs desde La Paz) o viajar cómodamente en Autobuses Águila."
+                },
+                hotels: {
+                    title: "Dónde Hospedarte",
+                    text: "En Loreto abundan los hoteles boutique, pequeños y manejados por sus dueños para una atención personalizada. Te recomendamos estos cercanos a nosotros:",
+                    list: "La Misión Loreto, Casa Mangos, Hotel 1697, Hotel Paraíso Azul, Iguana Inn, Santo Niño y Hotel Bugambilias.",
+                    packages: "¡Pregunta por nuestros paquetes de Buceo + Hospedaje! Disponibles con La Misión Loreto, Casa Mangos y Hotel 1697."
+                }
             },
             cards: {
                 visit: {
@@ -491,7 +520,6 @@ export const translations = {
                     { title: "Refresher", price: "Inquire", duration: "1 Day", desc: "More than 1 year without diving? Regain confidence and technique in a controlled area before exploring.", includes: ["1 Skills Tank", "1 Exploration Tank", "Gear NOT included"], imgKey: "refreshImg" },
                     { title: "Bubble Makers", price: "Inquire", duration: "Half day", desc: "Safe and fun introduction for kids 8 to 11 years old. Maximum 2 meters deep.", includes: ["1 Tank", "Gear Included", "PADI Instructor", "Lunch"], imgKey: "bubbleImg" }
                 ],
-                // 👇 AQUÍ SE ELIMINÓ EL SUNSET CRUISE
                 snorkel: [
                     { title: "Coronados Island Tour", price: "$85 USD", duration: "4 Hours", desc: "For the whole family. White sand beaches, turquoise waters, and dolphin watching on the way.", includes: ["Snorkel Gear", "Life Jacket", "Lunch Box", "Beach Shade"], imgKey: "snorkelImg" }
                 ]
@@ -584,7 +612,7 @@ export const translations = {
                 cressi: {
                     tag: "Cressi Point",
                     title: "Passion and technology under the sea",
-                    desc: "We are the only authorized Cressi dealer in Loreto. Quality and service to ensure your gear matches the level of your adventure.",
+                    desc: "We share these values to be the only Cressi Point in Loreto. We offer the best combination of tours and high-quality gear for diving, freediving, and snorkeling, along with unique ocean-related souvenirs.",
                     cta: "Visit or contact us"
                 },
                 collage: {
@@ -598,6 +626,36 @@ export const translations = {
                 titleStart: "Let's plan your next",
                 titleHighlight: "Adventure",
                 text: "No long forms. Direct and personalized attention to plan your perfect dive in Loreto."
+            },
+            // 👇 NUEVA SECCIÓN: GUÍA DE VIAJE (INGLÉS)
+            visitorGuide: {
+                tag: "Travel Guide",
+                title: "Plan your trip to Loreto",
+                location: {
+                    title: "Our Location",
+                    text: "We are located in the Loreto Bay National Park, in Baja California Sur, Mexico, in the beautiful port of Loreto. You'll find us downtown, one block from the boardwalk and near the marina, right at the corner of Madero and Benito Juárez Streets."
+                },
+                flights: {
+                    title: "Getting Here by Air",
+                    text: "Flying is the most common way to arrive. We have direct flights from:",
+                    routes: [
+                        { route: "Los Angeles (LAX)", airline: "Alaska Airlines" },
+                        { route: "Calgary (YYC)", airline: "WestJet" },
+                        { route: "Phoenix (PHX)", airline: "American Airlines" },
+                        { route: "Dallas (DFW)", airline: "American Airlines" },
+                        { route: "Tijuana (TIJ)", airline: "Volaris" }
+                    ]
+                },
+                road: {
+                    title: "Getting Here by Road",
+                    text: "You can rent a car and enjoy the landscapes of the transpeninsular highway (14 hrs from Tijuana, 4 hrs from La Paz) or travel comfortably with Aguila Bus Lines."
+                },
+                hotels: {
+                    title: "Where to Stay",
+                    text: "Loreto is home to many boutique hotels, directly managed by their owners for personalized attention. We recommend these nearby hotels:",
+                    list: "La Misión Loreto, Casa Mangos, Hotel 1697, Hotel Paraíso Azul, Iguana Inn, Santo Niño, and Hotel Bugambilias.",
+                    packages: "Ask about our Dive + Stay packages! Available with La Misión Loreto, Casa Mangos, and Hotel 1697."
+                }
             },
             cards: {
                 visit: {
