@@ -113,6 +113,65 @@ export const translations = {
                 }
             }
         },
+        diveSites: {
+            tag: "Exploración",
+            title: "Nuestros Sitios de Buceo",
+            desc: "Contamos con más de 40 sitios en el Parque Nacional, descubiertos desde el 2001 y bautizados por los lugareños y nuestros capitanes basados en historias, leyendas y geología.",
+            landscape: {
+                title: "El Paisaje",
+                surface: "En la superficie disfrutarás del mar enmarcado por la majestuosa Sierra de la Giganta. En el trayecto es común ver delfines, rayas móbula, ballenas (en temporada) y peces voladores.",
+                underwater: "Bajo el agua te espera una gran biodiversidad: corales duros y blandos, anémonas, tortugas, mantas, pulpos, tiburones de arrecife, el famoso pecio C-54, lobos marinos y fascinante vida macro."
+            },
+            temperatures: {
+                title: "Temperaturas del Agua",
+                seasons: [
+                    { time: "May – Jun", temp: "22–26°C (73–80°F)", suit: "Traje 3–5mm recomendado" },
+                    { time: "Jul – Nov (Mediados)", temp: "24–29°C (76–85°F)", suit: "Traje 2–5mm o Rash Guard" },
+                    { time: "Nov – Abr", temp: "18–24°C (65–75°F)", suit: "Traje 5–7mm (Ene-Mar trae chamarra para la lancha)" }
+                ]
+            },
+            extras: {
+                title: "Servicios Adicionales",
+                list: [
+                    "Recepción un día antes y enjuague de equipo.",
+                    "Almacenamiento gratis hasta por 3 días para que viaje seco (después $100 MXN diarios, máximo 15 días).",
+                    "Mantenimiento a reguladores Cressi.",
+                    "Llenado de tanques (solo con prueba hidrostática vigente) e inspección visual.",
+                    "Renta de equipo (solo para clientes en nuestros tours)."
+                ]
+            },
+            boats: {
+                title: "Nuestras Embarcaciones",
+                desc: "Perfectamente acondicionadas para llevar a cabo la actividad cómodamente: La Tía, La Concha y La Mafi."
+            },
+            social: {
+                title: "Compromiso Social",
+                desc: "Devolvemos a nuestra comunidad y a nuestro mar un poco de lo mucho que nos dan:",
+                items: [
+                    { name: "Reef Cleaners Pals (RCP's)", text: "Socios fundadores desde 2020. Limpiezas submarinas cada verano. +1000 kg de artes de pesca recolectados hasta 2025." },
+                    { name: "Consejo Asesor PNBL", text: "Miembros activos para dar solución a las inquietudes de nuestra comunidad." },
+                    { name: "Sister Cities", text: "Apoyo activo a bomberos y paramédicos de Loreto junto a Hermosa Beach." },
+                    { name: "AHL", text: "Miembros de la Asociación de Hoteleros para impulsar el turismo responsable." }
+                ]
+            },
+            mapInfo: {
+                title: "Mapa Interactivo",
+                instruction: "Haz clic en los marcadores del mapa para ver una foto de la isla y del sitio de buceo."
+            },
+            interactiveMap: {
+                map1Label: "Zona Sur",
+                placeholder: "Espacio para nuevo mapa",
+                exteriorView: "Vista Exterior",
+                underwaterView: "Bajo el Agua",
+                points: [
+                    {
+                        id: 1,
+                        name: "Isla Danzante",
+                        desc: "Famosa por sus impresionantes cañones submarinos, paredes cubiertas de coloridos abanicos de mar y una increíble diversidad que va desde pequeños nudibranquios hasta grandes bancos de peces tropicales."
+                    }
+                ]
+            }
+        },
         servicesPage: {
             tag: "Nuestros Servicios",
             titleStart: "Vive el",
@@ -491,6 +550,65 @@ export const translations = {
                     text: "We are located in the heart of Loreto, ready to plan your adventure.",
                     link: "View on Google Maps"
                 }
+            }
+        },
+        diveSites: {
+            tag: "Exploration",
+            title: "Our Dive Sites",
+            desc: "We have over 40 sites in the National Park, discovered since 2001 and named by locals and our captains based on history, legends, and geology.",
+            landscape: {
+                title: "The Landscape",
+                surface: "On the surface, you'll enjoy the sea framed by the majestic Sierra de la Giganta. Along the way, it's common to spot dolphins, mobula rays, whales (in season), and flying fish.",
+                underwater: "Underwater, a massive biodiversity awaits: hard and soft corals, anemones, turtles, mantas, octopus, reef sharks, the famous C-54 wreck, sea lions, and fascinating macro life."
+            },
+            temperatures: {
+                title: "Water Temperatures",
+                seasons: [
+                    { time: "May – Jun", temp: "22–26°C (73–80°F)", suit: "3–5mm wetsuit recommended" },
+                    { time: "Jul – Mid Nov", temp: "24–29°C (76–85°F)", suit: "2–5mm wetsuit or Rash Guard" },
+                    { time: "Nov – Apr", temp: "18–24°C (65–75°F)", suit: "5–7mm wetsuit (Jan-Mar bring a jacket for surface intervals)" }
+                ]
+            },
+            extras: {
+                title: "Additional Services",
+                list: [
+                    "Early drop-off and gear rinsing.",
+                    "Free gear storage for up to 3 days to let it dry before your flight (afterwards $100 MXN daily, max 15 days).",
+                    "Cressi regulator maintenance.",
+                    "Tank fills (only with valid hydrostatic test) and visual inspection.",
+                    "Equipment rental (only available for our tour guests)."
+                ]
+            },
+            boats: {
+                title: "Our Boats",
+                desc: "Perfectly conditioned to carry out your activities comfortably: La Tía, La Concha, and La Mafi."
+            },
+            social: {
+                title: "Social Responsibility",
+                desc: "We give back to our community and our ocean a little of the much they give us:",
+                items: [
+                    { name: "Reef Cleaners Pals (RCP's)", text: "Founding members since 2020. Summer underwater cleanups. +1000 kg of fishing gear collected by 2025." },
+                    { name: "PNBL Advisory Board", text: "Active members working to solve community concerns." },
+                    { name: "Sister Cities", text: "Active support for Loreto's firefighters and paramedics alongside Hermosa Beach." },
+                    { name: "AHL", text: "Members of the Hotel Association to promote responsible tourism." }
+                ]
+            },
+            mapInfo: {
+                title: "Interactive Map",
+                instruction: "Click on the map markers to see a photo of the island and the dive site."
+            },
+            interactiveMap: {
+                map1Label: "South Zone",
+                placeholder: "Space for new map",
+                exteriorView: "Exterior View",
+                underwaterView: "Underwater",
+                points: [
+                    {
+                        id: 1,
+                        name: "Danzante Island",
+                        desc: "Famous for its impressive underwater canyons, walls covered in colorful sea fans, and incredible diversity ranging from tiny nudibranchs to large schools of tropical fish."
+                    }
+                ]
             }
         },
         servicesPage: {

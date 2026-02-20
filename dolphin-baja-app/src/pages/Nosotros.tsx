@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
+import DiveSites from '../components/DiveSites';
 
 // Contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
@@ -124,6 +125,8 @@ export default function Nosotros() {
 
           {/* 5. Galería */}
           <Gallery />
+
+          <DiveSites />
 
         </div>
       </main>
