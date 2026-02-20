@@ -1,5 +1,27 @@
 export const translations = {
     es: {
+        testimonials: {
+            tag: "Lo que dicen de nosotros",
+            title: "Experiencias Reales",
+            desc: "Nada nos hace más felices que compartir la magia del Mar de Cortés con nuestros visitantes. Esto es lo que opinan quienes ya bucearon con nosotros.",
+            list: [
+                {
+                    name: "Carlos M.",
+                    date: "Hace 2 meses",
+                    text: "Increíble experiencia en Isla Coronado. Los Dive Masters son súper profesionales y te hacen sentir seguro en todo momento. Vimos lobos marinos y muchísima vida. ¡Volveremos sin duda!"
+                },
+                {
+                    name: "Laura S.",
+                    date: "Hace 3 semanas",
+                    text: "Tomé mi curso Open Water con ellos y fue la mejor decisión. Rafa y todo el equipo tienen muchísima paciencia y los equipos Cressi están en perfectas condiciones. Altamente recomendado."
+                },
+                {
+                    name: "Familia Gómez",
+                    date: "Hace 1 mes",
+                    text: "El tour de snorkel a Isla Coronado fue mágico. Vimos delfines en el camino y el lunch en la playa estuvo delicioso. Excelente trato de los capitanes y un respeto total por la naturaleza."
+                }
+            ]
+        },
         navbar: {
             services: "Servicios",
             about: "Nosotros",
@@ -445,6 +467,28 @@ export const translations = {
         }
     },
     en: {
+        testimonials: {
+            tag: "What they say about us",
+            title: "Real Experiences",
+            desc: "Nothing makes us happier than sharing the magic of the Sea of Cortez with our guests. Here is what people who have dived with us think.",
+            list: [
+                {
+                    name: "Carlos M.",
+                    date: "2 months ago",
+                    text: "Incredible experience at Coronado Island. The Dive Masters are super professional and make you feel safe at all times. We saw sea lions and tons of marine life. We will definitely be back!"
+                },
+                {
+                    name: "Laura S.",
+                    date: "3 weeks ago",
+                    text: "I took my Open Water course with them and it was the best decision. Rafa and the whole team are very patient and the Cressi gear is in perfect condition. Highly recommended."
+                },
+                {
+                    name: "The Gomez Family",
+                    date: "1 month ago",
+                    text: "The snorkel tour to Coronado Island was magical. We saw dolphins on the way and the beach lunch was delicious. Excellent service from the captains and total respect for nature."
+                }
+            ]
+        },
         navbar: {
             services: "Services",
             about: "About Us",

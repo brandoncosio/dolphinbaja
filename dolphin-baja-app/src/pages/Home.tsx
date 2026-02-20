@@ -9,6 +9,7 @@ import ValueProps from '../components/ValueProps';
 import HomeGallery from '../components/HomeGallery';
 import Destination from '../components/Destination';
 import SplashScreen from '../components/SplashScreen';
+import Testimonials from '../components/Testimonials';
 
 import { useLanguage } from '../context/LanguageContext';
 
@@ -125,6 +126,7 @@ export default function Home() {
           <Highlights />
           <ValueProps />
           <HomeGallery />
+          <Testimonials />
           <Destination />
         </div>
 
