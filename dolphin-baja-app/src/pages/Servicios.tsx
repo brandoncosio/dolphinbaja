@@ -15,12 +15,19 @@ import snorkelImg from '/assets/images/realsonrkell.jpeg';
 import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/slider1-celular.webp';
-// 👇 Nueva imagen importada
-import colorFImg from '/assets/images/ColorF.webp'; 
+
+// 👇 NUEVAS IMÁGENES AGREGADAS AQUÍ (Incluyendo ColorF para Open Water)
+import colorFImg from '/assets/images/ColorF.webp';
+import certImg from '/assets/images/cert.webp';
+import cert2Img from '/assets/images/cert2.webp';
+import cert3Img from '/assets/images/cert3.webp';
+import cert4Img from '/assets/images/cert4.webp';
 
 const imageDict: Record<string, string> = {
   funDivesImg, coronadosImg, nightDiveImg, coursesImg,
-  snorkelImg, experienciasImg, refreshImg, bubbleImg, colorFImg
+  snorkelImg, experienciasImg, refreshImg, bubbleImg,
+  // 👇 AGREGADAS AL DICCIONARIO
+  colorFImg, certImg, cert2Img, cert3Img, cert4Img
 };
 
 export default function Servicios() {
@@ -107,7 +114,7 @@ export default function Servicios() {
     dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
   `;
 
-  // 5. Botón Reservar
+  // 5. Botón Reservar (Se eliminó priceTagClass)
   const bookBtnClass = `
     inline-flex w-full md:w-auto py-3.5 px-8 font-title text-sm tracking-widest uppercase rounded-xl transition-all duration-300 items-center justify-center gap-2 group/btn shadow-md active:scale-95 border
     
@@ -140,7 +147,7 @@ export default function Servicios() {
     dark:bg-white/5 dark:border-white/5
   `;
 
-  // 8. CAJA DE INFORMACIÓN IMPORTANTE
+  // 8. 👇 CAJA DE INFORMACIÓN IMPORTANTE
   const importantInfoClass = `
     border-l-4 rounded-r-2xl p-6 md:p-8 mt-10 transition-colors duration-500
     
@@ -241,8 +248,12 @@ export default function Servicios() {
                     {/* IMAGEN */}
                     <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:h-auto relative overflow-hidden shrink-0 border-b md:border-b-0 md:border-r border-slate-100 dark:border-white/10">
                       <img
-                        // 👇 CONDICIÓN: Si el título incluye "Open Water", muestra ColorF, si no, usa la imagen normal
-                        src={item.title.includes('Open Water') ? colorFImg : imageDict[item.imgKey]}
+                        src={item.title.includes('Open Water Diver') ? colorFImg : 
+                             item.title.includes('Advanced Open Water') ? certImg :
+                             item.title.includes('Rescue Diver') ? cert2Img :
+                             (item.title.includes('Especialidades PADI') || item.title.includes('PADI Specialties')) ? cert3Img :
+                             item.title.includes('Dive Master') ? cert4Img :
+                             imageDict[item.imgKey]}
                         alt={item.title}
                         loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform"
@@ -372,7 +383,7 @@ export default function Servicios() {
                   )}
                 </div>
 
-                {/* 👇 REGLAS IMPORTANTE (CORREGIDO: Sin degradados brillantes en dark mode) */}
+                {/* 👇 REGLAS IMPORTANTE */}
                 <div className={importantInfoClass}>
                   <h4 className="font-title text-sm md:text-base mb-4 uppercase tracking-widest flex items-center gap-2 
                     text-yellow-600 dark:text-yellow-400">

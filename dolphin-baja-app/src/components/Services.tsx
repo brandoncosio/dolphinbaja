@@ -16,9 +16,18 @@ import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/slider1-celular.webp';
 
+// 👇 NUEVAS IMÁGENES AGREGADAS AQUÍ (Incluyendo ColorF para Open Water)
+import colorFImg from '/assets/images/ColorF.webp';
+import certImg from '/assets/images/cert.webp';
+import cert2Img from '/assets/images/cert2.webp';
+import cert3Img from '/assets/images/cert3.webp';
+import cert4Img from '/assets/images/cert4.webp';
+
 const imageDict: Record<string, string> = {
   funDivesImg, coronadosImg, nightDiveImg, coursesImg,
-  snorkelImg, experienciasImg, refreshImg, bubbleImg
+  snorkelImg, experienciasImg, refreshImg, bubbleImg,
+  // 👇 AGREGADAS AL DICCIONARIO
+  colorFImg, certImg, cert2Img, cert3Img, cert4Img
 };
 
 export default function Servicios() {
@@ -255,10 +264,6 @@ export default function Servicios() {
                         loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform"
                       />
-                      {/* Precio */}
-                      <div className={priceTagClass}>
-                        {item.price}
-                      </div>
                     </div>
 
                     {/* CONTENIDO */}
