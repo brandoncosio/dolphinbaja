@@ -13,8 +13,6 @@ export default function AboutHero() {
   // ========================================================================
 
   // 1. Gradiente de Fusión (Limitado a la parte INFERIOR)
-  // CORRECCIÓN: Ya no usamos 'inset-0'. Usamos 'bottom-0 h-[60%]' para que el gradiente 
-  // solo afecte la parte de abajo y deje las caras limpias.
   const gradientOverlayClass = `
     absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t transition-colors duration-500 z-10
     
@@ -35,7 +33,6 @@ export default function AboutHero() {
   `;
 
   // 3. Atmósfera detrás del Texto (Reducida y sutil)
-  // CORRECCIÓN: Bajamos la opacidad drásticamente (de /60 a /30 o /40) para que no parezca una mancha.
   const textGlowClass = `
     absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-56 w-80 md:w-[500px] rounded-full blur-[80px] pointer-events-none transition-colors duration-500
     
@@ -46,10 +43,16 @@ export default function AboutHero() {
     dark:bg-black/60
   `;
 
-  // 4. Clases de Texto (Contrastados)
+  // 👇 4. Clases de Texto (Contrastados) - AHORA COMO PÍLDORA (BADGE)
   const tagClass = `
-    text-[10px] md:text-sm font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] block mb-3 md:mb-6 drop-shadow-md pointer-events-auto transition-colors
-    text-cyan-600 dark:text-cyan-400
+    inline-block font-body text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
+    px-4 py-1.5 md:px-5 md:py-2 rounded-full backdrop-blur-md border transition-all duration-500 shadow-sm pointer-events-auto
+    
+    /* LIGHT MODE: Fondo blanco translúcido para asegurar que se lea sobre la foto */
+    bg-white/80 border-white/60 text-navy
+    
+    /* DARK MODE: Fondo oscuro translúcido con texto cyan para no perder el estilo */
+    dark:bg-black/40 dark:border-white/10 dark:text-cyan-400
   `;
 
   const titleClass = `

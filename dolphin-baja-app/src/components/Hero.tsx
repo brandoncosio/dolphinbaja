@@ -40,7 +40,7 @@ export default function Hero() {
   // 🎨 ESTILOS SEPARADOS (Clean Code)
   // ========================================================================
 
-  // 1. Botón Principal (WhatsApp) - Ajustado para móviles (w-full, px más chicos)
+  // 1. Botón Principal (WhatsApp)
   const primaryBtnClass = `
     flex items-center justify-center gap-3 rounded-full px-6 py-3 md:px-8 md:py-4 
     font-title text-sm tracking-widest uppercase backdrop-blur-md transition-all 
@@ -50,12 +50,12 @@ export default function Hero() {
     bg-yellow-400 border-yellow-400 text-navy 
     hover:bg-yellow-300 hover:border-yellow-300 shadow-yellow-500/30
 
-    /* DARK MODE: Matte Glass (Fondo oscuro, Borde nítido, Sin neón difuso) */
+    /* DARK MODE: Matte Glass */
     dark:bg-black/30 dark:border-yellow-400 dark:text-yellow-400 
     dark:hover:bg-yellow-400 dark:hover:text-dark dark:shadow-none
   `;
 
-  // 2. Botón Secundario (Servicios) - Ajustado para móviles
+  // 2. Botón Secundario (Servicios)
   const secondaryBtnClass = `
     flex items-center justify-center gap-3 rounded-full border px-6 py-3 md:px-8 md:py-4 
     font-title text-sm tracking-widest uppercase backdrop-blur-md transition-all 
@@ -65,20 +65,32 @@ export default function Hero() {
     bg-white/90 border-white text-navy 
     hover:bg-cyan-500 hover:text-white hover:border-cyan-500 shadow-black/10
 
-    /* DARK MODE: Matte Glass (Fondo oscuro, Borde nítido cyan) */
+    /* DARK MODE: Matte Glass */
     dark:bg-black/30 dark:border-cyan-400 dark:text-cyan-400 
     dark:hover:bg-cyan-400 dark:hover:text-dark dark:shadow-none
   `;
 
-  // 3. Gradiente de Fondo (Overlay sobre la imagen) - Más fuerte en móviles para leer texto
+  // 3. Gradiente de Fondo
   const overlayGradientClass = `
     absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r transition-colors duration-500
     
     /* LIGHT: Se funde hacia blanco/hielo */
     from-slate-50/90 via-slate-50/50 md:via-slate-50/30 to-transparent
 
-    /* DARK: Se funde hacia el azul oscuro (Dark Reef) */
+    /* DARK: Se funde hacia el azul oscuro */
     dark:from-dark/95 dark:via-dark/60 md:dark:via-dark/30 dark:to-transparent
+  `;
+
+  // 👇 NUEVA CLASE: Etiqueta (Tag) superior convertida en un Badge de Cristal para asegurar legibilidad
+  const heroTagClass = `
+    inline-block font-body text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
+    px-4 py-1.5 md:px-5 md:py-2 rounded-full backdrop-blur-md border transition-all duration-500 shadow-sm
+    
+    /* LIGHT MODE: Fondo blanco translúcido para asegurar que se lea sobre el mar azul */
+    bg-white/80 border-white/60 text-navy
+    
+    /* DARK MODE: Fondo oscuro translúcido con texto cyan para no perder el estilo */
+    dark:bg-black/40 dark:border-white/10 dark:text-cyan-400
   `;
 
   return (
@@ -93,21 +105,18 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            // Ajuste: bg-[center_top] en móviles para que las cabezas/horizonte no se corten
             className="absolute inset-0 bg-cover bg-[center_top] md:bg-center"
             style={{
               backgroundImage: `url(${slideImages[currentIndex]})`,
               willChange: 'opacity, transform'
             }}
           >
-            {/* Gradiente aplicado desde la variable */}
             <div className={overlayGradientClass} />
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* CONTENIDO */}
-      {/* Ajuste: Padding lateral reducido en móvil (px-4), Padding vertical balanceado */}
       <div className="relative z-10 flex h-full flex-col justify-center px-4 pt-24 pb-24 md:py-0 md:px-20 lg:px-32 pointer-events-auto">
 
         <AnimatePresence mode="wait">
@@ -119,19 +128,17 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="max-w-3xl lg:max-w-4xl w-full"
           >
-            <span className="block font-body text-[10px] md:text-sm font-bold uppercase tracking-[0.3em] mb-3 md:mb-4 drop-shadow-md transition-colors
-              text-cyan-700 dark:text-cyan-400">
+            {/* 👇 Aplicamos la nueva clase de la etiqueta aquí */}
+            <span className={heroTagClass}>
               {heroContent.tag}
             </span>
 
-            {/* Ajuste: Tamaños de texto más controlados en móvil (text-3xl) */}
             <h1
               className="mb-4 md:mb-6 font-title text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] md:leading-[1.1] drop-shadow-[0_4px_10px_rgba(0,0,0,0.3)] transition-colors duration-500
               text-navy dark:text-white"
               dangerouslySetInnerHTML={{ __html: getSlideContent(currentIndex).title }}
             />
 
-            {/* Ajuste: Texto base un poco más chico en móvil para que quepa bien */}
             <p className="mb-8 md:mb-10 max-w-xl font-body text-sm sm:text-lg lg:text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-medium leading-relaxed transition-colors duration-500
               text-slate-700 dark:text-slate-100">
               {getSlideContent(currentIndex).subtitle}
@@ -139,8 +146,6 @@ export default function Hero() {
 
             {/* BOTONES CON CLASES SEPARADAS */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 w-full sm:w-auto">
-
-              {/* Botón Principal */}
               <a
                 href="https://wa.me/526131182311"
                 target="_blank"
@@ -151,7 +156,6 @@ export default function Hero() {
                 {heroContent.btnBook}
               </a>
 
-              {/* Botón Secundario */}
               <Link
                 to="/servicios"
                 className={secondaryBtnClass}
@@ -171,8 +175,8 @@ export default function Hero() {
             onClick={() => setCurrentIndex(index)}
             aria-label={`Ir al slide ${index + 1}`}
             className={`h-2.5 rounded-full transition-all duration-700 shadow-md backdrop-blur-sm ${index === currentIndex
-              ? "w-8 bg-cyan-400 border border-cyan-400/50" // Activo (Igual en ambos)
-              : "w-2.5 hover:bg-navy/40 border-navy/10 bg-navy/20 dark:hover:bg-white/60 dark:border-white/20 dark:bg-white/30" // Inactivo (Adaptable)
+              ? "w-8 bg-cyan-400 border border-cyan-400/50"
+              : "w-2.5 hover:bg-navy/40 border-navy/10 bg-navy/20 dark:hover:bg-white/60 dark:border-white/20 dark:bg-white/30"
               }`}
           />
         ))}

@@ -115,6 +115,18 @@ export default function Contacto() {
     dark:bg-white/5 dark:border-white/10 dark:shadow-none
   `;
 
+    // 👇 8. Etiqueta Hero (Badge Cristal)
+    const heroTagClass = `
+    inline-block font-body text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
+    px-4 py-1.5 md:px-5 md:py-2 rounded-full backdrop-blur-md border transition-all duration-500 shadow-sm pointer-events-auto
+    
+    /* LIGHT MODE: Fondo blanco translúcido */
+    bg-white/80 border-white/60 text-navy
+    
+    /* DARK MODE: Fondo oscuro translúcido con texto cyan */
+    dark:bg-black/40 dark:border-white/10 dark:text-cyan-400
+  `;
+
     return (
         <div key={lang}>
             <Helmet>
@@ -166,11 +178,12 @@ export default function Contacto() {
                     </div>
 
                     <div className="relative z-10 text-center px-4 md:px-6 max-w-4xl mx-auto pb-32 md:pb-40 pointer-events-none">
+
+                        {/* 👇 Se aplica la clase de Etiqueta/Píldora */}
                         <motion.span
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="font-body text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-4 drop-shadow-md
-                text-cyan-700 dark:text-cyan-400"
+                            className={heroTagClass}
                         >
                             {t.contact.hero.subtitle}
                         </motion.span>
@@ -334,7 +347,7 @@ export default function Contacto() {
                         </div>
                     </div>
                 </section>
-            <VisitorGuide />
+                <VisitorGuide />
                 {/* =========================================
             FAQ
         ========================================= */}
