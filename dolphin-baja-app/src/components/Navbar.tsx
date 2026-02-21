@@ -52,6 +52,9 @@ export default function Navbar() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
 
+  // ========================================================================
+  // 📚 ESTRUCTURA DEL MENÚ
+  // ========================================================================
   const navItems = [
     {
       name: t.navbar.services,
@@ -68,6 +71,8 @@ export default function Navbar() {
       submenu: [
         { label: t.navbar.submenu.history, link: '/nosotros#historia' },
         { label: t.navbar.submenu.team, link: '/nosotros#equipo' },
+        // 👇 AÑADIDO: "Dive Sites" antes de Galería
+        { label: 'Dive Sites', link: '/nosotros#divesites' },
         { label: t.navbar.submenu.gallery, link: '/nosotros#galeria' }
       ]
     },
@@ -76,7 +81,6 @@ export default function Navbar() {
       path: '/contacto',
       submenu: [
         { label: t.navbar.submenu.location, link: '/contacto#ubicacion' },
-        // 👇 AQUÍ AGREGAMOS LA NUEVA SECCIÓN DE GUÍA DE VIAJE
         { label: t.contact.visitorGuide.tag, link: '/contacto#guia' },
         { label: t.navbar.submenu.whatsapp, link: 'https://wa.me/526131182311' },
         { label: t.navbar.submenu.faq, link: '/contacto#faq' }
@@ -88,7 +92,6 @@ export default function Navbar() {
   // 🎨 ESTILOS SEPARADOS (Clean Code)
   // ========================================================================
 
-  // 1. Contenedor Header (Fondo)
   const headerClass = `
     fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 xl:px-20 transition-all duration-500
     ${isScrolled
@@ -97,14 +100,12 @@ export default function Navbar() {
     }
   `;
 
-  // 2. Links de Navegación (Texto)
   const navLinkClass = `
     relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest transition-colors py-6 drop-shadow-sm
     text-navy hover:text-cyan-600
     dark:text-white dark:hover:text-cyan-400
   `;
 
-  // 3. Menú Desplegable (Dropdown)
   const dropdownContainerClass = `
     relative z-10 backdrop-blur-2xl rounded-2xl shadow-xl p-2 text-left overflow-hidden border
     bg-white border-slate-200
@@ -117,32 +118,24 @@ export default function Navbar() {
     dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-cyan-300
   `;
 
-  // 4. Botones Circulares (Tema / Menú Móvil)
   const iconBtnClass = `
     group flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition-all hover:scale-110 active:scale-95 shadow-sm
     bg-white border-slate-200 text-navy hover:text-cyan-600 hover:border-cyan-200
     dark:bg-white/10 dark:border-white/20 dark:text-yellow-400 dark:hover:bg-white/20
   `;
 
-  // 5. Botón Idioma (Pill)
   const langBtnClass = `
     flex items-center gap-2 rounded-full border px-5 py-2.5 font-title text-xs backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-sm group
     bg-white border-slate-200 text-navy hover:bg-slate-50 hover:border-slate-300
     dark:bg-white/10 dark:border-white/20 dark:text-white dark:hover:bg-cyan-400/20 dark:hover:text-cyan-300
   `;
 
-  // 6. Botón CTA "Reservar" (Desktop)
   const ctaBtnClass = `
     flex items-center gap-2 rounded-full border px-6 py-2.5 font-title text-xs backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-md group
-    
-    /* LIGHT MODE: Amarillo Sólido (Alto Contraste) */
     bg-yellow-400 border-yellow-400 text-navy hover:bg-yellow-300 hover:border-yellow-300
-    
-    /* DARK MODE: Matte Glass (Sin neón difuso, borde nítido) */
     dark:bg-white/5 dark:border-yellow-400 dark:text-yellow-400 dark:hover:bg-yellow-400 dark:hover:text-dark
   `;
 
-  // 7. Sidebar Móvil
   const mobileSidebarClass = `
     fixed top-0 right-0 z-[90] h-[100dvh] w-[85%] max-w-[320px] backdrop-blur-2xl border-l shadow-2xl lg:hidden
     transition-transform duration-500 cubic-bezier(0.22, 1, 0.36, 1)
@@ -150,14 +143,9 @@ export default function Navbar() {
     dark:bg-dark/95 dark:border-white/10
   `;
 
-  // 8. Botón CTA (Móvil)
   const mobileCtaBtnClass = `
     flex items-center justify-center gap-3 rounded-xl py-4 font-title text-sm tracking-widest uppercase shadow-md active:scale-95 transition-all w-full border
-    
-    /* LIGHT */
     bg-yellow-400 text-navy border-yellow-400 active:bg-yellow-500
-    
-    /* DARK */
     dark:bg-white/5 dark:border-yellow-400 dark:text-yellow-400 dark:active:bg-yellow-400 dark:active:text-dark
   `;
 

@@ -124,9 +124,9 @@ export default function Nosotros() {
           <Team />
 
           {/* 5. Galería */}
-          <Gallery />
-
           <DiveSites />
+
+          <Gallery />
 
         </div>
       </main>
