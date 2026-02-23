@@ -5,46 +5,144 @@ import SplashScreen from '../components/SplashScreen';
 import { useLanguage } from '../context/LanguageContext';
 
 // ========================================================================
-// 🗄️ BASE DE DATOS DE MEDIA (Fotos y Videos Reales del Proyecto)
+// 🗄️ BASE DE DATOS DE MEDIA (Mosaico Perfecto - Sin Espacios)
 // ========================================================================
 const mediaData = [
-    // --- BLOQUE 1 ---
-    { id: 1, type: 'photo', category: 'action', src: '/assets/images/slide1.webp', title: 'Aventura Submarina', span: 'col-span-2 row-span-2' },
-    { id: 2, type: 'photo', category: 'marine', src: '/assets/images/caballitos de mar.webp', title: 'Caballito de Mar', span: 'col-span-1 row-span-2' },
-    { id: 3, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC05890.webp', title: 'Arrecife de Coral', span: 'col-span-1 row-span-1' },
-    { id: 4, type: 'video', category: 'action', src: '/assets/images/tours.webp', videoUrl: '/assets/contentD/video/jacks-toro.webm', title: 'Cardumen de Jacks', span: 'col-span-2 row-span-1' },
+    // --- FILA 1 y 2 (Impacto Inicial) ---
+    {
+        id: 1, type: 'video', category: 'action',
+        src: '/assets/images/marprofundo.webp', // Portada
+        videoUrl: '/assets/contentD/video/jacks-toro.webm',
+        title: 'Tornado de Jacks', span: 'col-span-2 row-span-2'
+    },
+    {
+        id: 2, type: 'photo', category: 'marine',
+        src: '/assets/images/caballitos de mar.webp',
+        title: 'Caballito de Mar', span: 'col-span-1 row-span-2'
+    },
+    {
+        id: 3, type: 'photo', category: 'marine',
+        src: '/assets/images/alebrije.webp',
+        title: 'Nudibranquio Alebrije', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 4, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC05890.webp',
+        title: 'Vida en el Arrecife', span: 'col-span-1 row-span-1'
+    },
 
-    // --- BLOQUE 2 ---
-    { id: 5, type: 'photo', category: 'team', src: '/assets/images/staff.webp', title: 'Nuestro Staff', span: 'col-span-2 row-span-1' },
-    { id: 6, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06264.webp', title: 'Vida Marina Loreto', span: 'col-span-2 row-span-2' },
-    { id: 7, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC05885.webp', title: 'Descenso', span: 'col-span-1 row-span-1' },
-    { id: 8, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06280.webp', title: 'Especies Locales', span: 'col-span-1 row-span-2' },
+    // --- FILA 3 (Panorámicas y Detalles) ---
+    {
+        id: 5, type: 'photo', category: 'action',
+        src: '/assets/images/carmensur.webp',
+        title: 'Isla Carmen Sur', span: 'col-span-2 row-span-1'
+    },
+    {
+        id: 6, type: 'photo', category: 'team',
+        src: '/assets/images/staff.webp',
+        title: 'Nuestro Equipo', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 7, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06264.webp',
+        title: 'Tortuga Marina', span: 'col-span-1 row-span-1'
+    },
 
-    // --- BLOQUE 3 ---
-    { id: 9, type: 'video', category: 'marine', src: '/assets/images/focahome.webp', videoUrl: '/assets/contentD/video/GX010057.webm', title: 'Encuentro con Lobos Marinos', span: 'col-span-2 row-span-2' },
-    { id: 10, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC06276.webp', title: 'Buceo Profundo', span: 'col-span-1 row-span-1' },
-    { id: 11, type: 'photo', category: 'marine', src: '/assets/images/alebrije.webp', title: 'Nudibranquios', span: 'col-span-1 row-span-1' },
-    { id: 12, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06296.webp', title: 'Fondo del Mar', span: 'col-span-2 row-span-1' },
+    // --- FILA 4 y 5 (Interacción y Fauna) ---
+    {
+        id: 8, type: 'photo', category: 'action',
+        src: '/assets/contentD/img/DSC05885.webp',
+        title: 'Descenso Azul', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 9, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06280.webp',
+        title: 'Pez Globo', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 10, type: 'video', category: 'marine',
+        src: '/assets/images/focahome.webp', // Portada
+        videoUrl: '/assets/contentD/video/GX010057.webm',
+        title: 'Jugando con Lobos', span: 'col-span-2 row-span-2'
+    },
+    {
+        id: 11, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06296.webp',
+        title: 'Colores del Fondo', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 12, type: 'photo', category: 'team',
+        src: '/assets/contentD/img/DSC06303.webp',
+        title: 'Preparación', span: 'col-span-1 row-span-1'
+    },
 
-    // --- BLOQUE 4 ---
-    { id: 13, type: 'photo', category: 'action', src: '/assets/images/buceo.webp', title: 'Exploradores', span: 'col-span-1 row-span-1' },
-    { id: 14, type: 'photo', category: 'team', src: '/assets/contentD/img/DSC06303.webp', title: 'Preparando Equipo', span: 'col-span-1 row-span-1' },
-    { id: 15, type: 'video', category: 'action', src: '/assets/images/slide2.webp', videoUrl: '/assets/contentD/video/GX010803.webm', title: 'Rumbo al sitio', span: 'col-span-2 row-span-2' },
-    { id: 16, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC06320.webp', title: 'Bajo la superficie', span: 'col-span-1 row-span-2' },
+    // --- FILA 6 (Snorkel y Paisaje) ---
+    {
+        id: 13, type: 'photo', category: 'action',
+        src: '/assets/images/snorkellfiona.jpeg',
+        title: 'Snorkel en Familia', span: 'col-span-2 row-span-1'
+    },
+    {
+        id: 14, type: 'video', category: 'action',
+        src: '/assets/images/isla.webp', // Portada
+        videoUrl: '/assets/contentD/video/tijeritass.webm',
+        title: 'Explorando Tijeritas', span: 'col-span-2 row-span-1'
+    },
 
-    // --- BLOQUE 5 ---
-    { id: 17, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06330.webp', title: 'Mar de Cortés', span: 'col-span-2 row-span-2' },
-    { id: 18, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06299.webp', title: 'Colores del Arrecife', span: 'col-span-1 row-span-1' },
-    { id: 19, type: 'photo', category: 'action', src: '/assets/images/isla.webp', title: 'Parque Nacional', span: 'col-span-1 row-span-1' },
-    { id: 20, type: 'video', category: 'marine', src: '/assets/images/slide3.webp', videoUrl: '/assets/contentD/video/tijeritass.webm', title: 'Tijeritas en acción', span: 'col-span-2 row-span-1' },
+    // --- FILA 7 y 8 (Macro y Ambiente) ---
+    {
+        id: 15, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06320.webp',
+        title: 'Coral Negro', span: 'col-span-1 row-span-2'
+    },
+    {
+        id: 16, type: 'photo', category: 'action',
+        src: '/assets/images/isladanzante.webp',
+        title: 'Isla Danzante', span: 'col-span-2 row-span-2'
+    },
+    {
+        id: 17, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06330.webp',
+        title: 'Cardumen Azul', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 18, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06354.webp',
+        title: 'Fauna Escondida', span: 'col-span-1 row-span-1'
+    },
 
-    // --- BLOQUE 6 ---
-    { id: 21, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06335.webp', title: 'Bancos de Peces', span: 'col-span-2 row-span-1' },
-    { id: 22, type: 'video', category: 'team', src: '/assets/images/colash4.webp', videoUrl: '/assets/contentD/video/IMG_4615.webm', title: 'Dolphin Dive Crew', span: 'col-span-1 row-span-2' },
-    { id: 23, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC06342.webp', title: 'Inmersión', span: 'col-span-1 row-span-1' },
-    { id: 24, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06354.webp', title: 'Fauna Local', span: 'col-span-2 row-span-2' },
-    { id: 25, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06361.webp', title: 'Detalles Marinos', span: 'col-span-1 row-span-1' },
-    { id: 26, type: 'photo', category: 'action', src: '/assets/images/colash1.webp', title: 'Buceo Loreto', span: 'col-span-1 row-span-1' }
+    // --- FILA 9 y 10 (Cierre Espectacular) ---
+    {
+        id: 19, type: 'video', category: 'action',
+        src: '/assets/images/buceo.webp', // Portada
+        videoUrl: '/assets/contentD/video/GX010803.webm',
+        title: 'Buceo en Corrientes', span: 'col-span-2 row-span-2'
+    },
+    {
+        id: 20, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06361.webp',
+        title: 'Texturas Marinas', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 21, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC05892.webp',
+        title: 'Estrella de Mar', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 22, type: 'photo', category: 'action',
+        src: '/assets/contentD/img/DSC06276.webp',
+        title: 'Explorador', span: 'col-span-2 row-span-1'
+    },
+    {
+        id: 23, type: 'photo', category: 'marine',
+        src: '/assets/images/vol.webp',
+        title: 'Formaciones Volcánicas', span: 'col-span-1 row-span-1'
+    },
+    {
+        id: 24, type: 'photo', category: 'marine',
+        src: '/assets/contentD/img/DSC06335.webp',
+        title: 'Peces de Colores', span: 'col-span-1 row-span-1'
+    }
 ];
 
 const categories = ['all', 'marine', 'action', 'team', 'video'];
@@ -54,7 +152,7 @@ export default function GalleryPage() {
     const { lang } = useLanguage();
 
     const [filter, setFilter] = useState('all');
-    const [visibleCount, setVisibleItems] = useState(10);
+    const [visibleCount, setVisibleItems] = useState(12); // Mostramos 12 al inicio para llenar bien la pantalla
     const [selectedMedia, setSelectedMedia] = useState<any | null>(null);
 
     // Textos locales (A prueba de fallos)
@@ -75,12 +173,11 @@ export default function GalleryPage() {
         }
     };
 
-    // Garantiza que siempre exista 't' incluso si 'lang' tarda en cargar
     const currentLang = (lang === 'en' || lang === 'es') ? lang : 'es';
     const pageTexts = texts[currentLang];
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1200);
+        const timer = setTimeout(() => setIsLoading(false), 1000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -108,6 +205,11 @@ export default function GalleryPage() {
             ? 'bg-cyan-500 text-white border-cyan-500 dark:bg-cyan-400 dark:text-dark'
             : 'bg-white border-slate-200 text-slate-500 hover:border-cyan-400 hover:text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-300 dark:hover:border-white/30 dark:hover:text-white'}
   `;
+
+    // AGREGADO: grid-flow-dense para rellenar huecos automáticamente si se filtra
+    const gridContainerClass = `
+        grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] sm:auto-rows-[200px] md:auto-rows-[250px] gap-3 md:gap-4 lg:gap-5 grid-flow-dense
+    `;
 
     const gridItemClass = `
     relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border transition-all duration-500 cursor-pointer shadow-lg hover:-translate-y-1
@@ -152,13 +254,13 @@ export default function GalleryPage() {
 
                     <div className="flex flex-wrap justify-center gap-3 mb-12 md:mb-16">
                         {categories.map((cat) => (
-                            <button key={cat} onClick={() => { setFilter(cat); setVisibleItems(10); }} className={getFilterBtnClass(cat)}>
+                            <button key={cat} onClick={() => { setFilter(cat); setVisibleItems(12); }} className={getFilterBtnClass(cat)}>
                                 {pageTexts.filters[cat as keyof typeof pageTexts.filters]}
                             </button>
                         ))}
                     </div>
 
-                    <motion.div layout className="grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] sm:auto-rows-[200px] md:auto-rows-[250px] gap-3 md:gap-4 lg:gap-5">
+                    <motion.div layout className={gridContainerClass}>
                         <AnimatePresence>
                             {filteredMedia.slice(0, visibleCount).map((item) => (
                                 <motion.div
@@ -197,7 +299,7 @@ export default function GalleryPage() {
                     {visibleCount < filteredMedia.length && (
                         <div className="mt-16 text-center">
                             <button
-                                onClick={() => setVisibleItems(prev => prev + 10)}
+                                onClick={() => setVisibleItems(prev => prev + 8)}
                                 className="px-8 py-3 rounded-xl border-2 font-title text-sm tracking-widest uppercase transition-all shadow-md active:scale-95 bg-transparent border-cyan-500 text-cyan-600 hover:bg-cyan-500 hover:text-white dark:border-cyan-400 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-dark dark:shadow-none"
                             >
                                 {pageTexts.loadMore} <i className="ri-loader-3-line inline-block animate-spin-slow ml-2"></i>
@@ -230,7 +332,6 @@ export default function GalleryPage() {
                             initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
                             className="relative w-full max-w-6xl max-h-[90vh] rounded-2xl md:rounded-[2rem] overflow-hidden bg-black border border-white/10 shadow-2xl flex items-center justify-center"
                         >
-                            {/* 👇 LÓGICA MEJORADA PARA REPRODUCIR VIDEOS LOCALES */}
                             {selectedMedia.type === 'video' ? (
                                 selectedMedia.videoUrl.endsWith('.webm') || selectedMedia.videoUrl.endsWith('.mp4') ? (
                                     <video
