@@ -9,7 +9,7 @@ import footerBg from '/assets/images/footer.webp';
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const content = t.footer;
 
   const socialLinks = [
@@ -35,6 +35,9 @@ export default function Footer() {
     }
   ];
 
+  // ========================================================================
+  // 📚 ESTRUCTURA DE ENLACES DEL FOOTER (Actualizada con Galería)
+  // ========================================================================
   const footerLinks = [
     {
       title: content.navTitle,
@@ -42,6 +45,8 @@ export default function Footer() {
         { label: content.navLinks.home, path: "/" },
         { label: content.navLinks.services, path: "/servicios" },
         { label: content.navLinks.about, path: "/nosotros" },
+        // 👇 AÑADIDO: Enlace a la Galería
+        { label: lang === 'en' ? 'Gallery' : 'Galería', path: "/galeria" },
         { label: content.navLinks.contact, path: "/contacto" }
       ]
     },
@@ -66,34 +71,21 @@ export default function Footer() {
     dark:bg-dark dark:border-white/10 dark:text-slate-200 
   `;
 
-  // 2. Imagen de Fondo (CORREGIDA)
+  // 2. Imagen de Fondo
   const bgImageClass = `
     w-full h-full object-cover object-bottom transition-all duration-500
-    
-    /* LIGHT MODE (Corrección): 
-       - opacity-25: Más visible.
-       - mix-blend-multiply: Se funde con el fondo blanco como tinta sobre papel.
-       - grayscale-[20%]: Mantiene un poco de color (azulados) para que no sea triste.
-    */
+    /* LIGHT MODE */
     opacity-25 grayscale-[20%] mix-blend-multiply
-    
-    /* DARK MODE: 
-       - Oscura, luminosa y sutil para no molestar el texto blanco.
-    */
+    /* DARK MODE */
     dark:opacity-50 dark:grayscale-[30%] dark:mix-blend-luminosity dark:mix-blend-normal
   `;
 
   // 3. Gradiente de Superposición (Overlay)
   const overlayGradientClass = `
     absolute inset-0 bg-gradient-to-b transition-colors duration-500
-    
-    /* LIGHT MODE: 
-       - Top/Bottom sólidos para transición.
-       - Centro (via) muy transparente (slate-50/40) para DEJAR VER LA IMAGEN.
-    */
+    /* LIGHT MODE */
     from-slate-50/90 via-slate-50/40 to-slate-200/90
-    
-    /* DARK MODE: Azul profundo */
+    /* DARK MODE */
     dark:from-dark dark:via-dark/30 dark:to-navy/90
   `;
 
