@@ -36,16 +36,16 @@ export default function Footer() {
   ];
 
   // ========================================================================
-  // 📚 ESTRUCTURA DE ENLACES DEL FOOTER (Actualizada con Galería)
+  // 📚 ESTRUCTURA DE ENLACES DEL FOOTER (Nuevo Orden Aplicado)
   // ========================================================================
   const footerLinks = [
     {
       title: content.navTitle,
       links: [
         { label: content.navLinks.home, path: "/" },
-        { label: content.navLinks.services, path: "/servicios" },
+        // 👇 Nuevo orden aplicado: Nosotros -> Servicios -> Galería -> Contacto
         { label: content.navLinks.about, path: "/nosotros" },
-        // 👇 AÑADIDO: Enlace a la Galería
+        { label: content.navLinks.services, path: "/servicios" },
         { label: lang === 'en' ? 'Gallery' : 'Galería', path: "/galeria" },
         { label: content.navLinks.contact, path: "/contacto" }
       ]
@@ -64,14 +64,12 @@ export default function Footer() {
   // 🎨 ESTILOS SEPARADOS (Corrección de Fondo)
   // ========================================================================
 
-  // 1. Contenedor Principal Footer
   const footerClass = `
     relative pt-24 md:pt-32 pb-8 md:pb-10 overflow-hidden transition-colors duration-500 z-10 border-t 
     bg-slate-50 border-slate-200 text-slate-600
     dark:bg-dark dark:border-white/10 dark:text-slate-200 
   `;
 
-  // 2. Imagen de Fondo
   const bgImageClass = `
     w-full h-full object-cover object-bottom transition-all duration-500
     /* LIGHT MODE */
@@ -80,7 +78,6 @@ export default function Footer() {
     dark:opacity-50 dark:grayscale-[30%] dark:mix-blend-luminosity dark:mix-blend-normal
   `;
 
-  // 3. Gradiente de Superposición (Overlay)
   const overlayGradientClass = `
     absolute inset-0 bg-gradient-to-b transition-colors duration-500
     /* LIGHT MODE */
@@ -89,37 +86,32 @@ export default function Footer() {
     dark:from-dark dark:via-dark/30 dark:to-navy/90
   `;
 
-  // 4. Luz de Fondo (Glow)
   const glowClass = `
     absolute -bottom-[10%] md:-bottom-[20%] left-1/2 -translate-x-1/2 w-[120%] md:w-[800px] h-[200px] md:h-[300px] rounded-full blur-[100px] md:blur-[150px] transition-colors duration-500
     bg-cyan-400/10
     dark:bg-cyan-400/15
   `;
 
-  // 5. Títulos de Columnas
   const colTitleClass = `
     font-title text-lg tracking-widest mb-6 drop-shadow-md transition-colors duration-500
     text-cyan-700
     dark:text-cyan-400
   `;
 
-  // 6. Enlaces de Navegación
   const linkClass = `
     font-medium transition-colors inline-flex items-center justify-center sm:justify-start gap-2 group text-base w-full sm:w-auto py-1 sm:py-0
     text-slate-600 hover:text-cyan-600
     dark:text-slate-300 dark:hover:text-cyan-300
   `;
 
-  // 7. Botones Redes Sociales
   const socialBtnClass = `
-    w-11 h-11 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-md transition-all duration-300 group hover:-translate-y-1
+    w-11 h-11 md:w-12 h-12 rounded-xl flex items-center justify-center shadow-md transition-all duration-300 group hover:-translate-y-1
     /* LIGHT */
     bg-white border border-slate-200 text-slate-600 hover:bg-cyan-600 hover:text-white hover:border-cyan-600 hover:shadow-cyan-200/50
     /* DARK */
     dark:bg-white/5 dark:border-white/15 dark:text-slate-200 dark:hover:bg-cyan-400 dark:hover:text-dark dark:hover:border-cyan-400 dark:shadow-none
   `;
 
-  // 8. Iconos Contacto
   const contactIconClass = `
     w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 shadow-sm
     /* LIGHT */
