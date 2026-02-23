@@ -4,17 +4,47 @@ import { Helmet } from 'react-helmet-async';
 import SplashScreen from '../components/SplashScreen';
 import { useLanguage } from '../context/LanguageContext';
 
+// ========================================================================
+// 🗄️ BASE DE DATOS DE MEDIA (Fotos y Videos Reales del Proyecto)
+// ========================================================================
 const mediaData = [
-    { id: 1, type: 'photo', category: 'marine', src: '/assets/images/colash1.webp', title: 'Exploración', span: 'col-span-2 row-span-2' },
-    { id: 2, type: 'video', category: 'action', src: '/assets/images/slide1.webp', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', title: 'Buceo Profundo', span: 'col-span-2 row-span-1' },
-    { id: 3, type: 'photo', category: 'team', src: '/assets/nosotros/equipo.webp', title: 'Nuestro Equipo', span: 'col-span-1 row-span-1' },
-    { id: 4, type: 'photo', category: 'marine', src: '/assets/images/colash6.webp', title: 'Cardumen', span: 'col-span-1 row-span-2' },
-    { id: 5, type: 'photo', category: 'action', src: '/assets/images/colash4.webp', title: 'Descenso', span: 'col-span-1 row-span-1' },
-    { id: 6, type: 'photo', category: 'marine', src: '/assets/images/colash2.webp', title: 'Arrecife', span: 'col-span-1 row-span-1' },
-    { id: 7, type: 'video', category: 'marine', src: '/assets/images/slide3.webp', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', title: 'Lobo Marino', span: 'col-span-2 row-span-2' },
-    { id: 8, type: 'photo', category: 'team', src: '/assets/nosotros/tienda1.webp', title: 'Cressi Point', span: 'col-span-1 row-span-1' },
-    { id: 9, type: 'photo', category: 'action', src: '/assets/images/colash3.webp', title: 'Preparación', span: 'col-span-1 row-span-1' },
-    { id: 10, type: 'photo', category: 'marine', src: '/assets/images/colash5.webp', title: 'Vida Submarina', span: 'col-span-2 row-span-1' },
+    // --- BLOQUE 1 ---
+    { id: 1, type: 'photo', category: 'action', src: '/assets/images/slide1.webp', title: 'Aventura Submarina', span: 'col-span-2 row-span-2' },
+    { id: 2, type: 'photo', category: 'marine', src: '/assets/images/caballitos de mar.webp', title: 'Caballito de Mar', span: 'col-span-1 row-span-2' },
+    { id: 3, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC05890.webp', title: 'Arrecife de Coral', span: 'col-span-1 row-span-1' },
+    { id: 4, type: 'video', category: 'action', src: '/assets/images/tours.webp', videoUrl: '/assets/contentD/video/jacks-toro.webm', title: 'Cardumen de Jacks', span: 'col-span-2 row-span-1' },
+
+    // --- BLOQUE 2 ---
+    { id: 5, type: 'photo', category: 'team', src: '/assets/images/staff.webp', title: 'Nuestro Staff', span: 'col-span-2 row-span-1' },
+    { id: 6, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06264.webp', title: 'Vida Marina Loreto', span: 'col-span-2 row-span-2' },
+    { id: 7, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC05885.webp', title: 'Descenso', span: 'col-span-1 row-span-1' },
+    { id: 8, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06280.webp', title: 'Especies Locales', span: 'col-span-1 row-span-2' },
+
+    // --- BLOQUE 3 ---
+    { id: 9, type: 'video', category: 'marine', src: '/assets/images/focahome.webp', videoUrl: '/assets/contentD/video/GX010057.webm', title: 'Encuentro con Lobos Marinos', span: 'col-span-2 row-span-2' },
+    { id: 10, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC06276.webp', title: 'Buceo Profundo', span: 'col-span-1 row-span-1' },
+    { id: 11, type: 'photo', category: 'marine', src: '/assets/images/alebrije.webp', title: 'Nudibranquios', span: 'col-span-1 row-span-1' },
+    { id: 12, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06296.webp', title: 'Fondo del Mar', span: 'col-span-2 row-span-1' },
+
+    // --- BLOQUE 4 ---
+    { id: 13, type: 'photo', category: 'action', src: '/assets/images/buceo.webp', title: 'Exploradores', span: 'col-span-1 row-span-1' },
+    { id: 14, type: 'photo', category: 'team', src: '/assets/contentD/img/DSC06303.webp', title: 'Preparando Equipo', span: 'col-span-1 row-span-1' },
+    { id: 15, type: 'video', category: 'action', src: '/assets/images/slide2.webp', videoUrl: '/assets/contentD/video/GX010803.webm', title: 'Rumbo al sitio', span: 'col-span-2 row-span-2' },
+    { id: 16, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC06320.webp', title: 'Bajo la superficie', span: 'col-span-1 row-span-2' },
+
+    // --- BLOQUE 5 ---
+    { id: 17, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06330.webp', title: 'Mar de Cortés', span: 'col-span-2 row-span-2' },
+    { id: 18, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06299.webp', title: 'Colores del Arrecife', span: 'col-span-1 row-span-1' },
+    { id: 19, type: 'photo', category: 'action', src: '/assets/images/isla.webp', title: 'Parque Nacional', span: 'col-span-1 row-span-1' },
+    { id: 20, type: 'video', category: 'marine', src: '/assets/images/slide3.webp', videoUrl: '/assets/contentD/video/tijeritass.webm', title: 'Tijeritas en acción', span: 'col-span-2 row-span-1' },
+
+    // --- BLOQUE 6 ---
+    { id: 21, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06335.webp', title: 'Bancos de Peces', span: 'col-span-2 row-span-1' },
+    { id: 22, type: 'video', category: 'team', src: '/assets/images/colash4.webp', videoUrl: '/assets/contentD/video/IMG_4615.webm', title: 'Dolphin Dive Crew', span: 'col-span-1 row-span-2' },
+    { id: 23, type: 'photo', category: 'action', src: '/assets/contentD/img/DSC06342.webp', title: 'Inmersión', span: 'col-span-1 row-span-1' },
+    { id: 24, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06354.webp', title: 'Fauna Local', span: 'col-span-2 row-span-2' },
+    { id: 25, type: 'photo', category: 'marine', src: '/assets/contentD/img/DSC06361.webp', title: 'Detalles Marinos', span: 'col-span-1 row-span-1' },
+    { id: 26, type: 'photo', category: 'action', src: '/assets/images/colash1.webp', title: 'Buceo Loreto', span: 'col-span-1 row-span-1' }
 ];
 
 const categories = ['all', 'marine', 'action', 'team', 'video'];
@@ -24,7 +54,7 @@ export default function GalleryPage() {
     const { lang } = useLanguage();
 
     const [filter, setFilter] = useState('all');
-    const [visibleCount, setVisibleItems] = useState(8);
+    const [visibleCount, setVisibleItems] = useState(10);
     const [selectedMedia, setSelectedMedia] = useState<any | null>(null);
 
     // Textos locales (A prueba de fallos)
@@ -89,7 +119,7 @@ export default function GalleryPage() {
     return (
         <div key={lang}>
             <Helmet>
-                <title>{lang === 'es' ? 'Galería Multimedia | Dolphin Dive' : 'Media Gallery | Dolphin Dive'}</title>
+                <title>{currentLang === 'es' ? 'Galería Multimedia | Dolphin Dive' : 'Media Gallery | Dolphin Dive'}</title>
                 <meta name="description" content={pageTexts.desc} />
             </Helmet>
 
@@ -122,7 +152,7 @@ export default function GalleryPage() {
 
                     <div className="flex flex-wrap justify-center gap-3 mb-12 md:mb-16">
                         {categories.map((cat) => (
-                            <button key={cat} onClick={() => { setFilter(cat); setVisibleItems(8); }} className={getFilterBtnClass(cat)}>
+                            <button key={cat} onClick={() => { setFilter(cat); setVisibleItems(10); }} className={getFilterBtnClass(cat)}>
                                 {pageTexts.filters[cat as keyof typeof pageTexts.filters]}
                             </button>
                         ))}
@@ -141,10 +171,12 @@ export default function GalleryPage() {
                                     className={`${gridItemClass} ${item.span}`}
                                     onClick={() => setSelectedMedia(item)}
                                 >
+                                    {/* Imagen de Portada (Thumbnail) */}
                                     <img src={item.src} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110" />
 
                                     <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:from-dark/90 dark:via-dark/30" />
 
+                                    {/* Icono de Play si es video */}
                                     <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
                                         <i className={item.type === 'video' ? 'ri-play-fill text-xl ml-0.5' : 'ri-fullscreen-line text-lg'}></i>
                                     </div>
@@ -165,7 +197,7 @@ export default function GalleryPage() {
                     {visibleCount < filteredMedia.length && (
                         <div className="mt-16 text-center">
                             <button
-                                onClick={() => setVisibleItems(prev => prev + 8)}
+                                onClick={() => setVisibleItems(prev => prev + 10)}
                                 className="px-8 py-3 rounded-xl border-2 font-title text-sm tracking-widest uppercase transition-all shadow-md active:scale-95 bg-transparent border-cyan-500 text-cyan-600 hover:bg-cyan-500 hover:text-white dark:border-cyan-400 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-dark dark:shadow-none"
                             >
                                 {pageTexts.loadMore} <i className="ri-loader-3-line inline-block animate-spin-slow ml-2"></i>
@@ -185,7 +217,7 @@ export default function GalleryPage() {
                 {selectedMedia && (
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 md:p-10"
+                        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-10"
                     >
                         <button
                             onClick={() => setSelectedMedia(null)}
@@ -196,18 +228,28 @@ export default function GalleryPage() {
 
                         <motion.div
                             initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
-                            className="relative w-full max-w-5xl aspect-video rounded-2xl md:rounded-[2rem] overflow-hidden bg-dark border border-white/10 shadow-2xl"
+                            className="relative w-full max-w-6xl max-h-[90vh] rounded-2xl md:rounded-[2rem] overflow-hidden bg-black border border-white/10 shadow-2xl flex items-center justify-center"
                         >
+                            {/* 👇 LÓGICA MEJORADA PARA REPRODUCIR VIDEOS LOCALES */}
                             {selectedMedia.type === 'video' ? (
-                                <iframe
-                                    src={selectedMedia.videoUrl}
-                                    title={selectedMedia.title}
-                                    className="w-full h-full border-0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                ></iframe>
+                                selectedMedia.videoUrl.endsWith('.webm') || selectedMedia.videoUrl.endsWith('.mp4') ? (
+                                    <video
+                                        src={selectedMedia.videoUrl}
+                                        controls
+                                        autoPlay
+                                        className="w-full h-full max-h-[90vh] object-contain"
+                                    />
+                                ) : (
+                                    <iframe
+                                        src={selectedMedia.videoUrl}
+                                        title={selectedMedia.title}
+                                        className="w-full h-full aspect-video border-0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                )
                             ) : (
-                                <img src={selectedMedia.src} alt={selectedMedia.title} className="w-full h-full object-contain bg-black/50" />
+                                <img src={selectedMedia.src} alt={selectedMedia.title} className="w-full h-full max-h-[90vh] object-contain" />
                             )}
                         </motion.div>
                     </motion.div>
