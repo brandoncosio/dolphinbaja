@@ -67,7 +67,7 @@ export default function Highlights() {
       kicker: content.cards[5]?.kicker || "Inspírate",
       title: content.cards[5]?.title || "Galería",
       image: imgGaleria,
-      link: "/nosotros#galeria",
+      link: "/galeria",
       size: "aspect-[4/3] sm:col-span-2 md:col-span-2 md:row-span-1 md:aspect-auto",
       delay: 0.5
     }
