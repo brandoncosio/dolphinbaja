@@ -5,7 +5,6 @@ import { HelmetProvider } from 'react-helmet-async';
 
 // Contextos
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-// 👇 Importamos ThemeProvider y useTheme
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 
 // Componentes Globales
@@ -16,29 +15,31 @@ import ScrollToTop from './components/ScrollToTop';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import CookieConsent from './components/CookieConsent';
 
-// Páginas Lazy
+// ==========================================
+// 🚀 PÁGINAS LAZY (Carga Diferida)
+// ==========================================
 const Home = lazy(() => import('./pages/Home'));
 const Servicios = lazy(() => import('./pages/Servicios'));
 const Nosotros = lazy(() => import('./pages/Nosotros'));
 const Contacto = lazy(() => import('./pages/Contacto'));
+// 👇 NUEVA PÁGINA: Galería
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center dark:bg-dark bg-slate-50">
+  <div className="min-h-screen flex items-center justify-center dark:bg-dark bg-slate-50 transition-colors duration-500">
     <div className="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
 // ====================================================================
-// 🧠 CEREBRO DE LA APP (Ahora controla el Splash y las Transiciones)
+// 🧠 CEREBRO DE LA APP (Controla el Splash y las Transiciones)
 // ====================================================================
 function AppContent() {
   const { lang } = useLanguage();
   const { theme } = useTheme(); // Escuchamos el cambio de tema
 
-  // 1. Estado de carga movido AQUÍ
+  // Estado de carga y control de primera ejecución
   const [isLoading, setIsLoading] = useState(true);
-
-  // 2. Ref para detectar si es la primera carga o un cambio posterior
   const isFirstRun = useRef(true);
 
   // A. Efecto de Carga Inicial (Al abrir la web)
@@ -56,19 +57,19 @@ function AppContent() {
     if (!isFirstRun.current) {
       setIsLoading(true); // Mostramos Splash
 
-      // Hacemos una transición más rápida (1 seg) para que sea ágil
+      // Transición rápida (1 seg) para que sea ágil
       const timer = setTimeout(() => {
         setIsLoading(false); // Ocultamos Splash
       }, 1000);
 
       return () => clearTimeout(timer);
     }
-  }, [theme, lang]); // 👈 ¡Se dispara cuando cambia el tema o idioma!
+  }, [theme, lang]);
 
   return (
     <div className="relative min-h-screen font-body selection:bg-cyan-400 selection:text-dark transition-colors duration-500 dark:bg-dark bg-slate-50 dark:text-white text-navy">
 
-      {/* 👇 EL SPLASH SCREEN AHORA VIVE AQUÍ DENTRO */}
+      {/* SPLASH SCREEN */}
       <AnimatePresence mode="wait">
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
@@ -76,7 +77,7 @@ function AppContent() {
       <Navbar />
 
       <Suspense fallback={<PageLoader />}>
-        {/* Usamos key={lang} para recargar textos, el Splash cubrirá el parpadeo */}
+        {/* Usamos key={lang} para forzar la recarga de textos; el Splash cubrirá el parpadeo */}
         <main key={lang}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -84,12 +85,16 @@ function AppContent() {
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
+
+            {/* 👇 RUTA PARA LA GALERÍA */}
+            <Route path="/galeria" element={<GalleryPage />} />
           </Routes>
         </main>
       </Suspense>
 
       <Footer />
       <CookieConsent />
+
     </div>
   );
 }
@@ -98,8 +103,6 @@ function AppContent() {
 // COMPONENTE RAÍZ (Solo Proveedores)
 // ====================================================================
 export default function App() {
-  // El estado 'isLoading' se eliminó de aquí y se movió a AppContent
-
   return (
     <HelmetProvider>
       <LanguageProvider>
@@ -107,7 +110,7 @@ export default function App() {
           <BrowserRouter>
             <ScrollToTop />
 
-            {/* AppContent maneja la lógica visual y el Splash */}
+            {/* AppContent maneja la lógica visual y el Router interno */}
             <AppContent />
 
           </BrowserRouter>

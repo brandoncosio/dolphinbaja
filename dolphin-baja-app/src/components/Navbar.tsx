@@ -11,7 +11,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
-  const { t, toggleLanguage } = useLanguage();
+  const { t, toggleLanguage, lang } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
@@ -53,7 +53,7 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   // ========================================================================
-  // 📚 ESTRUCTURA DEL MENÚ
+  // 📚 ESTRUCTURA DEL MENÚ (CORREGIDA)
   // ========================================================================
   const navItems = [
     {
@@ -71,17 +71,23 @@ export default function Navbar() {
       submenu: [
         { label: t.navbar.submenu.history, link: '/nosotros#historia' },
         { label: t.navbar.submenu.team, link: '/nosotros#equipo' },
-        // 👇 AÑADIDO: "Dive Sites" antes de Galería
-        { label: 'Dive Sites', link: '/nosotros#divesites' },
-        { label: t.navbar.submenu.gallery, link: '/nosotros#galeria' }
+        { label: 'Dive Sites', link: '/nosotros#divesites' }
+        // Se eliminó galería de aquí
       ]
+    },
+    // 👇 NUEVA SECCIÓN PRINCIPAL: Galería (Entre Nosotros y Contacto)
+    {
+      // Usamos un fallback por si no encuentra la traducción directa
+      name: t.navbar.submenu.gallery || (lang === 'es' ? 'Galería' : 'Gallery'),
+      path: '/galeria'
+      // Nota: NO tiene el atributo 'submenu', así que será un enlace directo limpio
     },
     {
       name: t.navbar.contact,
       path: '/contacto',
       submenu: [
         { label: t.navbar.submenu.location, link: '/contacto#ubicacion' },
-        { label: t.contact.visitorGuide.tag, link: '/contacto#guia' },
+        { label: t.contact.visitorGuide?.tag || 'Guía de Viaje', link: '/contacto#guia' },
         { label: t.navbar.submenu.whatsapp, link: 'https://wa.me/526131182311' },
         { label: t.navbar.submenu.faq, link: '/contacto#faq' }
       ]
@@ -89,7 +95,7 @@ export default function Navbar() {
   ];
 
   // ========================================================================
-  // 🎨 ESTILOS SEPARADOS (Clean Code)
+  // 🎨 ESTILOS SEPARADOS
   // ========================================================================
 
   const headerClass = `
@@ -100,8 +106,9 @@ export default function Navbar() {
     }
   `;
 
+  // 👇 Añadido 'whitespace-nowrap' para evitar que los textos se amontonen o se partan
   const navLinkClass = `
-    relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest transition-colors py-6 drop-shadow-sm
+    relative flex items-center gap-1 font-body text-[13px] font-bold uppercase tracking-widest transition-colors py-6 drop-shadow-sm whitespace-nowrap
     text-navy hover:text-cyan-600
     dark:text-white dark:hover:text-cyan-400
   `;
@@ -113,7 +120,7 @@ export default function Navbar() {
   `;
 
   const dropdownItemClass = `
-    flex items-center justify-between px-4 py-2.5 text-sm font-body font-medium rounded-xl transition-all duration-300 group/link
+    flex items-center justify-between px-4 py-2.5 text-sm font-body font-medium rounded-xl transition-all duration-300 group/link whitespace-nowrap
     text-slate-700 hover:bg-slate-100 hover:text-cyan-700
     dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-cyan-300
   `;
@@ -161,29 +168,34 @@ export default function Navbar() {
           <img
             src={logo}
             alt="Dolphin Dive Baja"
-            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'
-              }`}
+            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'}`}
           />
         </Link>
 
         {/* NAVEGACIÓN DESKTOP */}
-        <nav className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-10 h-full">
-          {navItems.map((item) => (
+        {/* 👇 Se ajustó gap-6 xl:gap-10 para que los 4 elementos quepan perfectos sin apretarse */}
+        <nav className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 xl:gap-10 h-full">
+          {navItems.map((item, idx) => (
             <div
-              key={item.name}
+              key={idx}
               className="relative group h-full flex items-center justify-center cursor-pointer"
-              onMouseEnter={() => setHoveredMenu(item.name)}
+              onMouseEnter={() => item.submenu ? setHoveredMenu(item.name) : null}
               onMouseLeave={() => setHoveredMenu(null)}
             >
               <Link to={item.path} className={navLinkClass}>
                 {item.name}
-                <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : 'opacity-50'}`}></i>
-                <span className={`absolute bottom-4 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name ? 'w-full' : ''}`} />
+                {/* 👇 Solo dibuja la flecha si el elemento tiene submenú */}
+                {item.submenu && (
+                  <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : 'opacity-50'}`}></i>
+                )}
+                {/* Rayita inferio animada */}
+                <span className={`absolute bottom-4 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-cyan-400 transition-all duration-300 shadow-[0_0_8px_rgba(102,216,227,0.8)] ${hoveredMenu === item.name || location.pathname === item.path ? 'w-full' : ''}`} />
               </Link>
 
-              {/* DROPDOWN */}
+              {/* DROPDOWN DESKTOP */}
+              {/* 👇 Solo renderiza el contenedor del submenu si existe en el objeto */}
               <AnimatePresence>
-                {hoveredMenu === item.name && (
+                {item.submenu && hoveredMenu === item.name && (
                   <motion.div
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -194,10 +206,10 @@ export default function Navbar() {
                     <div className={dropdownContainerClass}>
                       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-white/20"></div>
                       <div className="flex flex-col relative z-10">
-                        {item.submenu.map((subItem, idx) => (
+                        {item.submenu.map((subItem, subIdx) => (
                           subItem.link.startsWith('http') ? (
                             <a
-                              key={idx}
+                              key={subIdx}
                               href={subItem.link}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -208,7 +220,7 @@ export default function Navbar() {
                             </a>
                           ) : (
                             <Link
-                              key={idx}
+                              key={subIdx}
                               to={subItem.link}
                               className={`${dropdownItemClass} block`}
                             >
@@ -267,8 +279,7 @@ export default function Navbar() {
 
       {/* MENÚ MÓVIL (Overlay) */}
       <div
-        className={`fixed inset-0 z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-          } bg-navy/60 backdrop-blur-md`}
+        className={`fixed inset-0 z-[90] transition-opacity duration-500 lg:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} bg-navy/60 backdrop-blur-md`}
         style={{ willChange: 'opacity' }}
         onClick={() => setIsMenuOpen(false)}
       />
@@ -280,8 +291,8 @@ export default function Navbar() {
       >
         <div className="flex h-full flex-col justify-between px-6 pt-32 pb-10 overflow-y-auto">
           <nav className="flex flex-col gap-6">
-            {navItems.map((item) => (
-              <div key={item.name} className="border-b border-slate-200 dark:border-white/10 pb-5 last:border-0">
+            {navItems.map((item, idx) => (
+              <div key={idx} className="border-b border-slate-200 dark:border-white/10 pb-5 last:border-0">
                 <Link
                   to={item.path}
                   className="text-2xl font-title transition-colors active:text-cyan-500 block mb-4 drop-shadow-sm text-navy dark:text-white"
@@ -290,31 +301,34 @@ export default function Navbar() {
                   {item.name}
                 </Link>
 
-                <div className="pl-4 flex flex-col gap-4 border-l border-cyan-400/30">
-                  {item.submenu.map((sub, i) => (
-                    sub.link.startsWith('http') ? (
-                      <a
-                        key={i}
-                        href={sub.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-base font-body active:text-cyan-500 transition-colors flex items-center justify-between text-slate-600 dark:text-slate-200"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {sub.label} <i className="ri-external-link-line opacity-50 text-sm"></i>
-                      </a>
-                    ) : (
-                      <Link
-                        key={i}
-                        to={sub.link}
-                        className="text-base font-body active:text-cyan-500 transition-colors block text-slate-600 dark:text-slate-200"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {sub.label}
-                      </Link>
-                    )
-                  ))}
-                </div>
+                {/* 👇 Solo dibuja las opciones secundarias en móvil si existe el submenu */}
+                {item.submenu && (
+                  <div className="pl-4 flex flex-col gap-4 border-l border-cyan-400/30">
+                    {item.submenu.map((sub, i) => (
+                      sub.link.startsWith('http') ? (
+                        <a
+                          key={i}
+                          href={sub.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-base font-body active:text-cyan-500 transition-colors flex items-center justify-between text-slate-600 dark:text-slate-200"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {sub.label} <i className="ri-external-link-line opacity-50 text-sm"></i>
+                        </a>
+                      ) : (
+                        <Link
+                          key={i}
+                          to={sub.link}
+                          className="text-base font-body active:text-cyan-500 transition-colors block text-slate-600 dark:text-slate-200"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {sub.label}
+                        </Link>
+                      )
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </nav>

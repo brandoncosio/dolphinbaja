@@ -11,7 +11,6 @@ import AboutHero from '../components/about/AboutHero';
 import OurStory from '../components/about/OurStory';
 import History from '../components/about/History';
 import Team from '../components/about/Team';
-import Gallery from '../components/about/Gallery';
 import SplashScreen from '../components/SplashScreen';
 
 export default function Nosotros() {
@@ -125,8 +124,6 @@ export default function Nosotros() {
 
           {/* 5. Galería */}
           <DiveSites />
-
-          <Gallery />
 
         </div>
       </main>
