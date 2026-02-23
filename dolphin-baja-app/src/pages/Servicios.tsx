@@ -16,7 +16,7 @@ import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/slider1-celular.webp';
 
-// 👇 NUEVAS IMÁGENES AGREGADAS AQUÍ (Incluyendo ColorF para Open Water)
+// Imágenes agregadas
 import colorFImg from '/assets/images/ColorF.webp';
 import certImg from '/assets/images/cert.webp';
 import cert2Img from '/assets/images/cert2.webp';
@@ -26,7 +26,6 @@ import cert4Img from '/assets/images/cert4.webp';
 const imageDict: Record<string, string> = {
   funDivesImg, coronadosImg, nightDiveImg, coursesImg,
   snorkelImg, experienciasImg, refreshImg, bubbleImg,
-  // 👇 AGREGADAS AL DICCIONARIO
   colorFImg, certImg, cert2Img, cert3Img, cert4Img
 };
 
@@ -68,30 +67,117 @@ export default function Servicios() {
   const currentSchedule = content.schedules[activeTab];
 
   // ========================================================================
+  // 📦 DATOS DE LOS NUEVOS PAQUETES (Basados en la imagen)
+  // ========================================================================
+  const packagesData = {
+    es: {
+      title: "Paquetes Dolphin Dive Baja",
+      subtitle: "Experiencias Completas",
+      items: [
+        {
+          id: 'deep-blue',
+          name: "Deep Blue",
+          target: "Para buzos certificados",
+          features: [
+            "5 días buceando (10 tanques)",
+            "6 noches de hotel con desayuno incluido",
+            "Transfer aeropuerto - hotel - aeropuerto"
+          ],
+          note: "Mínimo 2 buzos",
+          color: "cyan"
+        },
+        {
+          id: 'blue-escape',
+          name: "Blue Escape",
+          target: "Para buzos certificados",
+          features: [
+            "3 días buceando (6 tanques)",
+            "4 noches de hotel con desayuno incluido",
+            "Transfer aeropuerto - hotel - aeropuerto"
+          ],
+          note: "Mínimo 2 buzos",
+          color: "ocean"
+        },
+        {
+          id: 'beyond-surface',
+          name: "Beyond the Surface",
+          target: "Get your PADI Open Water",
+          features: [
+            "Open Water Certification",
+            "Repaso de teoría 1, 2, 3 y 4",
+            "+2 días extra de buceo (4 tanques)",
+            "1 Computadora Cressi"
+          ],
+          note: "Mínimo 2 buzos",
+          color: "yellow"
+        }
+      ]
+    },
+    en: {
+      title: "Dolphin Dive Baja Packages",
+      subtitle: "All-Inclusive Experiences",
+      items: [
+        {
+          id: 'deep-blue',
+          name: "Deep Blue",
+          target: "For certified divers",
+          features: [
+            "5 days diving (10 tanks)",
+            "6 nights hotel with breakfast included",
+            "Airport - hotel - airport transfer"
+          ],
+          note: "Minimum 2 divers",
+          color: "cyan"
+        },
+        {
+          id: 'blue-escape',
+          name: "Blue Escape",
+          target: "For certified divers",
+          features: [
+            "3 days diving (6 tanks)",
+            "4 nights hotel with breakfast included",
+            "Airport - hotel - airport transfer"
+          ],
+          note: "Minimum 2 divers",
+          color: "ocean"
+        },
+        {
+          id: 'beyond-surface',
+          name: "Beyond the Surface",
+          target: "Get your PADI Open Water",
+          features: [
+            "Open Water Certification",
+            "Theory review 1, 2, 3, and 4",
+            "+2 extra days diving (4 tanks)",
+            "1 Cressi Dive Computer"
+          ],
+          note: "Minimum 2 divers",
+          color: "yellow"
+        }
+      ]
+    }
+  };
+
+  const currentLang = (lang === 'en' || lang === 'es') ? lang : 'es';
+  const pkgData = packagesData[currentLang];
+
+  // ========================================================================
   // 🎨 ESTILOS SEPARADOS (Clean Code & Matte Fixes)
   // ========================================================================
 
-  // 1. Contenedor Principal
   const pageContainerClass = `
     min-h-screen pt-32 pb-20 selection:bg-cyan-400 selection:text-dark transition-colors duration-500
     bg-slate-50 dark:bg-dark
   `;
 
-  // 2. Atmósfera (Luces de fondo)
   const atmosphereClass = `
     fixed inset-0 pointer-events-none overflow-hidden z-0 transition-colors duration-500
-    /* LIGHT: Casi invisible */
-    opacity-30
-    /* DARK: Profundidad, no neón */
-    dark:opacity-50
+    opacity-30 dark:opacity-50
   `;
 
-  // 3. Contenedor de Tabs
   const tabsContainerClass = `
     mx-auto max-w-2xl rounded-full border p-1.5 backdrop-blur-2xl shadow-lg transition-all duration-500
-    /* LIGHT */
     bg-white border-slate-200 shadow-slate-200/50
-    /* DARK */
     dark:bg-white/5 dark:border-white/20 dark:shadow-none
   `;
 
@@ -103,59 +189,49 @@ export default function Servicios() {
     }
   `;
 
-  // 4. Tarjeta de Servicio (Individual)
   const serviceCardClass = `
     group relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border transition-all duration-500 flex flex-col md:flex-row hover:-translate-y-1 shadow-lg
-    
-    /* LIGHT MODE: Blanco Limpio */
     bg-white border-slate-200 shadow-slate-200/50 hover:border-cyan-400/40 hover:shadow-cyan-200/30
-    
-    /* DARK MODE: Matte Glass (Plano, sin brillo excesivo) */
     dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
   `;
 
-  // 5. Botón Reservar (Se eliminó priceTagClass)
   const bookBtnClass = `
     inline-flex w-full md:w-auto py-3.5 px-8 font-title text-sm tracking-widest uppercase rounded-xl transition-all duration-300 items-center justify-center gap-2 group/btn shadow-md active:scale-95 border
-    
-    /* LIGHT */
     bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 hover:border-cyan-500 hover:shadow-cyan-200/50
-    
-    /* DARK */
     dark:bg-cyan-400/10 dark:border-cyan-400/30 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-dark
   `;
 
-  // 6. Tarjeta de Horarios (Contenedor)
   const scheduleCardClass = `
     rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 border relative overflow-hidden shadow-xl
-    
-    /* LIGHT */
     bg-white border-slate-200 shadow-slate-200/50
-    
-    /* DARK */
     dark:bg-white/5 dark:backdrop-blur-2xl dark:border-white/10 dark:shadow-none
   `;
 
-  // 7. Bloque de Tiempo (Mañana/Tarde/Noche)
   const timeBlockClass = `
     p-6 md:p-8 rounded-2xl border transition-colors shadow-sm group
-    
-    /* LIGHT */
     bg-slate-50 border-slate-200
-    
-    /* DARK */
     dark:bg-white/5 dark:border-white/5
   `;
 
-  // 8. 👇 CAJA DE INFORMACIÓN IMPORTANTE
   const importantInfoClass = `
     border-l-4 rounded-r-2xl p-6 md:p-8 mt-10 transition-colors duration-500
-    
-    /* LIGHT MODE: Sólido, Crema, Alerta suave */
     bg-yellow-50 border-yellow-400
-    
-    /* DARK MODE: Matte, Plano, Sin degradado brillante */
     dark:bg-yellow-400/5 dark:border-yellow-400/30
+  `;
+
+  // Estilos dinámicos para los Paquetes
+  const getPackageColorClass = (color: string) => {
+    switch (color) {
+      case 'yellow': return 'text-yellow-500 border-yellow-400 bg-yellow-50 dark:bg-yellow-400/10 dark:text-yellow-400';
+      case 'cyan': return 'text-cyan-600 border-cyan-400 bg-cyan-50 dark:bg-cyan-400/10 dark:text-cyan-400';
+      default: return 'text-blue-500 border-blue-400 bg-blue-50 dark:bg-blue-400/10 dark:text-blue-400'; // ocean
+    }
+  };
+
+  const packageCardClass = `
+    relative flex flex-col p-8 md:p-10 rounded-[2rem] border transition-all duration-500 shadow-xl hover:-translate-y-2
+    bg-white border-slate-200
+    dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
   `;
 
   return (
@@ -186,7 +262,7 @@ export default function Servicios() {
         <div className="relative z-10">
 
           {/* ENCABEZADO */}
-          <div className="px-6 md:px-20 mb-12">
+          <div className="px-6 md:px-20 mb-16 md:mb-20">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
               <span className="font-body text-xs md:text-sm font-bold uppercase tracking-[0.4em] drop-shadow-md text-cyan-600 dark:text-cyan-400">
                 {content.catalogTitle}
@@ -201,8 +277,81 @@ export default function Servicios() {
             </motion.div>
           </div>
 
-          {/* TABS NAVEGACIÓN */}
-          <div id="catalogo-top" className="py-4 mb-16 px-4 scroll-mt-32">
+          {/* ====================================================================
+              🚀 NUEVA SECCIÓN: PAQUETES EXCLUSIVOS (Pricing Tables)
+              ==================================================================== */}
+          <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24 md:mb-32">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+              className="text-center mb-10"
+            >
+              <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-3">
+                {pkgData.title}
+              </h2>
+              <p className="font-body font-bold tracking-widest uppercase text-sm text-cyan-600 dark:text-cyan-400">
+                {pkgData.subtitle}
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {pkgData.items.map((pkg, idx) => (
+                <motion.div
+                  key={pkg.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className={packageCardClass}
+                >
+                  <div className="mb-6">
+                    <span className={`inline-block px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-md border mb-4 ${getPackageColorClass(pkg.color)}`}>
+                      {pkg.target}
+                    </span>
+                    <h3 className="font-title text-3xl text-navy dark:text-white leading-tight">
+                      "{pkg.name}"
+                    </h3>
+                  </div>
+
+                  <ul className="flex-grow space-y-4 mb-8">
+                    {pkg.features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-600 dark:text-slate-300">
+                        <i className={`ri-checkbox-circle-fill mt-0.5 text-lg ${pkg.color === 'yellow' ? 'text-yellow-500 dark:text-yellow-400' : 'text-cyan-500 dark:text-cyan-400'}`}></i>
+                        <span className="leading-snug">{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto">
+                    <div className="flex items-center gap-2 mb-4 font-body text-xs font-bold text-slate-500 dark:text-slate-400">
+                      <i className="ri-group-fill"></i> {pkg.note}
+                    </div>
+                    <a
+                      href={`https://wa.me/526131182311?text=${encodeURIComponent(`Hola, me interesa reservar el Paquete: ${pkg.name}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 border
+                        ${pkg.color === 'yellow'
+                          ? 'bg-yellow-400 text-navy border-yellow-400 hover:bg-yellow-300 dark:bg-yellow-400/10 dark:text-yellow-400 dark:border-yellow-400/30 dark:hover:bg-yellow-400 dark:hover:text-dark'
+                          : 'bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-400/10 dark:text-cyan-400 dark:border-cyan-400/30 dark:hover:bg-cyan-400 dark:hover:text-dark'
+                        }`}
+                    >
+                      Reservar <i className="ri-whatsapp-line text-lg"></i>
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* ====================================================================
+              TABS NAVEGACIÓN (Catálogo Individual)
+              ==================================================================== */}
+          <div id="catalogo-top" className="py-4 mb-10 px-4 scroll-mt-32">
+            <div className="text-center mb-6">
+              <h2 className="font-title text-2xl md:text-3xl text-slate-400 dark:text-slate-500">
+                {lang === 'es' ? 'O personaliza tu experiencia:' : 'Or customize your experience:'}
+              </h2>
+            </div>
             <div className={tabsContainerClass}>
               <div className="flex justify-between">
                 {categories.map((cat) => (
@@ -248,12 +397,12 @@ export default function Servicios() {
                     {/* IMAGEN */}
                     <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:h-auto relative overflow-hidden shrink-0 border-b md:border-b-0 md:border-r border-slate-100 dark:border-white/10">
                       <img
-                        src={item.title.includes('Open Water Diver') ? colorFImg : 
-                             item.title.includes('Advanced Open Water') ? certImg :
-                             item.title.includes('Rescue Diver') ? cert2Img :
-                             (item.title.includes('Especialidades PADI') || item.title.includes('PADI Specialties')) ? cert3Img :
-                             item.title.includes('Dive Master') ? cert4Img :
-                             imageDict[item.imgKey]}
+                        src={item.title.includes('Open Water Diver') ? colorFImg :
+                          item.title.includes('Advanced Open Water') ? certImg :
+                            item.title.includes('Rescue Diver') ? cert2Img :
+                              (item.title.includes('Especialidades PADI') || item.title.includes('PADI Specialties')) ? cert3Img :
+                                item.title.includes('Dive Master') ? cert4Img :
+                                  imageDict[item.imgKey]}
                         alt={item.title}
                         loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform"
@@ -302,7 +451,7 @@ export default function Servicios() {
                       {/* BOTÓN RESERVAR */}
                       <div className="mt-auto">
                         <a
-                          href={`https://wa.me/526131182311?text=Hola, quiero información sobre: ${item.title}`}
+                          href={`https://wa.me/526131182311?text=Hola, quiero información sobre el servicio individual: ${item.title}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={bookBtnClass}
@@ -383,7 +532,7 @@ export default function Servicios() {
                   )}
                 </div>
 
-                {/* 👇 REGLAS IMPORTANTE */}
+                {/* REGLAS IMPORTANTE */}
                 <div className={importantInfoClass}>
                   <h4 className="font-title text-sm md:text-base mb-4 uppercase tracking-widest flex items-center gap-2 
                     text-yellow-600 dark:text-yellow-400">
