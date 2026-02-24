@@ -222,8 +222,8 @@ export const translations = {
             services: {
                 fundives: [
                     { title: "Local Dive (Loreto Bay)", price: "$110 USD", duration: "4 Horas", desc: "Explora los arrecifes volcánicos del Parque Nacional. Vida marina abundante y formaciones rocosas impresionantes.", includes: ["2 Tanques", "Lastre y Cinturón", "Snacks y Bebidas", "Guía PADI"], imgKey: "funDivesImg" },
-                    { title: "Coronados Island", price: "$140 USD", duration: "5 Horas", desc: "Nuestra inmersión más popular. Juega con lobos marinos y explora barcos hundidos llenos de vida.", includes: ["2 Tanques", "Equipo Completo", "Lunch en playa", "Permisos"], imgKey: "coronadosImg" },
-                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Horas", desc: "Descubre la bioluminiscencia y las criaturas que solo salen al caer el sol. Una experiencia mística.", includes: ["1 Tanque", "Linterna Primaria", "Luz de Tanque", "Solo Avanzados"], imgKey: "nightDiveImg" }
+                    { title: "Coronados Island", price: "$140 USD", duration: "5 Horas", desc: "Nuestra inmersión más popular. Juega con lobos marinos y explora barcos hundidos llenos de vida.", includes: ["2 Tanques", "Equipo Completo", "Lunch en playa", "Permisos"], imgKey: "leones" },
+                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Horas", desc: "Descubre la bioluminiscencia y las criaturas que solo salen al caer el sol. Una experiencia mística.", includes: ["1 Tanque", "Linterna Primaria", "Luz de Tanque", "Solo Avanzados"], imgKey: "nocturno" }
                 ],
                 cursos: [
                     { title: "Discover Scuba (Bautizo)", price: "$160 USD", duration: "1 Día", desc: "¿Primera vez? Aprende lo básico en piscina y realiza tu primera inmersión en el mar bajo supervisión directa.", includes: ["Clase Teórica", "Práctica en Alberca", "1 Inmersión en Mar", "Equipo Completo"], imgKey: "coursesImg" },
@@ -236,7 +236,7 @@ export const translations = {
                     { title: "Bubble Makers", price: "Consultar", duration: "Medio día", desc: "Introducción segura y divertida para niños de 8 a 11 años. Máximo 2 metros de profundidad.", includes: ["1 Tanque", "Equipo Incluido", "Instructor PADI", "Lunch"], imgKey: "bubbleImg" }
                 ],
                 snorkel: [
-                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "snorkelImg" }
+                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "isla" }
                 ]
             },
             schedules: {
@@ -689,8 +689,8 @@ export const translations = {
             services: {
                 fundives: [
                     { title: "Local Dive (Loreto Bay)", price: "$110 USD", duration: "4 Hours", desc: "Explore the volcanic reefs of the National Park. Abundant marine life and impressive rock formations.", includes: ["2 Tanks", "Weights and Belt", "Snacks and Drinks", "PADI Guide"], imgKey: "funDivesImg" },
-                    { title: "Coronados Island", price: "$140 USD", duration: "5 Hours", desc: "Our most popular dive. Play with sea lions and explore shipwrecks full of life.", includes: ["2 Tanks", "Full Gear", "Beach Lunch", "Permits"], imgKey: "coronadosImg" },
-                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Hours", desc: "Discover bioluminescence and creatures that only come out after dark. A mystical experience.", includes: ["1 Tank", "Primary Light", "Tank Light", "Advanced Only"], imgKey: "nightDiveImg" }
+                    { title: "Coronados Island", price: "$140 USD", duration: "5 Hours", desc: "Our most popular dive. Play with sea lions and explore shipwrecks full of life.", includes: ["2 Tanks", "Full Gear", "Beach Lunch", "Permits"], imgKey: "leones" },
+                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Hours", desc: "Discover bioluminescence and creatures that only come out after dark. A mystical experience.", includes: ["1 Tank", "Primary Light", "Tank Light", "Advanced Only"], imgKey: "nocturno" }
                 ],
                 cursos: [
                     { title: "Discover Scuba", price: "$160 USD", duration: "1 Day", desc: "First time? Learn the basics in a pool and make your first ocean dive under direct supervision.", includes: ["Theory Class", "Pool Practice", "1 Ocean Dive", "Full Gear"], imgKey: "coursesImg" },
@@ -703,7 +703,7 @@ export const translations = {
                     { title: "Bubble Makers", price: "Inquire", duration: "Half day", desc: "Safe and fun introduction for kids 8 to 11 years old. Maximum 2 meters deep.", includes: ["1 Tank", "Gear Included", "PADI Instructor", "Lunch"], imgKey: "bubbleImg" }
                 ],
                 snorkel: [
-                    { title: "Coronados Island Tour", price: "$85 USD", duration: "4 Hours", desc: "For the whole family. White sand beaches, turquoise waters, and dolphin watching on the way.", includes: ["Snorkel Gear", "Life Jacket", "Lunch Box", "Beach Shade"], imgKey: "snorkelImg" }
+                    { title: "Coronados Island Tour", price: "$85 USD", duration: "4 Hours", desc: "For the whole family. White sand beaches, turquoise waters, and dolphin watching on the way.", includes: ["Snorkel Gear", "Life Jacket", "Lunch Box", "Beach Shade"], imgKey: "isla" }
                 ]
             },
             schedules: {

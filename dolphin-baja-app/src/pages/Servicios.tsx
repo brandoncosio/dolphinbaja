@@ -8,13 +8,13 @@ import SplashScreen from '../components/SplashScreen';
 
 // Imágenes importadas
 import funDivesImg from '/assets/images/colash1.webp';
-import coronadosImg from '/assets/images/colash11.webp';
-import nightDiveImg from '/assets/images/colash2.webp';
+import nocturno from '/assets/contentD/img/nocturno.webp';
 import coursesImg from '/assets/images/certificacionpadi.jpeg';
-import snorkelImg from '/assets/images/realsonrkell.jpeg';
+import isla from '/assets/contentD/img/recorridoisla.webp'
 import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/slider1-celular.webp';
+import leones from '/assets/contentD/img/leonesm.webp';
 
 // Imágenes agregadas
 import colorFImg from '/assets/images/ColorF.webp';
@@ -24,8 +24,8 @@ import cert3Img from '/assets/images/cert3.webp';
 import cert4Img from '/assets/images/cert4.webp';
 
 const imageDict: Record<string, string> = {
-  funDivesImg, coronadosImg, nightDiveImg, coursesImg,
-  snorkelImg, experienciasImg, refreshImg, bubbleImg,
+  funDivesImg, nocturno, coursesImg,
+  isla, experienciasImg, refreshImg, bubbleImg, leones,
   colorFImg, certImg, cert2Img, cert3Img, cert4Img
 };
 
