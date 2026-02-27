@@ -13,7 +13,7 @@ import coursesImg from '/assets/images/certificacionpadi.jpeg';
 import isla from '/assets/contentD/img/recorridoisla.webp'
 import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
-import bubbleImg from '/assets/images/slider1-celular.webp';
+import bubbleImg from '/assets/images/bubblem.webp';
 import leones from '/assets/contentD/img/leonesm.webp';
 
 // Imágenes agregadas
@@ -71,7 +71,7 @@ export default function Servicios() {
   // ========================================================================
   const packagesData = {
     es: {
-      title: "Paquetes Dolphin Dive Baja",
+      title: "Paquetes de buceo en Loreto, Baja",
       subtitle: "Experiencias Completas",
       items: [
         {
@@ -114,7 +114,7 @@ export default function Servicios() {
       ]
     },
     en: {
-      title: "Dolphin Dive Baja Packages",
+      title: "Dive Packages in Loreto, Baja.",
       subtitle: "All-Inclusive Experiences",
       items: [
         {

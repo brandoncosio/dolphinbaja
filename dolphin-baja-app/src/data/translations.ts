@@ -221,14 +221,14 @@ export const translations = {
             },
             services: {
                 fundives: [
-                    { title: "Local Dive (Loreto Bay)", price: "$110 USD", duration: "4 Horas", desc: "Explora los arrecifes volcánicos del Parque Nacional. Vida marina abundante y formaciones rocosas impresionantes.", includes: ["2 Tanques", "Lastre y Cinturón", "Snacks y Bebidas", "Guía PADI"], imgKey: "funDivesImg" },
-                    { title: "Coronados Island", price: "$140 USD", duration: "5 Horas", desc: "Nuestra inmersión más popular. Juega con lobos marinos y explora barcos hundidos llenos de vida.", includes: ["2 Tanques", "Equipo Completo", "Lunch en playa", "Permisos"], imgKey: "leones" },
-                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Horas", desc: "Descubre la bioluminiscencia y las criaturas que solo salen al caer el sol. Una experiencia mística.", includes: ["1 Tanque", "Linterna Primaria", "Luz de Tanque", "Solo Avanzados"], imgKey: "nocturno" }
+                    { title: "Buceo en Parque Nacional bahía de Loreto", price: "$110 USD", duration: "4 Horas", desc: "Explora más de 40 sitios de buceo; arrecifes, paredes, islotes y una gran variedad de vida marina hacen que cada inmersión sea diferente. Siempre hay un nuevo lugar por explorar.", includes: ["2 Tanques", "Lastre y Cinturón", "Snacks y Bebidas", "Guía PADI"], imgKey: "funDivesImg" },
+                    { title: "Coronados Island", price: "$140 USD", duration: "5 Horas", desc: "Inmersión más popular. Bucea con lobos marinos en su hábitat natural y explora arrecifes volcánicos.", includes: ["2 Tanques", "Equipo Completo", "Lunch en playa", "Permisos"], imgKey: "leones" },
+                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Horas", desc: "Con linterna en mano, descubrirás especies que solo salen de noche y una vida marina diferente. Es una experiencia tranquila, segura y perfecta para quienes quieren ver el océano desde otra perspectiva.", includes: ["1 Tanque", "Linterna Primaria", "Luz de Tanque", "Solo Avanzados"], imgKey: "nocturno" }
                 ],
                 cursos: [
                     { title: "Discover Scuba (Bautizo)", price: "$160 USD", duration: "1 Día", desc: "¿Primera vez? Aprende lo básico en piscina y realiza tu primera inmersión en el mar bajo supervisión directa.", includes: ["Clase Teórica", "Práctica en Alberca", "1 Inmersión en Mar", "Equipo Completo"], imgKey: "coursesImg" },
                     { title: "Open Water Diver", price: "$480 USD", duration: "3-4 Días", desc: "El primer nivel de certificación (de por vida). Aprenderás en un entorno relajado hasta 20mts de profundidad. Pregunta por nuestro Paquete de Buceo con equipo Cressi.", includes: ["eLearning PADI", "Prácticas Alberca", "4 Inmersiones Mar", "Equipo Completo"], imgKey: "colorFImg" },
-                    { title: "Advanced Open Water", price: "Consultar", duration: "2-3 Días", desc: "Mejora tus habilidades con 2 inmersiones obligatorias (Profunda y Navegación) y 3 de aventura a elegir (Nocturno, Pecios, Limpieza, etc).", includes: ["eLearning PADI", "5 Inmersiones", "Almuerzo y Cuotas", "Equipo NO incluido"], imgKey: "certImg" },
+                    { title: "Advanced Open Water", price: "Consultar", duration: "3 Días", desc: "Tres de aventura a elegir (Nocturno, Barco hundido, Limpieza, etc).", includes: ["eLearning PADI", "5 Inmersiones", "Almuerzo y Cuotas", "Equipo NO incluido"], imgKey: "certImg" },
                     { title: "Rescue Diver", price: "Consultar", duration: "4-7 Días", desc: "Aprende a identificar y solucionar problemas antes de que se agraven. Gana confianza y prepárate para ayudar a otros en emergencias.", includes: ["Teoría eLearning", "Ejercicios EFR", "Inmersiones Rescate", "Equipo NO incluido"], imgKey: "cert2Img" },
                     { title: "Especialidades PADI", price: "Consultar", duration: "1-3 Días", desc: "Especialízate en tu aventura favorita: Flotabilidad, Buceo Profundo, Nocturno, Barco Hundido o conservación con Dive Against Debris.", includes: ["Teoría eLearning", "Práctica en Mar", "Almuerzo y Cuotas", "Instructor PADI"], imgKey: "cert3Img" },
                     { title: "Dive Master", price: "Consultar", duration: "Variable", desc: "Fórmate como profesional del buceo. Nos encanta compartir lo aprendido y darte las herramientas para una carrera profesional.", includes: ["Entrenamiento Pro", "Prácticas Reales", "Mentoría", "Equipo NO incluido"], imgKey: "cert4Img" },
@@ -236,7 +236,7 @@ export const translations = {
                     { title: "Bubble Makers", price: "Consultar", duration: "Medio día", desc: "Introducción segura y divertida para niños de 8 a 11 años. Máximo 2 metros de profundidad.", includes: ["1 Tanque", "Equipo Incluido", "Instructor PADI", "Lunch"], imgKey: "bubbleImg" }
                 ],
                 snorkel: [
-                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de delfines en el trayecto.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "isla" }
+                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de lobos marinos y delfines en el camino.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "isla" }
                 ]
             },
             schedules: {
@@ -688,14 +688,14 @@ export const translations = {
             },
             services: {
                 fundives: [
-                    { title: "Local Dive (Loreto Bay)", price: "$110 USD", duration: "4 Hours", desc: "Explore the volcanic reefs of the National Park. Abundant marine life and impressive rock formations.", includes: ["2 Tanks", "Weights and Belt", "Snacks and Drinks", "PADI Guide"], imgKey: "funDivesImg" },
-                    { title: "Coronados Island", price: "$140 USD", duration: "5 Hours", desc: "Our most popular dive. Play with sea lions and explore shipwrecks full of life.", includes: ["2 Tanks", "Full Gear", "Beach Lunch", "Permits"], imgKey: "leones" },
-                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Hours", desc: "Discover bioluminescence and creatures that only come out after dark. A mystical experience.", includes: ["1 Tank", "Primary Light", "Tank Light", "Advanced Only"], imgKey: "nocturno" }
+                    { title: "Scuba Diving in Loreto Bay National Park.", price: "$110 USD", duration: "4 Hours", desc: "Explore over 40 dive sites; reefs, walls, islets, and a great variety of marine life make every dive different. There is always a new place to explore.", includes: ["2 Tanks", "Weights and Belt", "Snacks and Drinks", "PADI Guide"], imgKey: "funDivesImg" },
+                    { title: "Coronados Island", price: "$140 USD", duration: "5 Hours", desc: "Most popular dive. Dive with sea lions in their natural habitat and explore volcanic reefs.", includes: ["2 Tanks", "Full Gear", "Beach Lunch", "Permits"], imgKey: "leones" },
+                    { title: "Night Dive", price: "$95 USD", duration: "2.5 Hours", desc: "With a dive light in hand, you'll discover nocturnal species and a completely different side of marine life. It’s a peaceful, safe experience—perfect for those who want to see the ocean from a new perspective.", includes: ["1 Tank", "Primary Light", "Tank Light", "Advanced Only"], imgKey: "nocturno" }
                 ],
                 cursos: [
                     { title: "Discover Scuba", price: "$160 USD", duration: "1 Day", desc: "First time? Learn the basics in a pool and make your first ocean dive under direct supervision.", includes: ["Theory Class", "Pool Practice", "1 Ocean Dive", "Full Gear"], imgKey: "coursesImg" },
                     { title: "Open Water Diver", price: "$480 USD", duration: "3-4 Days", desc: "The first level of lifetime certification. Learn in a relaxed environment up to 20m deep. Ask about our Dive Package with Cressi gear.", includes: ["eLearning", "Pool Practice", "4 Ocean Dives", "Full Gear"], imgKey: "colorFImg" },
-                    { title: "Advanced Open Water", price: "Inquire", duration: "2-3 Days", desc: "Improve your skills with 2 mandatory dives (Deep and Navigation) and 3 adventure dives to choose from (Night, Wreck, Cleanup, etc).", includes: ["eLearning", "5 Dives", "Lunch & Permits", "Gear NOT included"], imgKey: "certImg" },
+                    { title: "Advanced Open Water", price: "Inquire", duration: "3 Days", desc: "Three adventure dives to choose from (Night, Wreck, Cleanup, etc.)", includes: ["eLearning", "5 Dives", "Lunch & Permits", "Gear NOT included"], imgKey: "certImg" },
                     { title: "Rescue Diver", price: "Inquire", duration: "4-7 Days", desc: "Learn to identify and solve problems before they escalate. Gain confidence and prepare to help others in emergencies.", includes: ["eLearning Theory", "EFR Exercises", "Rescue Dives", "Gear NOT included"], imgKey: "cert2Img" },
                     { title: "PADI Specialties", price: "Inquire", duration: "1-3 Days", desc: "Specialize in your favorite adventure: Peak Performance Buoyancy, Deep Dive, Night Dive, Wreck, or conservation with Dive Against Debris.", includes: ["eLearning Theory", "Ocean Practice", "Lunch & Permits", "PADI Instructor"], imgKey: "cert3Img" },
                     { title: "Dive Master", price: "Inquire", duration: "Variable", desc: "Train as a diving professional. We love sharing what we've learned and giving you the tools for a professional diving career.", includes: ["Pro Training", "Real Practice", "Mentoring", "Gear NOT included"], imgKey: "cert4Img" },
@@ -703,7 +703,7 @@ export const translations = {
                     { title: "Bubble Makers", price: "Inquire", duration: "Half day", desc: "Safe and fun introduction for kids 8 to 11 years old. Maximum 2 meters deep.", includes: ["1 Tank", "Gear Included", "PADI Instructor", "Lunch"], imgKey: "bubbleImg" }
                 ],
                 snorkel: [
-                    { title: "Coronados Island Tour", price: "$85 USD", duration: "4 Hours", desc: "For the whole family. White sand beaches, turquoise waters, and dolphin watching on the way.", includes: ["Snorkel Gear", "Life Jacket", "Lunch Box", "Beach Shade"], imgKey: "isla" }
+                    { title: "Coronados Island Tour", price: "$85 USD", duration: "4 Hours", desc: "For the whole family. White sand beaches, turquoise waters, and sea lion and dolphin sightings along the way", includes: ["Snorkel Gear", "Life Jacket", "Lunch Box", "Beach Shade"], imgKey: "isla" }
                 ]
             },
             schedules: {
