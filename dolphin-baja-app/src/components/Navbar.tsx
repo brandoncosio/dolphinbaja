@@ -142,9 +142,15 @@ export default function Navbar() {
   return (
     <>
       <header className={headerClass} onMouseLeave={() => setHoveredMenu(null)} style={{ willChange: 'backdrop-filter, background-color' }}>
-        {/* LOGO */}
+        {/* LOGO MÁS GRANDE */}
         <Link to="/" className="flex items-center z-50 group shrink-0" onClick={() => setIsMenuOpen(false)}>
-          <img src={logo} alt="Dolphin Dive Baja" className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${isScrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-16'}`} />
+          <img 
+            src={logo} 
+            alt="Dolphin Dive Baja" 
+            className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${
+              isScrolled ? 'h-16 lg:h-20' : 'h-20 lg:h-24'
+            }`} 
+          />
         </Link>
 
         {/* NAVEGACIÓN DESKTOP */}
@@ -251,6 +257,26 @@ export default function Navbar() {
           </div>
         </div>
       </aside>
+
+      {/* LOGO FLOTANTE WHATSAPP (Aún más grande y con Tooltip) */}
+      <a 
+        href="https://wa.me/526131182311"
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] w-20 h-20 md:w-24 md:h-24 bg-white/95 dark:bg-navy/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.2)] dark:shadow-[0_10px_25px_rgba(0,0,0,0.4)] hover:scale-110 hover:-translate-y-1 transition-all duration-300 group"
+        aria-label="Contactar por WhatsApp"
+      >
+        <img 
+          src={logo} 
+          alt="Contacto Dolphin Dive Baja" 
+          className="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-md group-hover:drop-shadow-xl transition-all" 
+        />
+        
+        {/* Tooltip Hover "¡Contáctanos!" */}
+        <span className="absolute right-full top-1/2 -translate-y-1/2 mr-4 px-4 py-2 bg-white dark:bg-navy text-navy dark:text-white font-title text-sm tracking-widest uppercase rounded-xl border border-slate-200 dark:border-white/10 shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
+          {lang === 'es' ? '¡Contáctanos!' : 'Contact Us!'}
+        </span>
+      </a>
     </>
   );
 }
