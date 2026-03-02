@@ -236,7 +236,9 @@ export const translations = {
                     { title: "Bubble Makers", price: "Consultar", duration: "Medio día", desc: "Introducción segura y divertida para niños de 8 a 11 años. Máximo 2 metros de profundidad.", includes: ["1 Tanque", "Equipo Incluido", "Instructor PADI", "Lunch"], imgKey: "bubbleImg" }
                 ],
                 snorkel: [
-                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de lobos marinos y delfines en el camino.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "isla" }
+                    { title: "Tour Isla Coronados", price: "$85 USD", duration: "4 Horas", desc: "Para toda la familia. Playas de arena blanca, aguas turquesas y avistamiento de lobos marinos y delfines en el camino.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "isla" },
+                    { title: "Tour Isla del Carmen", price: "$85 USD", duration: "4 Horas", desc: "La isla más grande del Parque Nacional Bahía de Loreto, tiene impresionantes paisajes desérticos y sitios de buceo con arrecifes rocosos llenos de vida marina. Sus aguas con mucha diversidad marina y variedad de puntos de inmersión la convierten en un destino ideal para tus vacaciones.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "carmen" },
+                    { title: "Tour Isla Danzantes", price: "$85 USD", duration: "4 Horas", desc: "Sus arrecifes rocosos albergan una gran diversidad de vida marina, desde el barco hundido C-54 Agustín Melgar entre danzantes y puerto escondido hasta peces de arrecife, morenas, pulpos, y mantarrayas en temporada.", includes: ["Equipo de Snorkel", "Chaleco Salvavidas", "Lunch Box", "Sombra en Playa"], imgKey: "danzantes" }
                 ]
             },
             schedules: {

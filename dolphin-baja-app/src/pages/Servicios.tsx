@@ -15,6 +15,8 @@ import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/bubblem.webp';
 import leones from '/assets/contentD/img/leonesm.webp';
+import carmen from '/assets/contentD/img/IslaCarmen.webp';
+import danzantes from '/assets/contentD/img/IslaDanzantes.webp';
 
 // Imágenes agregadas
 import colorFImg from '/assets/images/ColorF.webp';
@@ -26,6 +28,7 @@ import cert4Img from '/assets/images/cert4.webp';
 const imageDict: Record<string, string> = {
   funDivesImg, nocturno, coursesImg,
   isla, experienciasImg, refreshImg, bubbleImg, leones,
+  carmen, danzantes,
   colorFImg, certImg, cert2Img, cert3Img, cert4Img
 };
 
