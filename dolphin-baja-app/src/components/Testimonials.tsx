@@ -8,7 +8,7 @@ const realTestimonials = [
   {
     name: "Jean",
     date: "Abril 2025",
-    text: "Gran viaje con Alex que sabía dónde ir y estaba muy bien informado sobre la historia de la zona. Nos encantó ver ballenas jorobadas que despejaban el agua repetidamente y volteaban. También los delfines rodearon juguetonamente nuestro barco. Y las tetas de patas azules estaban allí para saludarnos... Nos sentimos bendecidos de haber conocido a Alex y de disfrutar a fondo de 5 maravillosas horas explorando la belleza del Mar de Cortés y la Isla Coronado."
+    text: "Gran viaje con Alex que sabía dónde ir y estaba muy bien informado sobre la historia de la zona. Nos encantó ver ballenas jorobadas que despejaban el agua repetidamente y volteaban. También los delfines rodearon juguetonamente nuestro barco. Y los patos bobos de patas azules estaban allí para saludarnos. Nos sentimos bendecidos de haber conocido a Alex y de disfrutar a fondo de 5 maravillosas horas explorando la belleza del Mar de Cortés y la Isla Coronado."
   },
   {
     name: "Gary H.",
