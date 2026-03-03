@@ -70,7 +70,46 @@ export default function Servicios() {
   const currentSchedule = content.schedules[activeTab];
 
   // ========================================================================
-  // 📦 DATOS DE LOS NUEVOS PAQUETES (Basados en la imagen)
+  // 🏝️ INYECCIÓN DINÁMICA: Nuevos Tours del PDF
+  // ========================================================================
+  const getServicesForTab = (tab: 'fundives' | 'cursos' | 'snorkel') => {
+    const baseServices = content.services[tab] || [];
+
+    if (tab === 'snorkel') {
+      const extraTours = [
+        {
+          title: lang === 'es' ? 'Tour a Isla del Carmen' : 'Isla del Carmen Tour',
+          duration: '4 - 5 hrs',
+          desc: lang === 'es'
+            ? 'La isla más grande del Parque Nacional Bahía de Loreto, tiene impresionantes paisajes desérticos y sitios de buceo con arrecifes rocosos llenos de vida marina. Sus aguas con mucha diversidad marina y variedad de puntos de inmersión la convierten en un destino ideal para tus vacaciones.'
+            : 'The largest island in the Loreto Bay National Park features stunning desert landscapes and dive sites with rocky reefs full of marine life. Its waters, with great marine diversity and a variety of dive spots, make it an ideal destination for your vacation.',
+          includes: lang === 'es'
+            ? ['Paseo en lancha', 'Guía local', 'Bebidas y snacks', 'Brazalete del Parque']
+            : ['Boat ride', 'Local guide', 'Drinks & snacks', 'Park Bracelet'],
+          imgKey: 'carmen'
+        },
+        {
+          title: lang === 'es' ? 'Tour a Islas Danzantes' : 'Isla Danzante Tour',
+          duration: '4 - 5 hrs',
+          desc: lang === 'es'
+            ? 'Sus arrecifes rocosos albergan una gran diversidad de vida marina, desde el barco hundido C-54 Agustín Melgar entre danzantes y puerto escondido hasta peces de arrecife, morenas, pulpos, y mantarrayas en temporada.'
+            : 'Its rocky reefs host a great diversity of marine life, from the sunken C-54 Agustín Melgar ship between Danzante and Puerto Escondido to reef fish, moray eels, octopuses, and manta rays in season.',
+          includes: lang === 'es'
+            ? ['Paseo en lancha', 'Guía local', 'Bebidas y snacks', 'Brazalete del Parque']
+            : ['Boat ride', 'Local guide', 'Drinks & snacks', 'Park Bracelet'],
+          imgKey: 'danzantes'
+        }
+      ];
+
+      return [...baseServices, ...extraTours];
+    }
+
+    return baseServices;
+  };
+
+
+  // ========================================================================
+  // 📦 DATOS DE LOS NUEVOS PAQUETES
   // ========================================================================
   const packagesData = {
     es: {
@@ -200,7 +239,7 @@ export default function Servicios() {
 
   const bookBtnClass = `
     inline-flex w-full md:w-auto py-3.5 px-8 font-title text-sm tracking-widest uppercase rounded-xl transition-all duration-300 items-center justify-center gap-2 group/btn shadow-md active:scale-95 border
-    bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 hover:border-cyan-500 hover:shadow-cyan-200/50
+    bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-50 hover:border-cyan-500 hover:shadow-cyan-200/50
     dark:bg-cyan-400/10 dark:border-cyan-400/30 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-dark
   `;
 
@@ -281,7 +320,7 @@ export default function Servicios() {
           </div>
 
           {/* ====================================================================
-              🚀 NUEVA SECCIÓN: PAQUETES EXCLUSIVOS (Pricing Tables)
+              🚀 NUEVA SECCIÓN: PAQUETES EXCLUSIVOS
               ==================================================================== */}
           <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24 md:mb-32">
             <motion.div
@@ -391,7 +430,8 @@ export default function Servicios() {
                 transition={{ duration: 0.4 }}
                 className="flex flex-col gap-8 md:gap-12"
               >
-                {content.services[activeTab].map((item, index) => (
+                {/* 👇 AQUÍ LLAMAMOS A NUESTRA FUNCIÓN INYECTORA */}
+                {getServicesForTab(activeTab).map((item: any, index: number) => (
                   <div
                     key={index}
                     className={serviceCardClass}
@@ -441,7 +481,7 @@ export default function Servicios() {
                           {content.ui.includes}
                         </p>
                         <div className="flex flex-wrap gap-2">
-                          {item.includes.map((inc, i) => (
+                          {item.includes.map((inc: string, i: number) => (
                             <span key={i} className="text-[11px] md:text-xs px-3.5 py-1.5 rounded-lg border font-body shadow-sm
                               bg-slate-100 text-slate-600 border-slate-200
                               dark:bg-white/5 dark:text-slate-200 dark:border-white/10">
