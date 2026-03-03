@@ -6,19 +6,49 @@ export const translations = {
             desc: "Nada nos hace más felices que compartir la magia del Mar de Cortés con nuestros visitantes. Esto es lo que opinan quienes ya bucearon con nosotros.",
             list: [
                 {
-                    name: "Carlos M.",
-                    date: "Hace 2 meses",
-                    text: "Increíble experiencia en Isla Coronado. Los Dive Masters son súper profesionales y te hacen sentir seguro en todo momento. Vimos lobos marinos y muchísima vida. ¡Volveremos sin duda!"
+                name: "Jean",
+                date: "Abril 2025",
+                text: "Gran viaje con Alex que sabía dónde ir y estaba muy bien informado sobre la historia de la zona. Nos encantó ver ballenas jorobadas que despejaban el agua repetidamente y volteaban. También los delfines rodearon juguetonamente nuestro barco. Y los patos bobos de patas azules estaban allí para saludarnos. Nos sentimos bendecidos de haber conocido a Alex y de disfrutar a fondo de 5 maravillosas horas explorando la belleza del Mar de Cortés y la Isla Coronado."
                 },
                 {
-                    name: "Laura S.",
-                    date: "Hace 3 semanas",
-                    text: "Tomé mi curso Open Water con ellos y fue la mejor decisión. Rafa y todo el equipo tienen muchísima paciencia y los equipos Cressi están en perfectas condiciones. Altamente recomendado."
+                name: "Gary H.",
+                date: "Septiembre 2024",
+                text: "Este es nuestro tercer año de buceo con Dolphin Dive en Loreto y son maravillosos. María, Ensel y Alex son grandes maestros del buceo. Llévate a donde quieras ir, bucea a la velocidad y profundidad que solicites y conoce algunos lugares increíbles para experiencias maravillosas... Nunca hemos tenido una mala inmersión con esta gente. Recomiendo encarecidamente Dolphin Dive a cualquier buceador independientemente de sus niveles de experiencia."
                 },
                 {
-                    name: "Familia Gómez",
-                    date: "Hace 1 mes",
-                    text: "El tour de snorkel a Isla Coronado fue mágico. Vimos delfines en el camino y el lunch en la playa estuvo delicioso. Excelente trato de los capitanes y un respeto total por la naturaleza."
+                name: "Michele R.",
+                date: "Enero 2024",
+                text: "¡La inmersión con leones marinos fue genial! Alex fue un gran guía y manejó los problemas con nuestro grupo sin problemas. El agua estaba fría, así que prepárate para eso, pero fue un gran día con toneladas de delfines, leones marinos, peces guitarra y anguilas... ¡Hay mucho que ver!"
+                },
+                {
+                name: "Nathan S.",
+                date: "Octubre 2023",
+                text: "Recomiendo altamente Dolphin Dive para tours de buceo y snorkel en Loreto. María y Rafa son increíbles y se aseguran de que cada parte de su recorrido sea excepcional. Cada uno de los miembros de su personal es amable, servicial y está muy bien informado."
+                },
+                {
+                name: "Alphaus S.",
+                date: "Octubre 2023",
+                text: "Personal experimentado, muy conocedor y apasionado de todo lo relacionado con el agua. El tour de snorkel y almuerzo fue lo más destacado de nuestra semana en Loreto. María es una excelente guía y anfitriona. El personal y la tripulación son increíbles al ayudar a los amantes de la tierra a experimentar la rica diversidad y belleza de la vida en el océano. Muy, muy recomendable."
+                },
+                {
+                name: "Susana C.",
+                date: "Hace 3 meses",
+                text: "María, Rafa y Pablo han conseguido que el buceo para mí no se quede en la mala experiencia que tuve en España. Mil gracias por ser tan atentos, cuidar de nosotros, y hacer que en este viaje a Loreto, hayamos disfrutado tanto del buceo."
+                },
+                {
+                name: "Teresa B.",
+                date: "Hace un año",
+                text: "Experiencia excelente! Acompañaron a la persona que hacía discover (su primer buceo) con mucha paciencia y atención, dando indicaciones claras y con mucha precaución. Mientras íbamos al lugar del buceo, encontramos una ballena azul y estuvimos alrededor de una hora haciendo observación, con el capitán (el Güero) y el instructor (Alex) explicándonos sobre ballenas. Super recomendado!"
+                },
+                {
+                name: "Janika M.",
+                date: "Hace 6 meses",
+                text: "Reservamos una excursión de snorkel y quedamos muy satisfechos. De camino, vimos un hermoso banco de delfines y pudimos relajarnos... El equipo fue muy amable y me atendió, me sugirió varias alternativas y, al final, me dieron suficiente ropa para cubrirme por completo, así que me animé a volver al agua en el segundo punto y disfrutar de verdad del snorkel. La comida también estuvo deliciosa."
+                },
+                {
+                name: "Mark Z.",
+                date: "Hace 6 meses",
+                text: "Nos atendieron de maravilla. Alex, nuestro instructor de buceo, fue increíble. Hicimos dos días de buceo en ambas islas y todo salió perfecto. Recomiendo ampliamente la tienda."
                 }
             ]
         },
@@ -468,26 +498,56 @@ export const translations = {
             decline: "Solo necesarias"
         }
     },
-    en: {
+    en:{
         testimonials: {
-            tag: "What they say about us",
+            tag: "What people say about us",
             title: "Real Experiences",
-            desc: "Nothing makes us happier than sharing the magic of the Sea of Cortez with our guests. Here is what people who have dived with us think.",
+            desc: "Nothing makes us happier than sharing the magic of the Sea of Cortez with our visitors. Here's what those who have dived with us have to say.",
             list: [
                 {
-                    name: "Carlos M.",
-                    date: "2 months ago",
-                    text: "Incredible experience at Coronado Island. The Dive Masters are super professional and make you feel safe at all times. We saw sea lions and tons of marine life. We will definitely be back!"
+                name: "Jean",
+                date: "April 2025",
+                text: "Great trip with Alex who knew where to go and was very knowledgeable about the history of the area. We loved seeing humpback whales repeatedly breaching and flipping. Dolphins also playfully surrounded our boat. And the blue-footed boobies were there to greet us. We felt blessed to have met Alex and thoroughly enjoyed 5 wonderful hours exploring the beauty of the Sea of Cortez and Coronado Island."
                 },
                 {
-                    name: "Laura S.",
-                    date: "3 weeks ago",
-                    text: "I took my Open Water course with them and it was the best decision. Rafa and the whole team are very patient and the Cressi gear is in perfect condition. Highly recommended."
+                name: "Gary H.",
+                date: "September 2024",
+                text: "This is our third year diving with Dolphin Dive in Loreto and they are wonderful. Maria, Ensel, and Alex are great dive masters. They take you where you want to go, dive at the speed and depth you request, and know some amazing spots for wonderful experiences... We've never had a bad dive with these folks. I highly recommend Dolphin Dive to any diver regardless of their experience level."
                 },
                 {
-                    name: "The Gomez Family",
-                    date: "1 month ago",
-                    text: "The snorkel tour to Coronado Island was magical. We saw dolphins on the way and the beach lunch was delicious. Excellent service from the captains and total respect for nature."
+                name: "Michele R.",
+                date: "January 2024",
+                text: "The sea lion dive was great! Alex was a great guide and handled issues with our group smoothly. The water was cold, so be prepared for that, but it was a great day with tons of dolphins, sea lions, guitarfish, and eels... There is so much to see!"
+                },
+                {
+                name: "Nathan S.",
+                date: "October 2023",
+                text: "I highly recommend Dolphin Dive for diving and snorkeling tours in Loreto. Maria and Rafa are amazing and ensure every part of your tour is exceptional. Every single member of their staff is friendly, helpful, and very knowledgeable."
+                },
+                {
+                name: "Alphaus S.",
+                date: "October 2023",
+                text: "Experienced, highly knowledgeable, and passionate staff about all things water. The snorkel and lunch tour was the highlight of our week in Loreto. Maria is an excellent guide and host. The staff and crew are incredible at helping land lovers experience the rich diversity and beauty of ocean life. Highly, highly recommended."
+                },
+                {
+                name: "Susana C.",
+                date: "3 months ago",
+                text: "Maria, Rafa, and Pablo made sure that diving for me didn't remain the bad experience I had in Spain. Thank you so much for being so attentive, taking care of us, and making us enjoy diving so much on this trip to Loreto."
+                },
+                {
+                name: "Teresa B.",
+                date: "1 year ago",
+                text: "Excellent experience! They accompanied the person doing the discover scuba (their first dive) with a lot of patience and attention, giving clear instructions and with great caution. On our way to the dive site, we encountered a blue whale and spent about an hour observing it, with the captain (El Güero) and the instructor (Alex) explaining things about whales. Highly recommended!"
+                },
+                {
+                name: "Janika M.",
+                date: "6 months ago",
+                text: "We booked a snorkeling excursion and were very satisfied. On the way, we saw a beautiful pod of dolphins and were able to relax... The team was very friendly and took care of me, suggested several alternatives, and in the end, they gave me enough clothing to cover myself completely, so I felt encouraged to get back in the water at the second spot and truly enjoy the snorkeling. The food was also delicious."
+                },
+                {
+                name: "Mark Z.",
+                date: "6 months ago",
+                text: "We were treated wonderfully. Alex, our dive instructor, was incredible. We did two days of diving at both islands and everything went perfectly. I highly recommend the shop."
                 }
             ]
         },
