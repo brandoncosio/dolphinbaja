@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import turtleImg from '/assets/contentD/img/DSC06264.webp';
+import turtleImg from '/assets/contentD/img/peces.webp';
 
 export default function WelcomeSection() {
     const { lang } = useLanguage();
