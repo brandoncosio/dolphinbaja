@@ -40,9 +40,6 @@ export default function Navbar() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
 
-  // ========================================================================
-  // 📚 ESTRUCTURA DEL MENÚ (Nuevo Orden: Nosotros > Servicios > Galeria > Contacto)
-  // ========================================================================
   const navItems = [
     {
       name: t.navbar.about,
@@ -79,19 +76,18 @@ export default function Navbar() {
   ];
 
   // ========================================================================
-  // 🎨 ESTILOS SEPARADOS
+  // 🎨 ESTILOS ACTUALIZADOS (Fondo sólido, texto más grande, lógica de scroll invertida)
   // ========================================================================
 
   const headerClass = `
     fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 xl:px-16 transition-all duration-500
-    ${isScrolled
-      ? 'py-3 backdrop-blur-xl shadow-md border-b bg-white/90 border-slate-200/50 dark:bg-dark/90 dark:border-white/10'
-      : 'py-5 lg:py-6 bg-transparent border-b border-transparent shadow-none'
-    }
+    shadow-md border-b
+    bg-slate-50 dark:bg-dark border-slate-200/50 dark:border-white/10
+    ${isScrolled ? 'py-5 lg:py-6' : 'py-2 lg:py-3'}
   `;
 
   const navLinkClass = `
-    relative flex items-center gap-1 font-body text-[11px] xl:text-[13px] font-bold uppercase tracking-widest transition-colors py-6 drop-shadow-sm whitespace-nowrap
+    relative flex items-center gap-1 font-body text-[15px] xl:text-[17px] font-bold uppercase tracking-widest transition-colors py-6 drop-shadow-sm whitespace-nowrap
     text-navy hover:text-cyan-600
     dark:text-white dark:hover:text-cyan-400
   `;
@@ -115,9 +111,9 @@ export default function Navbar() {
   `;
 
   const langBtnClass = `
-    flex items-center gap-2 rounded-full border px-5 py-2.5 font-title text-xs backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-sm group
-    bg-white border-slate-200 text-navy hover:bg-slate-50 hover:border-slate-300
-    dark:bg-white/10 dark:border-white/20 dark:text-white dark:hover:bg-cyan-400/20 dark:hover:text-cyan-300
+    flex items-center justify-center rounded-full border h-10 w-14 overflow-hidden transition-all hover:scale-110 active:scale-95 shadow-sm group
+    bg-white border-slate-200 hover:bg-slate-50 hover:border-slate-300
+    dark:bg-white/10 dark:border-white/20 dark:hover:bg-cyan-400/20
   `;
 
   const ctaBtnClass = `
@@ -142,15 +138,20 @@ export default function Navbar() {
   return (
     <>
       <header className={headerClass} onMouseLeave={() => setHoveredMenu(null)} style={{ willChange: 'backdrop-filter, background-color' }}>
-        {/* LOGO MÁS GRANDE */}
-        <Link to="/" className="flex items-center z-50 group shrink-0" onClick={() => setIsMenuOpen(false)}>
+        
+        {/* LOGO CON INDICADOR DE HOME */}
+        <Link to="/" className="relative flex items-center z-50 group shrink-0" onClick={() => setIsMenuOpen(false)}>
           <img 
             src={logo} 
             alt="Dolphin Dive Baja" 
             className={`transition-all duration-500 w-auto object-contain drop-shadow-2xl md:group-hover:scale-105 ${
-              isScrolled ? 'h-16 lg:h-20' : 'h-20 lg:h-24'
+              isScrolled ? 'h-20 lg:h-24' : 'h-16 lg:h-20'
             }`} 
           />
+          {/* Tooltip de Logo */}
+          <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-navy/90 dark:bg-cyan-500 text-white dark:text-dark text-[10px] font-bold tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase shadow-lg border border-white/20">
+            {lang === 'es' ? 'Ir al Inicio' : 'Back to Home'}
+          </span>
         </Link>
 
         {/* NAVEGACIÓN DESKTOP */}
@@ -197,10 +198,16 @@ export default function Navbar() {
               {theme === 'dark' ? <i className="ri-sun-fill text-xl"></i> : <i className="ri-moon-clear-fill text-xl"></i>}
             </motion.div>
           </button>
-          <button onClick={toggleLanguage} className={langBtnClass}>
-            <i className="ri-global-line text-lg opacity-80 group-hover:opacity-100 transition-opacity"></i>
-            <span>{t.navbar.languageBtn}</span>
+          
+          {/* SELECTOR DE IDIOMA POR BANDERAS (Compatibilidad Windows) */}
+          <button onClick={toggleLanguage} className={langBtnClass} title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}>
+            <img 
+                src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} 
+                alt={lang === 'es' ? 'US Flag' : 'MX Flag'}
+                className="w-full h-full object-cover"
+            />
           </button>
+
           <a href="https://wa.me/526131182311" target="_blank" rel="noopener noreferrer" className={ctaBtnClass}>
             <i className="ri-whatsapp-line text-lg group-hover:scale-110 transition-transform"></i>
             {t.navbar.cta}
@@ -212,8 +219,12 @@ export default function Navbar() {
           <button onClick={toggleTheme} className={iconBtnClass}>
             {theme === 'dark' ? <i className="ri-sun-fill text-lg"></i> : <i className="ri-moon-clear-fill text-lg"></i>}
           </button>
-          <button onClick={toggleLanguage} className={langBtnClass}>
-            {t.navbar.languageBtn}
+          <button onClick={toggleLanguage} className={langBtnClass + " w-10 h-7"}>
+            <img 
+                src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} 
+                alt="Flag"
+                className="w-full h-full object-cover"
+            />
           </button>
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={iconBtnClass}>
             {isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-3-line text-2xl"></i>}
@@ -258,12 +269,12 @@ export default function Navbar() {
         </div>
       </aside>
 
-      {/* LOGO FLOTANTE WHATSAPP (Aún más grande y con Tooltip) */}
+      {/* LOGO FLOTANTE WHATSAPP */}
       <a 
         href="https://wa.me/526131182311"
         target="_blank" 
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] w-20 h-20 md:w-24 md:h-24 bg-white/95 dark:bg-navy/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.2)] dark:shadow-[0_10px_25px_rgba(0,0,0,0.4)] hover:scale-110 hover:-translate-y-1 transition-all duration-300 group"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] w-20 h-20 md:w-24 md:h-24 bg-white/95 dark:bg-navy/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.2)] dark:shadow-[0_10px_25_rgba(0,0,0,0.4)] hover:scale-110 hover:-translate-y-1 transition-all duration-300 group"
         aria-label="Contactar por WhatsApp"
       >
         <img 
@@ -271,8 +282,6 @@ export default function Navbar() {
           alt="Contacto Dolphin Dive Baja" 
           className="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-md group-hover:drop-shadow-xl transition-all" 
         />
-        
-        {/* Tooltip Hover "¡Contáctanos!" */}
         <span className="absolute right-full top-1/2 -translate-y-1/2 mr-4 px-4 py-2 bg-white dark:bg-navy text-navy dark:text-white font-title text-sm tracking-widest uppercase rounded-xl border border-slate-200 dark:border-white/10 shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
           {lang === 'es' ? '¡Contáctanos!' : 'Contact Us!'}
         </span>
