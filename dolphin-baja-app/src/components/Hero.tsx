@@ -81,7 +81,6 @@ export default function Hero() {
     dark:from-dark/95 dark:via-dark/60 md:dark:via-dark/30 dark:to-transparent
   `;
 
-  // 👇 NUEVA CLASE: Etiqueta (Tag) superior convertida en un Badge de Cristal para asegurar legibilidad
   const heroTagClass = `
     inline-block font-body text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
     px-4 py-1.5 md:px-5 md:py-2 rounded-full backdrop-blur-md border transition-all duration-500 shadow-sm
@@ -116,8 +115,8 @@ export default function Hero() {
         </AnimatePresence>
       </div>
 
-      {/* CONTENIDO */}
-      <div className="relative z-10 flex h-full flex-col justify-center px-4 pt-24 pb-24 md:py-0 md:px-20 lg:px-32 pointer-events-auto">
+      {/* CONTENIDO (Ajustado pt para bajar el texto) */}
+      <div className="relative z-10 flex h-full flex-col justify-center px-4 pt-40 pb-24 md:pt-48 md:px-20 lg:px-32 pointer-events-auto">
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -128,7 +127,6 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="max-w-3xl lg:max-w-4xl w-full"
           >
-            {/* 👇 Aplicamos la nueva clase de la etiqueta aquí */}
             <span className={heroTagClass}>
               {heroContent.tag}
             </span>
@@ -144,7 +142,6 @@ export default function Hero() {
               {getSlideContent(currentIndex).subtitle}
             </p>
 
-            {/* BOTONES CON CLASES SEPARADAS */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 w-full sm:w-auto">
               <a
                 href="https://wa.me/526131182311"
