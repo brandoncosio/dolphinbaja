@@ -8,6 +8,7 @@ import Highlights from '../components/Highlights';
 import ValueProps from '../components/ValueProps';
 import HomeGallery from '../components/HomeGallery';
 import Destination from '../components/Destination';
+import WelcomeSection from '../components/WelcomeSection';
 import SplashScreen from '../components/SplashScreen';
 import Testimonials from '../components/Testimonials';
 
@@ -127,6 +128,7 @@ export default function Home() {
           <ValueProps />
           <HomeGallery />
           <Testimonials />
+          <WelcomeSection />
           <Destination />
         </div>
 

@@ -1,123 +1,123 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import SplashScreen from '../components/SplashScreen';
 import { useLanguage } from '../context/LanguageContext';
 
 // ========================================================================
-// 🗄️ BASE DE DATOS DE MEDIA (Agrupados por Categoría y Contexto)
+// 🗄️ BASE DE DATOS DE MEDIA
 // ========================================================================
 const mediaData = [
     // ------------------------------------------------------------------------
     // 🐠 VIDA MARINA (marine)
     // ------------------------------------------------------------------------
-    { 
-        id: 1, type: 'photo', category: 'marine', 
-        src: '/assets/images/caballitos de mar.webp', 
-        title: 'Caballito de Mar', span: 'col-span-1 row-span-2' 
+    {
+        id: 1, type: 'photo', category: 'marine',
+        src: '/assets/images/caballitos de mar.webp',
+        title: 'Caballito de Mar', span: 'col-span-1 row-span-2'
     },
-    { 
-        id: 2, type: 'video', category: 'marine', 
-        src: '/assets/images/focahome.webp', videoUrl: '/assets/contentD/video/GX010057.webm', 
-        title: 'Encuentro con Lobos Marinos', span: 'col-span-2 row-span-2' 
+    {
+        id: 2, type: 'video', category: 'marine',
+        src: '/assets/images/focahome.webp', videoUrl: '/assets/contentD/video/GX010057.webm',
+        title: 'Encuentro con Lobos Marinos', span: 'col-span-2 row-span-2'
     },
-    { 
-        id: 3, type: 'photo', category: 'marine', 
-        src: '/assets/images/alebrije.webp', 
-        title: 'Nudibranquio Alebrije', span: 'col-span-1 row-span-1' 
+    {
+        id: 3, type: 'photo', category: 'marine',
+        src: '/assets/images/alebrije.webp',
+        title: 'Nudibranquio Alebrije', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 4, type: 'video', category: 'marine', 
-        src: '/assets/images/slide2.webp', videoUrl: '/assets/contentD/video/GX010803.webm', 
-        title: 'Hábitat Submarino', span: 'col-span-2 row-span-1' 
+    {
+        id: 4, type: 'video', category: 'marine',
+        src: '/assets/images/slide2.webp', videoUrl: '/assets/contentD/video/GX010803.webm',
+        title: 'Hábitat Submarino', span: 'col-span-2 row-span-1'
     },
-    { 
-        id: 5, type: 'video', category: 'marine', 
-        src: '/assets/images/slide3.webp', videoUrl: '/assets/contentD/video/tijeritass.webm', 
-        title: 'Tijeritas en el Arrecife', span: 'col-span-2 row-span-1' 
+    {
+        id: 5, type: 'video', category: 'marine',
+        src: '/assets/images/slide3.webp', videoUrl: '/assets/contentD/video/tijeritass.webm',
+        title: 'Tijeritas en el Arrecife', span: 'col-span-2 row-span-1'
     },
-    { 
-        id: 6, type: 'video', category: 'marine', 
-        src: '/assets/images/colash4.webp', videoUrl: '/assets/contentD/video/IMG_4615.webm', 
-        title: 'Mar de Cortés', span: 'col-span-1 row-span-1' 
+    {
+        id: 6, type: 'video', category: 'marine',
+        src: '/assets/images/colash4.webp', videoUrl: '/assets/contentD/video/IMG_4615.webm',
+        title: 'Mar de Cortés', span: 'col-span-1 row-span-1'
     },
 
     // ------------------------------------------------------------------------
     // 🤿 BUCEO (action)
     // ------------------------------------------------------------------------
-    { 
-        id: 7, type: 'photo', category: 'action', 
-        src: '/assets/images/slide1.webp', 
-        title: 'Aventura Submarina', span: 'col-span-2 row-span-2' 
+    {
+        id: 7, type: 'photo', category: 'action',
+        src: '/assets/images/slide1.webp',
+        title: 'Aventura Submarina', span: 'col-span-2 row-span-2'
     },
-    { 
-        id: 8, type: 'video', category: 'action', 
-        src: '/assets/images/tours.webp', videoUrl: '/assets/contentD/video/jacks-toro.webm', 
-        title: 'Tornado de Jacks', span: 'col-span-2 row-span-1' 
+    {
+        id: 8, type: 'video', category: 'action',
+        src: '/assets/images/tours.webp', videoUrl: '/assets/contentD/video/jacks-toro.webm',
+        title: 'Tornado de Jacks', span: 'col-span-2 row-span-1'
     },
-    { 
-        id: 10, type: 'photo', category: 'action', 
-        src: '/assets/contentD/img/DSC06299.webp', 
-        title: 'Ascenso en el Azul', span: 'col-span-1 row-span-1' 
+    {
+        id: 10, type: 'photo', category: 'action',
+        src: '/assets/contentD/img/DSC06299.webp',
+        title: 'Ascenso en el Azul', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 12, type: 'photo', category: 'action', 
-        src: '/assets/images/colash1.webp', 
-        title: 'Buceo en Loreto', span: 'col-span-1 row-span-1' 
+    {
+        id: 12, type: 'photo', category: 'action',
+        src: '/assets/images/colash1.webp',
+        title: 'Buceo en Loreto', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 13, type: 'photo', category: 'action', 
-        src: '/assets/contentD/img/DSC06335.webp', 
-        title: 'Explorando Arrecifes', span: 'col-span-1 row-span-1' 
+    {
+        id: 13, type: 'photo', category: 'action',
+        src: '/assets/contentD/img/DSC06335.webp',
+        title: 'Explorando Arrecifes', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 14, type: 'photo', category: 'action', 
-        src: '/assets/contentD/img/DSC06361.webp', 
-        title: 'Ruta Subacuática', span: 'col-span-1 row-span-1' 
+    {
+        id: 14, type: 'photo', category: 'action',
+        src: '/assets/contentD/img/DSC06361.webp',
+        title: 'Ruta Subacuática', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 15, type: 'photo', category: 'action', 
-        src: '/assets/contentD/img/DSC06342.webp', 
-        title: 'Buzo en Acción', span: 'col-span-1 row-span-1' 
+    {
+        id: 15, type: 'photo', category: 'action',
+        src: '/assets/contentD/img/DSC06342.webp',
+        title: 'Buzo en Acción', span: 'col-span-1 row-span-1'
     },
 
     // ------------------------------------------------------------------------
     // 🧑‍🤝‍🧑 NUESTRO EQUIPO (team)
     // ------------------------------------------------------------------------
-    { 
-        id: 16, type: 'photo', category: 'team', 
-        src: '/assets/images/staff.webp', 
-        title: 'Nuestro Staff Dolphin', span: 'col-span-2 row-span-1' 
+    {
+        id: 16, type: 'photo', category: 'team',
+        src: '/assets/images/staff.webp',
+        title: 'Nuestro Staff Dolphin', span: 'col-span-2 row-span-1'
     },
-    { 
-        id: 17, type: 'photo', category: 'team', 
-        src: '/assets/contentD/img/DSC05885.webp', 
-        title: 'Verificación de Tanques', span: 'col-span-1 row-span-1' 
+    {
+        id: 17, type: 'photo', category: 'team',
+        src: '/assets/contentD/img/DSC05885.webp',
+        title: 'Verificación de Tanques', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 18, type: 'photo', category: 'team', 
-        src: '/assets/contentD/img/DSC06264.webp', 
-        title: 'Listos para Saltar', span: 'col-span-1 row-span-1' 
+    {
+        id: 18, type: 'photo', category: 'team',
+        src: '/assets/contentD/img/DSC06264.webp',
+        title: 'Listos para Saltar', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 20, type: 'photo', category: 'team', 
-        src: '/assets/contentD/img/DSC06276.webp', 
-        title: 'Nuestra Embarcación', span: 'col-span-1 row-span-1' 
+    {
+        id: 20, type: 'photo', category: 'team',
+        src: '/assets/contentD/img/DSC06276.webp',
+        title: 'Nuestra Embarcación', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 21, type: 'photo', category: 'team', 
-        src: '/assets/images/buceo.webp', 
-        title: 'Nuestros Guías', span: 'col-span-1 row-span-1' 
+    {
+        id: 21, type: 'photo', category: 'team',
+        src: '/assets/images/buceo.webp',
+        title: 'Nuestros Guías', span: 'col-span-1 row-span-1'
     },
-    { 
-        id: 22, type: 'photo', category: 'team', 
-        src: '/assets/contentD/img/DSC06320.webp', 
-        title: 'Asistencia en el Agua', span: 'col-span-1 row-span-2' 
+    {
+        id: 22, type: 'photo', category: 'team',
+        src: '/assets/contentD/img/DSC06320.webp',
+        title: 'Asistencia en el Agua', span: 'col-span-1 row-span-2'
     },
-    { 
-        id: 23, type: 'photo', category: 'team', 
-        src: '/assets/contentD/img/DSC06303.webp', 
-        title: 'Preparando Equipos', span: 'col-span-1 row-span-1' 
+    {
+        id: 23, type: 'photo', category: 'team',
+        src: '/assets/contentD/img/DSC06303.webp',
+        title: 'Preparando Equipos', span: 'col-span-1 row-span-1'
     }
 ];
 
@@ -129,9 +129,10 @@ export default function GalleryPage() {
 
     const [filter, setFilter] = useState('all');
     const [visibleCount, setVisibleItems] = useState(12);
-    const [selectedMedia, setSelectedMedia] = useState<any | null>(null);
 
-    // Textos locales (A prueba de fallos)
+    // 👇 CAMBIO CLAVE: En lugar del item completo, guardamos el ÍNDICE actual
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
     const texts = {
         es: {
             title: "Explora el Océano",
@@ -157,17 +158,54 @@ export default function GalleryPage() {
         return () => clearTimeout(timer);
     }, []);
 
+    // Bloquear scroll al abrir el Lightbox
     useEffect(() => {
-        if (selectedMedia) document.body.style.overflow = 'hidden';
+        if (selectedIndex !== null) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'unset';
         return () => { document.body.style.overflow = 'unset'; };
-    }, [selectedMedia]);
+    }, [selectedIndex]);
 
+    // Filtrar elementos
     const filteredMedia = mediaData.filter(item => {
         if (filter === 'all') return true;
         if (filter === 'video') return item.type === 'video';
         return item.category === filter;
     });
+
+    // Elementos actualmente visibles en pantalla
+    const currentGallery = filteredMedia.slice(0, visibleCount);
+
+    // ========================================================================
+    // 🎛️ FUNCIONES DE NAVEGACIÓN (Anterior / Siguiente)
+    // ========================================================================
+    const handlePrev = useCallback((e?: React.MouseEvent) => {
+        if (e) e.stopPropagation();
+        setSelectedIndex((prev) => {
+            if (prev === null) return null;
+            return prev === 0 ? currentGallery.length - 1 : prev - 1; // Bucle infinito
+        });
+    }, [currentGallery.length]);
+
+    const handleNext = useCallback((e?: React.MouseEvent) => {
+        if (e) e.stopPropagation();
+        setSelectedIndex((prev) => {
+            if (prev === null) return null;
+            return prev === currentGallery.length - 1 ? 0 : prev + 1; // Bucle infinito
+        });
+    }, [currentGallery.length]);
+
+    // Soporte para Flechas del Teclado
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (selectedIndex === null) return;
+            if (e.key === 'ArrowLeft') handlePrev();
+            if (e.key === 'ArrowRight') handleNext();
+            if (e.key === 'Escape') setSelectedIndex(null);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedIndex, handlePrev, handleNext]);
+
 
     const pageContainerClass = `
     relative min-h-screen pt-32 pb-24 px-4 sm:px-6 md:px-12 xl:px-20 overflow-hidden transition-colors duration-500
@@ -237,7 +275,7 @@ export default function GalleryPage() {
 
                     <motion.div layout className={gridContainerClass}>
                         <AnimatePresence>
-                            {filteredMedia.slice(0, visibleCount).map((item) => (
+                            {currentGallery.map((item, index) => (
                                 <motion.div
                                     key={item.id}
                                     layout
@@ -246,14 +284,31 @@ export default function GalleryPage() {
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.4 }}
                                     className={`${gridItemClass} ${item.span}`}
-                                    onClick={() => setSelectedMedia(item)}
+                                    onClick={() => setSelectedIndex(index)} // Guardamos el índice
                                 >
-                                    {/* Imagen de Portada (Thumbnail) */}
-                                    <img src={item.src} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110" />
+                                    {/* 👇 RENDERIZADO MEJORADO: SI ES VIDEO, SE MUESTRA EL VIDEO DE FONDO (MUTED) */}
+                                    {item.type === 'video' ? (
+                                        <video
+                                            src={item.videoUrl}
+                                            poster={item.src} // Usamos la imagen como "portada" mientras carga
+                                            autoPlay
+                                            loop
+                                            muted
+                                            playsInline
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform"
+                                        />
+                                    ) : (
+                                        <img
+                                            src={item.src}
+                                            alt={item.title}
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform"
+                                        />
+                                    )}
 
                                     <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:from-dark/90 dark:via-dark/30" />
 
-                                    {/* Icono de Play si es video */}
                                     <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
                                         <i className={item.type === 'video' ? 'ri-play-fill text-xl ml-0.5' : 'ri-fullscreen-line text-lg'}></i>
                                     </div>
@@ -290,43 +345,74 @@ export default function GalleryPage() {
                 </div>
             </main>
 
+            {/* ========================================================================
+                🎬 LIGHTBOX / CARRUSEL MEJORADO (Pantalla Completa)
+                ======================================================================== */}
             <AnimatePresence>
-                {selectedMedia && (
+                {selectedIndex !== null && (
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-10"
+                        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-10"
+                        onClick={() => setSelectedIndex(null)} // Cierra si hacen clic fuera
                     >
+                        {/* Botón Cerrar */}
                         <button
-                            onClick={() => setSelectedMedia(null)}
+                            onClick={(e) => { e.stopPropagation(); setSelectedIndex(null); }}
                             className="absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-red-500 hover:border-red-500 hover:scale-110 transition-all z-50"
                         >
                             <i className="ri-close-line text-2xl"></i>
                         </button>
 
-                        <motion.div
-                            initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
-                            className="relative w-full max-w-6xl max-h-[90vh] rounded-2xl md:rounded-[2rem] overflow-hidden bg-black border border-white/10 shadow-2xl flex items-center justify-center"
+                        {/* 👇 CONTROLES DE NAVEGACIÓN (Anterior / Siguiente) */}
+                        <button
+                            onClick={handlePrev}
+                            className="absolute left-2 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 hover:scale-110 transition-all z-50 backdrop-blur-md"
                         >
-                            {selectedMedia.type === 'video' ? (
-                                selectedMedia.videoUrl.endsWith('.webm') || selectedMedia.videoUrl.endsWith('.mp4') ? (
+                            <i className="ri-arrow-left-s-line text-2xl md:text-3xl"></i>
+                        </button>
+
+                        <button
+                            onClick={handleNext}
+                            className="absolute right-2 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 hover:scale-110 transition-all z-50 backdrop-blur-md"
+                        >
+                            <i className="ri-arrow-right-s-line text-2xl md:text-3xl"></i>
+                        </button>
+
+                        {/* Contenedor del Media */}
+                        <motion.div
+                            key={currentGallery[selectedIndex].id} // Anima la transición al cambiar de foto
+                            initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, x: -20 }}
+                            transition={{ duration: 0.3 }}
+                            onClick={(e) => e.stopPropagation()} // Previene que se cierre al hacer clic en la foto
+                            className="relative w-full max-w-5xl max-h-[85vh] sm:max-h-[90vh] rounded-xl sm:rounded-2xl md:rounded-[2rem] overflow-hidden bg-black border border-white/10 shadow-2xl flex items-center justify-center"
+                        >
+                            {currentGallery[selectedIndex].type === 'video' ? (
+                                currentGallery[selectedIndex].videoUrl?.endsWith('.webm') || currentGallery[selectedIndex].videoUrl?.endsWith('.mp4') ? (
                                     <video
-                                        src={selectedMedia.videoUrl}
+                                        src={currentGallery[selectedIndex].videoUrl}
                                         controls
                                         autoPlay
-                                        className="w-full h-full max-h-[90vh] object-contain"
+                                        className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain"
                                     />
                                 ) : (
                                     <iframe
-                                        src={selectedMedia.videoUrl}
-                                        title={selectedMedia.title}
+                                        src={currentGallery[selectedIndex].videoUrl}
+                                        title={currentGallery[selectedIndex].title}
                                         className="w-full h-full aspect-video border-0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     ></iframe>
                                 )
                             ) : (
-                                <img src={selectedMedia.src} alt={selectedMedia.title} className="w-full h-full max-h-[90vh] object-contain" />
+                                <img src={currentGallery[selectedIndex].src} alt={currentGallery[selectedIndex].title} className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain" />
                             )}
+
+                            {/* Título en el Lightbox (Opcional, le da un toque premium) */}
+                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white pointer-events-none">
+                                <h3 className="font-title text-xl md:text-2xl">{currentGallery[selectedIndex].title}</h3>
+                            </div>
                         </motion.div>
                     </motion.div>
                 )}
