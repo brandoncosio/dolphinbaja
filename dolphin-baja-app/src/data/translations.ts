@@ -228,7 +228,44 @@ export const translations = {
                         desc: "Nuestra expedición más popular. Podrás bucear y jugar con amigables lobos marinos en su hábitat natural, rodeado de hermosas formaciones de roca volcánica."
                     }
                 ]
-            }
+            },
+            extraDescriptions: [
+                "Vistas panorámicas impresionantes de las formaciones volcánicas del parque.",
+                "Exploración de grietas y relieves submarinos únicos en el Mar de Cortés.",
+                "Puntos de observación con visibilidad excepcional durante todo el año.",
+                "Formaciones rocosas sumergidas que crean paisajes subacuáticos fascinantes.",
+                "Áreas protegidas ideales para la exploración tranquila y segura.",
+                "Contrastes naturales entre el desierto y el azul profundo del océano.",
+                "Sitios de gran valor geológico con estructuras de lava milenarias.",
+                "Rutas de navegación con paisajes costeros dignos de fotografía.",
+                "Zonas de aguas cristalinas perfectas para la observación de luz natural.",
+                "Arrecifes rocosos que albergan una biodiversidad asombrosa.",
+                "Puntos estratégicos para capturar la esencia del acuario del mundo.",
+                "Estructuras submarinas complejas que desafían la vista del explorador.",
+                "Bahías protegidas con condiciones ideales para el descanso y la aventura.",
+                "Exploración profunda en paredes verticales llenas de vida.",
+                "Un rincón especial del Parque Nacional para conectar con la naturaleza.",
+                "Paisajes vírgenes donde el tiempo parece detenerse bajo el agua.",
+                "Geología marina fascinante moldeada por las corrientes del Golfo.",
+                "Vistas submarinas que muestran la fuerza y belleza del mar.",
+                "Puntos de encuentro con la inmensidad del paisaje loretano.",
+                "Zonas de inmersión con relieves suaves y fondos arenosos limpios.",
+                "Rutas subacuáticas rodeadas de la majestuosidad de las islas.",
+                "Áreas de gran importancia ecológica para el ecosistema marino.",
+                "Formaciones de roca volcánica que sirven de refugio natural.",
+                "Experiencias de navegación rodeados de paisajes imponentes.",
+                "El lugar perfecto para admirar la pureza del entorno marino.",
+                "Exploración de cañones submarinos y pasajes de roca viva.",
+                "La magia de Loreto resumida en una vista inolvidable."
+            ],
+            extraTitles: [
+                "Las Lágrimas", "Las Tijeretas", "Las Lajas", "La Lobera", "Piedras Blancas", 
+                "El Repollo", "Candeleros", "Punta Los Patos", "Punta Lobos", "El Sombrerito", 
+                "Islote de la Vaca", "Punta Tintorera", "La Cholla", "Punta Balandra", "Los Picachos", 
+                "El Murciélago", "La Pared", "Faro Sur", "Faro Norte", "El Bulldog", 
+                "Piedra Partida", "El Submarino", "El Camarón", "Los Candeleros", "Piedra Bola", 
+                "C-54", "Punta Coyote"
+            ],
         },
         servicesPage: {
             tag: "Nuestros Servicios",
@@ -727,7 +764,44 @@ export const translations = {
                         desc: "Our most popular expedition. You'll be able to dive and play with friendly sea lions in their natural habitat, surrounded by beautiful volcanic rock formations."
                     }
                 ]
-            }
+            },
+            extraDescriptions: [
+                "Stunning panoramic views of the park's volcanic formations.",
+                "Exploration of unique underwater crevices and reliefs in the Sea of Cortez.",
+                "Observation points with exceptional visibility throughout the year.",
+                "Submerged rock formations creating fascinating underwater landscapes.",
+                "Protected areas ideal for calm and safe exploration.",
+                "Natural contrasts between the desert and the deep blue ocean.",
+                "Sites of great geological value with ancient lava structures.",
+                "Navigation routes with coastal landscapes worthy of photography.",
+                "Crystal clear water zones perfect for observing natural light.",
+                "Rocky reefs hosting an astonishing biodiversity.",
+                "Strategic spots to capture the essence of the world's aquarium.",
+                "Complex underwater structures that challenge the explorer's eye.",
+                "Protected bays with ideal conditions for rest and adventure.",
+                "Deep exploration on vertical walls full of life.",
+                "A special corner of the National Park to connect with nature.",
+                "Pristine landscapes where time seems to stand still underwater.",
+                "Fascinating marine geology shaped by Gulf currents.",
+                "Underwater views showing the strength and beauty of the sea.",
+                "Meeting points with the vastness of the Loreto landscape.",
+                "Dive zones with smooth reliefs and clean sandy bottoms.",
+                "Underwater routes surrounded by the majesty of the islands.",
+                "Areas of great ecological importance for the marine ecosystem.",
+                "Volcanic rock formations serving as natural shelters.",
+                "Sailing experiences surrounded by imposing landscapes.",
+                "The perfect place to admire the purity of the marine environment.",
+                "Exploration of underwater canyons and living rock passages.",
+                "The magic of Loreto summarized in an unforgettable view."
+            ],
+            extraTitles: [
+                "Las Lagrimas", "Las Tijeretas", "Las Lajas", "La Lobera", "Piedras Blancas", 
+                "El Repollo", "Candeleros", "Punta Los Patos", "Punta Lobos", "El Sombrerito", 
+                "Islote de la Vaca", "Punta Tintorera", "La Cholla", "Punta Balandra", "Los Picachos", 
+                "El Murciélago", "La Pared", "Faro Sur", "Faro Norte", "El Bulldog", 
+                "Piedra Partida", "El Submarino", "El Camaron", "Los Candeleros", "Piedra Bola", 
+                "C-54", "Punta Coyote"
+            ],
         },
         servicesPage: {
             tag: "Our Services",
