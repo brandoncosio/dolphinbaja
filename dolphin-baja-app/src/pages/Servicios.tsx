@@ -6,11 +6,13 @@ import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import SplashScreen from '../components/SplashScreen';
 
-// Imágenes importadas
+// ========================================================================
+// 🖼️ IMPORTACIÓN DE IMÁGENES
+// ========================================================================
 import funDivesImg from '/assets/images/colash1.webp';
 import nocturno from '/assets/contentD/img/nocturno.webp';
 import coursesImg from '/assets/images/certificacionpadi.jpeg';
-import isla from '/assets/contentD/img/recorridoisla.webp'
+import isla from '/assets/contentD/img/recorridoisla.webp';
 import experienciasImg from '/assets/images/experiencias.webp';
 import refreshImg from '/assets/images/slider5-celular.webp';
 import bubbleImg from '/assets/images/bubblem.webp';
@@ -18,7 +20,6 @@ import leones from '/assets/contentD/img/leonesm.webp';
 import carmen from '/assets/contentD/img/IslaCarmen.webp';
 import danzantes from '/assets/contentD/img/IslaDanzantes.webp';
 
-// Imágenes agregadas
 import colorFImg from '/assets/images/ColorF.webp';
 import certImg from '/assets/images/cert.webp';
 import cert2Img from '/assets/images/cert2.webp';
@@ -32,49 +33,102 @@ const imageDict: Record<string, string> = {
   colorFImg, certImg, cert2Img, cert3Img, cert4Img
 };
 
+// ========================================================================
+// 🛠️ INTERFACES DE TYPESCRIPT
+// ========================================================================
+type TabKey = 'fundives' | 'cursos' | 'snorkel';
+
+interface ServiceItem {
+  title: string;
+  duration: string;
+  desc: string;
+  includes: string[];
+  imgKey: string;
+}
+
+interface ModalData {
+  title: string;
+  desc: string;
+  duration?: string;
+  includes: string[];
+  images: string[];
+}
+
 export default function Servicios() {
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'fundives' | 'cursos' | 'snorkel'>('fundives');
+  const [activeSection, setActiveSection] = useState<string>('paquetes');
+
+  // Estado para el Modal (Lightbox)
+  const [modalData, setModalData] = useState<ModalData | null>(null);
+  const [currentImageIdx, setCurrentImageIdx] = useState(0);
 
   const location = useLocation();
   const { t, lang } = useLanguage();
-  const content = t.servicesPage;
+  const content = t.servicesPage as any;
 
   useEffect(() => {
-    if (!window.location.hash) {
-      window.scrollTo(0, 0);
-    }
-    const timer = setTimeout(() => setIsLoading(false), 1500);
+    const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
+  // Bloquear scroll al abrir el modal
   useEffect(() => {
-    if (location.hash) {
-      const tabId = location.hash.replace('#', '') as 'fundives' | 'cursos' | 'snorkel';
-      if (['fundives', 'cursos', 'snorkel'].includes(tabId)) {
-        setActiveTab(tabId);
-        const element = document.getElementById('catalogo-top');
-        if (element) {
-          setTimeout(() => element.scrollIntoView({ behavior: 'smooth' }), 300);
+    if (modalData) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [modalData]);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -100;
+      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    if (location.hash && !isLoading) {
+      scrollToSection(location.hash.replace('#', ''));
+    } else if (!location.hash && !isLoading) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.hash, isLoading]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['paquetes', 'fundives', 'cursos', 'snorkel'];
+      let current = 'paquetes';
+      for (const sec of sections) {
+        const element = document.getElementById(sec);
+        if (element && window.scrollY >= element.offsetTop - 150) {
+          current = sec;
         }
       }
-    }
-  }, [location, isLoading]);
-
-  const categories = [
-    { id: 'fundives', label: content.categories.fundives, icon: 'ri-anchor-line' },
-    { id: 'cursos', label: content.categories.cursos, icon: 'ri-medal-line' },
-    { id: 'snorkel', label: content.categories.snorkel, icon: 'ri-sun-line' }
-  ] as const;
-
-  const currentSchedule = content.schedules[activeTab];
+      setActiveSection(current);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // ========================================================================
-  // 🏝️ INYECCIÓN DINÁMICA: Nuevos Tours del PDF
+  // 📚 DATOS Y GENERADORES
   // ========================================================================
-  const getServicesForTab = (tab: 'fundives' | 'cursos' | 'snorkel') => {
-    const baseServices = content.services[tab] || [];
+  const generateGallery = (mainImg: string, type: 'dive' | 'snorkel' | 'course' | 'package') => {
+    const fallbackGalleries = {
+      dive: [mainImg, bubbleImg, leones, nocturno],
+      snorkel: [mainImg, experienciasImg, isla, carmen],
+      course: [mainImg, certImg, cert2Img, colorFImg],
+      package: [mainImg, funDivesImg, danzantes, isla]
+    };
+    return Array.from(new Set(fallbackGalleries[type])).slice(0, 4);
+  };
 
+  const getServicesForTab = (tab: TabKey): ServiceItem[] => {
+    const baseServices = content.services?.[tab] || [];
     if (tab === 'snorkel') {
       const extraTours = [
         {
@@ -83,9 +137,7 @@ export default function Servicios() {
           desc: lang === 'es'
             ? 'La isla más grande del Parque Nacional Bahía de Loreto, tiene impresionantes paisajes desérticos y sitios de buceo con arrecifes rocosos llenos de vida marina. Sus aguas con mucha diversidad marina y variedad de puntos de inmersión la convierten en un destino ideal para tus vacaciones.'
             : 'The largest island in the Loreto Bay National Park features stunning desert landscapes and dive sites with rocky reefs full of marine life. Its waters, with great marine diversity and a variety of dive spots, make it an ideal destination for your vacation.',
-          includes: lang === 'es'
-            ? ['Paseo en lancha', 'Guía local', 'Bebidas y snacks', 'Brazalete del Parque']
-            : ['Boat ride', 'Local guide', 'Drinks & snacks', 'Park Bracelet'],
+          includes: lang === 'es' ? ['Paseo en lancha', 'Guía local', 'Bebidas y snacks', 'Brazalete del Parque'] : ['Boat ride', 'Local guide', 'Drinks & snacks', 'Park Bracelet'],
           imgKey: 'carmen'
         },
         {
@@ -94,511 +146,470 @@ export default function Servicios() {
           desc: lang === 'es'
             ? 'Sus arrecifes rocosos albergan una gran diversidad de vida marina, desde el barco hundido C-54 Agustín Melgar entre danzantes y puerto escondido hasta peces de arrecife, morenas, pulpos, y mantarrayas en temporada.'
             : 'Its rocky reefs host a great diversity of marine life, from the sunken C-54 Agustín Melgar ship between Danzante and Puerto Escondido to reef fish, moray eels, octopuses, and manta rays in season.',
-          includes: lang === 'es'
-            ? ['Paseo en lancha', 'Guía local', 'Bebidas y snacks', 'Brazalete del Parque']
-            : ['Boat ride', 'Local guide', 'Drinks & snacks', 'Park Bracelet'],
+          includes: lang === 'es' ? ['Paseo en lancha', 'Guía local', 'Bebidas y snacks', 'Brazalete del Parque'] : ['Boat ride', 'Local guide', 'Drinks & snacks', 'Park Bracelet'],
           imgKey: 'danzantes'
         }
       ];
-
       return [...baseServices, ...extraTours];
     }
-
     return baseServices;
   };
 
-
-  // ========================================================================
-  // 📦 DATOS DE LOS NUEVOS PAQUETES
-  // ========================================================================
   const packagesData = {
     es: {
-      title: "Paquetes de buceo en Loreto, Baja",
-      subtitle: "Experiencias Completas",
+      title: "Paquetes de Buceo",
+      subtitle: "Experiencias All-Inclusive",
       items: [
         {
-          id: 'deep-blue',
-          name: "Deep Blue",
-          target: "Para buzos certificados",
-          features: [
-            "5 días buceando (10 tanques)",
-            "6 noches de hotel con desayuno incluido",
-            "Transfer aeropuerto - hotel - aeropuerto"
-          ],
-          note: "Mínimo 2 buzos",
-          color: "cyan"
+          id: 'deep-blue', name: "Deep Blue", target: "Para buzos certificados", duration: "5 Días",
+          desc: "Nuestro paquete estelar para buzos experimentados. Disfruta de 5 días explorando los mejores arrecifes del Parque Nacional, con alojamiento de primer nivel y desayunos incluidos para que solo te preocupes por bucear.",
+          features: ["5 días buceando (10 tanques)", "6 noches de hotel con desayuno", "Transfer aeropuerto - hotel"],
+          note: "Mínimo 2 buzos", color: "cyan"
         },
         {
-          id: 'blue-escape',
-          name: "Blue Escape",
-          target: "Para buzos certificados",
-          features: [
-            "3 días buceando (6 tanques)",
-            "4 noches de hotel con desayuno incluido",
-            "Transfer aeropuerto - hotel - aeropuerto"
-          ],
-          note: "Mínimo 2 buzos",
-          color: "ocean"
+          id: 'blue-escape', name: "Blue Escape", target: "Para buzos certificados", duration: "3 Días",
+          desc: "La escapada perfecta de fin de semana. Tres días intensos de inmersiones en las majestuosas aguas de Loreto, combinados con una estancia cómoda y relajante.",
+          features: ["3 días buceando (6 tanques)", "4 noches de hotel con desayuno", "Transfer aeropuerto - hotel"],
+          note: "Mínimo 2 buzos", color: "ocean"
         },
         {
-          id: 'beyond-surface',
-          name: "Beyond the Surface",
-          target: "Get your PADI Open Water",
-          features: [
-            "Open Water Certification",
-            "Repaso de teoría 1, 2, 3 y 4",
-            "+2 días extra de buceo (4 tanques)",
-            "1 Computadora Cressi"
-          ],
-          note: "Mínimo 2 buzos",
-          color: "yellow"
+          id: 'beyond-surface', name: "Beyond the Surface", target: "Obtén tu PADI Open Water", duration: "4-5 Días",
+          desc: "Conviértete en un buzo certificado con este paquete integral. Incluye toda tu teoría, inmersiones de práctica y certificación oficial PADI, además de días extra para disfrutar tu nueva habilidad.",
+          features: ["Certificación Open Water", "Repaso de teoría 1, 2, 3 y 4", "+2 días extra de buceo (4 tanques)", "Computadora Cressi"],
+          note: "Mínimo 2 buzos", color: "yellow"
         }
       ]
     },
     en: {
-      title: "Dive Packages in Loreto, Baja.",
+      title: "Dive Packages",
       subtitle: "All-Inclusive Experiences",
       items: [
         {
-          id: 'deep-blue',
-          name: "Deep Blue",
-          target: "For certified divers",
-          features: [
-            "5 days diving (10 tanks)",
-            "6 nights hotel with breakfast included",
-            "Airport - hotel - airport transfer"
-          ],
-          note: "Minimum 2 divers",
-          color: "cyan"
+          id: 'deep-blue', name: "Deep Blue", target: "For certified divers", duration: "5 Days",
+          desc: "Our stellar package for experienced divers. Enjoy 5 days exploring the best reefs of the National Park, with top-tier accommodation and breakfasts included so you only worry about diving.",
+          features: ["5 days diving (10 tanks)", "6 nights hotel with breakfast", "Airport - hotel transfer"],
+          note: "Minimum 2 divers", color: "cyan"
         },
         {
-          id: 'blue-escape',
-          name: "Blue Escape",
-          target: "For certified divers",
-          features: [
-            "3 days diving (6 tanks)",
-            "4 nights hotel with breakfast included",
-            "Airport - hotel - airport transfer"
-          ],
-          note: "Minimum 2 divers",
-          color: "ocean"
+          id: 'blue-escape', name: "Blue Escape", target: "For certified divers", duration: "3 Days",
+          desc: "The perfect weekend getaway. Three intense days of diving in the majestic waters of Loreto, combined with a comfortable and relaxing stay.",
+          features: ["3 days diving (6 tanks)", "4 nights hotel with breakfast", "Airport - hotel transfer"],
+          note: "Minimum 2 divers", color: "ocean"
         },
         {
-          id: 'beyond-surface',
-          name: "Beyond the Surface",
-          target: "Get your PADI Open Water",
-          features: [
-            "Open Water Certification",
-            "Theory review 1, 2, 3, and 4",
-            "+2 extra days diving (4 tanks)",
-            "1 Cressi Dive Computer"
-          ],
-          note: "Minimum 2 divers",
-          color: "yellow"
+          id: 'beyond-surface', name: "Beyond the Surface", target: "Get your PADI Open Water", duration: "4-5 Days",
+          desc: "Become a certified diver with this comprehensive package. Includes all your theory, practice dives, and official PADI certification, plus extra days to enjoy your new skill.",
+          features: ["Open Water Certification", "Theory review 1, 2, 3 & 4", "+2 extra days diving (4 tanks)", "Cressi Dive Computer"],
+          note: "Minimum 2 divers", color: "yellow"
         }
       ]
     }
   };
 
-  const currentLang = (lang === 'en' || lang === 'es') ? lang : 'es';
-  const pkgData = packagesData[currentLang];
+  const pkgData = packagesData[lang === 'en' ? 'en' : 'es'];
+
+  const categoriesList = [
+    { id: 'paquetes', label: lang === 'es' ? 'Paquetes' : 'Packages', icon: 'ri-vip-crown-fill' },
+    { id: 'fundives', label: content.categories?.fundives || 'Fun Dives', icon: 'ri-anchor-fill' },
+    { id: 'cursos', label: content.categories?.cursos || 'Cursos', icon: 'ri-medal-fill' },
+    { id: 'snorkel', label: content.categories?.snorkel || 'Snorkel', icon: 'ri-sun-fill' }
+  ];
 
   // ========================================================================
-  // 🎨 ESTILOS SEPARADOS (Clean Code & Matte Fixes)
+  // 🧩 COMPONENTE DE HORARIOS (Reintegrado y Mejorado)
   // ========================================================================
+  const renderSchedule = (tabKey: TabKey) => {
+    const sched = content.schedules?.[tabKey];
+    if (!sched) return null;
 
-  const pageContainerClass = `
-    min-h-screen pt-32 pb-20 selection:bg-cyan-400 selection:text-dark transition-colors duration-500
-    bg-slate-50 dark:bg-dark
-  `;
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        className="mt-16 mb-24 max-w-6xl mx-auto w-full"
+      >
+        <div className="rounded-[2rem] md:rounded-[3rem] p-6 sm:p-10 md:p-14 border relative overflow-hidden shadow-xl bg-white/80 backdrop-blur-xl border-slate-200 dark:bg-white/5 dark:border-white/10">
+          <div className="absolute top-0 right-0 w-full h-full -z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-transparent via-transparent to-transparent dark:from-cyan-400/5"></div>
 
-  const atmosphereClass = `
-    fixed inset-0 pointer-events-none overflow-hidden z-0 transition-colors duration-500
-    opacity-30 dark:opacity-50
-  `;
+          <div className="relative z-10">
+            <h3 className="font-title text-2xl md:text-3xl mb-8 md:mb-12 flex items-center gap-4 text-navy dark:text-white">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-md bg-yellow-400 text-navy dark:text-dark">
+                <i className="ri-calendar-check-fill text-2xl"></i>
+              </div>
+              {content.schedules?.title || 'Horarios'}
+            </h3>
 
-  const tabsContainerClass = `
-    mx-auto max-w-2xl rounded-full border p-1.5 backdrop-blur-2xl shadow-lg transition-all duration-500
-    bg-white border-slate-200 shadow-slate-200/50
-    dark:bg-white/5 dark:border-white/20 dark:shadow-none
-  `;
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10">
+              {/* MAÑANA */}
+              {sched.morning && (
+                <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-cyan-400/50 transition-colors shadow-sm">
+                  <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+                    <p className="font-title text-sm md:text-base uppercase tracking-widest text-cyan-600 dark:text-cyan-400">
+                      {content.schedules?.morning || 'Mañana'}
+                    </p>
+                    <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">
+                      {sched.morning.season}
+                    </span>
+                  </div>
+                  <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.morning.time}</p>
+                  <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.morning.note}</p>
+                </div>
+              )}
 
-  const getTabClass = (isActive: boolean) => `
-    relative flex flex-1 items-center justify-center gap-2 rounded-full px-2 py-3.5 md:px-4 md:py-4 text-xs md:text-sm font-bold transition-all duration-300
-    ${isActive
-      ? 'text-dark shadow-md'
-      : 'text-slate-500 hover:text-navy hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
-    }
-  `;
+              {/* TARDE */}
+              {sched.afternoon && (
+                <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-yellow-400/50 transition-colors shadow-sm">
+                  <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+                    <p className="font-title text-sm md:text-base uppercase tracking-widest text-yellow-600 dark:text-yellow-400">
+                      {content.schedules?.afternoon || 'Tarde'}
+                    </p>
+                    <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">
+                      {sched.afternoon.season}
+                    </span>
+                  </div>
+                  <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.afternoon.time}</p>
+                  <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.afternoon.note}</p>
+                </div>
+              )}
 
-  const serviceCardClass = `
-    group relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border transition-all duration-500 flex flex-col md:flex-row hover:-translate-y-1 shadow-lg
-    bg-white border-slate-200 shadow-slate-200/50 hover:border-cyan-400/40 hover:shadow-cyan-200/30
-    dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
-  `;
+              {/* NOCHE */}
+              {sched.night ? (
+                <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-purple-400/50 transition-colors shadow-sm">
+                  <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+                    <p className="font-title text-sm md:text-base uppercase tracking-widest text-purple-600 dark:text-purple-400">
+                      {content.schedules?.night || 'Noche'}
+                    </p>
+                    <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">
+                      {sched.night.season}
+                    </span>
+                  </div>
+                  <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.night.time}</p>
+                  <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.night.note}</p>
+                </div>
+              ) : (
+                <div className="p-6 md:p-8 rounded-[1.5rem] border flex flex-col justify-center items-center text-center opacity-60 bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10">
+                  <i className="ri-moon-clear-line text-4xl mb-4 text-slate-400"></i>
+                  <p className="text-sm font-body font-medium text-slate-400">{content.schedules?.notAvailable || 'No disponible'}</p>
+                </div>
+              )}
+            </div>
 
-  const bookBtnClass = `
-    inline-flex w-full md:w-auto py-3.5 px-8 font-title text-sm tracking-widest uppercase rounded-xl transition-all duration-300 items-center justify-center gap-2 group/btn shadow-md active:scale-95 border
-    bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-50 hover:border-cyan-500 hover:shadow-cyan-200/50
-    dark:bg-cyan-400/10 dark:border-cyan-400/30 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-dark
-  `;
-
-  const scheduleCardClass = `
-    rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 border relative overflow-hidden shadow-xl
-    bg-white border-slate-200 shadow-slate-200/50
-    dark:bg-white/5 dark:backdrop-blur-2xl dark:border-white/10 dark:shadow-none
-  `;
-
-  const timeBlockClass = `
-    p-6 md:p-8 rounded-2xl border transition-colors shadow-sm group
-    bg-slate-50 border-slate-200
-    dark:bg-white/5 dark:border-white/5
-  `;
-
-  const importantInfoClass = `
-    border-l-4 rounded-r-2xl p-6 md:p-8 mt-10 transition-colors duration-500
-    bg-yellow-50 border-yellow-400
-    dark:bg-yellow-400/5 dark:border-yellow-400/30
-  `;
-
-  // Estilos dinámicos para los Paquetes
-  const getPackageColorClass = (color: string) => {
-    switch (color) {
-      case 'yellow': return 'text-yellow-500 border-yellow-400 bg-yellow-50 dark:bg-yellow-400/10 dark:text-yellow-400';
-      case 'cyan': return 'text-cyan-600 border-cyan-400 bg-cyan-50 dark:bg-cyan-400/10 dark:text-cyan-400';
-      default: return 'text-blue-500 border-blue-400 bg-blue-50 dark:bg-blue-400/10 dark:text-blue-400'; // ocean
-    }
+            {/* Reglas e Info Importante */}
+            <div className="border-l-4 rounded-r-2xl p-6 md:p-8 bg-yellow-50/80 border-yellow-400 dark:bg-yellow-400/5 dark:border-yellow-400/30">
+              <h4 className="font-title text-sm md:text-base mb-5 uppercase tracking-widest flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
+                <i className="ri-information-fill text-xl"></i> {content.schedules?.important || 'Información Importante'}
+              </h4>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                {(sched.rules || []).map((rule: string, idx: number) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm md:text-base font-body font-medium text-slate-700 dark:text-slate-300">
+                    <span className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-yellow-400 shadow-sm"></span> {rule}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
   };
 
-  const packageCardClass = `
-    relative flex flex-col p-8 md:p-10 rounded-[2rem] border transition-all duration-500 shadow-xl hover:-translate-y-2
-    bg-white border-slate-200
-    dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
-  `;
-
+  // ========================================================================
+  // 🖥️ RENDER PRINCIPAL
+  // ========================================================================
   return (
     <>
       <Helmet>
-        <title>
-          {lang === 'es'
-            ? 'Catálogo de Servicios y Tours | Dolphin Dive Baja Loreto'
-            : 'Diving Services & Tours | Dolphin Dive Baja Loreto'}
-        </title>
-        <meta name="description" content={content.heroDesc} />
-        <meta property="og:title" content={content.catalogTitle} />
-        <meta property="og:description" content={content.heroDesc} />
-        <meta property="og:image" content={funDivesImg} />
+        <title>{lang === 'es' ? 'Catálogo de Servicios y Tours | Dolphin Dive' : 'Diving Services & Tours | Dolphin Dive'}</title>
+        <meta name="description" content={content?.heroDesc || "Descubre los servicios de buceo en Loreto."} />
       </Helmet>
 
-      <div key={lang} className={pageContainerClass}>
+      <div className="min-h-screen pt-28 md:pt-32 pb-20 selection:bg-cyan-400 selection:text-dark transition-colors duration-500 bg-slate-50 dark:bg-dark">
         <AnimatePresence>
           {isLoading && <SplashScreen key="splash" />}
         </AnimatePresence>
 
-        {/* LUCES DE FONDO */}
-        <div className={atmosphereClass} style={{ willChange: 'transform' }}>
-          <div className="absolute top-[5%] -left-[10%] w-[60%] h-[50%] bg-cyan-400/20 blur-[130px] rounded-full dark:bg-cyan-500/10" />
-          <div className="absolute bottom-[10%] -right-[10%] w-[50%] h-[60%] bg-ocean/25 blur-[150px] rounded-full dark:bg-ocean/10" />
+        {/* Luces Fondo */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 transition-colors duration-500 opacity-40 dark:opacity-60">
+          <div className="absolute top-[10%] left-[10%] w-[50%] h-[50%] bg-cyan-400/20 blur-[150px] rounded-full dark:bg-cyan-500/10" />
+          <div className="fixed bottom-[10%] right-[10%] w-[40%] h-[60%] bg-ocean/20 blur-[150px] rounded-full dark:bg-ocean/10" />
         </div>
 
-        <div className="relative z-10">
+        {/* Hero Section */}
+        <div className="relative z-10 px-6 md:px-12 max-w-5xl mx-auto mb-12 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <span className="inline-block px-4 py-1.5 rounded-full border text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] drop-shadow-sm mb-6
+              bg-white/80 border-slate-200 text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400">
+              {content?.catalogTitle || 'Catálogo de Servicios'}
+            </span>
+            <h1 className="font-title text-4xl sm:text-5xl md:text-7xl drop-shadow-sm leading-tight text-navy dark:text-white mb-6">
+              {content?.heroTitle} <br className="hidden md:block" />
+              <span className="text-yellow-500 dark:text-yellow-400">{content?.heroHighlight}</span>
+            </h1>
+            <p className="font-body text-base md:text-xl leading-relaxed drop-shadow-sm font-medium text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+              {content?.heroDesc}
+            </p>
+          </motion.div>
 
-          {/* ENCABEZADO */}
-          <div className="px-6 md:px-20 mb-16 md:mb-20">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
-              <span className="font-body text-xs md:text-sm font-bold uppercase tracking-[0.4em] drop-shadow-md text-cyan-600 dark:text-cyan-400">
-                {content.catalogTitle}
-              </span>
-              <h1 className="mt-4 font-title text-4xl md:text-6xl lg:text-7xl drop-shadow-sm leading-tight text-navy dark:text-white">
-                {content.heroTitle} <br className="hidden md:block" />
-                <span className="text-yellow-500 dark:text-yellow-400">{content.heroHighlight}</span>
-              </h1>
-              <p className="mt-6 font-body text-base md:text-lg leading-relaxed drop-shadow-sm font-medium text-slate-600 dark:text-slate-200">
-                {content.heroDesc}
-              </p>
-            </motion.div>
-          </div>
+          {/* Accesos Rápidos */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="mt-10 flex flex-wrap justify-center gap-3">
+            {categoriesList.map((cat) => (
+              <button key={cat.id} onClick={() => scrollToSection(cat.id)}
+                className="flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-title text-xs md:text-sm tracking-wider uppercase transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 border bg-white text-slate-600 border-slate-200 hover:text-cyan-600 dark:bg-white/5 dark:text-slate-200 dark:border-white/10 dark:hover:text-cyan-400 dark:hover:border-cyan-400/50"
+              >
+                <i className={`${cat.icon} text-base md:text-lg`}></i> {cat.label}
+              </button>
+            ))}
+          </motion.div>
+        </div>
 
-          {/* ====================================================================
-              🚀 NUEVA SECCIÓN: PAQUETES EXCLUSIVOS
-              ==================================================================== */}
-          <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24 md:mb-32">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-              className="text-center mb-10"
-            >
-              <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-3">
-                {pkgData.title}
-              </h2>
-              <p className="font-body font-bold tracking-widest uppercase text-sm text-cyan-600 dark:text-cyan-400">
-                {pkgData.subtitle}
-              </p>
-            </motion.div>
+        {/* CATÁLOGO UNIFICADO */}
+        <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 mt-12">
+
+          {/* ======================= SECCIÓN PAQUETES ======================= */}
+          <section id="paquetes" className="mb-24 md:mb-32 pt-8 scroll-mt-10">
+            <div className="text-center mb-10 md:mb-12">
+              <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-4">{pkgData.title}</h2>
+              <p className="font-body font-bold tracking-widest uppercase text-xs md:text-sm text-cyan-600 dark:text-cyan-400">{pkgData.subtitle}</p>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {pkgData.items.map((pkg, idx) => (
-                <motion.div
-                  key={pkg.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={packageCardClass}
-                >
-                  <div className="mb-6">
-                    <span className={`inline-block px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-md border mb-4 ${getPackageColorClass(pkg.color)}`}>
-                      {pkg.target}
-                    </span>
-                    <h3 className="font-title text-3xl text-navy dark:text-white leading-tight">
-                      "{pkg.name}"
-                    </h3>
-                  </div>
+              {pkgData.items.map((pkg, idx) => {
+                let badgeClass = "text-blue-600 border-blue-400 bg-blue-50 dark:bg-blue-400/10 dark:text-blue-400";
+                if (pkg.color === 'yellow') badgeClass = "text-yellow-600 border-yellow-400 bg-yellow-50 dark:bg-yellow-400/10 dark:text-yellow-400";
+                if (pkg.color === 'cyan') badgeClass = "text-cyan-700 border-cyan-400 bg-cyan-50 dark:bg-cyan-400/10 dark:text-cyan-400";
 
-                  <ul className="flex-grow space-y-4 mb-8">
-                    {pkg.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-600 dark:text-slate-300">
-                        <i className={`ri-checkbox-circle-fill mt-0.5 text-lg ${pkg.color === 'yellow' ? 'text-yellow-500 dark:text-yellow-400' : 'text-cyan-500 dark:text-cyan-400'}`}></i>
-                        <span className="leading-snug">{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-auto">
-                    <div className="flex items-center gap-2 mb-4 font-body text-xs font-bold text-slate-500 dark:text-slate-400">
-                      <i className="ri-group-fill"></i> {pkg.note}
-                    </div>
-                    <a
-                      href={`https://wa.me/526131182311?text=${encodeURIComponent(`Hola, me interesa reservar el Paquete: ${pkg.name}`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 border
-                        ${pkg.color === 'yellow'
-                          ? 'bg-yellow-400 text-navy border-yellow-400 hover:bg-yellow-300 dark:bg-yellow-400/10 dark:text-yellow-400 dark:border-yellow-400/30 dark:hover:bg-yellow-400 dark:hover:text-dark'
-                          : 'bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-400/10 dark:text-cyan-400 dark:border-cyan-400/30 dark:hover:bg-cyan-400 dark:hover:text-dark'
-                        }`}
-                    >
-                      Reservar <i className="ri-whatsapp-line text-lg"></i>
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* ====================================================================
-              TABS NAVEGACIÓN (Catálogo Individual)
-              ==================================================================== */}
-          <div id="catalogo-top" className="py-4 mb-10 px-4 scroll-mt-32">
-            <div className="text-center mb-6">
-              <h2 className="font-title text-2xl md:text-3xl text-slate-400 dark:text-slate-500">
-                {lang === 'es' ? 'O personaliza tu experiencia:' : 'Or customize your experience:'}
-              </h2>
-            </div>
-            <div className={tabsContainerClass}>
-              <div className="flex justify-between">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveTab(cat.id)}
-                    className={getTabClass(activeTab === cat.id)}
+                return (
+                  <motion.article key={pkg.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.1, duration: 0.5 }}
+                    className="group flex flex-col relative rounded-[2rem] p-8 md:p-10 overflow-hidden border transition-all duration-500 shadow-xl bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-cyan-400/50"
                   >
-                    {activeTab === cat.id && (
-                      <motion.div
-                        layoutId="activeTabIndicator"
-                        className="absolute inset-0 rounded-full bg-cyan-400"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    <span className="relative z-10 flex items-center gap-1.5 md:gap-2 font-title uppercase tracking-wider">
-                      <i className={`${cat.icon} text-base md:text-lg`}></i>
-                      <span className="hidden sm:inline">{cat.label}</span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* CATÁLOGO DE SERVICIOS */}
-          <div className="max-w-6xl mx-auto px-6 md:px-12 min-h-[400px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="flex flex-col gap-8 md:gap-12"
-              >
-                {/* 👇 AQUÍ LLAMAMOS A NUESTRA FUNCIÓN INYECTORA */}
-                {getServicesForTab(activeTab).map((item: any, index: number) => (
-                  <div
-                    key={index}
-                    className={serviceCardClass}
-                    style={{ willChange: 'transform' }}
-                  >
-                    {/* IMAGEN */}
-                    <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:h-auto relative overflow-hidden shrink-0 border-b md:border-b-0 md:border-r border-slate-100 dark:border-white/10">
-                      <img
-                        src={item.title.includes('Open Water Diver') ? colorFImg :
-                          item.title.includes('Advanced Open Water') ? certImg :
-                            item.title.includes('Rescue Diver') ? cert2Img :
-                              (item.title.includes('Especialidades PADI') || item.title.includes('PADI Specialties')) ? cert3Img :
-                                item.title.includes('Dive Master') ? cert4Img :
-                                  imageDict[item.imgKey]}
-                        alt={item.title}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 will-change-transform"
-                      />
+                    <div className="mb-8">
+                      <span className={`inline-block px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-lg border mb-5 ${badgeClass}`}>{pkg.target}</span>
+                      <h3 className="font-title text-3xl md:text-4xl text-navy dark:text-white leading-tight">"{pkg.name}"</h3>
                     </div>
+                    <ul className="flex-grow space-y-4 mb-10">
+                      {pkg.features.map((feat, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-3 font-body text-sm lg:text-base font-medium text-slate-600 dark:text-slate-300">
+                          <i className={`ri-checkbox-circle-fill mt-0.5 text-lg ${pkg.color === 'yellow' ? 'text-yellow-500' : 'text-cyan-500'}`}></i>
+                          <span className="leading-snug">{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                    {/* CONTENIDO */}
-                    <div className="p-6 md:p-10 lg:p-12 flex flex-col flex-grow relative z-10 justify-center">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                        <h3 className="font-title text-2xl md:text-3xl lg:text-4xl transition-colors drop-shadow-sm leading-tight
-                          text-navy group-hover:text-cyan-600
-                          dark:text-white dark:group-hover:text-cyan-300">
-                          {item.title}
-                        </h3>
-                        <div className="flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-wider font-body px-3 py-1.5 rounded-lg border shrink-0 self-start sm:self-auto
-                          text-cyan-700 bg-cyan-50 border-cyan-200
-                          dark:text-cyan-400 dark:bg-cyan-400/10 dark:border-cyan-400/20">
-                          <i className="ri-time-line"></i> {item.duration}
-                        </div>
+                    {/* Botones Paquetes */}
+                    <div className="mt-auto flex flex-col gap-3">
+                      <div className="flex items-center justify-center gap-2 mb-2 font-body text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-black/20 py-2.5 rounded-xl border border-slate-100 dark:border-white/5">
+                        <i className="ri-group-fill"></i> {pkg.note}
                       </div>
-
-                      <p className="text-sm md:text-base leading-relaxed mb-6 font-body font-medium
-                        text-slate-600
-                        dark:text-slate-300">
-                        {item.desc}
-                      </p>
-
-                      {/* INCLUYE */}
-                      <div className="mb-8 border-t pt-6 border-slate-100 dark:border-white/10">
-                        <p className="text-[10px] md:text-xs mb-3 font-bold uppercase tracking-widest font-body
-                          text-slate-400
-                          dark:text-slate-400">
-                          {content.ui.includes}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {item.includes.map((inc: string, i: number) => (
-                            <span key={i} className="text-[11px] md:text-xs px-3.5 py-1.5 rounded-lg border font-body shadow-sm
-                              bg-slate-100 text-slate-600 border-slate-200
-                              dark:bg-white/5 dark:text-slate-200 dark:border-white/10">
-                              {inc}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* BOTÓN RESERVAR */}
-                      <div className="mt-auto">
-                        <a
-                          href={`https://wa.me/526131182311?text=Hola, quiero información sobre el servicio individual: ${item.title}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={bookBtnClass}
-                        >
-                          {content.ui.bookNow} <i className="ri-whatsapp-line text-lg group-hover/btn:scale-110 transition-transform"></i>
+                      <div className="grid grid-cols-2 gap-3">
+                        <button
+                          onClick={() => {
+                            setModalData({
+                              title: pkg.name, desc: pkg.desc, duration: pkg.duration, includes: pkg.features,
+                              images: generateGallery(funDivesImg, 'package')
+                            });
+                            setCurrentImageIdx(0);
+                          }}
+                          className="w-full py-3.5 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all active:scale-95 border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10">
+                          Ver Detalles
+                        </button>
+                        <a href={`https://wa.me/526131182311?text=${encodeURIComponent(`Hola, me interesa el Paquete: ${pkg.name}`)}`} target="_blank" rel="noopener noreferrer"
+                          className="w-full py-3.5 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500">
+                          Reservar <i className="ri-whatsapp-line text-base"></i>
                         </a>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                  </motion.article>
+                );
+              })}
+            </div>
+          </section>
 
-          {/* HORARIOS */}
-          <div className="mt-20 md:mt-32 max-w-5xl mx-auto px-6">
-            <motion.div layout className={scheduleCardClass}>
-              {/* Luz interior (Solo Dark - Muy sutil) */}
-              <div className="absolute top-0 right-0 w-[150%] h-[150%] -z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] 
-                from-transparent via-transparent to-transparent
-                dark:from-cyan-400/5"
-              ></div>
+          {/* ======================= SECCIONES INDIVIDUALES (Editorial Zig-Zag) ======================= */}
+          {(['fundives', 'cursos', 'snorkel'] as TabKey[]).map((tabKey) => {
+            const sectionTitle = categoriesList.find(c => c.id === tabKey)?.label;
+            const servicesList = getServicesForTab(tabKey);
 
-              <div className="relative z-10">
-                <h3 className="font-title text-xl md:text-3xl mb-8 md:mb-12 flex items-center gap-4 drop-shadow-md text-navy dark:text-white">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md
-                    bg-yellow-400 text-white border-yellow-400
-                    dark:bg-yellow-400 dark:text-dark dark:border-yellow-400 dark:shadow-none">
-                    <i className="ri-calendar-check-fill text-2xl"></i>
-                  </div>
-                  {content.schedules.title}
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
-                  {/* MAÑANA */}
-                  <div className={`${timeBlockClass} hover:border-cyan-400/50`}>
-                    <div className="flex justify-between items-start mb-4">
-                      <p className="font-title text-sm md:text-base tracking-wider text-cyan-600 dark:text-cyan-400">{content.schedules.morning}</p>
-                      <span className="text-[10px] px-2.5 py-1 rounded font-body border
-                        bg-slate-200 text-slate-600 border-slate-300
-                        dark:bg-white/10 dark:text-white dark:border-white/10">{currentSchedule.morning.season}</span>
-                    </div>
-                    <p className="text-2xl md:text-4xl font-title mb-2 transition-colors group-hover:text-cyan-600 dark:group-hover:text-cyan-300 text-navy dark:text-white">{currentSchedule.morning.time}</p>
-                    <p className="text-xs md:text-sm font-body font-medium text-slate-500 dark:text-slate-300">{currentSchedule.morning.note}</p>
-                  </div>
-
-                  {/* TARDE */}
-                  <div className={`${timeBlockClass} hover:border-yellow-400/50`}>
-                    <div className="flex justify-between items-start mb-4">
-                      <p className="font-title text-sm md:text-base tracking-wider text-yellow-600 dark:text-yellow-400">{content.schedules.afternoon}</p>
-                      <span className="text-[10px] px-2.5 py-1 rounded font-body border
-                        bg-slate-200 text-slate-600 border-slate-300
-                        dark:bg-white/10 dark:text-white dark:border-white/10">{currentSchedule.afternoon.season}</span>
-                    </div>
-                    <p className="text-2xl md:text-4xl font-title mb-2 transition-colors group-hover:text-yellow-600 dark:group-hover:text-yellow-400 text-navy dark:text-white">{currentSchedule.afternoon.time}</p>
-                    <p className="text-xs md:text-sm font-body font-medium text-slate-500 dark:text-slate-300">{currentSchedule.afternoon.note}</p>
-                  </div>
-
-                  {/* NOCHE */}
-                  {(currentSchedule as any).night ? (
-                    <div className={`${timeBlockClass} hover:border-purple-400/50`}>
-                      <div className="flex justify-between items-start mb-4">
-                        <p className="font-title text-sm md:text-base tracking-wider text-purple-600 dark:text-purple-400">{content.schedules.night}</p>
-                        <span className="text-[10px] px-2.5 py-1 rounded font-body border
-                          bg-slate-200 text-slate-600 border-slate-300
-                          dark:bg-white/10 dark:text-white dark:border-white/10">{(currentSchedule as any).night.season}</span>
-                      </div>
-                      <p className="text-2xl md:text-4xl font-title mb-2 transition-colors group-hover:text-purple-600 dark:group-hover:text-purple-400 text-navy dark:text-white">{(currentSchedule as any).night.time}</p>
-                      <p className="text-xs md:text-sm font-body font-medium text-slate-500 dark:text-slate-300">{(currentSchedule as any).night.note}</p>
-                    </div>
-                  ) : (
-                    <div className="p-6 md:p-8 rounded-2xl border flex flex-col justify-center items-center text-center opacity-70
-                      bg-slate-50 border-slate-200
-                      dark:bg-white/5 dark:border-white/5">
-                      <i className="ri-moon-clear-line text-3xl mb-3 text-slate-400"></i>
-                      <p className="text-xs md:text-sm font-body tracking-wide text-slate-400">{content.schedules.notAvailable}</p>
-                    </div>
-                  )}
+            return (
+              <section key={tabKey} id={tabKey} className="pt-10 scroll-mt-10">
+                <div className="text-center md:text-left mb-10 md:mb-14 border-b border-slate-200 dark:border-white/10 pb-6">
+                  <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{sectionTitle}</h2>
                 </div>
 
-                {/* REGLAS IMPORTANTE */}
-                <div className={importantInfoClass}>
-                  <h4 className="font-title text-sm md:text-base mb-4 uppercase tracking-widest flex items-center gap-2 
-                    text-yellow-600 dark:text-yellow-400">
-                    <i className="ri-information-fill text-xl"></i>
-                    {content.schedules.important}
+                <div className="flex flex-col gap-12 md:gap-16">
+                  {servicesList.map((item, idx) => {
+                    const isEven = idx % 2 === 0;
+
+                    let itemImage = imageDict[item.imgKey] || funDivesImg;
+                    if (item.title?.includes('Open Water')) itemImage = colorFImg;
+                    if (item.title?.includes('Advanced')) itemImage = certImg;
+                    if (item.title?.includes('Rescue')) itemImage = cert2Img;
+                    if (item.title?.includes('Especialidades') || item.title?.includes('Specialties')) itemImage = cert3Img;
+                    if (item.title?.includes('Dive Master')) itemImage = cert4Img;
+
+                    let galleryType: 'dive' | 'snorkel' | 'course' = 'dive';
+                    if (tabKey === 'cursos') galleryType = 'course';
+                    if (tabKey === 'snorkel') galleryType = 'snorkel';
+
+                    return (
+                      <motion.article key={idx} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6 }}
+                        className={`group flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-slate-200 shadow-xl bg-white dark:bg-white/5 dark:border-white/10 transition-all hover:border-cyan-400/50 hover:shadow-2xl`}
+                      >
+
+                        {/* IMAGEN (Arriba en móvil, lateral en Desktop) */}
+                        <div className="w-full lg:w-5/12 h-[300px] sm:h-[400px] lg:h-auto relative overflow-hidden shrink-0">
+                          <img src={itemImage} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent dark:from-dark/60 pointer-events-none" />
+                          <div className="absolute top-5 right-5 backdrop-blur-xl bg-white/90 dark:bg-dark/80 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 shadow-lg flex items-center gap-2">
+                            <i className="ri-time-line text-base"></i> {item.duration}
+                          </div>
+                        </div>
+
+                        {/* CONTENIDO */}
+                        <div className="w-full lg:w-7/12 p-8 sm:p-10 md:p-12 lg:p-14 flex flex-col justify-center">
+                          <h3 className="font-title text-3xl md:text-4xl mb-4 text-navy dark:text-white transition-colors group-hover:text-cyan-600 dark:group-hover:text-cyan-400 leading-tight">
+                            {item.title}
+                          </h3>
+                          <p className="text-sm md:text-base font-body font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-8 line-clamp-3">
+                            {item.desc}
+                          </p>
+
+                          <div className="mb-10 hidden sm:block">
+                            <p className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-slate-400 mb-4">{content?.ui?.includes || 'INCLUYE'}</p>
+                            <div className="flex flex-wrap gap-2.5">
+                              {(item.includes || []).map((inc, i) => (
+                                <span key={i} className="text-[11px] md:text-xs px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-slate-50 text-slate-700 border border-slate-200 dark:bg-white/5 dark:text-slate-200 dark:border-white/10 shadow-sm">
+                                  <i className="ri-check-line text-cyan-500 mr-1"></i> {inc}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button
+                              onClick={() => {
+                                setModalData({
+                                  title: item.title, desc: item.desc, duration: item.duration, includes: item.includes,
+                                  images: generateGallery(itemImage, galleryType)
+                                });
+                                setCurrentImageIdx(0);
+                              }}
+                              className="w-full py-4 rounded-xl font-title text-xs md:text-sm tracking-widest uppercase transition-all active:scale-95 border border-slate-300 text-slate-600 hover:bg-slate-50 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10">
+                              {lang === 'es' ? 'Ver Detalles' : 'See Details'}
+                            </button>
+                            <a href={`https://wa.me/526131182311?text=Hola, quiero información sobre: ${item.title}`} target="_blank" rel="noopener noreferrer"
+                              className="w-full py-4 rounded-xl font-title text-xs md:text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500">
+                              {content?.ui?.bookNow || 'Reservar'} <i className="ri-whatsapp-line text-lg md:text-xl"></i>
+                            </a>
+                          </div>
+                        </div>
+
+                      </motion.article>
+                    );
+                  })}
+                </div>
+
+                {/* HORARIOS */}
+                {renderSchedule(tabKey)}
+
+              </section>
+            );
+          })}
+
+        </main>
+      </div>
+
+      {/* ========================================================================
+          🎬 MODAL EDITORIAL (Lightbox Responsivo)
+          ======================================================================== */}
+      <AnimatePresence>
+        {modalData && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
+            {/* Overlay Oscuro */}
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
+              className="absolute inset-0 bg-navy/90 dark:bg-black/90 backdrop-blur-md"
+              onClick={() => setModalData(null)}
+            />
+
+            {/* Contenedor Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} transition={{ duration: 0.4, ease: "easeOut" }}
+              className="relative w-full max-w-6xl bg-white dark:bg-dark rounded-[2rem] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh] z-10 border border-slate-200 dark:border-white/10"
+            >
+              {/* Botón Cerrar */}
+              <button onClick={() => setModalData(null)} className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-colors z-50 border border-white/20">
+                <i className="ri-close-line text-2xl"></i>
+              </button>
+
+              {/* IZQUIERDA (Arriba en móvil): Carrusel */}
+              <div className="w-full md:w-1/2 h-[35vh] md:h-auto relative bg-slate-900 group">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentImageIdx}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}
+                    src={modalData.images[currentImageIdx]}
+                    alt={modalData.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </AnimatePresence>
+
+                {modalData.images.length > 1 && (
+                  <>
+                    <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIdx((prev) => (prev === 0 ? modalData.images.length - 1 : prev - 1)); }} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-all hover:bg-cyan-500 pointer-events-auto border border-white/20"><i className="ri-arrow-left-s-line text-xl"></i></button>
+                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIdx((prev) => (prev === modalData.images.length - 1 ? 0 : prev + 1)); }} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-all hover:bg-cyan-500 pointer-events-auto border border-white/20"><i className="ri-arrow-right-s-line text-xl"></i></button>
+                    </div>
+                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+                      {modalData.images.map((_, i) => (
+                        <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentImageIdx ? 'w-6 bg-white shadow-md' : 'w-2 bg-white/50'}`} />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* DERECHA (Abajo en móvil): Info */}
+              <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-10 lg:p-14 flex flex-col overflow-y-auto bg-slate-50 dark:bg-dark no-scrollbar h-[55vh] md:h-auto">
+                <div className="mb-8">
+                  {modalData.duration && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] md:text-xs font-bold uppercase tracking-widest bg-cyan-100 text-cyan-700 border border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-400/20 mb-4">
+                      <i className="ri-time-line"></i> {modalData.duration}
+                    </span>
+                  )}
+                  <h2 className="font-title text-3xl md:text-4xl text-navy dark:text-white leading-tight mb-4">{modalData.title}</h2>
+                  <p className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                    {modalData.desc}
+                  </p>
+                </div>
+
+                <div className="mb-10">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-white/10 pb-3 mb-5">
+                    {content?.ui?.includes || 'QUÉ INCLUYE ESTA EXPERIENCIA'}
                   </h4>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {currentSchedule.rules.map((rule, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm md:text-base font-body font-medium 
-                        text-slate-700 dark:text-slate-200">
-                        <span className="w-2 h-2 rounded-full mt-2 shrink-0 bg-yellow-400 shadow-sm"></span>
-                        {rule}
+                  <ul className="space-y-4">
+                    {modalData.includes.map((inc, i) => (
+                      <li key={i} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-700 dark:text-slate-200">
+                        <div className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 mt-0.5">
+                          <i className="ri-check-line text-cyan-600 dark:text-cyan-400 text-xs"></i>
+                        </div>
+                        {inc}
                       </li>
                     ))}
                   </ul>
                 </div>
 
+                <div className="mt-auto pt-6">
+                  <a href={`https://wa.me/526131182311?text=Hola, quiero reservar: ${modalData.title}`} target="_blank" rel="noopener noreferrer"
+                    className="w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400">
+                    {content?.ui?.bookNow || 'RESERVAR AHORA'} <i className="ri-whatsapp-line text-xl"></i>
+                  </a>
+                </div>
               </div>
             </motion.div>
           </div>
-
-        </div>
-      </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
