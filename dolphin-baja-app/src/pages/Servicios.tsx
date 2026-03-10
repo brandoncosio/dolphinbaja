@@ -84,7 +84,8 @@ export default function Servicios() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const yOffset = -100;
+      // Ajuste de offset para evitar que la Navbar gigante tape el título
+      const yOffset = -150;
       const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -104,7 +105,7 @@ export default function Servicios() {
       let current = 'paquetes';
       for (const sec of sections) {
         const element = document.getElementById(sec);
-        if (element && window.scrollY >= element.offsetTop - 150) {
+        if (element && window.scrollY >= element.offsetTop - 200) {
           current = sec;
         }
       }
@@ -216,105 +217,6 @@ export default function Servicios() {
   ];
 
   // ========================================================================
-  // 🧩 COMPONENTE DE HORARIOS (Reintegrado y Mejorado)
-  // ========================================================================
-  const renderSchedule = (tabKey: TabKey) => {
-    const sched = content.schedules?.[tabKey];
-    if (!sched) return null;
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        className="mt-16 mb-24 max-w-6xl mx-auto w-full"
-      >
-        <div className="rounded-[2rem] md:rounded-[3rem] p-6 sm:p-10 md:p-14 border relative overflow-hidden shadow-xl bg-white/80 backdrop-blur-xl border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <div className="absolute top-0 right-0 w-full h-full -z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-transparent via-transparent to-transparent dark:from-cyan-400/5"></div>
-
-          <div className="relative z-10">
-            <h3 className="font-title text-2xl md:text-3xl mb-8 md:mb-12 flex items-center gap-4 text-navy dark:text-white">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-md bg-yellow-400 text-navy dark:text-dark">
-                <i className="ri-calendar-check-fill text-2xl"></i>
-              </div>
-              {content.schedules?.title || 'Horarios'}
-            </h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10">
-              {/* MAÑANA */}
-              {sched.morning && (
-                <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-cyan-400/50 transition-colors shadow-sm">
-                  <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
-                    <p className="font-title text-sm md:text-base uppercase tracking-widest text-cyan-600 dark:text-cyan-400">
-                      {content.schedules?.morning || 'Mañana'}
-                    </p>
-                    <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">
-                      {sched.morning.season}
-                    </span>
-                  </div>
-                  <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.morning.time}</p>
-                  <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.morning.note}</p>
-                </div>
-              )}
-
-              {/* TARDE */}
-              {sched.afternoon && (
-                <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-yellow-400/50 transition-colors shadow-sm">
-                  <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
-                    <p className="font-title text-sm md:text-base uppercase tracking-widest text-yellow-600 dark:text-yellow-400">
-                      {content.schedules?.afternoon || 'Tarde'}
-                    </p>
-                    <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">
-                      {sched.afternoon.season}
-                    </span>
-                  </div>
-                  <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.afternoon.time}</p>
-                  <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.afternoon.note}</p>
-                </div>
-              )}
-
-              {/* NOCHE */}
-              {sched.night ? (
-                <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-purple-400/50 transition-colors shadow-sm">
-                  <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
-                    <p className="font-title text-sm md:text-base uppercase tracking-widest text-purple-600 dark:text-purple-400">
-                      {content.schedules?.night || 'Noche'}
-                    </p>
-                    <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">
-                      {sched.night.season}
-                    </span>
-                  </div>
-                  <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.night.time}</p>
-                  <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.night.note}</p>
-                </div>
-              ) : (
-                <div className="p-6 md:p-8 rounded-[1.5rem] border flex flex-col justify-center items-center text-center opacity-60 bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10">
-                  <i className="ri-moon-clear-line text-4xl mb-4 text-slate-400"></i>
-                  <p className="text-sm font-body font-medium text-slate-400">{content.schedules?.notAvailable || 'No disponible'}</p>
-                </div>
-              )}
-            </div>
-
-            {/* Reglas e Info Importante */}
-            <div className="border-l-4 rounded-r-2xl p-6 md:p-8 bg-yellow-50/80 border-yellow-400 dark:bg-yellow-400/5 dark:border-yellow-400/30">
-              <h4 className="font-title text-sm md:text-base mb-5 uppercase tracking-widest flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
-                <i className="ri-information-fill text-xl"></i> {content.schedules?.important || 'Información Importante'}
-              </h4>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-                {(sched.rules || []).map((rule: string, idx: number) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm md:text-base font-body font-medium text-slate-700 dark:text-slate-300">
-                    <span className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-yellow-400 shadow-sm"></span> {rule}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    );
-  };
-
-  // ========================================================================
   // 🖥️ RENDER PRINCIPAL
   // ========================================================================
   return (
@@ -324,50 +226,87 @@ export default function Servicios() {
         <meta name="description" content={content?.heroDesc || "Descubre los servicios de buceo en Loreto."} />
       </Helmet>
 
-      <div className="min-h-screen pt-28 md:pt-32 pb-20 selection:bg-cyan-400 selection:text-dark transition-colors duration-500 bg-slate-50 dark:bg-dark">
+      {/* CONTENEDOR MAESTRO DE LA PÁGINA */}
+      <div className="min-h-screen selection:bg-cyan-400 selection:text-dark bg-slate-50 dark:bg-dark transition-colors duration-500 pb-20">
+
         <AnimatePresence>
           {isLoading && <SplashScreen key="splash" />}
         </AnimatePresence>
 
-        {/* Luces Fondo */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 transition-colors duration-500 opacity-40 dark:opacity-60">
-          <div className="absolute top-[10%] left-[10%] w-[50%] h-[50%] bg-cyan-400/20 blur-[150px] rounded-full dark:bg-cyan-500/10" />
-          <div className="fixed bottom-[10%] right-[10%] w-[40%] h-[60%] bg-ocean/20 blur-[150px] rounded-full dark:bg-ocean/10" />
-        </div>
+        {/* ========================================================================
+            🚀 NUEVO HERO DE SERVICIOS (Super espaciado para la Navbar Gigante)
+            ======================================================================== */}
+        {/* 👇 pt-48 y mt-20 aplican un margen fuerte para bajar todo el contenido */}
+        <section className="relative w-full h-[100dvh] min-h-[650px] md:h-[80vh] md:min-h-[750px] overflow-hidden flex flex-col justify-center items-center pt-40 md:pt-48 pb-16">
 
-        {/* Hero Section */}
-        <div className="relative z-10 px-6 md:px-12 max-w-5xl mx-auto mb-12 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="inline-block px-4 py-1.5 rounded-full border text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] drop-shadow-sm mb-6
-              bg-white/80 border-slate-200 text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400">
-              {content?.catalogTitle || 'Catálogo de Servicios'}
-            </span>
-            <h1 className="font-title text-4xl sm:text-5xl md:text-7xl drop-shadow-sm leading-tight text-navy dark:text-white mb-6">
+          {/* Fondo Inmersivo Oceánico */}
+          <div className="absolute inset-0 z-0">
+            <motion.div
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 15, ease: "linear" }}
+              className="w-full h-full"
+              style={{ willChange: "transform" }}
+            >
+              <img
+                src={funDivesImg}
+                alt={`${content?.heroHighlight} - Dolphin Dive Baja`}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="w-full h-full object-cover object-[center_30%] md:object-center"
+              />
+            </motion.div>
+
+            {/* Capa de Contraste */}
+            <div className="absolute inset-0 transition-colors duration-500 bg-navy/40 dark:bg-black/60" />
+
+            {/* Gradiente de Fusión */}
+            <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t transition-colors duration-500 z-10 from-slate-50 via-slate-50/50 to-transparent dark:from-dark dark:via-dark/80 dark:to-transparent" />
+          </div>
+
+          {/* Contenido Textual del Hero */}
+          <div className="relative z-20 text-center px-6 md:px-12 max-w-5xl mx-auto pointer-events-none mt-20 md:mt-28">
+
+            {/* Halo Suave */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-64 w-[90%] md:w-[600px] rounded-full blur-[100px] pointer-events-none transition-colors duration-500 bg-cyan-500/20 dark:bg-cyan-500/10" />
+
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}>
+              <span className="inline-block font-body text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 px-4 py-1.5 md:px-6 md:py-2.5 rounded-full backdrop-blur-xl border transition-all duration-500 shadow-lg pointer-events-auto bg-white/90 border-white/60 text-cyan-700 dark:bg-black/60 dark:border-white/10 dark:text-cyan-400">
+                {content?.catalogTitle || 'Catálogo de Servicios'}
+              </span>
+            </motion.div>
+
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+              className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:mb-6 leading-tight pointer-events-auto transition-colors text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
               {content?.heroTitle} <br className="hidden md:block" />
-              <span className="text-yellow-500 dark:text-yellow-400">{content?.heroHighlight}</span>
-            </h1>
-            <p className="font-body text-base md:text-xl leading-relaxed drop-shadow-sm font-medium text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-              {content?.heroDesc}
-            </p>
-          </motion.div>
+              <span className="text-yellow-400 drop-shadow-md">{content?.heroHighlight}</span>
+            </motion.h1>
 
-          {/* Accesos Rápidos */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="mt-10 flex flex-wrap justify-center gap-3">
-            {categoriesList.map((cat) => (
-              <button key={cat.id} onClick={() => scrollToSection(cat.id)}
-                className="flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-title text-xs md:text-sm tracking-wider uppercase transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 border bg-white text-slate-600 border-slate-200 hover:text-cyan-600 dark:bg-white/5 dark:text-slate-200 dark:border-white/10 dark:hover:text-cyan-400 dark:hover:border-cyan-400/50"
-              >
-                <i className={`${cat.icon} text-base md:text-lg`}></i> {cat.label}
-              </button>
-            ))}
-          </motion.div>
-        </div>
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+              className="font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed pointer-events-auto transition-colors text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              {content?.heroDesc}
+            </motion.p>
+
+            {/* Accesos Rápidos (Botones) */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.8 }}
+              className="mt-10 md:mt-14 flex flex-wrap justify-center gap-3 pointer-events-auto">
+              {categoriesList.map((cat) => (
+                <button key={cat.id} onClick={() => scrollToSection(cat.id)}
+                  className="flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-title text-[11px] md:text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 border bg-white/90 text-navy border-white/50 hover:bg-cyan-50 hover:text-cyan-700 dark:bg-black/40 dark:text-slate-200 dark:border-white/20 dark:hover:text-cyan-400 dark:backdrop-blur-md"
+                >
+                  <i className={`${cat.icon} text-base md:text-lg`}></i> {cat.label}
+                </button>
+              ))}
+            </motion.div>
+          </div>
+        </section>
 
         {/* CATÁLOGO UNIFICADO */}
-        <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 mt-12">
+        <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 mt-12 md:mt-16">
 
           {/* ======================= SECCIÓN PAQUETES ======================= */}
-          <section id="paquetes" className="mb-24 md:mb-32 pt-8 scroll-mt-10">
+          <section id="paquetes" className="mb-24 md:mb-32 scroll-mt-28">
             <div className="text-center mb-10 md:mb-12">
               <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-4">{pkgData.title}</h2>
               <p className="font-body font-bold tracking-widest uppercase text-xs md:text-sm text-cyan-600 dark:text-cyan-400">{pkgData.subtitle}</p>
@@ -410,11 +349,11 @@ export default function Servicios() {
                             });
                             setCurrentImageIdx(0);
                           }}
-                          className="w-full py-3.5 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all active:scale-95 border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10">
+                          className="w-full py-3.5 rounded-xl font-title text-[10px] md:text-xs tracking-widest uppercase transition-all active:scale-95 border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10">
                           Ver Detalles
                         </button>
                         <a href={`https://wa.me/526131182311?text=${encodeURIComponent(`Hola, me interesa el Paquete: ${pkg.name}`)}`} target="_blank" rel="noopener noreferrer"
-                          className="w-full py-3.5 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500">
+                          className="w-full py-3.5 rounded-xl font-title text-[10px] md:text-xs tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500">
                           Reservar <i className="ri-whatsapp-line text-base"></i>
                         </a>
                       </div>
@@ -425,13 +364,13 @@ export default function Servicios() {
             </div>
           </section>
 
-          {/* ======================= SECCIONES INDIVIDUALES (Editorial Zig-Zag) ======================= */}
+          {/* ======================= SECCIONES INDIVIDUALES ======================= */}
           {(['fundives', 'cursos', 'snorkel'] as TabKey[]).map((tabKey) => {
             const sectionTitle = categoriesList.find(c => c.id === tabKey)?.label;
             const servicesList = getServicesForTab(tabKey);
 
             return (
-              <section key={tabKey} id={tabKey} className="pt-10 scroll-mt-10">
+              <section key={tabKey} id={tabKey} className="pt-10 scroll-mt-20">
                 <div className="text-center md:text-left mb-10 md:mb-14 border-b border-slate-200 dark:border-white/10 pb-6">
                   <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{sectionTitle}</h2>
                 </div>
@@ -456,7 +395,7 @@ export default function Servicios() {
                         className={`group flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-slate-200 shadow-xl bg-white dark:bg-white/5 dark:border-white/10 transition-all hover:border-cyan-400/50 hover:shadow-2xl`}
                       >
 
-                        {/* IMAGEN (Arriba en móvil, lateral en Desktop) */}
+                        {/* IMAGEN */}
                         <div className="w-full lg:w-5/12 h-[300px] sm:h-[400px] lg:h-auto relative overflow-hidden shrink-0">
                           <img src={itemImage} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105" />
                           <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent dark:from-dark/60 pointer-events-none" />
@@ -510,7 +449,78 @@ export default function Servicios() {
                 </div>
 
                 {/* HORARIOS */}
-                {renderSchedule(tabKey)}
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} className="mt-16 mb-24 max-w-6xl mx-auto w-full">
+                  {(() => {
+                    const sched = content.schedules?.[tabKey];
+                    if (!sched) return null;
+                    return (
+                      <div className="rounded-[2rem] md:rounded-[3rem] p-6 sm:p-10 md:p-14 border relative overflow-hidden shadow-xl bg-white/80 backdrop-blur-xl border-slate-200 dark:bg-white/5 dark:border-white/10">
+                        <div className="absolute top-0 right-0 w-full h-full -z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-transparent via-transparent to-transparent dark:from-cyan-400/5"></div>
+                        <div className="relative z-10">
+                          <h3 className="font-title text-2xl md:text-3xl mb-8 md:mb-12 flex items-center gap-4 text-navy dark:text-white">
+                            <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-md bg-yellow-400 text-navy dark:text-dark">
+                              <i className="ri-calendar-check-fill text-2xl"></i>
+                            </div>
+                            {content.schedules?.title || 'Horarios'}
+                          </h3>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10">
+                            {/* MAÑANA */}
+                            {sched.morning && (
+                              <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-cyan-400/50 transition-colors shadow-sm">
+                                <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+                                  <p className="font-title text-sm md:text-base uppercase tracking-widest text-cyan-600 dark:text-cyan-400">{content.schedules?.morning || 'Mañana'}</p>
+                                  <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">{sched.morning.season}</span>
+                                </div>
+                                <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.morning.time}</p>
+                                <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.morning.note}</p>
+                              </div>
+                            )}
+                            {/* TARDE */}
+                            {sched.afternoon && (
+                              <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-yellow-400/50 transition-colors shadow-sm">
+                                <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+                                  <p className="font-title text-sm md:text-base uppercase tracking-widest text-yellow-600 dark:text-yellow-400">{content.schedules?.afternoon || 'Tarde'}</p>
+                                  <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">{sched.afternoon.season}</span>
+                                </div>
+                                <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.afternoon.time}</p>
+                                <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.afternoon.note}</p>
+                              </div>
+                            )}
+                            {/* NOCHE */}
+                            {sched.night ? (
+                              <div className="p-6 md:p-8 rounded-[1.5rem] border bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-purple-400/50 transition-colors shadow-sm">
+                                <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+                                  <p className="font-title text-sm md:text-base uppercase tracking-widest text-purple-600 dark:text-purple-400">{content.schedules?.night || 'Noche'}</p>
+                                  <span className="text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wider border bg-white text-slate-600 border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/10">{sched.night.season}</span>
+                                </div>
+                                <p className="text-3xl md:text-4xl font-title mb-3 text-navy dark:text-white">{sched.night.time}</p>
+                                <p className="text-sm font-body font-medium text-slate-500 dark:text-slate-400">{sched.night.note}</p>
+                              </div>
+                            ) : (
+                              <div className="p-6 md:p-8 rounded-[1.5rem] border flex flex-col justify-center items-center text-center opacity-60 bg-slate-50 border-slate-200 dark:bg-white/5 dark:border-white/10">
+                                <i className="ri-moon-clear-line text-4xl mb-4 text-slate-400"></i>
+                                <p className="text-sm font-body font-medium text-slate-400">{content.schedules?.notAvailable || 'No disponible'}</p>
+                              </div>
+                            )}
+                          </div>
+                          {/* Reglas */}
+                          <div className="border-l-4 rounded-r-2xl p-6 md:p-8 bg-yellow-50/80 border-yellow-400 dark:bg-yellow-400/5 dark:border-yellow-400/30">
+                            <h4 className="font-title text-sm md:text-base mb-5 uppercase tracking-widest flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
+                              <i className="ri-information-fill text-xl"></i> {content.schedules?.important || 'Información Importante'}
+                            </h4>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                              {(sched.rules || []).map((rule: string, idx: number) => (
+                                <li key={idx} className="flex items-start gap-3 text-sm md:text-base font-body font-medium text-slate-700 dark:text-slate-300">
+                                  <span className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-yellow-400 shadow-sm"></span> {rule}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </motion.div>
 
               </section>
             );

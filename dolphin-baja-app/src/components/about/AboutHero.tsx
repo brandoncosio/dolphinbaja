@@ -9,76 +9,56 @@ export default function AboutHero() {
   const content = t.aboutPage.hero;
 
   // ========================================================================
-  // 🎨 ESTILOS SEPARADOS (Corrección de Visibilidad de Foto)
+  // 🎨 ESTILOS SEPARADOS (Ajuste Perfecto para la Nueva Navbar)
   // ========================================================================
 
-  // 1. Gradiente de Fusión (Limitado a la parte INFERIOR)
   const gradientOverlayClass = `
     absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t transition-colors duration-500 z-10
-    
-    /* LIGHT MODE: Fusión suave hacia blanco solo abajo */
     from-slate-50 via-slate-50/60 to-transparent
-    
-    /* DARK MODE: Fusión hacia oscuro solo abajo */
     dark:from-dark dark:via-dark/80 dark:to-transparent
   `;
 
-  // 2. Capa de Oscurecimiento General (Muy sutil ahora)
   const imageDimmerClass = `
     absolute inset-0 transition-colors duration-500
-    /* LIGHT: Casi transparente para ver colores vivos */
     bg-white/5
-    /* DARK: Muy sutil, solo para que no deslumbre */
     dark:bg-black/20
   `;
 
-  // 3. Atmósfera detrás del Texto (Reducida y sutil)
+  // Halo suavizado para no competir con el contenido
   const textGlowClass = `
-    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-56 w-80 md:w-[500px] rounded-full blur-[80px] pointer-events-none transition-colors duration-500
-    
-    /* LIGHT: Halo blanco muy suave */
+    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-56 w-80 md:w-[600px] rounded-full blur-[90px] pointer-events-none transition-colors duration-500
     bg-slate-50/40
-    
-    /* DARK: Sombra negra suave detrás del texto (no azul ni gris fuerte) */
-    dark:bg-black/60
+    dark:bg-black/70
   `;
 
-  // 👇 4. Clases de Texto (Contrastados) - AHORA COMO PÍLDORA (BADGE)
   const tagClass = `
-    inline-block font-body text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
-    px-4 py-1.5 md:px-5 md:py-2 rounded-full backdrop-blur-md border transition-all duration-500 shadow-sm pointer-events-auto
-    
-    /* LIGHT MODE: Fondo blanco translúcido para asegurar que se lea sobre la foto */
-    bg-white/80 border-white/60 text-navy
-    
-    /* DARK MODE: Fondo oscuro translúcido con texto cyan para no perder el estilo */
-    dark:bg-black/40 dark:border-white/10 dark:text-cyan-400
+    inline-block font-body text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
+    px-4 py-1.5 md:px-6 md:py-2.5 rounded-full backdrop-blur-xl border transition-all duration-500 shadow-lg pointer-events-auto
+    bg-white/90 border-white/60 text-navy
+    dark:bg-black/60 dark:border-white/10 dark:text-cyan-400
   `;
 
   const titleClass = `
-    font-title text-3xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:mb-6 leading-tight pointer-events-auto transition-colors
-    
-    /* LIGHT: Navy fuerte con sombra para despegarse de la foto sin borrarla */
-    text-navy drop-shadow-[0_2px_10px_rgba(255,255,255,0.5)]
-    
-    /* DARK: Blanco con sombra negra fuerte para leerse sobre la foto limpia */
-    dark:text-white dark:drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)]
+    font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:mb-6 leading-tight pointer-events-auto transition-colors
+    text-navy drop-shadow-[0_2px_15px_rgba(255,255,255,0.8)]
+    dark:text-white dark:drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]
   `;
 
   const descClass = `
-    font-body text-sm sm:text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-md pointer-events-auto transition-colors
+    font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-md pointer-events-auto transition-colors
     text-slate-800 dark:text-slate-100
   `;
 
   return (
-    <section key={lang} className="relative h-[60vh] min-h-[500px] md:min-h-[600px] lg:min-h-[70vh] w-full overflow-hidden flex items-center justify-center pt-20">
+    // 👇 Ajuste principal: pt-32 (espacio de la Navbar) y alturas relativas (min-h-[100dvh] en móvil para ocupar toda la pantalla correctamente)
+    <section key={lang} className="relative h-[85vh] min-h-[550px] md:min-h-[700px] lg:h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center pt-32 pb-16">
 
       {/* =========================================
           FONDO PARALLAX OCEÁNICO
           ========================================= */}
       <div className="absolute inset-0 z-0">
         <motion.div
-          initial={{ scale: 1.05 }}
+          initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 15, ease: "linear" }}
           className="w-full h-full"
@@ -90,34 +70,35 @@ export default function AboutHero() {
             fetchPriority="high"
             loading="eager"
             decoding="async"
-            // Alineación superior para no cortar cabezas en móvil
-            className="w-full h-full object-cover object-[center_top] md:object-center"
+            // object-[center_20%] para que en móvil se vean las caras, no el cielo
+            className="w-full h-full object-cover object-[center_20%] md:object-center"
           />
         </motion.div>
 
-        {/* Capa de contraste general (Muy limpia) */}
+        {/* Capa de contraste */}
         <div className={imageDimmerClass} />
 
-        {/* Gradiente de fusión (Solo abajo) */}
+        {/* Gradiente de base */}
         <div className={gradientOverlayClass} />
       </div>
 
       {/* =========================================
-          CONTENIDO TEXTUAL
+          CONTENIDO TEXTUAL (Centrado y desplazado hacia abajo)
           ========================================= */}
-      <div className="relative z-20 text-center px-4 md:px-6 max-w-4xl mx-auto -mt-12 md:-mt-16 pointer-events-none">
+      <div className="relative z-20 text-center px-6 md:px-12 max-w-5xl mx-auto mt-8 md:mt-16 pointer-events-none">
 
         {/* Halo suave detrás del texto */}
         <div className={textGlowClass} />
 
-        <motion.span
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-          className={tagClass}
         >
-          {content.tag}
-        </motion.span>
+          <span className={tagClass}>
+            {content.tag}
+          </span>
+        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

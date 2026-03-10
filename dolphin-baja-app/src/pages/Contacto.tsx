@@ -11,6 +11,9 @@ export default function Contacto() {
     const [isLoading, setIsLoading] = useState(true);
     const { t, lang } = useLanguage();
 
+    // Estado para el Acordeón de FAQ
+    const [openFaq, setOpenFaq] = useState<number | null>(0);
+
     useEffect(() => {
         const hasLoaded = sessionStorage.getItem('hasLoadedContact');
         if (hasLoaded) {
@@ -19,20 +22,30 @@ export default function Contacto() {
             const timer = setTimeout(() => {
                 setIsLoading(false);
                 sessionStorage.setItem('hasLoadedContact', 'true');
-            }, 1500);
+            }, 1000);
             return () => clearTimeout(timer);
         }
     }, []);
 
+    // Función para navegación suave respetando la Navbar Gigante
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            // Offset grande para respetar la Navbar gigante
+            const yOffset = -150;
+            const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+    };
+
+    // Actualizamos el useEffect del Hash
     useEffect(() => {
-        if (window.location.hash) {
-            const elem = document.getElementById(window.location.hash.substring(1));
-            if (elem) {
-                setTimeout(() => {
-                    elem.scrollIntoView({ behavior: 'smooth' });
-                }, 500);
-            }
-        } else {
+        if (window.location.hash && !isLoading) {
+            const hash = window.location.hash.substring(1);
+            setTimeout(() => {
+                scrollToSection(hash);
+            }, 300);
+        } else if (!isLoading) {
             window.scrollTo(0, 0);
         }
     }, [isLoading]);
@@ -41,91 +54,31 @@ export default function Contacto() {
     const whatsappLink = `https://wa.me/526131182311?text=${encodeURIComponent(whatsappMessage)}`;
 
     // ========================================================================
-    // 🎨 ESTILOS SEPARADOS (Clean Code & Matte Fixes)
+    // 🎨 ESTILOS PREMIUM
     // ========================================================================
-
-    // 1. Contenedor Principal
     const pageContainerClass = `
-    relative min-h-screen pb-20 selection:bg-cyan-400 selection:text-dark overflow-hidden transition-colors duration-500
-    bg-slate-50 text-slate-600
-    dark:bg-dark dark:text-white
-  `;
+        relative min-h-screen pb-20 selection:bg-cyan-400 selection:text-dark overflow-hidden transition-colors duration-500
+        bg-slate-50 text-slate-600
+        dark:bg-dark dark:text-white
+    `;
 
-    // 2. Luces de Fondo (Atmósfera Sutil)
-    const atmosphereClass = `
-    absolute inset-0 pointer-events-none overflow-hidden z-0 transition-opacity duration-500
-    /* LIGHT */
-    opacity-30
-    /* DARK (Más tenues para no competir) */
-    dark:opacity-40
-  `;
-
-    // 3. Tarjeta WhatsApp (Destacada)
     const whatsAppCardClass = `
-    md:col-span-2 lg:col-span-1 border p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] flex flex-col justify-center items-center text-center relative overflow-hidden group transition-all duration-500
-    
-    /* LIGHT MODE: Blanca, borde verde suave, sombra verde difusa */
-    bg-white border-green-100 shadow-xl shadow-green-100/50
-    
-    /* DARK MODE: Matte Glass (Sin neón), borde sutil */
-    dark:bg-white/5 dark:backdrop-blur-2xl dark:border-white/10 dark:shadow-none
-  `;
+        md:col-span-2 lg:col-span-1 border p-10 md:p-14 rounded-[2.5rem] flex flex-col justify-center items-center text-center relative overflow-hidden group transition-all duration-500 shadow-xl hover:-translate-y-2
+        bg-white/80 backdrop-blur-xl border-green-200 hover:shadow-green-200/50 hover:border-green-400
+        dark:bg-white/5 dark:border-white/10 dark:shadow-none dark:hover:border-green-500/50
+    `;
 
-    // 4. Tarjetas Secundarias (Email/Ubicación)
     const secondaryCardClass = `
-    border p-8 rounded-[2rem] flex flex-col items-start transition-all duration-300 group shadow-lg
-    
-    /* LIGHT MODE */
-    bg-white border-slate-200 shadow-slate-200/50 hover:border-cyan-400 hover:shadow-cyan-100
-    
-    /* DARK MODE */
-    dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
-  `;
+        border p-8 md:p-10 rounded-[2rem] flex flex-col items-start transition-all duration-500 group shadow-lg hover:-translate-y-1 hover:shadow-xl
+        bg-white/80 backdrop-blur-xl border-slate-200 hover:border-cyan-400
+        dark:bg-white/5 dark:border-white/10 dark:shadow-none dark:hover:border-cyan-400/50
+    `;
 
-    // 5. Iconos Secundarios (Círculos)
     const iconBoxClass = `
-    w-14 h-14 rounded-2xl border flex items-center justify-center mb-6 transition-colors duration-300
-    
-    /* LIGHT */
-    bg-slate-50 border-slate-200 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white group-hover:border-cyan-600
-    
-    /* DARK */
-    dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 dark:group-hover:bg-cyan-400 dark:group-hover:text-dark
-  `;
-
-    // 6. Tarjetas FAQ
-    const faqCardClass = `
-    border p-6 md:p-8 rounded-[2rem] transition-all duration-300 shadow-md
-    
-    /* LIGHT */
-    bg-white border-slate-200 hover:border-cyan-400 hover:shadow-lg
-    
-    /* DARK */
-    dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10 dark:shadow-none dark:hover:border-white/20
-  `;
-
-    // 7. Contenedor Mapa
-    const mapContainerClass = `
-    w-full h-[400px] md:h-[500px] rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border relative group transition-all duration-500
-    
-    /* LIGHT */
-    bg-white border-slate-200 shadow-xl shadow-slate-200/50
-    
-    /* DARK */
-    dark:bg-white/5 dark:border-white/10 dark:shadow-none
-  `;
-
-    // 👇 8. Etiqueta Hero (Badge Cristal)
-    const heroTagClass = `
-    inline-block font-body text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
-    px-4 py-1.5 md:px-5 md:py-2 rounded-full backdrop-blur-md border transition-all duration-500 shadow-sm pointer-events-auto
-    
-    /* LIGHT MODE: Fondo blanco translúcido */
-    bg-white/80 border-white/60 text-navy
-    
-    /* DARK MODE: Fondo oscuro translúcido con texto cyan */
-    dark:bg-black/40 dark:border-white/10 dark:text-cyan-400
-  `;
+        w-14 h-14 rounded-2xl border flex items-center justify-center mb-6 transition-all duration-500
+        bg-slate-50 border-slate-200 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white group-hover:shadow-md
+        dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 dark:group-hover:bg-cyan-400 dark:group-hover:text-dark
+    `;
 
     return (
         <div key={lang}>
@@ -136,9 +89,6 @@ export default function Contacto() {
                         : 'Contact & Location | Dolphin Dive Baja Loreto'}
                 </title>
                 <meta name="description" content={t.contact.hero.text} />
-                <meta property="og:title" content="Contacto - Dolphin Dive Baja" />
-                <meta property="og:description" content={t.contact.hero.text} />
-                <meta property="og:image" content={contactBg} />
             </Helmet>
 
             <AnimatePresence>
@@ -147,252 +97,205 @@ export default function Contacto() {
 
             <main className={pageContainerClass}>
 
-                {/* LUCES DE FONDO (Atmosfera) */}
-                <div className={atmosphereClass} style={{ willChange: 'transform' }}>
-                    <div className="absolute top-[10%] left-[-10%] w-[60%] h-[50%] rounded-full blur-[150px] transition-colors duration-500
-            dark:bg-cyan-500/10 bg-cyan-400/10"
-                    />
-                    <div className="absolute top-[40%] right-[-10%] w-[50%] h-[60%] rounded-full blur-[150px] transition-colors duration-500
-            dark:bg-ocean/10 bg-blue-400/10"
-                    />
+                {/* Luces de Fondo */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 transition-opacity duration-500 opacity-40 dark:opacity-60">
+                    <div className="absolute top-[10%] left-[-10%] w-[60%] h-[50%] rounded-full blur-[150px] transition-colors duration-500 bg-cyan-400/20 dark:bg-cyan-500/10" />
+                    <div className="absolute top-[40%] right-[-10%] w-[50%] h-[60%] rounded-full blur-[150px] transition-colors duration-500 bg-blue-400/20 dark:bg-ocean/10" />
                 </div>
 
                 {/* =========================================
-            HERO DE CONTACTO
-        ========================================= */}
-                <section className="relative min-h-[600px] md:min-h-[650px] flex items-center justify-center overflow-hidden pt-24">
+                    🚀 HERO DE CONTACTO
+                ========================================= */}
+                {/* SOLUCIÓN: pt-56 lg:pt-64 para despegar la píldora. pb-48 lg:pb-56 para proteger el texto de las tarjetas */}
+                <section className="relative w-full min-h-[100dvh] md:min-h-[85vh] lg:min-h-[850px] flex flex-col items-center justify-center overflow-hidden pt-56 lg:pt-64 pb-48 lg:pb-56">
                     <div className="absolute inset-0 z-0">
-                        <img
+                        <motion.img
+                            initial={{ scale: 1.1 }} animate={{ scale: 1 }} transition={{ duration: 15, ease: "linear" }}
                             src={contactBg}
                             alt="Contacto Dolphin Dive"
                             fetchPriority="high"
                             decoding="async"
-                            className="w-full h-full object-cover object-center transition-transform duration-[5s] ease-out hover:scale-105"
-                            style={{ willChange: 'transform' }}
+                            className="w-full h-full object-cover object-[center_30%] md:object-center"
                         />
-                        {/* Gradiente Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t transition-colors duration-500
-              dark:from-dark dark:via-dark/40 dark:to-dark/10
-              from-slate-50 via-slate-50/40 to-slate-50/10"
-                        />
+                        <div className="absolute inset-0 bg-navy/40 dark:bg-black/50 transition-colors duration-500" />
+                        <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-slate-50 via-slate-50/40 to-transparent dark:from-dark dark:via-dark/60 dark:to-transparent transition-colors duration-500" />
                     </div>
 
-                    <div className="relative z-10 text-center px-4 md:px-6 max-w-4xl mx-auto pb-32 md:pb-40 pointer-events-none">
+                    {/* Contenedor del Texto */}
+                    <div className="relative z-10 text-center px-6 md:px-12 max-w-4xl mx-auto pointer-events-none">
 
-                        {/* 👇 Se aplica la clase de Etiqueta/Píldora */}
-                        <motion.span
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className={heroTagClass}
-                        >
-                            {t.contact.hero.subtitle}
-                        </motion.span>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-64 w-[90%] md:w-[600px] rounded-full blur-[100px] pointer-events-none transition-colors duration-500 bg-cyan-500/20 dark:bg-cyan-500/10" />
 
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 drop-shadow-md leading-tight
-                text-navy dark:text-white"
-                        >
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                            <span className="inline-block font-body text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 px-5 py-2 md:px-6 md:py-2.5 rounded-full backdrop-blur-xl border transition-all duration-500 shadow-lg pointer-events-auto bg-white/90 border-white/60 text-cyan-700 dark:bg-black/60 dark:border-white/10 dark:text-cyan-400">
+                                {t.contact.hero.subtitle}
+                            </span>
+                        </motion.div>
+
+                        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+                            className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 md:mb-8 drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] leading-tight text-white">
                             {t.contact.hero.titleStart} <br className="hidden md:block" />
-                            <span className="text-yellow-500 dark:text-yellow-400">{t.contact.hero.titleHighlight}</span>
+                            <span className="text-yellow-400 drop-shadow-md">{t.contact.hero.titleHighlight}</span>
                         </motion.h1>
 
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.4 }}
-                            className="font-body text-base md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-sm px-4 font-medium
-                text-slate-700 dark:text-slate-100"
-                        >
+                        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
+                            className="font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] text-slate-100">
                             {t.contact.hero.text}
                         </motion.p>
                     </div>
                 </section>
 
                 {/* =========================================
-            GRID DE CONTACTO
-        ========================================= */}
-                <section className="px-6 md:px-20 -mt-24 md:-mt-32 relative z-20">
-                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    GRID DE CONTACTO (Tarjetas superpuestas)
+                ========================================= */}
+                {/* SOLUCIÓN: -mt-24 md:-mt-36 sube las tarjetas, pero respeta el pb-48 del Hero, evitando solapamiento */}
+                <section className="px-6 md:px-12 max-w-7xl mx-auto -mt-24 md:-mt-36 relative z-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 
-                        {/* Tarjeta 1: WhatsApp (Gigante) */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className={whatsAppCardClass}
-                            style={{ willChange: 'transform' }}
+                        {/* Tarjeta 1: WhatsApp */}
+                        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+                            className={`${whatsAppCardClass} lg:col-span-1 md:col-span-2`}
                         >
-                            {/* Luz interna (Solo visible en Light o muy sutil en Dark) */}
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] transition-opacity duration-500
-                from-green-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100
-                dark:from-green-400/5"
-                            />
-
-                            <div className="relative z-10 w-24 h-24 rounded-full flex items-center justify-center mb-8 shadow-lg animate-bounce-slow
-                bg-gradient-to-br from-green-400 to-green-600
-                dark:shadow-none">
+                            <div className="relative z-10 w-24 h-24 rounded-full flex items-center justify-center mb-8 shadow-xl animate-pulse bg-gradient-to-br from-green-400 to-green-600 dark:shadow-green-500/20">
                                 <i className="ri-whatsapp-line text-5xl text-white"></i>
                             </div>
-                            <h3 className="relative z-10 font-title text-3xl md:text-4xl mb-4 drop-shadow-md leading-tight text-navy dark:text-white">
+                            <h3 className="relative z-10 font-title text-3xl md:text-4xl mb-4 text-navy dark:text-white leading-tight">
                                 {t.contact.cards.whatsapp.title}
                             </h3>
-                            <p className="relative z-10 font-body text-base md:text-lg mb-10 leading-relaxed max-w-sm text-slate-600 dark:text-slate-300">
+                            <p className="relative z-10 font-body text-sm md:text-base mb-10 leading-relaxed font-medium text-slate-600 dark:text-slate-300">
                                 {t.contact.cards.whatsapp.text}
                             </p>
-                            <a
-                                href={whatsappLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="relative z-10 w-full md:w-auto px-10 py-4 md:py-5 font-title text-sm md:text-base tracking-widest uppercase rounded-2xl transition-all flex items-center justify-center gap-3 hover:-translate-y-1 active:scale-95 shadow-md
-                bg-green-500 hover:bg-green-400 text-white hover:shadow-green-200/50
-                dark:bg-green-600 dark:hover:bg-green-500 dark:shadow-none"
-                            >
+                            <a href={whatsappLink} target="_blank" rel="noopener noreferrer"
+                                className="relative z-10 w-full px-8 py-4 font-title text-xs md:text-sm tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-95 bg-green-500 hover:bg-green-400 text-white dark:bg-green-600 dark:hover:bg-green-500">
                                 <i className="ri-chat-1-line text-xl"></i> {t.contact.cards.whatsapp.btn}
                             </a>
                         </motion.div>
 
-                        {/* Columna Derecha: Tarjetas Secundarias */}
-                        <div className="md:col-span-2 lg:col-span-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8">
-
-                            {/* Tarjeta: Email */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2 }}
-                                className={secondaryCardClass}
-                            >
-                                <div className={`${iconBoxClass} group-hover:bg-yellow-400 group-hover:text-dark group-hover:border-yellow-400 text-yellow-500 border-yellow-200 dark:text-yellow-400 dark:border-white/20`}>
-                                    <i className="ri-mail-send-fill text-2xl"></i>
-                                </div>
-                                <h3 className="font-title text-xl md:text-2xl mb-2 text-navy dark:text-white">{t.contact.cards.email.title}</h3>
-                                <p className="font-body text-sm mb-6 flex-grow leading-relaxed text-slate-600 dark:text-slate-300">
-                                    {t.contact.cards.email.text}
-                                </p>
-                                <a href="mailto:ventas@dolphindivebaja.com" className="inline-flex items-center gap-2 font-title text-sm tracking-widest uppercase transition-colors text-yellow-600 hover:text-yellow-500 dark:text-yellow-400 dark:hover:text-yellow-300">
-                                    {t.contact.cards.email.link} <i className="ri-arrow-right-line group-hover:translate-x-1 transition-transform"></i>
-                                </a>
-                            </motion.div>
-
-                            {/* Tarjeta: Ubicación */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.3 }}
-                                className={secondaryCardClass}
-                            >
-                                <div className={iconBoxClass}>
-                                    <i className="ri-map-pin-2-fill text-2xl"></i>
-                                </div>
-                                <h3 className="font-title text-xl md:text-2xl mb-2 text-navy dark:text-white">{t.contact.cards.visit.title}</h3>
-                                <p className="font-body text-sm mb-6 flex-grow leading-relaxed text-slate-600 dark:text-slate-300">
-                                    {t.contact.cards.visit.text}
-                                </p>
-                                <a href="#ubicacion" className="inline-flex items-center gap-2 font-title text-sm tracking-widest uppercase transition-colors text-cyan-600 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300">
-                                    {t.contact.cards.visit.link} <i className="ri-arrow-down-line group-hover:translate-y-1 transition-transform"></i>
-                                </a>
-                            </motion.div>
-
-                        </div>
-                    </div>
-                </section>
-
-                {/* =========================================
-            MAPA INTERACTIVO
-        ========================================= */}
-                <section id="ubicacion" className="py-24 px-6 md:px-20 scroll-mt-24 relative z-10">
-                    <div className="max-w-5xl mx-auto">
-                        <div className="text-center mb-12">
-                            <h2 className="font-title text-3xl md:text-5xl drop-shadow-md text-navy dark:text-white">{t.contact.map.title}</h2>
-                            <p className="font-body mt-3 font-bold tracking-wider uppercase text-sm text-cyan-600 dark:text-cyan-400">{t.contact.map.text}</p>
-                        </div>
-
-                        <div className={mapContainerClass}>
-                            <div className="absolute inset-0 pointer-events-none transition-colors duration-700 z-10
-                bg-transparent
-                dark:bg-cyan-900/10 dark:mix-blend-overlay dark:group-hover:bg-transparent"
-                            />
-
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3550.0461877665766!2d-111.34327712437648!3d26.014529077189196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86b031d2b775dc29%3A0xc6c429ff100d8697!2sDolphin%20Dive%20Baja!5e0!3m2!1ses-419!2smx!4v1709240837580!5m2!1ses-419!2smx"
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0 }}
-                                allowFullScreen={true}
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                title="Ubicación Dolphin Dive Baja"
-                                className="w-full h-full transition-all duration-[1.5s]
-                  grayscale-0 invert-0 contrast-100
-                  dark:grayscale-[80%] dark:invert-[90%] dark:hue-rotate-180deg dark:contrast-[85%] dark:group-hover:grayscale-[20%] dark:group-hover:invert-0 dark:group-hover:filter-none"
-                            ></iframe>
-
-                            {/* Info Flotante */}
-                            <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 p-6 rounded-3xl shadow-2xl max-w-[280px] hidden md:block z-20 backdrop-blur-xl border
-                bg-white/95 border-slate-200
-                dark:bg-dark/80 dark:border-white/20">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <i className="ri-anchor-fill text-xl text-yellow-500 dark:text-yellow-400"></i>
-                                    <p className="font-bold font-title text-lg text-navy dark:text-yellow-400">Dolphin Dive Baja</p>
-                                </div>
-                                <p className="text-sm font-body mt-2 leading-relaxed text-slate-600 dark:text-slate-200">
-                                    Calle Madero y Benito Juárez, Centro, 23880 Loreto, B.C.S.
-                                </p>
+                        {/* Tarjeta 2: Email */}
+                        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+                            className={secondaryCardClass}
+                        >
+                            <div className={`${iconBoxClass} text-yellow-600 border-yellow-200 group-hover:bg-yellow-400 group-hover:border-yellow-400 group-hover:text-navy dark:text-yellow-400 dark:border-white/20`}>
+                                <i className="ri-mail-send-fill text-2xl"></i>
                             </div>
+                            <h3 className="font-title text-2xl md:text-3xl mb-3 text-navy dark:text-white">{t.contact.cards.email.title}</h3>
+                            <p className="font-body text-sm font-medium mb-8 flex-grow leading-relaxed text-slate-600 dark:text-slate-300">
+                                {t.contact.cards.email.text}
+                            </p>
+                            <a href="mailto:ventas@dolphindivebaja.com" className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all border border-slate-300 text-slate-600 hover:bg-slate-50 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10 active:scale-95">
+                                {t.contact.cards.email.link} <i className="ri-arrow-right-line text-base"></i>
+                            </a>
+                        </motion.div>
+
+                        {/* Tarjeta 3: Ubicación */}
+                        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+                            className={secondaryCardClass}
+                        >
+                            <div className={iconBoxClass}>
+                                <i className="ri-map-pin-2-fill text-2xl"></i>
+                            </div>
+                            <h3 className="font-title text-2xl md:text-3xl mb-3 text-navy dark:text-white">{t.contact.cards.visit.title}</h3>
+                            <p className="font-body text-sm font-medium mb-8 flex-grow leading-relaxed text-slate-600 dark:text-slate-300">
+                                {t.contact.cards.visit.text}
+                            </p>
+                            <button onClick={() => scrollToSection('ubicacion')} className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all border border-cyan-300 text-cyan-700 hover:bg-cyan-50 hover:border-cyan-400 dark:border-cyan-400/30 dark:text-cyan-400 dark:hover:bg-cyan-400/10 active:scale-95">
+                                {t.contact.cards.visit.link} <i className="ri-map-2-line text-base"></i>
+                            </button>
+                        </motion.div>
+
+                    </div>
+                </section>
+
+                {/* =========================================
+                    MAPA INTERACTIVO
+                ========================================= */}
+                <section id="ubicacion" className="py-24 px-5 md:px-12 max-w-7xl mx-auto scroll-mt-20 relative z-10">
+                    <div className="text-center md:text-left mb-10 md:mb-12 border-b border-slate-200 dark:border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div>
+                            <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white drop-shadow-sm">{t.contact.map.title}</h2>
+                            <p className="font-body font-bold tracking-widest uppercase text-xs md:text-sm mt-3 text-cyan-600 dark:text-cyan-400">{t.contact.map.text}</p>
+                        </div>
+                    </div>
+
+                    <div className="w-full h-[450px] md:h-[600px] rounded-[2rem] md:rounded-[3rem] overflow-hidden border relative group transition-all duration-500 bg-white border-slate-200 shadow-2xl dark:bg-white/5 dark:border-white/10 dark:shadow-none">
+
+                        <div className="absolute inset-0 pointer-events-none transition-colors duration-700 z-10 bg-transparent dark:bg-cyan-900/10 dark:mix-blend-overlay dark:group-hover:bg-transparent" />
+
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3550.0461877665766!2d-111.34327712437648!3d26.014529077189196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86b031d2b775dc29%3A0xc6c429ff100d8697!2sDolphin%20Dive%20Baja!5e0!3m2!1ses-419!2smx!4v1709240837580!5m2!1ses-419!2smx"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen={true}
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Ubicación Dolphin Dive Baja"
+                            className="w-full h-full transition-all duration-[1.5s] grayscale-0 invert-0 contrast-100 dark:grayscale-[80%] dark:invert-[90%] dark:hue-rotate-180deg dark:contrast-[85%] dark:group-hover:grayscale-[20%] dark:group-hover:invert-0 dark:group-hover:filter-none"
+                        ></iframe>
+
+                        <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 p-6 md:p-8 rounded-3xl shadow-2xl max-w-[300px] z-20 backdrop-blur-2xl border bg-white/95 border-slate-200 dark:bg-dark/90 dark:border-white/20 hidden md:block">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="w-10 h-10 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0">
+                                    <i className="ri-anchor-fill text-xl text-cyan-600 dark:text-cyan-400"></i>
+                                </div>
+                                <p className="font-bold font-title text-xl text-navy dark:text-white leading-tight">Dolphin Dive <br />Baja</p>
+                            </div>
+                            <p className="text-sm font-body font-medium mt-3 leading-relaxed text-slate-600 dark:text-slate-300">
+                                Calle Madero y Benito Juárez, Centro, 23880 Loreto, B.C.S.
+                            </p>
                         </div>
                     </div>
                 </section>
+
                 <VisitorGuide />
+
                 {/* =========================================
-            FAQ
-        ========================================= */}
-                <section id="faq" className="py-20 px-6 md:px-20 scroll-mt-24 relative z-10 border-t border-slate-200 dark:border-white/10">
+                    FAQ (Acordeón)
+                ========================================= */}
+                <section id="faq" className="py-24 px-6 md:px-12 scroll-mt-20 relative z-10 border-t border-slate-200 dark:border-white/10 bg-white/50 dark:bg-transparent">
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-16">
-                            <span className="font-bold text-xs md:text-sm uppercase tracking-[0.3em] drop-shadow-md text-cyan-600 dark:text-cyan-400">{t.contact.faq.subtitle}</span>
-                            <h2 className="font-title text-3xl md:text-5xl mt-4 drop-shadow-sm text-navy dark:text-white">{t.contact.faq.title}</h2>
+                            <span className="inline-block px-4 py-1.5 rounded-full border text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] mb-4 bg-white border-slate-200 text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400">
+                                {t.contact.faq.subtitle}
+                            </span>
+                            <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{t.contact.faq.title}</h2>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                        <div className="flex flex-col gap-4">
                             {t.contact.faq.list.map((faq, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1, duration: 0.5 }}
-                                    className={faqCardClass}
-                                    style={{ willChange: 'transform' }}
+                                <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
+                                    className={`border rounded-2xl overflow-hidden transition-all duration-300 ${openFaq === idx ? 'bg-white shadow-lg border-cyan-300 dark:bg-white/10 dark:border-cyan-500/50' : 'bg-white/50 border-slate-200 hover:border-cyan-400 dark:bg-white/5 dark:border-white/10 hover:dark:border-white/30'}`}
                                 >
-                                    <h4 className="font-title text-lg md:text-xl mb-4 flex items-start gap-3 leading-snug
-                    text-navy
-                    dark:text-yellow-400">
-                                        <i className="ri-questionnaire-line mt-1 opacity-80 text-2xl text-cyan-600 dark:text-cyan-400"></i>
-                                        {faq.q}
-                                    </h4>
-                                    <p className="font-body text-sm md:text-base leading-relaxed pl-9
-                    text-slate-600
-                    dark:text-slate-200">
-                                        {faq.a}
-                                    </p>
+                                    <button
+                                        onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                                        className="w-full p-6 md:p-8 flex items-center justify-between gap-4 text-left cursor-pointer"
+                                    >
+                                        <h4 className="font-title text-lg md:text-xl text-navy dark:text-white pr-4">{faq.q}</h4>
+                                        <div className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center transition-all duration-300 ${openFaq === idx ? 'bg-cyan-500 text-white rotate-180' : 'bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-400'}`}>
+                                            <i className="ri-arrow-down-s-line text-xl"></i>
+                                        </div>
+                                    </button>
+
+                                    <AnimatePresence>
+                                        {openFaq === idx && (
+                                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}
+                                                className="px-6 md:px-8 pb-6 md:pb-8"
+                                            >
+                                                <div className="h-[1px] w-full bg-slate-100 dark:bg-white/10 mb-6"></div>
+                                                <p className="font-body text-sm md:text-base font-medium leading-relaxed text-slate-600 dark:text-slate-300">
+                                                    {faq.a}
+                                                </p>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </motion.div>
                             ))}
                         </div>
 
-                        <div className="mt-20 text-center">
-                            <p className="font-body font-medium mb-6 text-slate-600 dark:text-slate-200">{t.contact.faq.more}</p>
-                            <a
-                                href={whatsappLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-3 text-white font-title text-sm tracking-widest uppercase px-8 py-4 rounded-xl font-bold transition-all duration-300 active:scale-95 shadow-md
-                bg-cyan-600 hover:bg-cyan-500 hover:shadow-cyan-200/50
-                dark:bg-cyan-500 dark:text-dark dark:hover:bg-cyan-400 dark:shadow-none"
+                        <div className="mt-16 pt-10 text-center border-t border-slate-200 dark:border-white/10">
+                            <p className="font-body text-sm font-medium mb-6 text-slate-500 dark:text-slate-400">{t.contact.faq.more}</p>
+                            <a href={whatsappLink} target="_blank" rel="noopener noreferrer"
+                                className="inline-flex items-center gap-3 text-navy font-title text-sm tracking-widest uppercase px-8 py-4 rounded-xl transition-all duration-300 active:scale-95 shadow-md bg-yellow-400 hover:bg-yellow-300 dark:bg-yellow-400 dark:text-dark dark:hover:bg-yellow-300"
                             >
                                 {t.contact.faq.link} <i className="ri-whatsapp-line text-2xl"></i>
                             </a>

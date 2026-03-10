@@ -129,21 +129,23 @@ export default function GalleryPage() {
 
     const [filter, setFilter] = useState('all');
     const [visibleCount, setVisibleItems] = useState(12);
-
-    // 👇 CAMBIO CLAVE: En lugar del item completo, guardamos el ÍNDICE actual
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
     const texts = {
         es: {
-            title: "Explora el Océano",
-            desc: "Sumérgete en nuestra galería y descubre por qué el Mar de Cortés es conocido como el Acuario del Mundo.",
+            tag: "Nuestra Colección Visual",
+            titleStart: "Explora el",
+            titleHighlight: "Océano",
+            desc: "Sumérgete en nuestra galería y descubre por qué el Mar de Cortés es conocido como el Acuario del Mundo. Conoce nuestros sitios, vida marina y al equipo que te guiará.",
             filters: { all: "Todos", marine: "Vida Marina", action: "Buceo", team: "Equipo", video: "Videos" },
             loadMore: "Cargar más aventuras",
             noMore: "Has visto toda la galería"
         },
         en: {
-            title: "Explore the Ocean",
-            desc: "Dive into our gallery and discover why the Sea of Cortez is known as the Aquarium of the World.",
+            tag: "Our Visual Collection",
+            titleStart: "Explore the",
+            titleHighlight: "Ocean",
+            desc: "Dive into our gallery and discover why the Sea of Cortez is known as the Aquarium of the World. Meet our sites, marine life, and the team that will guide you.",
             filters: { all: "All", marine: "Marine Life", action: "Diving", team: "Team", video: "Videos" },
             loadMore: "Load more adventures",
             noMore: "You've seen the whole gallery"
@@ -153,6 +155,7 @@ export default function GalleryPage() {
     const currentLang = (lang === 'en' || lang === 'es') ? lang : 'es';
     const pageTexts = texts[currentLang];
 
+    // Carga inicial
     useEffect(() => {
         const timer = setTimeout(() => setIsLoading(false), 1200);
         return () => clearTimeout(timer);
@@ -176,13 +179,13 @@ export default function GalleryPage() {
     const currentGallery = filteredMedia.slice(0, visibleCount);
 
     // ========================================================================
-    // 🎛️ FUNCIONES DE NAVEGACIÓN (Anterior / Siguiente)
+    // 🎛️ FUNCIONES DE NAVEGACIÓN (Lightbox)
     // ========================================================================
     const handlePrev = useCallback((e?: React.MouseEvent) => {
         if (e) e.stopPropagation();
         setSelectedIndex((prev) => {
             if (prev === null) return null;
-            return prev === 0 ? currentGallery.length - 1 : prev - 1; // Bucle infinito
+            return prev === 0 ? currentGallery.length - 1 : prev - 1;
         });
     }, [currentGallery.length]);
 
@@ -190,7 +193,7 @@ export default function GalleryPage() {
         if (e) e.stopPropagation();
         setSelectedIndex((prev) => {
             if (prev === null) return null;
-            return prev === currentGallery.length - 1 ? 0 : prev + 1; // Bucle infinito
+            return prev === currentGallery.length - 1 ? 0 : prev + 1;
         });
     }, [currentGallery.length]);
 
@@ -207,29 +210,32 @@ export default function GalleryPage() {
     }, [selectedIndex, handlePrev, handleNext]);
 
 
+    // ========================================================================
+    // 🎨 ESTILOS PREMIUM
+    // ========================================================================
+    // 👇 pt-56 lg:pt-64 para despegar completamente el contenido de la Navbar Gigante
     const pageContainerClass = `
-    relative min-h-screen pt-32 pb-24 px-4 sm:px-6 md:px-12 xl:px-20 overflow-hidden transition-colors duration-500
-    bg-slate-50 text-slate-600
-    dark:bg-dark dark:text-slate-200
-  `;
+        relative min-h-screen pt-56 lg:pt-64 pb-24 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500
+        bg-slate-50 text-slate-600
+        dark:bg-dark dark:text-slate-200
+    `;
 
     const getFilterBtnClass = (cat: string) => `
-    px-5 py-2 rounded-full font-title text-xs md:text-sm tracking-widest uppercase transition-all duration-300 shadow-sm border
-    ${filter === cat
-            ? 'bg-cyan-500 text-white border-cyan-500 dark:bg-cyan-400 dark:text-dark'
-            : 'bg-white border-slate-200 text-slate-500 hover:border-cyan-400 hover:text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-300 dark:hover:border-white/30 dark:hover:text-white'}
-  `;
+        px-6 py-2.5 md:py-3 rounded-full font-title text-[11px] md:text-xs tracking-widest uppercase transition-all duration-300 shadow-sm border backdrop-blur-md
+        ${filter === cat
+            ? 'bg-cyan-600 text-white border-cyan-600 shadow-md dark:bg-cyan-500 dark:text-navy dark:border-cyan-500'
+            : 'bg-white/80 border-slate-200 text-slate-600 hover:bg-white hover:text-cyan-600 hover:shadow-md dark:bg-white/5 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-cyan-400'}
+    `;
 
     const gridContainerClass = `
-        grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] sm:auto-rows-[200px] md:auto-rows-[250px] gap-3 md:gap-4 lg:gap-5 grid-flow-dense
+        grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] sm:auto-rows-[220px] md:auto-rows-[280px] gap-4 md:gap-5 lg:gap-6 grid-flow-dense mt-10
     `;
 
     const gridItemClass = `
-    relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border transition-all duration-500 cursor-pointer shadow-lg hover:-translate-y-1
-    bg-white/50 dark:bg-white/5
-    border-slate-200 shadow-slate-200/50 hover:shadow-cyan-200/50
-    dark:border-white/10 dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] dark:hover:border-cyan-400/40
-  `;
+        relative group overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border transition-all duration-500 cursor-pointer shadow-lg hover:-translate-y-2 hover:shadow-2xl
+        bg-white border-slate-200 
+        dark:bg-white/5 dark:border-white/10 dark:hover:border-cyan-400/50
+    `;
 
     return (
         <div key={lang}>
@@ -244,28 +250,39 @@ export default function GalleryPage() {
 
             <main className={pageContainerClass}>
 
+                {/* Luces de Fondo */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-                    <div className="absolute top-[0%] left-[50%] -translate-x-1/2 w-[80%] h-[40%] bg-cyan-400/10 dark:bg-cyan-400/5 blur-[120px] rounded-full" />
+                    <div className="absolute top-[5%] left-[50%] -translate-x-1/2 w-[80%] md:w-[60%] h-[40%] bg-cyan-400/20 dark:bg-cyan-500/10 blur-[130px] rounded-full" />
                 </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
 
+                    {/* ========================================================================
+                        HERO HEADER DE GALERÍA
+                        ======================================================================== */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-                        className="text-center mb-12 md:mb-16"
+                        className="text-center mb-12 md:mb-16 max-w-4xl mx-auto"
                     >
-                        <span className="inline-block font-body text-xs md:text-sm font-bold uppercase tracking-[0.3em] mb-4 px-4 py-1.5 rounded-full border bg-white/80 border-white/60 text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 shadow-sm">
-                            Media
+                        <span className="inline-block px-4 py-1.5 md:px-6 md:py-2.5 rounded-full border text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] drop-shadow-sm mb-6
+                            bg-white/80 border-slate-200 text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400">
+                            {pageTexts.tag}
                         </span>
-                        <h1 className="font-title text-4xl md:text-5xl lg:text-7xl mb-6 text-navy dark:text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
-                            {pageTexts.title}
+
+                        <h1 className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 text-navy dark:text-white drop-shadow-sm leading-tight">
+                            {pageTexts.titleStart} <br className="hidden sm:block" />
+                            <span className="text-yellow-500 dark:text-yellow-400">{pageTexts.titleHighlight}</span>
                         </h1>
-                        <p className="font-body text-lg md:text-xl max-w-2xl mx-auto text-slate-600 dark:text-slate-300">
+
+                        <p className="font-body text-sm sm:text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed text-slate-600 dark:text-slate-300">
                             {pageTexts.desc}
                         </p>
                     </motion.div>
 
-                    <div className="flex flex-wrap justify-center gap-3 mb-12 md:mb-16">
+                    {/* ========================================================================
+                        FILTROS
+                        ======================================================================== */}
+                    <div className="flex flex-wrap justify-center gap-3 mb-10 md:mb-16">
                         {categories.map((cat) => (
                             <button key={cat} onClick={() => { setFilter(cat); setVisibleItems(12); }} className={getFilterBtnClass(cat)}>
                                 {pageTexts.filters[cat as keyof typeof pageTexts.filters]}
@@ -273,6 +290,9 @@ export default function GalleryPage() {
                         ))}
                     </div>
 
+                    {/* ========================================================================
+                        GRID DE IMÁGENES / VIDEOS
+                        ======================================================================== */}
                     <motion.div layout className={gridContainerClass}>
                         <AnimatePresence>
                             {currentGallery.map((item, index) => (
@@ -284,18 +304,18 @@ export default function GalleryPage() {
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.4 }}
                                     className={`${gridItemClass} ${item.span}`}
-                                    onClick={() => setSelectedIndex(index)} // Guardamos el índice
+                                    onClick={() => setSelectedIndex(index)}
                                 >
-                                    {/* 👇 RENDERIZADO MEJORADO: SI ES VIDEO, SE MUESTRA EL VIDEO DE FONDO (MUTED) */}
+                                    {/* Muestra video vivo (muted) o imagen */}
                                     {item.type === 'video' ? (
                                         <video
                                             src={item.videoUrl}
-                                            poster={item.src} // Usamos la imagen como "portada" mientras carga
+                                            poster={item.src}
                                             autoPlay
                                             loop
                                             muted
                                             playsInline
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform"
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[4s] ease-out group-hover:scale-110 will-change-transform"
                                         />
                                     ) : (
                                         <img
@@ -303,21 +323,24 @@ export default function GalleryPage() {
                                             alt={item.title}
                                             loading="lazy"
                                             decoding="async"
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 will-change-transform"
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[4s] ease-out group-hover:scale-110 will-change-transform"
                                         />
                                     )}
 
-                                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:from-dark/90 dark:via-dark/30" />
+                                    {/* Capa Oscura (Aparece en hover) */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:from-dark/90 dark:via-dark/40" />
 
-                                    <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                                        <i className={item.type === 'video' ? 'ri-play-fill text-xl ml-0.5' : 'ri-fullscreen-line text-lg'}></i>
+                                    {/* Icono de Play o Zoom */}
+                                    <div className="absolute top-5 right-5 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0 shadow-lg">
+                                        <i className={item.type === 'video' ? 'ri-play-fill text-xl md:text-2xl ml-1' : 'ri-fullscreen-line text-lg md:text-xl'}></i>
                                     </div>
 
-                                    <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-400 mb-1 block drop-shadow-md">
+                                    {/* Textos Info (Abajo) */}
+                                    <div className="absolute bottom-5 left-5 right-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                        <span className="inline-block px-3 py-1 bg-cyan-500 text-white rounded-md text-[9px] font-bold uppercase tracking-widest mb-2 shadow-sm">
                                             {pageTexts.filters[item.category as keyof typeof pageTexts.filters]}
                                         </span>
-                                        <h3 className="font-title text-white text-lg md:text-xl drop-shadow-md truncate">
+                                        <h3 className="font-title text-white text-xl md:text-2xl drop-shadow-md leading-tight">
                                             {item.title}
                                         </h3>
                                     </div>
@@ -326,19 +349,22 @@ export default function GalleryPage() {
                         </AnimatePresence>
                     </motion.div>
 
+                    {/* Botón Cargar Más */}
                     {visibleCount < filteredMedia.length && (
-                        <div className="mt-16 text-center">
+                        <div className="mt-20 text-center">
                             <button
                                 onClick={() => setVisibleItems(prev => prev + 8)}
-                                className="px-8 py-3 rounded-xl border-2 font-title text-sm tracking-widest uppercase transition-all shadow-md active:scale-95 bg-transparent border-cyan-500 text-cyan-600 hover:bg-cyan-500 hover:text-white dark:border-cyan-400 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-dark dark:shadow-none"
+                                className="px-8 py-3.5 rounded-xl border border-slate-300 font-title text-xs md:text-sm tracking-widest uppercase transition-all shadow-sm hover:shadow-md active:scale-95 bg-white text-slate-600 hover:text-cyan-600 hover:border-cyan-300 dark:bg-white/5 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:border-cyan-400/50 dark:hover:text-cyan-400"
                             >
-                                {pageTexts.loadMore} <i className="ri-loader-3-line inline-block animate-spin-slow ml-2"></i>
+                                {pageTexts.loadMore} <i className="ri-loader-3-line inline-block animate-spin-slow text-lg ml-2 align-middle"></i>
                             </button>
                         </div>
                     )}
+
+                    {/* Mensaje Final */}
                     {visibleCount >= filteredMedia.length && filteredMedia.length > 0 && (
-                        <p className="mt-16 text-center font-body text-slate-400 dark:text-slate-500 text-sm">
-                            {pageTexts.noMore}
+                        <p className="mt-20 text-center font-body font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500 text-xs md:text-sm">
+                            <i className="ri-check-all-line mr-2 text-cyan-500"></i> {pageTexts.noMore}
                         </p>
                     )}
 
@@ -351,67 +377,60 @@ export default function GalleryPage() {
             <AnimatePresence>
                 {selectedIndex !== null && (
                     <motion.div
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-10"
-                        onClick={() => setSelectedIndex(null)} // Cierra si hacen clic fuera
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
+                        className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6 md:p-10"
+                        onClick={() => setSelectedIndex(null)}
                     >
-                        {/* Botón Cerrar */}
+                        {/* Fondo de Cristal Muy Oscuro */}
+                        <div className="absolute inset-0 bg-navy/95 dark:bg-black/95 backdrop-blur-xl" />
+
+                        {/* Botón Cerrar Global */}
                         <button
                             onClick={(e) => { e.stopPropagation(); setSelectedIndex(null); }}
-                            className="absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-red-500 hover:border-red-500 hover:scale-110 transition-all z-50"
+                            className="absolute top-5 right-5 md:top-8 md:right-8 w-12 h-12 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-navy transition-all z-50 shadow-xl"
                         >
                             <i className="ri-close-line text-2xl"></i>
                         </button>
 
-                        {/* 👇 CONTROLES DE NAVEGACIÓN (Anterior / Siguiente) */}
-                        <button
-                            onClick={handlePrev}
-                            className="absolute left-2 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 hover:scale-110 transition-all z-50 backdrop-blur-md"
-                        >
-                            <i className="ri-arrow-left-s-line text-2xl md:text-3xl"></i>
+                        {/* Controles Laterales (Anterior / Siguiente) */}
+                        <button onClick={handlePrev} className="hidden sm:flex absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 text-white items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 hover:scale-110 transition-all z-50 backdrop-blur-md shadow-lg">
+                            <i className="ri-arrow-left-s-line text-3xl"></i>
                         </button>
 
-                        <button
-                            onClick={handleNext}
-                            className="absolute right-2 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 hover:scale-110 transition-all z-50 backdrop-blur-md"
-                        >
-                            <i className="ri-arrow-right-s-line text-2xl md:text-3xl"></i>
+                        <button onClick={handleNext} className="hidden sm:flex absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 text-white items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 hover:scale-110 transition-all z-50 backdrop-blur-md shadow-lg">
+                            <i className="ri-arrow-right-s-line text-3xl"></i>
                         </button>
 
-                        {/* Contenedor del Media */}
+                        {/* Contenedor del Media Central */}
                         <motion.div
-                            key={currentGallery[selectedIndex].id} // Anima la transición al cambiar de foto
-                            initial={{ opacity: 0, scale: 0.95, x: 20 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, x: -20 }}
-                            transition={{ duration: 0.3 }}
-                            onClick={(e) => e.stopPropagation()} // Previene que se cierre al hacer clic en la foto
-                            className="relative w-full max-w-5xl max-h-[85vh] sm:max-h-[90vh] rounded-xl sm:rounded-2xl md:rounded-[2rem] overflow-hidden bg-black border border-white/10 shadow-2xl flex items-center justify-center"
+                            key={currentGallery[selectedIndex].id}
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="relative w-full max-w-6xl max-h-[85vh] sm:max-h-[90vh] rounded-2xl md:rounded-[2.5rem] overflow-hidden bg-black/50 border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)] flex items-center justify-center"
                         >
+                            {/* Botones Móviles superpuestos en la foto */}
+                            <div className="absolute inset-0 flex items-center justify-between px-2 sm:hidden z-20 pointer-events-none">
+                                <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-black/40 border border-white/20 text-white flex items-center justify-center pointer-events-auto backdrop-blur-md"><i className="ri-arrow-left-s-line text-2xl"></i></button>
+                                <button onClick={handleNext} className="w-10 h-10 rounded-full bg-black/40 border border-white/20 text-white flex items-center justify-center pointer-events-auto backdrop-blur-md"><i className="ri-arrow-right-s-line text-2xl"></i></button>
+                            </div>
+
+                            {/* El Media */}
                             {currentGallery[selectedIndex].type === 'video' ? (
                                 currentGallery[selectedIndex].videoUrl?.endsWith('.webm') || currentGallery[selectedIndex].videoUrl?.endsWith('.mp4') ? (
-                                    <video
-                                        src={currentGallery[selectedIndex].videoUrl}
-                                        controls
-                                        autoPlay
-                                        className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain"
-                                    />
+                                    <video src={currentGallery[selectedIndex].videoUrl} controls autoPlay className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain" />
                                 ) : (
-                                    <iframe
-                                        src={currentGallery[selectedIndex].videoUrl}
-                                        title={currentGallery[selectedIndex].title}
-                                        className="w-full h-full aspect-video border-0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    ></iframe>
+                                    <iframe src={currentGallery[selectedIndex].videoUrl} title={currentGallery[selectedIndex].title} className="w-full h-full aspect-video border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 )
                             ) : (
                                 <img src={currentGallery[selectedIndex].src} alt={currentGallery[selectedIndex].title} className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain" />
                             )}
 
-                            {/* Título en el Lightbox (Opcional, le da un toque premium) */}
-                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white pointer-events-none">
-                                <h3 className="font-title text-xl md:text-2xl">{currentGallery[selectedIndex].title}</h3>
+                            {/* Titular Flotante en el Lightbox */}
+                            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white pointer-events-none text-center">
+                                <h3 className="font-title text-xl md:text-3xl tracking-wide drop-shadow-lg">{currentGallery[selectedIndex].title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>
