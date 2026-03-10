@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { sileo } from 'sileo';
 import logo from '/assets/images/logodolphin.webp';
 
 import { useLanguage } from '../context/LanguageContext';
@@ -10,6 +11,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
 
   const { t, toggleLanguage, lang } = useLanguage();
   const { theme, toggleTheme } = useTheme();
@@ -22,10 +24,11 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Cerrar menú al cambiar de página
+  // Cerrar menús al cambiar de página
   useEffect(() => {
     if (isMenuOpen) setIsMenuOpen(false);
     if (hoveredMenu) setHoveredMenu(null);
+    setOpenMobileSubmenu(null);
   }, [location.pathname]);
 
   // Scroll suave a Hashes (#)
@@ -33,16 +36,30 @@ export default function Navbar() {
     if (location.hash) {
       const elem = document.getElementById(location.hash.substring(1));
       if (elem) {
-        setTimeout(() => elem.scrollIntoView({ behavior: 'smooth' }), 100);
+        const yOffset = isScrolled ? -100 : -140;
+        const y = elem.getBoundingClientRect().top + window.scrollY + yOffset;
+        setTimeout(() => window.scrollTo({ top: y, behavior: 'smooth' }), 100);
       }
     }
-  }, [location]);
+  }, [location, isScrolled]);
 
-  // Bloquear el fondo cuando el menú móvil está abierto
+  // Bloquear scroll del fondo en menú móvil
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
     return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
+
+  // 🚀 EVENTO: Disparo de Sileo Toast
+  const handleReservation = (e: React.MouseEvent) => {
+    e.preventDefault();
+    sileo.success({
+      title: lang === 'es' ? '¡Conectando con el equipo!' : 'Connecting with our team!',
+      description: lang === 'es' ? 'Abriendo chat seguro en WhatsApp...' : 'Opening a secure WhatsApp chat...',
+    });
+    setTimeout(() => {
+      window.open('https://wa.me/526131182311', '_blank');
+    }, 1500);
+  };
 
   const navItems = [
     {
@@ -51,7 +68,7 @@ export default function Navbar() {
       submenu: [
         { label: t.navbar.submenu.history, link: '/nosotros#historia' },
         { label: t.navbar.submenu.team, link: '/nosotros#equipo' },
-        { label: 'Dive Sites', link: '/divesites' }
+        { label: 'Dive Sites', link: '/nosotros#divesites' }
       ]
     },
     {
@@ -80,34 +97,26 @@ export default function Navbar() {
   ];
 
   // ========================================================================
-  // 🎨 ESTILOS PREMIUM (Logo Gigante, Textos Legibles, Animación Suave)
+  // 🎨 ESTILOS PREMIUM
   // ========================================================================
-
   const headerClass = `
     fixed z-[100] left-1/2 -translate-x-1/2 transition-all duration-500 ease-in-out flex items-center justify-between
     ${isScrolled
-      ? 'top-0 md:top-4 w-full md:w-[96%] max-w-7xl md:rounded-[2.5rem] bg-white/95 dark:bg-dark/95 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] border-b md:border border-slate-200/60 dark:border-white/10 py-3 md:py-4 px-5 md:px-8'
-      : 'top-0 w-full max-w-[100vw] md:rounded-none bg-slate-50/95 dark:bg-dark/95 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5 py-4 md:py-6 lg:py-8 px-6 md:px-12 lg:px-20'
+      ? 'top-2 md:top-4 w-[96%] md:w-[95%] max-w-6xl rounded-[2rem] md:rounded-[2.5rem] bg-white/95 dark:bg-dark/95 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] border border-slate-200/60 dark:border-white/10 py-2.5 md:py-3 px-5 md:px-6'
+      : 'top-0 w-full max-w-[100vw] md:rounded-none bg-slate-50/95 dark:bg-dark/95 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5 py-3 md:py-4 px-6 md:px-12 lg:px-16'
     }
   `;
 
-  // Textos más grandes pero con buen espaciado (tracking)
-  const navLinkClass = `
-    relative flex items-center gap-1.5 font-body text-xs lg:text-sm font-bold uppercase tracking-[0.15em] transition-colors py-4 whitespace-nowrap
-    text-slate-600 hover:text-cyan-600
-    dark:text-slate-300 dark:hover:text-cyan-400
-  `;
-
   const dropdownContainerClass = `
-    relative z-10 backdrop-blur-3xl rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-2.5 text-left overflow-hidden border
-    bg-white/95 border-slate-200
-    dark:bg-dark/95 dark:border-white/10 dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]
+    backdrop-blur-3xl rounded-[1.5rem] shadow-[0_25px_50px_rgba(0,0,0,0.2)] p-2 text-left overflow-hidden border
+    bg-white/95 border-slate-200/80
+    dark:bg-dark/95 dark:border-white/10 dark:shadow-[0_25px_50px_rgba(0,0,0,0.6)]
   `;
 
   const dropdownItemClass = `
-    flex items-center justify-between px-4 py-3 text-sm lg:text-[15px] font-body font-medium rounded-xl transition-all duration-300 group/link whitespace-nowrap
-    text-slate-600 hover:bg-slate-50 hover:text-cyan-700
-    dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-cyan-300
+    flex items-center justify-between px-4 py-3.5 text-[13px] lg:text-[14px] font-body font-bold tracking-wide rounded-xl transition-all duration-300 group/link whitespace-nowrap
+    text-slate-600 hover:bg-slate-100 hover:text-cyan-600
+    dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-cyan-400
   `;
 
   const iconBtnClass = `
@@ -116,16 +125,11 @@ export default function Navbar() {
     dark:bg-white/5 dark:border-white/10 dark:text-slate-300 dark:hover:text-cyan-400 dark:hover:border-white/20
   `;
 
+  // 👇 CONSTANTE RESTAURADA: Esto arregla el error ts(2304) que me mostraste
   const langBtnClass = `
     flex items-center justify-center gap-2 h-10 md:h-11 px-3 md:px-4 rounded-full border transition-all hover:scale-105 active:scale-95
     bg-slate-100 border-slate-200 text-slate-700 hover:bg-white
     dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10
-  `;
-
-  const ctaBtnClass = `
-    flex items-center gap-2 rounded-full border px-6 py-2.5 md:py-3 font-title text-xs md:text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95 shadow-md group
-    bg-cyan-600 border-cyan-600 text-white hover:bg-cyan-500 hover:border-cyan-500 hover:shadow-cyan-500/30
-    dark:bg-cyan-500 dark:border-cyan-500 dark:text-navy dark:hover:bg-cyan-400 dark:hover:border-cyan-400
   `;
 
   return (
@@ -133,157 +137,229 @@ export default function Navbar() {
       <header className={headerClass}>
 
         {/* =========================================
-            LOGO (Gigante a petición del cliente)
+            1. COLUMNA IZQUIERDA (LOGO + TOOLTIP)
             ========================================= */}
-        <Link to="/" className="relative flex items-center z-50 group shrink-0" onClick={() => setIsMenuOpen(false)}>
-          <img
-            src={logo}
-            alt="Dolphin Dive Baja"
-            className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-14 md:h-16 lg:h-20' : 'h-20 md:h-24 lg:h-28'
-              }`}
-          />
-        </Link>
-
-        {/* NAVEGACIÓN DESKTOP */}
-        <nav className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8 xl:gap-12 h-full">
-          {navItems.map((item, idx) => (
-            <div key={idx} className="relative group h-full flex items-center justify-center cursor-pointer" onMouseEnter={() => item.submenu ? setHoveredMenu(item.name) : null} onMouseLeave={() => setHoveredMenu(null)}>
-              <Link to={item.path} className={navLinkClass}>
-                {item.name}
-                {item.submenu && <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${hoveredMenu === item.name ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : 'opacity-40'}`}></i>}
-                <span className={`absolute bottom-3 left-1/2 -translate-x-1/2 h-[2px] rounded-full w-0 bg-cyan-500 transition-all duration-300 ${hoveredMenu === item.name || location.pathname === item.path ? 'w-full' : ''}`} />
-              </Link>
-
-              {/* DROPDOWN */}
-              <AnimatePresence>
-                {item.submenu && hoveredMenu === item.name && (
-                  <motion.div initial={{ opacity: 0, y: 15, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.95 }} transition={{ duration: 0.2, ease: "easeOut" }} className="absolute top-[85%] left-1/2 -translate-x-1/2 pt-3 w-64 z-50">
-                    <div className={dropdownContainerClass}>
-                      <div className="flex flex-col relative z-10">
-                        {item.submenu.map((subItem, subIdx) => (
-                          subItem.link.startsWith('http') ? (
-                            <a key={subIdx} href={subItem.link} target="_blank" rel="noopener noreferrer" className={dropdownItemClass}>
-                              <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
-                              <i className="ri-external-link-line opacity-40 group-hover/link:opacity-100 transition-opacity text-base"></i>
-                            </a>
-                          ) : (
-                            <Link key={subIdx} to={subItem.link} className={`${dropdownItemClass} block`}>
-                              <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
-                            </Link>
-                          )
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </nav>
-
-        {/* CONTROLES DERECHA (DESKTOP & TABLET) */}
-        <div className="hidden lg:flex items-center gap-3 shrink-0 z-50">
-          <button onClick={toggleTheme} className={iconBtnClass} aria-label="Toggle Theme">
-            <motion.div key={theme} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
-              {theme === 'dark' ? <i className="ri-sun-fill text-xl"></i> : <i className="ri-moon-clear-fill text-xl"></i>}
-            </motion.div>
-          </button>
-
-          <button onClick={toggleLanguage} className={langBtnClass} aria-label="Toggle Language">
+        <div className="flex-1 flex items-center justify-start z-50">
+          <Link to="/" className="relative flex items-center group shrink-0" onClick={() => setIsMenuOpen(false)}>
             <img
-              src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"}
-              alt="Flag"
-              className="w-5 h-5 rounded-full object-cover border border-black/10 dark:border-white/20 shadow-sm"
+              src={logo}
+              alt="Dolphin Dive Baja"
+              className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'
+                }`}
             />
-            <span className="font-title text-xs font-bold tracking-widest mt-0.5">{lang === 'es' ? 'EN' : 'ES'}</span>
-          </button>
-
-          {/* BOTÓN RESERVAR CON WHATSAPP */}
-          <a href="https://wa.me/526131182311" target="_blank" rel="noopener noreferrer" className={ctaBtnClass}>
-            {t.navbar.cta} <i className="ri-whatsapp-line text-lg md:text-xl group-hover:scale-110 transition-transform"></i>
-          </a>
+            {/* Tooltip de "Ir al inicio" */}
+            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-navy/90 dark:bg-white/90 text-white dark:text-navy font-title text-[9px] md:text-[10px] tracking-widest uppercase rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+              {lang === 'es' ? 'Ir al inicio' : 'Back to home'}
+            </span>
+          </Link>
         </div>
 
-        {/* CONTROLES MÓVIL */}
-        <div className="flex items-center gap-2 lg:hidden z-50">
-          <button onClick={toggleLanguage} className={iconBtnClass}>
-            <img
-              src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"}
-              alt="Flag"
-              className="w-5 h-5 rounded-full object-cover shadow-sm"
-            />
+        {/* =========================================
+            2. COLUMNA CENTRAL (NAVEGACIÓN)
+            ========================================= */}
+        <nav className="hidden lg:flex flex-none items-center justify-center gap-1 xl:gap-2 h-full z-50">
+          {navItems.map((item, idx) => {
+            const isActive = hoveredMenu === item.name;
+
+            return (
+              <div
+                key={idx}
+                className="relative flex flex-col items-center justify-center cursor-pointer h-full px-1"
+                onMouseEnter={() => item.submenu ? setHoveredMenu(item.name) : null}
+                onMouseLeave={() => setHoveredMenu(null)}
+              >
+                {/* Botón Principal */}
+                <Link
+                  to={item.path}
+                  className={`relative z-20 flex items-center gap-1.5 font-body text-xs lg:text-[13px] font-bold uppercase tracking-[0.15em] transition-all duration-300 py-2.5 px-4 rounded-full whitespace-nowrap
+                  ${isActive
+                      ? 'text-cyan-600 dark:text-cyan-400 bg-slate-100/50 dark:bg-white/5'
+                      : 'text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 bg-transparent'}`}
+                >
+                  {item.name}
+                  {item.submenu && <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${isActive ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : 'opacity-40'}`}></i>}
+
+                  {/* Línea Activa */}
+                  <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full w-0 bg-cyan-500 transition-all duration-300 ${isActive || location.pathname === item.path ? 'w-3/4' : ''}`} />
+                </Link>
+
+                {/* 👇 DROPDOWN SILEO ULTRA ANIMADO */}
+                <AnimatePresence>
+                  {item.submenu && isActive && (
+                    <motion.div
+                      // Físicas exageradas de Morphing + Blur para el efecto Gota/Dynamic Island
+                      initial={{ opacity: 0, y: -25, scaleX: 0.4, scaleY: 0.2, filter: "blur(15px)" }}
+                      animate={{ opacity: 1, y: 0, scaleX: 1, scaleY: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -20, scaleX: 0.7, scaleY: 0.4, filter: "blur(10px)" }}
+                      transition={{ type: "spring", stiffness: 450, damping: 25, mass: 1 }}
+                      style={{ transformOrigin: "top center" }}
+                      // Se despliega anclado justo debajo de la palabra
+                      className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[240px] z-10 pt-1"
+                    >
+                      <div className={dropdownContainerClass}>
+                        <div className="flex flex-col relative z-10 gap-0.5">
+                          {item.submenu.map((subItem, subIdx) => (
+                            subItem.link.startsWith('http') ? (
+                              <a key={subIdx} href={subItem.link} target="_blank" rel="noopener noreferrer" className={dropdownItemClass}>
+                                <span className="group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
+                                <i className="ri-external-link-line opacity-40 group-hover/link:opacity-100 transition-opacity text-base"></i>
+                              </a>
+                            ) : (
+                              <Link key={subIdx} to={subItem.link} className={`${dropdownItemClass} block`}>
+                                <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
+                              </Link>
+                            )
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </nav>
+
+        {/* =========================================
+            3. COLUMNA DERECHA (CONTROLES)
+            ========================================= */}
+        <div className="flex-1 flex items-center justify-end gap-2 md:gap-3 z-50">
+
+          {/* Desktop Only: Theme & Language */}
+          <div className="hidden lg:flex items-center gap-3">
+            <button onClick={toggleTheme} className={iconBtnClass} aria-label="Toggle Theme">
+              <motion.div key={theme} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
+                {theme === 'dark' ? <i className="ri-sun-fill text-xl"></i> : <i className="ri-moon-clear-fill text-xl"></i>}
+              </motion.div>
+            </button>
+
+            <button onClick={toggleLanguage} className={langBtnClass} aria-label="Toggle Language">
+              <img
+                src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"}
+                alt="Flag"
+                className="w-5 h-5 rounded-full object-cover border border-black/10 dark:border-white/20 shadow-sm"
+              />
+              <span className="font-title text-[11px] font-bold tracking-widest mt-0.5">{lang === 'es' ? 'EN' : 'ES'}</span>
+            </button>
+          </div>
+
+          {/* Botón WhatsApp Sileo (Se ve en desktop) */}
+          <button onClick={handleReservation} className="hidden lg:flex items-center gap-2 rounded-full border px-5 py-2.5 xl:px-6 xl:py-3 font-title text-[10px] xl:text-xs tracking-widest uppercase transition-all hover:scale-105 active:scale-95 shadow-md group bg-cyan-600 border-cyan-600 text-white hover:bg-cyan-500 hover:border-cyan-500 hover:shadow-cyan-500/30 dark:bg-cyan-500 dark:border-cyan-500 dark:text-navy dark:hover:bg-cyan-400 dark:hover:border-cyan-400">
+            {t.navbar.cta} <i className="ri-whatsapp-line text-lg xl:text-xl group-hover:scale-110 transition-transform"></i>
           </button>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={iconBtnClass}>
-            {isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-4-line text-2xl"></i>}
-          </button>
+
+          {/* Controles Móviles */}
+          <div className="flex lg:hidden items-center gap-2">
+            <button onClick={toggleLanguage} className={iconBtnClass}>
+              <img src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} alt="Flag" className="w-5 h-5 rounded-full object-cover shadow-sm" />
+            </button>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={iconBtnClass}>
+              {isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-4-line text-xl"></i>}
+            </button>
+          </div>
+
         </div>
       </header>
 
       {/* ========================================================================
-          📱 MENÚ MÓVIL FULL-SCREEN
+          📱 NUEVO MENÚ MÓVIL FULL-SCREEN (App-Like Modal)
           ======================================================================== */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: "100%" }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[90] flex flex-col pt-32 px-6 pb-10 bg-slate-50 dark:bg-dark lg:hidden overflow-y-auto"
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+            className="fixed inset-0 z-[110] bg-white/95 dark:bg-dark/95 backdrop-blur-3xl lg:hidden flex flex-col overflow-hidden"
           >
-            {/* Control de Tema dentro del menú móvil */}
-            <div className="absolute top-6 right-20 mt-2">
-              <button onClick={toggleTheme} className="flex items-center gap-2 px-4 py-2.5 rounded-full border shadow-sm bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-xs font-title tracking-widest uppercase text-slate-600 dark:text-slate-300">
-                {theme === 'dark' ? <><i className="ri-sun-fill text-lg"></i> Modo Claro</> : <><i className="ri-moon-clear-fill text-lg"></i> Modo Oscuro</>}
+            {/* Header del Menú Móvil */}
+            <div className="flex items-center justify-between px-6 py-6 border-b border-slate-200 dark:border-white/10">
+              <img src={logo} alt="Logo" className="h-10 object-contain" />
+              <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white">
+                <i className="ri-close-line text-2xl"></i>
               </button>
             </div>
 
-            <nav className="flex flex-col gap-6 mt-4">
-              {navItems.map((item, idx) => (
-                <div key={idx} className="border-b border-slate-200 dark:border-white/10 pb-6">
-                  <Link to={item.path} className="text-3xl sm:text-4xl font-title text-navy dark:text-white block mb-5" onClick={() => setIsMenuOpen(false)}>
-                    {item.name}
-                  </Link>
-                  {item.submenu && (
-                    <div className="pl-4 flex flex-col gap-4 border-l-2 border-cyan-400/30">
-                      {item.submenu.map((sub, i) => (
-                        sub.link.startsWith('http') ? (
-                          <a key={i} href={sub.link} target="_blank" rel="noopener noreferrer" className="text-lg font-body font-medium text-slate-600 dark:text-slate-300 flex items-center justify-between" onClick={() => setIsMenuOpen(false)}>
-                            {sub.label} <i className="ri-external-link-line opacity-40"></i>
-                          </a>
-                        ) : (
-                          <Link key={i} to={sub.link} className="text-lg font-body font-medium text-slate-600 dark:text-slate-300 block" onClick={() => setIsMenuOpen(false)}>
-                            {sub.label}
-                          </Link>
-                        )
-                      ))}
+            {/* Cuerpo del Menú */}
+            <div className="flex-1 overflow-y-auto px-6 py-8">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item, idx) => (
+                  <div key={idx} className="border-b border-slate-100 dark:border-white/5 pb-2">
+                    <div className="flex items-center justify-between w-full py-4">
+                      <Link to={item.path} className="text-3xl font-title text-navy dark:text-white" onClick={() => setIsMenuOpen(false)}>
+                        {item.name}
+                      </Link>
+                      {item.submenu && (
+                        <button
+                          onClick={() => setOpenMobileSubmenu(openMobileSubmenu === item.name ? null : item.name)}
+                          className="w-12 h-12 flex items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-300 active:bg-cyan-100 dark:active:bg-cyan-900"
+                        >
+                          <i className={`ri-arrow-down-s-line text-3xl transition-transform duration-300 ${openMobileSubmenu === item.name ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : ''}`}></i>
+                        </button>
+                      )}
                     </div>
-                  )}
-                </div>
-              ))}
-            </nav>
 
-            <div className="mt-auto pt-10">
-              <a href="https://wa.me/526131182311" target="_blank" rel="noopener noreferrer" className="w-full py-4 rounded-2xl flex items-center justify-center gap-3 bg-cyan-600 text-white font-title text-sm tracking-widest uppercase shadow-lg active:scale-95 transition-transform">
-                <i className="ri-whatsapp-line text-2xl"></i> {t.navbar.cta}
-              </a>
+                    <AnimatePresence>
+                      {item.submenu && openMobileSubmenu === item.name && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pl-6 pb-6 flex flex-col gap-6 border-l-2 border-cyan-400/30 ml-2 mt-2">
+                            {item.submenu.map((sub, i) => (
+                              sub.link.startsWith('http') ? (
+                                <a key={i} href={sub.link} target="_blank" rel="noopener noreferrer" className="text-xl font-body font-medium text-slate-500 dark:text-slate-400 flex items-center justify-between" onClick={() => setIsMenuOpen(false)}>
+                                  {sub.label} <i className="ri-external-link-line opacity-40"></i>
+                                </a>
+                              ) : (
+                                <Link key={i} to={sub.link} className="text-xl font-body font-medium text-slate-500 dark:text-slate-400" onClick={() => setIsMenuOpen(false)}>
+                                  {sub.label}
+                                </Link>
+                              )
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </nav>
             </div>
+
+            {/* Footer del Menú Móvil */}
+            <div className="p-6 bg-slate-50 dark:bg-[#0f172a] border-t border-slate-200 dark:border-white/10 flex flex-col gap-4">
+              <div className="flex items-center justify-between gap-4">
+                <button onClick={toggleTheme} className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 font-title text-xs tracking-widest uppercase text-slate-600 dark:text-slate-300 shadow-sm">
+                  {theme === 'dark' ? <><i className="ri-sun-fill text-lg"></i> Claro</> : <><i className="ri-moon-clear-fill text-lg"></i> Oscuro</>}
+                </button>
+                <button onClick={toggleLanguage} className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 font-title text-xs tracking-widest uppercase text-slate-600 dark:text-slate-300 shadow-sm">
+                  <img src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} alt="Flag" className="w-5 h-5 rounded-full object-cover" />
+                  {lang === 'es' ? 'English' : 'Español'}
+                </button>
+              </div>
+
+              <button onClick={handleReservation} className="w-full py-4 rounded-xl flex items-center justify-center gap-3 bg-cyan-600 text-white font-title text-sm tracking-widest uppercase shadow-lg active:scale-95 transition-transform mt-2">
+                <i className="ri-whatsapp-line text-2xl"></i> {t.navbar.cta}
+              </button>
+            </div>
+
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* ========================================================================
-          💬 LOGO FLOTANTE WHATSAPP
+          💬 LOGO FLOTANTE WHATSAPP (Sutil y Elegante)
           ======================================================================== */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[80]">
         <div className="relative group">
           <div className="absolute inset-0 bg-cyan-400/40 rounded-full animate-ping opacity-75"></div>
-
-          <a
-            href="https://wa.me/526131182311"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-navy backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300"
+          <button
+            onClick={handleReservation}
+            className="relative w-16 h-16 md:w-20 md:h-20 bg-white/95 dark:bg-navy/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300"
             aria-label="Contactar por WhatsApp"
           >
             <img
@@ -291,10 +367,10 @@ export default function Navbar() {
               alt="WhatsApp Dolphin Dive Baja"
               className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-md group-hover:drop-shadow-xl transition-all"
             />
-            <span className="absolute right-[110%] top-1/2 -translate-y-1/2 mr-2 px-4 py-2 bg-navy dark:bg-white text-white dark:text-navy font-title text-[10px] md:text-xs tracking-widest uppercase rounded-xl shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
+            <span className="absolute right-[110%] top-1/2 -translate-y-1/2 mr-2 px-4 py-2 bg-navy/90 dark:bg-white/90 backdrop-blur-md text-white dark:text-navy font-title text-[10px] md:text-xs tracking-widest uppercase rounded-xl shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
               {lang === 'es' ? '¡Escríbenos!' : 'Chat with us!'}
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </>

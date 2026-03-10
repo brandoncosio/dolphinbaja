@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
+import { Toaster } from 'sileo'; // 👈 IMPORTACIÓN DE LA LIBRERÍA SILEO
 
 // Contextos
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
@@ -23,7 +24,6 @@ const Home = lazy(() => import('./pages/Home'));
 const Servicios = lazy(() => import('./pages/Servicios'));
 const Nosotros = lazy(() => import('./pages/Nosotros'));
 const Contacto = lazy(() => import('./pages/Contacto'));
-// 👇 NUEVA PÁGINA: Galería
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 
 const PageLoader = () => (
@@ -37,7 +37,7 @@ const PageLoader = () => (
 // ====================================================================
 function AppContent() {
   const { lang } = useLanguage();
-  const { theme } = useTheme(); // Escuchamos el cambio de tema
+  const { theme } = useTheme();
 
   // Estado de carga y control de primera ejecución
   const [isLoading, setIsLoading] = useState(true);
@@ -70,6 +70,12 @@ function AppContent() {
   return (
     <div className="relative min-h-screen font-body selection:bg-cyan-400 selection:text-dark transition-colors duration-500 dark:bg-dark bg-slate-50 dark:text-white text-navy">
 
+      {/* ====================================================================
+          🔔 TOASTER GLOBAL DE SILEO (Ajustado para la Navbar Gigante)
+          ==================================================================== */}
+      {/* Eliminamos el className problemático. Sileo maneja el z-index internamente */}
+      <Toaster position="top-center" offset={160} />
+
       {/* SPLASH SCREEN */}
       <AnimatePresence mode="wait">
         {isLoading && <SplashScreen key="splash" />}
@@ -87,8 +93,6 @@ function AppContent() {
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
             <Route path="/divesites" element={<DiveSites />} />
-
-            {/* 👇 RUTA PARA LA GALERÍA */}
             <Route path="/galeria" element={<GalleryPage />} />
           </Routes>
         </main>
@@ -111,10 +115,8 @@ export default function App() {
         <ThemeProvider>
           <BrowserRouter>
             <ScrollToTop />
-
             {/* AppContent maneja la lógica visual y el Router interno */}
             <AppContent />
-
           </BrowserRouter>
         </ThemeProvider>
       </LanguageProvider>
