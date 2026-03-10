@@ -14,6 +14,7 @@ import SplashScreen from './components/SplashScreen';
 import ScrollToTop from './components/ScrollToTop';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import CookieConsent from './components/CookieConsent';
+import DiveSites from './components/DiveSites';
 
 // ==========================================
 // 🚀 PÁGINAS LAZY (Carga Diferida)
@@ -85,6 +86,7 @@ function AppContent() {
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
+            <Route path="/divesites" element={<DiveSites />} />
 
             {/* 👇 RUTA PARA LA GALERÍA */}
             <Route path="/galeria" element={<GalleryPage />} />

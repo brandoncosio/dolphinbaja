@@ -51,7 +51,7 @@ export default function Navbar() {
       submenu: [
         { label: t.navbar.submenu.history, link: '/nosotros#historia' },
         { label: t.navbar.submenu.team, link: '/nosotros#equipo' },
-        { label: 'Dive Sites', link: '/nosotros#divesites' }
+        { label: 'Dive Sites', link: '/divesites' }
       ]
     },
     {
