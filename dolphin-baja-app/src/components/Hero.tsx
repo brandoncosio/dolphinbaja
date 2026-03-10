@@ -40,55 +40,36 @@ export default function Hero() {
   // 🎨 ESTILOS SEPARADOS (Clean Code)
   // ========================================================================
 
-  // 1. Botón Principal (WhatsApp)
   const primaryBtnClass = `
     flex items-center justify-center gap-3 rounded-full px-6 py-3 md:px-8 md:py-4 
     font-title text-sm tracking-widest uppercase backdrop-blur-md transition-all 
     hover:-translate-y-1 active:scale-95 group shadow-lg border w-full sm:w-auto
-    
-    /* LIGHT MODE: Sólido, Vibrante, Alto Contraste */
     bg-yellow-400 border-yellow-400 text-navy 
     hover:bg-yellow-300 hover:border-yellow-300 shadow-yellow-500/30
-
-    /* DARK MODE: Matte Glass */
     dark:bg-black/30 dark:border-yellow-400 dark:text-yellow-400 
     dark:hover:bg-yellow-400 dark:hover:text-dark dark:shadow-none
   `;
 
-  // 2. Botón Secundario (Servicios)
   const secondaryBtnClass = `
     flex items-center justify-center gap-3 rounded-full border px-6 py-3 md:px-8 md:py-4 
     font-title text-sm tracking-widest uppercase backdrop-blur-md transition-all 
     hover:-translate-y-1 active:scale-95 group shadow-lg w-full sm:w-auto
-    
-    /* LIGHT MODE: Blanco casi sólido, Limpio */
     bg-white/90 border-white text-navy 
     hover:bg-cyan-500 hover:text-white hover:border-cyan-500 shadow-black/10
-
-    /* DARK MODE: Matte Glass */
     dark:bg-black/30 dark:border-cyan-400 dark:text-cyan-400 
     dark:hover:bg-cyan-400 dark:hover:text-dark dark:shadow-none
   `;
 
-  // 3. Gradiente de Fondo
   const overlayGradientClass = `
     absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r transition-colors duration-500
-    
-    /* LIGHT: Se funde hacia blanco/hielo */
     from-slate-50/90 via-slate-50/50 md:via-slate-50/30 to-transparent
-
-    /* DARK: Se funde hacia el azul oscuro */
     dark:from-dark/95 dark:via-dark/60 md:dark:via-dark/30 dark:to-transparent
   `;
 
   const heroTagClass = `
     inline-block font-body text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6 
     px-4 py-1.5 md:px-5 md:py-2 rounded-full backdrop-blur-md border transition-all duration-500 shadow-sm
-    
-    /* LIGHT MODE: Fondo blanco translúcido para asegurar que se lea sobre el mar azul */
     bg-white/80 border-white/60 text-navy
-    
-    /* DARK MODE: Fondo oscuro translúcido con texto cyan para no perder el estilo */
     dark:bg-black/40 dark:border-white/10 dark:text-cyan-400
   `;
 
@@ -115,8 +96,8 @@ export default function Hero() {
         </AnimatePresence>
       </div>
 
-      {/* CONTENIDO (Ajustado pt para bajar el texto) */}
-      <div className="relative z-10 flex h-full flex-col justify-center px-4 pt-40 pb-24 md:pt-48 md:px-20 lg:px-32 pointer-events-auto">
+      {/* CONTENIDO (Ajustado pt para bajar el texto ligeramente más) */}
+      <div className="relative z-10 flex h-full flex-col justify-center px-4 pt-52 pb-24 md:pt-60 md:px-20 lg:px-32 pointer-events-auto">
 
         <AnimatePresence mode="wait">
           <motion.div

@@ -77,7 +77,7 @@ export const translations = {
                 btnServices: "Ver servicios",
                 slides: [
                     {
-                        title: "MÁS QUE BUCEO,<br/>UNA EXPERIENCIA INOLVIDABLE",
+                        title: "UNA EXPERIENCIA INOLVIDABLE",
                         subtitle: "Cada inmersión está diseñada para conectarte con el océano y la naturaleza."
                     },
                     {
