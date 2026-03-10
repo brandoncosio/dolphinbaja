@@ -121,15 +121,32 @@ export default function Home() {
           <div className={blobBottomClass} />
         </div>
 
-        {/* CONTENIDO PRINCIPAL */}
-        <div className="relative z-10 flex flex-col">
+        {/* ========================================================================
+            CONTENIDO PRINCIPAL (Flujo Narrativo Optimizando la Persuasión)
+            ======================================================================== */}
+        <div className="relative z-10 flex flex-col pb-10">
+
+          {/* 1. El Enganche Inicial */}
           <Hero />
-          <Highlights />
-          <ValueProps />
-          <HomeGallery />
-          <Testimonials />
+
+          {/* 2. ¿Quiénes Somos? (Presentación Inmediata) */}
           <WelcomeSection />
+
+          {/* 3. ¿Qué Ofrecemos? (Servicios Destacados) */}
+          <Highlights />
+
+          {/* 4. ¿Dónde lo Hacemos? (El Escenario / Loreto) */}
           <Destination />
+
+          {/* 5. Pruebas Visuales (El impacto visual de lo que van a vivir) */}
+          <HomeGallery />
+
+          {/* 6. ¿Por qué Elegirnos a Nosotros? (Autoridad y Valor) */}
+          <ValueProps />
+
+          {/* 7. Prueba Social (Validación antes de irse o reservar) */}
+          <Testimonials />
+
         </div>
 
       </main>

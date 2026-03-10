@@ -1,4 +1,5 @@
-import { motion, Variants } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, Variants, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 // Importamos el contexto de idioma
@@ -68,26 +69,38 @@ export default function Highlights() {
   ];
 
   // ========================================================================
-  // 🎭 VARIANTES TIPADAS PARA TYPESCRIPT (Solución a los 4 errores)
+  // 🎭 VARIANTES TIPADAS PARA TYPESCRIPT
   // ========================================================================
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.4 }
+      transition: { staggerChildren: 0.15, delayChildren: 0.3 }
     }
   };
 
   const staggerItem: Variants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
+  // Referencia general de la sección para el efecto Parallax
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Parallax suave: Las tarjetas suben ligeramente al hacer scroll
+  const cardY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   return (
-    <section className="relative z-10 w-full py-20 md:py-32 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500">
+    <section ref={sectionRef} className="relative z-10 w-full py-20 md:py-32 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
       <div className="max-w-7xl mx-auto">
 
-        {/* ENCABEZADO */}
+        {/* ========================================================================
+            ENCABEZADO DE SECCIÓN
+            ======================================================================== */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -95,25 +108,27 @@ export default function Highlights() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-20 md:mb-32 text-center md:text-left relative"
         >
-          <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500
-            dark:bg-cyan-400/20 bg-cyan-400/10"
-          />
-          <span className="text-xs font-bold uppercase tracking-[0.4em] mb-4 block drop-shadow-md transition-colors duration-500
-            dark:text-cyan-400 text-cyan-600">
-            {content.tag}
+          {/* Halo decorativo detrás del título */}
+          <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500 dark:bg-cyan-400/20 bg-cyan-400/10" />
+
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 border shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10 mx-auto md:mx-0">
+            <i className="ri-compass-3-line text-sm"></i> {content.tag}
           </span>
-          <h2 className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.2)] transition-colors duration-500
-            dark:text-white text-navy">
-            {content.titleStart} <br className="hidden md:block" /> <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
+
+          <h2 className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-sm transition-colors duration-500 dark:text-white text-navy">
+            {content.titleStart} <br className="hidden md:block" />
+            <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
           </h2>
-          <p className="mt-5 md:mt-6 max-w-2xl mx-auto md:mx-0 text-base sm:text-lg leading-relaxed font-body font-medium drop-shadow-md transition-colors duration-500
-            dark:text-slate-300 text-slate-600">
+
+          <p className="mt-5 md:mt-8 max-w-2xl mx-auto md:mx-0 text-base sm:text-lg leading-relaxed font-body font-medium transition-colors duration-500 dark:text-slate-300 text-slate-600">
             {content.desc}
           </p>
         </motion.div>
 
-        {/* ZIG-ZAG CINEMATOGRÁFICO */}
-        <div className="flex flex-col gap-28 md:gap-40 lg:gap-48">
+        {/* ========================================================================
+            ZIG-ZAG CINEMATOGRÁFICO CON PARALLAX
+            ======================================================================== */}
+        <div className="flex flex-col gap-24 md:gap-40 lg:gap-48">
           {highlightsData.map((item, idx) => {
             const isEven = idx % 2 === 0;
 
@@ -124,7 +139,7 @@ export default function Highlights() {
               >
 
                 {/* 1. IMAGEN GIGANTE */}
-                <div className="w-full md:w-[68%] lg:w-[70%] h-[380px] sm:h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative shrink-0 z-0 bg-slate-200 dark:bg-dark/50">
+                <div className="w-full md:w-[68%] lg:w-[70%] h-[400px] sm:h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative shrink-0 z-0 bg-slate-200 dark:bg-dark/50">
                   <motion.img
                     initial={{ scale: 1.15 }}
                     whileInView={{ scale: 1 }}
@@ -134,9 +149,11 @@ export default function Highlights() {
                     alt={item.title}
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[4s] ease-out group-hover:scale-105 will-change-transform"
+                    // 👇 Aumentamos el scale en hover a 110 y la duración a 5s para un efecto más inmersivo
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent dark:from-dark/60 opacity-60 transition-colors duration-500 pointer-events-none" />
+                  {/* Gradiente protector */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent dark:from-dark/70 opacity-70 transition-colors duration-500 pointer-events-none" />
 
                   {/* TELÓN REVEAL */}
                   <motion.div
@@ -149,51 +166,52 @@ export default function Highlights() {
                   />
                 </div>
 
-                {/* 2. TARJETA DE CRISTAL FLOTANTE */}
+                {/* 2. TARJETA DE CRISTAL FLOTANTE (Con Parallax) */}
                 <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ repeat: Infinity, duration: 6 + (idx % 2), ease: "easeInOut" }}
-                  className={`w-[92%] sm:w-[85%] md:w-[45%] lg:w-[40%] relative z-10 self-center md:self-auto -mt-20 sm:-mt-24 md:mt-0 ${isEven ? 'md:-ml-16 lg:-ml-32' : 'md:-mr-16 lg:-mr-32'}`}
+                  // 👇 Aplicamos el Transform Y dinámico (Parallax) + Ajustamos márgenes para móvil
+                  style={{ y: cardY }}
+                  className={`w-[90%] sm:w-[80%] md:w-[45%] lg:w-[40%] relative z-10 self-center md:self-auto -mt-16 sm:-mt-24 md:mt-0 ${isEven ? 'md:-ml-16 lg:-ml-32' : 'md:-mr-16 lg:-mr-32'}`}
                 >
-                  {/* 👇 Aquí TypeScript ya sabe que staggerContainer es correcto */}
                   <motion.div
                     variants={staggerContainer}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
-                    className="p-7 sm:p-8 md:p-10 lg:p-14 rounded-[2rem] lg:rounded-[2.5rem] backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.15)] border transition-all duration-500 hover:shadow-cyan-500/20
-                      bg-white/90 border-white/50
-                      dark:bg-dark/80 dark:border-white/10 dark:hover:border-white/30"
+                    className="p-7 sm:p-8 md:p-10 lg:p-12 rounded-[2rem] lg:rounded-[2.5rem] backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.15)] border transition-all duration-500 hover:shadow-cyan-500/20
+                      bg-white/95 border-white/80
+                      dark:bg-dark/90 dark:border-white/10 dark:hover:border-white/30"
                   >
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/20"></div>
 
-                    {/* 👇 Aquí usamos staggerItem sin errores */}
                     <motion.span
                       variants={staggerItem}
                       className="inline-block px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border
                         text-cyan-700 bg-cyan-50 border-cyan-200
-                        dark:text-cyan-400 dark:bg-cyan-400/10 dark:border-cyan-400/20">
+                        dark:text-cyan-400 dark:bg-cyan-400/10 dark:border-cyan-400/20"
+                    >
                       {item.kicker}
                     </motion.span>
 
                     <motion.h3
                       variants={staggerItem}
-                      className="font-title text-3xl sm:text-4xl lg:text-5xl leading-tight mb-3 md:mb-4 transition-colors duration-500
-                        text-navy dark:text-white">
+                      className="font-title text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 transition-colors duration-500
+                        text-navy dark:text-white"
+                    >
                       {item.title}
                     </motion.h3>
 
                     <motion.p
                       variants={staggerItem}
-                      className="font-body text-sm md:text-base leading-relaxed mb-6 md:mb-8 transition-colors duration-500 font-medium
-                        text-slate-600 dark:text-slate-300">
+                      className="font-body text-sm md:text-base leading-relaxed mb-8 transition-colors duration-500 font-medium
+                        text-slate-600 dark:text-slate-300"
+                    >
                       {item.desc}
                     </motion.p>
 
                     <motion.div variants={staggerItem}>
                       <Link
                         to={item.link}
-                        className="inline-flex items-center gap-3 sm:gap-4 font-title text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 group/btn
+                        className="inline-flex items-center gap-3 font-title text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 group/btn
                           text-yellow-600 hover:text-yellow-500
                           dark:text-yellow-400 dark:hover:text-yellow-300"
                       >
@@ -204,7 +222,8 @@ export default function Highlights() {
 
                         <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover/btn:bg-yellow-400 group-hover/btn:text-navy
                           border-yellow-400/50 bg-yellow-50 text-yellow-600
-                          dark:border-yellow-400/30 dark:bg-yellow-400/10 dark:text-yellow-400">
+                          dark:border-yellow-400/30 dark:bg-yellow-400/10 dark:text-yellow-400"
+                        >
                           <i className="ri-arrow-right-line text-lg sm:text-xl group-hover/btn:translate-x-1 transition-transform"></i>
                         </div>
                       </Link>

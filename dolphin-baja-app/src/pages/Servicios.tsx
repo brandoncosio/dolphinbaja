@@ -234,9 +234,8 @@ export default function Servicios() {
         </AnimatePresence>
 
         {/* ========================================================================
-            🚀 NUEVO HERO DE SERVICIOS (Super espaciado para la Navbar Gigante)
+            🚀 NUEVO HERO DE SERVICIOS
             ======================================================================== */}
-        {/* 👇 pt-48 y mt-20 aplican un margen fuerte para bajar todo el contenido */}
         <section className="relative w-full h-[100dvh] min-h-[650px] md:h-[80vh] md:min-h-[750px] overflow-hidden flex flex-col justify-center items-center pt-40 md:pt-48 pb-16">
 
           {/* Fondo Inmersivo Oceánico */}
@@ -303,10 +302,12 @@ export default function Servicios() {
         </section>
 
         {/* CATÁLOGO UNIFICADO */}
-        <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 mt-12 md:mt-16">
+        {/* 👇 Se redujo el margen superior para acercar el contenido al Hero */}
+        <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 mt-8 md:mt-10">
 
           {/* ======================= SECCIÓN PAQUETES ======================= */}
-          <section id="paquetes" className="mb-24 md:mb-32 scroll-mt-28">
+          {/* 👇 Se redujo el mb a 16 md:24 */}
+          <section id="paquetes" className="mb-16 md:mb-24 scroll-mt-28">
             <div className="text-center mb-10 md:mb-12">
               <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-4">{pkgData.title}</h2>
               <p className="font-body font-bold tracking-widest uppercase text-xs md:text-sm text-cyan-600 dark:text-cyan-400">{pkgData.subtitle}</p>
@@ -370,12 +371,13 @@ export default function Servicios() {
             const servicesList = getServicesForTab(tabKey);
 
             return (
-              <section key={tabKey} id={tabKey} className="pt-10 scroll-mt-20">
-                <div className="text-center md:text-left mb-10 md:mb-14 border-b border-slate-200 dark:border-white/10 pb-6">
+              <section key={tabKey} id={tabKey} className="pt-6 scroll-mt-20">
+                <div className="text-center md:text-left mb-10 border-b border-slate-200 dark:border-white/10 pb-6">
                   <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{sectionTitle}</h2>
                 </div>
 
-                <div className="flex flex-col gap-12 md:gap-16">
+                {/* 👇 Se redujo el gap interno de las tarjetas (de gap-16 a gap-8/12) */}
+                <div className="flex flex-col gap-8 md:gap-12">
                   {servicesList.map((item, idx) => {
                     const isEven = idx % 2 === 0;
 
@@ -449,7 +451,8 @@ export default function Servicios() {
                 </div>
 
                 {/* HORARIOS */}
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} className="mt-16 mb-24 max-w-6xl mx-auto w-full">
+                {/* 👇 Se redujo de mt-16 a mt-12 y de mb-24 a mb-16 para mayor cohesión */}
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} className="mt-12 mb-16 max-w-6xl mx-auto w-full">
                   {(() => {
                     const sched = content.schedules?.[tabKey];
                     if (!sched) return null;

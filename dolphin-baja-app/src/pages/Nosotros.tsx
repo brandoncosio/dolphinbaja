@@ -106,23 +106,24 @@ export default function Nosotros() {
         </div>
 
         {/* =========================================================
-            CONTENIDO (Z-10 para flotar sobre el agua)
+            CONTENIDO NARRATIVO (Z-10 para flotar sobre el agua)
         ========================================================= */}
-        <div className="relative z-10 flex flex-col">
+        {/* 👇 Se eliminó el "gap-8 md:gap-16" para evitar doble espaciado */}
+        <div className="relative z-10 flex flex-col pb-10">
 
-          {/* 1. Hero */}
+          {/* 1. El Enganche Visual */}
           <AboutHero />
 
-          {/* 2. Historia & Misión */}
+          {/* 2. El Corazón y la Filosofía */}
           <OurStory />
 
-          {/* 3. Timeline */}
-          <History />
-
-          {/* 4. Staff */}
+          {/* 3. El Lado Humano (Genera conexión inmediata) */}
           <Team />
 
-          {/* 5. Galería */}
+          {/* 4. El Respaldo de Autoridad (Timeline de logros) */}
+          <History />
+
+          {/* 5. El Patio de Juegos (A dónde te llevamos) */}
           <DiveSites />
 
         </div>
