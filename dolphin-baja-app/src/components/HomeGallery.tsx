@@ -30,141 +30,155 @@ export default function HomeGallery() {
     const { t } = useLanguage();
     const content = t.home.gallery;
 
-    const galleryItems = [
-        { id: 1, src: img1, title: content.images[0] || "Explorando profundidades", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
-        { id: 2, src: img2, title: content.images[1] || "Aventuras únicas", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 3, src: img3, title: content.images[2] || "Vida marina", size: "col-span-1 row-span-2 md:col-span-1 md:row-span-2" },
-        { id: 4, src: img4, title: content.images[3] || "Momentos de paz", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 5, src: img5, title: content.images[4] || "Nuestro Staff", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
-        { id: 6, src: img6, title: content.images[5] || "El Mar de Cortés", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 7, src: img7, title: content.images[6] || "Experiencias PADI", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 8, src: img8, title: content.images[7] || "Aguas cristalinas", size: "col-span-2 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 9, src: img9, title: content.images[8] || "Equipamiento", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 10, src: img10, title: content.images[9] || "Únete hoy", size: "col-span-1 row-span-1 md:col-span-2 md:row-span-1" },
-        { id: 11, src: imgAlebrijes, title: content.images[10] || "Alebrijes del Mar", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 12, src: imgCaballitos, title: content.images[11] || "Caballitos de Mar", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 13, src: imgFocahome, title: content.images[12] || "Nuestros Amigos", size: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
-        { id: 14, src: imgHomecar, title: content.images[13] || "Detalles Únicos", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 15, src: imgHomef, title: content.images[14] || "Biodiversidad", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 16, src: imgHomein, title: content.images[15] || "Inmersión Total", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 17, src: imgMarprofundo, title: content.images[16] || "Mar Profundo", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 18, src: imgPzcolor, title: content.images[17] || "Colores Vivos", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
-        { id: 19, src: imgPzcolor2, title: content.images[18] || "Arrecifes", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 20, src: imgVdmar, title: content.images[19] || "Vida Marina", size: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-        { id: 21, src: imgVol, title: content.images[20] || "Aventuras", size: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
+    // Arrays limpios
+    const row1 = [
+        { id: 1, src: img1, title: content.images[0] || "Explorando profundidades" },
+        { id: 2, src: img2, title: content.images[1] || "Aventuras únicas" },
+        { id: 3, src: imgAlebrijes, title: content.images[10] || "Alebrijes del Mar" },
+        { id: 4, src: img4, title: content.images[3] || "Momentos de paz" },
+        { id: 5, src: img5, title: content.images[4] || "Nuestro Staff" },
+        { id: 6, src: imgCaballitos, title: content.images[11] || "Caballitos de Mar" },
+        { id: 7, src: img7, title: content.images[6] || "Experiencias PADI" },
+        { id: 8, src: imgHomecar, title: content.images[13] || "Detalles Únicos" },
+        { id: 9, src: img9, title: content.images[8] || "Equipamiento" },
+        { id: 10, src: imgFocahome, title: content.images[12] || "Nuestros Amigos" },
+    ];
+
+    const row2 = [
+        { id: 11, src: img3, title: content.images[2] || "Vida marina" },
+        { id: 12, src: imgHomef, title: content.images[14] || "Biodiversidad" },
+        { id: 13, src: img6, title: content.images[5] || "El Mar de Cortés" },
+        { id: 14, src: imgMarprofundo, title: content.images[16] || "Mar Profundo" },
+        { id: 15, src: img8, title: content.images[7] || "Aguas cristalinas" },
+        { id: 16, src: imgPzcolor, title: content.images[17] || "Colores Vivos" },
+        { id: 17, src: img10, title: content.images[9] || "Únete hoy" },
+        { id: 18, src: imgHomein, title: content.images[15] || "Inmersión Total" },
+        { id: 19, src: imgPzcolor2, title: content.images[18] || "Arrecifes" },
+        { id: 20, src: imgVdmar, title: content.images[19] || "Vida Marina" },
+        { id: 21, src: imgVol, title: content.images[20] || "Aventuras" },
     ];
 
     // ========================================================================
     // 🎨 ESTILOS SEPARADOS (Clean Code)
     // ========================================================================
 
-    // 1. Estilo para las Tarjetas de Fotos (Mosaico)
-    const photoCardClass = `
-      relative group rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-500
-      
-      /* LIGHT MODE: Limpio, elevado, bordes grises suaves */
-      bg-slate-100 border-slate-200 shadow-md 
-      hover:border-cyan-500/40 hover:shadow-cyan-200/50
-
-      /* DARK MODE: Matte Glass, oscuro, bordes sutiles, sin neón */
-      dark:bg-white/5 dark:border-white/10 dark:shadow-none 
-      dark:hover:border-white/20
-    `;
-
-    // 2. Estilo para el Botón de Instagram
     const instaBtnClass = `
-      inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-full font-title text-sm tracking-widest uppercase backdrop-blur-xl transition-all duration-300 group shadow-lg w-full sm:w-auto hover:-translate-y-1 active:translate-y-0
-      
-      /* LIGHT MODE: Azul Marino Sólido (Elegante) */
-      bg-navy text-white border-navy/10 
-      hover:bg-cyan-600 hover:border-cyan-600 hover:shadow-cyan-200/50
-
-      /* DARK MODE: Cristal Mate Oscuro (Moderno) */
-      dark:bg-white/5 dark:text-white dark:border-white/20 
-      dark:hover:bg-white/10 dark:hover:border-white/30 dark:shadow-none
+      inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all duration-300 group shadow-xl hover:-translate-y-1 active:translate-y-0
+      bg-cyan-600 text-white border border-cyan-600 
+      hover:bg-cyan-500 hover:border-cyan-500 hover:shadow-cyan-500/30
+      dark:bg-cyan-500 dark:border-cyan-500 dark:text-navy 
+      dark:hover:bg-cyan-400 dark:hover:border-cyan-400 dark:shadow-none
     `;
 
-    // 3. Estilo para la Luz de Fondo (Atmósfera)
-    const bgLightClass = `
-      absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-48 w-64 md:w-96 rounded-full blur-[80px] pointer-events-none transition-colors duration-500
-      
-      /* LIGHT MODE: Casi invisible */
-      bg-cyan-400/5
-      
-      /* DARK MODE: Cyan profundo y tenue (No neón) */
-      dark:bg-cyan-500/10
+    // Tarjeta fotográfica
+    const cardClass = `
+      relative w-[280px] h-[200px] sm:w-[350px] sm:h-[250px] lg:w-[450px] lg:h-[300px] 
+      rounded-[2rem] overflow-hidden shrink-0 group cursor-pointer 
+      border border-slate-200 dark:border-white/10 shadow-lg bg-slate-200 dark:bg-white/5
     `;
+
+    // Bloque estructural para el cálculo matemático perfecto
+    // El padding-right (pr) emula el "gap" final para que conecte con el Bloque B sin saltos.
+    const TrackBlock = ({ items }: { items: typeof row1 }) => (
+        <div className="flex shrink-0 gap-4 md:gap-6 pr-4 md:pr-6">
+            {items.map((item, idx) => (
+                <div key={idx} className={cardClass}>
+                    <img
+                        src={item.src}
+                        alt={item.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-10">
+                        <p className="text-white font-title text-xl md:text-2xl drop-shadow-md leading-tight">
+                            {item.title}
+                        </p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
 
     return (
-        <section className="relative z-10 w-full py-16 md:py-24 px-4 md:px-12 overflow-hidden transition-colors duration-500">
-            <div className="max-w-[1400px] mx-auto relative z-20">
+        <section className="relative z-10 w-full py-24 md:py-32 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
+
+            {/* Luz de fondo ambiental */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[60%] w-[80%] rounded-full blur-[120px] pointer-events-none transition-colors duration-500 bg-cyan-400/10 dark:bg-cyan-500/10" />
+
+            <div className="max-w-[1600px] mx-auto relative z-20">
 
                 {/* =========================================
-                    ENCABEZADO LUMINOSO (Adaptable)
+                    ENCABEZADO
                 ========================================= */}
-                <div className="text-center mb-12 md:mb-16 relative">
-                    {/* Luz de fondo adaptable */}
-                    <div className={bgLightClass} />
-
+                <div className="text-center mb-16 md:mb-24 px-6 relative">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-4 block drop-shadow-md transition-colors duration-500
-                        text-cyan-600 dark:text-cyan-400"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full border text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 shadow-sm
+                        text-cyan-700 bg-white border-slate-200
+                        dark:text-cyan-400 dark:bg-white/5 dark:border-white/10"
                     >
-                        {content.tag}
+                        <i className="ri-image-circle-line text-sm"></i> {content.tag}
                     </motion.span>
+
                     <motion.h2
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                        className="font-title text-3xl md:text-5xl lg:text-6xl drop-shadow-sm leading-tight transition-colors duration-500
-                        text-navy dark:text-white"
+                        className="font-title text-4xl sm:text-5xl lg:text-6xl drop-shadow-sm leading-tight transition-colors duration-500 text-navy dark:text-white"
                     >
                         {content.title}
                     </motion.h2>
                 </div>
 
                 {/* =========================================
-                    GRID MOSAICO (Apple-Style Glass)
+                    MARQUESINA INFINITA (Fila 1 - Izquierda a Derecha)
                 ========================================= */}
-                <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[120px] sm:auto-rows-[150px] md:auto-rows-[200px] gap-2 md:gap-4">
-                    {galleryItems.map((item, index) => (
-                        <motion.div
-                            key={item.id}
-                            className={`${photoCardClass} ${item.size}`}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.5, delay: (index % 4) * 0.05, ease: "easeOut" }}
-                            style={{ willChange: "transform" }}
-                        >
-                            <img
-                                src={item.src}
-                                alt={item.title}
-                                loading="lazy"
-                                decoding="async"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 will-change-transform"
-                            />
+                <div className="relative flex overflow-hidden w-full mb-4 md:mb-6">
+                    {/* Gradientes laterales para difuminar bordes y dar efecto Premium */}
+                    <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-r from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-l from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/10 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                            <div className="absolute inset-0 flex items-end md:items-center justify-center p-4 pb-6 md:p-2 z-10 pointer-events-none">
-                                <p className="text-white font-title text-sm sm:text-base md:text-xl text-center md:transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] md:opacity-0 md:group-hover:opacity-100 leading-tight">
-                                    {item.title}
-                                </p>
-                            </div>
-                        </motion.div>
-                    ))}
+                    {/* Contenedor en movimiento (Con Hardware Acceleration) */}
+                    <motion.div
+                        className="flex shrink-0"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{ ease: "linear", duration: 80, repeat: Infinity }} // 👈 Duración alta = Movimiento majestuoso
+                        style={{ width: "max-content", willChange: "transform" }} // 👈 Aceleración GPU
+                    >
+                        {/* Se renderizan dos bloques gemelos exactos */}
+                        <TrackBlock items={row1} />
+                        <TrackBlock items={row1} />
+                    </motion.div>
                 </div>
 
                 {/* =========================================
-                    BOTÓN INSTAGRAM (Liquid Glass Adaptable)
+                    MARQUESINA INFINITA (Fila 2 - Derecha a Izquierda)
                 ========================================= */}
-                <div className="mt-12 md:mt-16 text-center">
+                <div className="relative flex overflow-hidden w-full">
+                    <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-r from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-l from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
+
+                    <motion.div
+                        className="flex shrink-0"
+                        animate={{ x: ["-50%", "0%"] }} // 👈 Dirección inversa
+                        transition={{ ease: "linear", duration: 95, repeat: Infinity }} // 👈 Ligeramente diferente a la Fila 1 para mayor dinamismo orgánico
+                        style={{ width: "max-content", willChange: "transform" }}
+                    >
+                        <TrackBlock items={row2} />
+                        <TrackBlock items={row2} />
+                    </motion.div>
+                </div>
+
+                {/* =========================================
+                    BOTÓN INSTAGRAM
+                ========================================= */}
+                <div className="mt-16 md:mt-24 text-center px-6">
                     <motion.a
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -175,7 +189,7 @@ export default function HomeGallery() {
                         rel="noopener noreferrer"
                         className={instaBtnClass}
                     >
-                        <i className="ri-instagram-line text-xl group-hover:scale-110 transition-transform"></i>
+                        <i className="ri-instagram-line text-lg group-hover:scale-110 transition-transform"></i>
                         {content.btnInsta}
                         <i className="ri-arrow-right-up-line group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
                     </motion.a>

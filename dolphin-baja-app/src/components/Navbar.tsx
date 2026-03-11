@@ -120,14 +120,13 @@ export default function Navbar() {
   `;
 
   const iconBtnClass = `
-    flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full border transition-all hover:scale-110 active:scale-95
+    flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-xl border transition-all hover:scale-110 active:scale-95
     bg-slate-100 border-slate-200 text-slate-600 hover:text-cyan-600 hover:border-cyan-200
     dark:bg-white/5 dark:border-white/10 dark:text-slate-300 dark:hover:text-cyan-400 dark:hover:border-white/20
   `;
 
-  // 👇 CONSTANTE RESTAURADA: Esto arregla el error ts(2304) que me mostraste
   const langBtnClass = `
-    flex items-center justify-center gap-2 h-10 md:h-11 px-3 md:px-4 rounded-full border transition-all hover:scale-105 active:scale-95
+    flex items-center justify-center gap-2 h-10 md:h-11 px-3 md:px-4 rounded-xl border transition-all hover:scale-105 active:scale-95
     bg-slate-100 border-slate-200 text-slate-700 hover:bg-white
     dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10
   `;
@@ -148,7 +147,7 @@ export default function Navbar() {
                 }`}
             />
             {/* Tooltip de "Ir al inicio" */}
-            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-navy/90 dark:bg-white/90 text-white dark:text-navy font-title text-[9px] md:text-[10px] tracking-widest uppercase rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-navy/90 dark:bg-white/90 text-white dark:text-navy font-title text-[9px] md:text-[10px] tracking-widest uppercase rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
               {lang === 'es' ? 'Ir al inicio' : 'Back to home'}
             </span>
           </Link>
@@ -171,7 +170,7 @@ export default function Navbar() {
                 {/* Botón Principal */}
                 <Link
                   to={item.path}
-                  className={`relative z-20 flex items-center gap-1.5 font-body text-xs lg:text-[13px] font-bold uppercase tracking-[0.15em] transition-all duration-300 py-2.5 px-4 rounded-full whitespace-nowrap
+                  className={`relative z-20 flex items-center gap-1.5 font-body text-xs lg:text-[13px] font-bold uppercase tracking-[0.15em] transition-all duration-300 py-2.5 px-4 rounded-xl whitespace-nowrap
                   ${isActive
                       ? 'text-cyan-600 dark:text-cyan-400 bg-slate-100/50 dark:bg-white/5'
                       : 'text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 bg-transparent'}`}
@@ -187,13 +186,11 @@ export default function Navbar() {
                 <AnimatePresence>
                   {item.submenu && isActive && (
                     <motion.div
-                      // Físicas exageradas de Morphing + Blur para el efecto Gota/Dynamic Island
                       initial={{ opacity: 0, y: -25, scaleX: 0.4, scaleY: 0.2, filter: "blur(15px)" }}
                       animate={{ opacity: 1, y: 0, scaleX: 1, scaleY: 1, filter: "blur(0px)" }}
                       exit={{ opacity: 0, y: -20, scaleX: 0.7, scaleY: 0.4, filter: "blur(10px)" }}
                       transition={{ type: "spring", stiffness: 450, damping: 25, mass: 1 }}
                       style={{ transformOrigin: "top center" }}
-                      // Se despliega anclado justo debajo de la palabra
                       className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[240px] z-10 pt-1"
                     >
                       <div className={dropdownContainerClass}>
@@ -243,8 +240,8 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Botón WhatsApp Sileo (Se ve en desktop) */}
-          <button onClick={handleReservation} className="hidden lg:flex items-center gap-2 rounded-full border px-5 py-2.5 xl:px-6 xl:py-3 font-title text-[10px] xl:text-xs tracking-widest uppercase transition-all hover:scale-105 active:scale-95 shadow-md group bg-cyan-600 border-cyan-600 text-white hover:bg-cyan-500 hover:border-cyan-500 hover:shadow-cyan-500/30 dark:bg-cyan-500 dark:border-cyan-500 dark:text-navy dark:hover:bg-cyan-400 dark:hover:border-cyan-400">
+          {/* Botón WhatsApp Sileo (Desktop) - 🟢 VERDE WHATSAPP */}
+          <button onClick={handleReservation} className="hidden lg:flex items-center gap-2 rounded-xl border px-5 py-2.5 xl:px-6 xl:py-3 font-title text-[10px] xl:text-xs tracking-widest uppercase transition-all hover:scale-105 active:scale-95 shadow-md group bg-green-500 border-green-500 text-white hover:bg-green-400 hover:border-green-400 hover:shadow-green-500/30 dark:bg-green-600 dark:border-green-600 dark:text-white dark:hover:bg-green-500 dark:hover:border-green-500">
             {t.navbar.cta} <i className="ri-whatsapp-line text-lg xl:text-xl group-hover:scale-110 transition-transform"></i>
           </button>
 
@@ -276,7 +273,7 @@ export default function Navbar() {
             {/* Header del Menú Móvil */}
             <div className="flex items-center justify-between px-6 py-6 border-b border-slate-200 dark:border-white/10">
               <img src={logo} alt="Logo" className="h-10 object-contain" />
-              <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white">
+              <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white">
                 <i className="ri-close-line text-2xl"></i>
               </button>
             </div>
@@ -293,7 +290,7 @@ export default function Navbar() {
                       {item.submenu && (
                         <button
                           onClick={() => setOpenMobileSubmenu(openMobileSubmenu === item.name ? null : item.name)}
-                          className="w-12 h-12 flex items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-300 active:bg-cyan-100 dark:active:bg-cyan-900"
+                          className="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-300 active:bg-cyan-100 dark:active:bg-cyan-900"
                         >
                           <i className={`ri-arrow-down-s-line text-3xl transition-transform duration-300 ${openMobileSubmenu === item.name ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : ''}`}></i>
                         </button>
@@ -342,7 +339,7 @@ export default function Navbar() {
                 </button>
               </div>
 
-              <button onClick={handleReservation} className="w-full py-4 rounded-xl flex items-center justify-center gap-3 bg-cyan-600 text-white font-title text-sm tracking-widest uppercase shadow-lg active:scale-95 transition-transform mt-2">
+              <button onClick={handleReservation} className="w-full py-4 rounded-xl flex items-center justify-center gap-3 bg-green-500 text-white font-title text-sm tracking-widest uppercase shadow-lg active:scale-95 transition-transform mt-2 dark:bg-green-600">
                 <i className="ri-whatsapp-line text-2xl"></i> {t.navbar.cta}
               </button>
             </div>
@@ -352,23 +349,33 @@ export default function Navbar() {
       </AnimatePresence>
 
       {/* ========================================================================
-          💬 LOGO FLOTANTE WHATSAPP (Sutil y Elegante)
+          💬 LOGO FLOTANTE WHATSAPP (Con Logo del Cliente + Badge Verde)
           ======================================================================== */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[80]">
         <div className="relative group">
-          <div className="absolute inset-0 bg-cyan-400/40 rounded-full animate-ping opacity-75"></div>
+          {/* Pulso verde de fondo que indica que es WhatsApp */}
+          <div className="absolute inset-0 bg-green-400/50 rounded-full animate-ping opacity-75"></div>
+
           <button
             onClick={handleReservation}
             className="relative w-16 h-16 md:w-20 md:h-20 bg-white/95 dark:bg-navy/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300"
             aria-label="Contactar por WhatsApp"
           >
+            {/* EL LOGO DEL CLIENTE (El protagonista) */}
             <img
               src={logo}
               alt="WhatsApp Dolphin Dive Baja"
               className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-md group-hover:drop-shadow-xl transition-all"
             />
-            <span className="absolute right-[110%] top-1/2 -translate-y-1/2 mr-2 px-4 py-2 bg-navy/90 dark:bg-white/90 backdrop-blur-md text-white dark:text-navy font-title text-[10px] md:text-xs tracking-widest uppercase rounded-xl shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
-              {lang === 'es' ? '¡Escríbenos!' : 'Chat with us!'}
+
+            {/* BADGE DE WHATSAPP (Aclara inmediatamente la acción del botón) */}
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 md:w-7 md:h-7 bg-green-500 rounded-full border-2 border-white dark:border-navy flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12">
+              <i className="ri-whatsapp-line text-white text-sm md:text-base"></i>
+            </div>
+
+            {/* Tooltip redondeado congruente con los demás botones */}
+            <span className="absolute right-[115%] top-1/2 -translate-y-1/2 mr-2 px-4 py-2 bg-white/95 dark:bg-dark/95 backdrop-blur-md text-navy dark:text-white border border-slate-200 dark:border-white/10 font-title text-[10px] md:text-xs tracking-widest uppercase rounded-xl shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
+              {lang === 'es' ? '¡Chatea con nosotros!' : 'Chat with us!'}
             </span>
           </button>
         </div>

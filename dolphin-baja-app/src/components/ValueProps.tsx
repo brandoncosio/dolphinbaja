@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function ValueProps() {
@@ -12,113 +12,106 @@ export default function ValueProps() {
     { icon: "ri-leaf-line", title: content.cards[3].title, desc: content.cards[3].desc, highlight: true }
   ];
 
-  return (
-    <section className="relative z-10 w-full py-16 md:py-24 px-6 md:px-20 overflow-hidden transition-colors duration-500 border-t border-slate-200 dark:border-white/10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+  // ========================================================================
+  // 🎭 VARIANTES DE ANIMACIÓN (Staggering Suave)
+  // ========================================================================
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    }
+  };
 
-        {/* COLUMNA DE TEXTO */}
+  // 👇 Aquí estaba el error de nombre. Ahora se llama itemVariants y lo usaremos igual abajo.
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  };
+
+  return (
+    <section className="relative z-10 w-full py-20 md:py-32 px-6 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+        {/* =========================================
+            COLUMNA DE TEXTO (Izquierda)
+            ========================================= */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative text-center lg:text-left"
+          className="relative text-center lg:text-left lg:col-span-5 flex flex-col justify-center"
         >
-          {/* Brillo de fondo (Muy sutil en ambos casos) */}
-          <div className="absolute top-1/2 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 -translate-y-1/2 -z-10 w-64 md:w-80 h-64 md:h-80 rounded-full blur-[80px] pointer-events-none transition-colors duration-500
-            bg-cyan-400/10 dark:bg-cyan-500/5"
-          />
+          {/* Brillo de fondo sutil */}
+          <div className="absolute top-1/2 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 -translate-y-1/2 -z-10 w-64 md:w-80 h-64 md:h-80 rounded-full blur-[80px] pointer-events-none transition-colors duration-500 bg-cyan-400/10 dark:bg-cyan-500/5" />
 
-          <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-4 block drop-shadow-md transition-colors duration-500
-            text-cyan-600 dark:text-cyan-400">
-            {content.tag}
+          <span className="inline-flex items-center justify-center lg:justify-start gap-2 px-4 py-1.5 rounded-full border text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 w-max mx-auto lg:mx-0 shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10">
+            <i className="ri-medal-fill text-sm"></i> {content.tag}
           </span>
 
-          <h2 className="font-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] md:leading-tight mb-6 drop-shadow-sm transition-colors duration-500
-            text-navy dark:text-white">
+          <h2 className="font-title text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6 drop-shadow-sm transition-colors duration-500 text-navy dark:text-white">
             {content.titleStart} <br className="hidden md:block" />
             <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg leading-relaxed font-body font-medium drop-shadow-sm max-w-xl mx-auto lg:mx-0 transition-colors duration-500
-            text-slate-600 dark:text-slate-300">
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mb-8 mx-auto lg:mx-0"></div>
+
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed font-body font-medium drop-shadow-sm max-w-xl mx-auto lg:mx-0 transition-colors duration-500 text-slate-600 dark:text-slate-300">
             {content.desc}
           </p>
         </motion.div>
 
-        {/* GRID DE TARJETAS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+        {/* =========================================
+            GRID DE TARJETAS (Derecha)
+            ========================================= */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 lg:pl-8"
+        >
           {valuesData.map((item, idx) => {
 
-            // 🧠 ESTRATEGIA DE DIVISIÓN: Definimos los estilos por separado para mayor claridad
+            // Estilos para TARJETA
+            const cardClasses = item.highlight
+              ? `bg-yellow-50/80 border-yellow-200 shadow-xl shadow-yellow-100/50 hover:border-yellow-400 dark:bg-white/5 dark:border-yellow-500/30 dark:shadow-none dark:hover:border-yellow-400/80 dark:hover:bg-white/10`
+              : `bg-white/80 border-slate-200 shadow-xl shadow-slate-200/50 hover:border-cyan-400 dark:bg-white/5 dark:border-white/10 dark:shadow-none dark:hover:border-cyan-400/50 dark:hover:bg-white/10`;
 
-            // 1. Estilos para la TARJETA DESTACADA (Highlight)
-            const highlightClasses = item.highlight
-              ? `
-                /* LIGHT MODE (Papel Crema Vibrante) */
-                bg-yellow-50 border-yellow-200 shadow-xl shadow-yellow-100/50 
-                hover:border-yellow-400 hover:-translate-y-1
-                
-                /* DARK MODE (Cristal Mate Sutil - Sin neón) */
-                dark:bg-white/5 dark:border-white/10 dark:shadow-none 
-                dark:hover:border-yellow-400/50 dark:hover:bg-white/10
-                `
-              : `
-                /* LIGHT MODE (Papel Blanco Limpio) */
-                bg-white border-slate-100 shadow-xl shadow-slate-200/50 
-                hover:border-cyan-300 hover:-translate-y-1
-                
-                /* DARK MODE (Cristal Mate Sutil) */
-                dark:bg-white/5 dark:border-white/5 dark:shadow-none 
-                dark:hover:border-cyan-400/50 dark:hover:bg-white/10
-                `;
-
-            // 2. Estilos para el ICONO
+            // Estilos para ICONO
             const iconClasses = item.highlight
-              ? `
-                /* LIGHT */
-                bg-yellow-100 text-yellow-600 border-yellow-200
-                /* DARK */
-                dark:bg-white/5 dark:text-yellow-400 dark:border-white/10
-                `
-              : `
-                /* LIGHT */
-                bg-cyan-50 text-cyan-600 border-cyan-100
-                /* DARK */
-                dark:bg-white/5 dark:text-cyan-400 dark:border-white/10
-                `;
+              ? `bg-yellow-100 text-yellow-600 border-yellow-200 group-hover:bg-yellow-400 group-hover:text-navy dark:bg-yellow-500/20 dark:text-yellow-400 dark:border-yellow-500/30 dark:group-hover:bg-yellow-400 dark:group-hover:text-dark`
+              : `bg-cyan-50 text-cyan-600 border-cyan-100 group-hover:bg-cyan-500 group-hover:text-white dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-800/50 dark:group-hover:bg-cyan-500 dark:group-hover:text-navy`;
 
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: idx * 0.1, duration: 0.6, ease: "easeOut" }}
+                variants={itemVariants} // 👇 ¡CORREGIDO! Antes decía staggerItem
                 style={{ willChange: "transform" }}
-                className={`group relative p-6 md:p-8 rounded-[2rem] transition-all duration-500 backdrop-blur-xl overflow-hidden border ${highlightClasses}`}
+                className={`group relative p-6 md:p-8 rounded-[2rem] transition-all duration-500 backdrop-blur-xl overflow-hidden border hover:-translate-y-1 hover:shadow-2xl ${cardClasses}`}
               >
+                {/* Halo interactivo en Hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none dark:from-white/5"></div>
 
-                {/* Icono */}
-                <div className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-5 md:mb-6 border transition-all duration-500 ${iconClasses}`}>
+                {/* Icono animado */}
+                <div className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6 border transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 ${iconClasses}`}>
                   <i className={`${item.icon} text-2xl md:text-3xl drop-shadow-sm`}></i>
                 </div>
 
                 {/* Título */}
-                <h3 className="relative z-10 font-title text-lg md:text-xl mb-2 md:mb-3 leading-tight transition-colors duration-500
-                  text-navy dark:text-white">
+                <h3 className="relative z-10 font-title text-xl md:text-2xl mb-3 leading-tight transition-colors duration-500 text-navy dark:text-white group-hover:text-cyan-700 dark:group-hover:text-cyan-300">
                   {item.title}
                 </h3>
 
                 {/* Descripción */}
-                <p className="relative z-10 text-xs md:text-sm leading-relaxed font-body transition-colors duration-500
-                  text-slate-600 dark:text-slate-400">
+                <p className="relative z-10 text-sm leading-relaxed font-body font-medium transition-colors duration-500 text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300">
                   {item.desc}
                 </p>
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>
