@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
 // Imágenes
-import imgTours from '/assets/images/tours.webp';
-import imgExperiencias from '/assets/images/experiencias.webp';
+import imgTours from '/assets/images/experiencias.webp';
+import imgExperiencias from '/assets/images/cert2.webp';
 import imgCursos from '/assets/images/certificacionpadi.jpeg';
 import imgStaff from '/assets/images/staff.webp';
 import imgPlanifica from '/assets/images/planifica2.webp';
