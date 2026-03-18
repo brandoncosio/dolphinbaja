@@ -253,7 +253,8 @@ export default function Servicios() {
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
-                className="w-full h-full object-cover object-[center_30%] md:object-center"
+                // 👇 FILTRO APLICADO AL HERO
+                className="w-full h-full object-cover object-[center_30%] md:object-center filter contrast-[1.15] saturate-[1.10]"
               />
             </motion.div>
 
@@ -302,11 +303,9 @@ export default function Servicios() {
         </section>
 
         {/* CATÁLOGO UNIFICADO */}
-        {/* 👇 Se redujo el margen superior para acercar el contenido al Hero */}
         <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 mt-8 md:mt-10">
 
           {/* ======================= SECCIÓN PAQUETES ======================= */}
-          {/* 👇 Se redujo el mb a 16 md:24 */}
           <section id="paquetes" className="mb-16 md:mb-24 scroll-mt-28">
             <div className="text-center mb-10 md:mb-12">
               <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-4">{pkgData.title}</h2>
@@ -320,7 +319,7 @@ export default function Servicios() {
                 if (pkg.color === 'cyan') badgeClass = "text-cyan-700 border-cyan-400 bg-cyan-50 dark:bg-cyan-400/10 dark:text-cyan-400";
 
                 return (
-                  <motion.article key={pkg.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  <motion.article key={pkg.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: idx * 0.1, duration: 0.5 }}
                     className="group flex flex-col relative rounded-[2rem] p-8 md:p-10 overflow-hidden border transition-all duration-500 shadow-xl bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 hover:border-cyan-400/50"
                   >
                     <div className="mb-8">
@@ -376,7 +375,6 @@ export default function Servicios() {
                   <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{sectionTitle}</h2>
                 </div>
 
-                {/* 👇 Se redujo el gap interno de las tarjetas (de gap-16 a gap-8/12) */}
                 <div className="flex flex-col gap-8 md:gap-12">
                   {servicesList.map((item, idx) => {
                     const isEven = idx % 2 === 0;
@@ -399,7 +397,13 @@ export default function Servicios() {
 
                         {/* IMAGEN */}
                         <div className="w-full lg:w-5/12 h-[300px] sm:h-[400px] lg:h-auto relative overflow-hidden shrink-0">
-                          <img src={itemImage} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105" />
+                          <img 
+                            src={itemImage} 
+                            alt={item.title} 
+                            loading="lazy" 
+                            // 👇 FILTRO APLICADO A IMAGEN DE SERVICIO
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105 filter contrast-[1.15] saturate-[1.10]" 
+                          />
                           <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent dark:from-dark/60 pointer-events-none" />
                           <div className="absolute top-5 right-5 backdrop-blur-xl bg-white/90 dark:bg-dark/80 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 shadow-lg flex items-center gap-2">
                             <i className="ri-time-line text-base"></i> {item.duration}
@@ -451,8 +455,7 @@ export default function Servicios() {
                 </div>
 
                 {/* HORARIOS */}
-                {/* 👇 Se redujo de mt-16 a mt-12 y de mb-24 a mb-16 para mayor cohesión */}
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} className="mt-12 mb-16 max-w-6xl mx-auto w-full">
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} className="mt-12 mb-16 max-w-6xl mx-auto w-full">
                   {(() => {
                     const sched = content.schedules?.[tabKey];
                     if (!sched) return null;
@@ -563,7 +566,8 @@ export default function Servicios() {
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}
                     src={modalData.images[currentImageIdx]}
                     alt={modalData.title}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    // 👇 FILTRO APLICADO AL MODAL
+                    className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
                   />
                 </AnimatePresence>
 
