@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { motion, Variants, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, Variants, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 // Importamos el contexto de idioma
@@ -13,10 +13,20 @@ import imgStaff from '/assets/images/staff.webp';
 import imgPlanifica from '/assets/images/planifica2.webp';
 import imgGaleria from '/assets/images/colash3.webp';
 
+// Imágenes para el Reel de Snorkel
+import reel1 from '/assets/contentD/img/reel1.webp';
+import reel2 from '/assets/contentD/img/reel2.webp';
+import reel3 from '/assets/contentD/img/reel3.webp';
+
+const snorkelReel = [reel1, reel2, reel3];
+
 export default function Highlights() {
   const { t, lang } = useLanguage();
   const content = t.home.highlights;
 
+  // ========================================================================
+  // 🗄️ DATA COMPLETA (Sin recortes)
+  // ========================================================================
   const highlightsData = [
     {
       id: 1,
@@ -30,8 +40,8 @@ export default function Highlights() {
       id: 2,
       kicker: content.cards[1]?.kicker || "Descubre",
       title: content.cards[1]?.title || "Snorkel",
-      desc: lang === 'es' ? "Una experiencia perfecta para toda la familia. Nada junto a lobos marinos y cientos de peces de colores." : "A perfect experience for the whole family. Swim alongside sea lions and hundreds of colorful fish.",
-      image: imgExperiencias,
+      desc: lang === 'es' ? "Experiencias de contacto cien por ciento con la naturaleza, puedes encontrar delfines, esnorkelear con los lobos y disfrutar de hermosos paisajes subacuáticos con gran variedad de vida marina." : "Complete 100% nature immersion experiences; encounter dolphins, snorkel with sea lions, and enjoy breathtaking underwater landscapes with a vast variety of marine life.",
+      images: snorkelReel, // Array para el carrusel de empuje suave
       link: "/servicios#snorkel",
     },
     {
@@ -69,7 +79,7 @@ export default function Highlights() {
   ];
 
   // ========================================================================
-  // 🎭 VARIANTES TIPADAS PARA TYPESCRIPT
+  // 🎭 VARIANTES Y ANIMACIONES GENERALES
   // ========================================================================
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
@@ -84,23 +94,19 @@ export default function Highlights() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  // Referencia general de la sección para el efecto Parallax
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
 
-  // Parallax suave: Las tarjetas suben ligeramente al hacer scroll
   const cardY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
     <section ref={sectionRef} className="relative z-10 w-full py-20 md:py-32 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
       <div className="max-w-7xl mx-auto">
 
-        {/* ========================================================================
-            ENCABEZADO DE SECCIÓN
-            ======================================================================== */}
+        {/* ENCABEZADO DE SECCIÓN */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -108,7 +114,6 @@ export default function Highlights() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-20 md:mb-32 text-center md:text-left relative"
         >
-          {/* Halo decorativo detrás del título */}
           <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500 dark:bg-cyan-400/20 bg-cyan-400/10" />
 
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 border shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10 mx-auto md:mx-0">
@@ -125,9 +130,7 @@ export default function Highlights() {
           </p>
         </motion.div>
 
-        {/* ========================================================================
-            ZIG-ZAG CINEMATOGRÁFICO CON PARALLAX
-            ======================================================================== */}
+        {/* ZIG-ZAG CINEMATOGRÁFICO */}
         <div className="flex flex-col gap-24 md:gap-40 lg:gap-48">
           {highlightsData.map((item, idx) => {
             const isEven = idx % 2 === 0;
@@ -138,21 +141,24 @@ export default function Highlights() {
                 className={`relative flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center group w-full`}
               >
 
-                {/* 1. IMAGEN GIGANTE */}
+                {/* 1. IMAGEN GIGANTE O CARRUSEL */}
                 <div className="w-full md:w-[68%] lg:w-[70%] h-[400px] sm:h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative shrink-0 z-0 bg-slate-200 dark:bg-dark/50">
-                  <motion.img
-                    initial={{ scale: 1.15 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    decoding="async"
-                    // 👇 AJUSTES DE IMAGEN PREMIUM: Eliminada opacidad baja, agregados filtros de contraste y saturación
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform filter contrast-[1.15] saturate-[1.10]"
-                  />
-                  {/* Gradiente protector */}
+                  {item.images ? (
+                    /* 👇 Usamos el componente de deslizamiento suave */
+                    <HighlightSmoothSlideReel images={item.images} title={item.title} />
+                  ) : (
+                    <motion.img
+                      initial={{ scale: 1.15 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform filter contrast-[1.15] saturate-[1.10]"
+                    />
+                  )}
+                  
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent dark:from-dark/70 opacity-70 transition-colors duration-500 pointer-events-none" />
 
                   {/* TELÓN REVEAL */}
@@ -166,9 +172,8 @@ export default function Highlights() {
                   />
                 </div>
 
-                {/* 2. TARJETA DE CRISTAL FLOTANTE (Con Parallax) */}
+                {/* 2. TARJETA DE CRISTAL FLOTANTE */}
                 <motion.div
-                  // Aplicamos el Transform Y dinámico (Parallax) + Ajustamos márgenes para móvil
                   style={{ y: cardY }}
                   className={`w-[90%] sm:w-[80%] md:w-[45%] lg:w-[40%] relative z-10 self-center md:self-auto -mt-16 sm:-mt-24 md:mt-0 ${isEven ? 'md:-ml-16 lg:-ml-32' : 'md:-mr-16 lg:-mr-32'}`}
                 >
@@ -239,5 +244,51 @@ export default function Highlights() {
 
       </div>
     </section>
+  );
+}
+
+// ========================================================================
+// 🛰️ COMPONENTE: HighlightSmoothSlideReel (Empuje suave desde la derecha)
+// ========================================================================
+function HighlightSmoothSlideReel({ images, title }: { images: string[], title: string }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    // Aumentamos ligeramente el tiempo de espera entre fotos a 6s
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 6000); 
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
+      <AnimatePresence initial={false} mode="popLayout">
+        <motion.img
+          key={index}
+          src={images[index]}
+          alt={`${title} reel`}
+          // Entra desde la derecha (100%) y sale hacia la izquierda (-100%)
+          initial={{ x: '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '-100%' }}
+          transition={{ 
+            // 👇 CAMBIO A TWEEN + EASEINOUT + MAYOR DURACIÓN PARA MÁXIMA SUAVIDAD
+            x: { type: "tween", ease: "easeInOut", duration: 1.2 },
+          }}
+          className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
+        />
+      </AnimatePresence>
+      
+      {/* Indicadores sutiles de posición */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+        {images.map((_, i) => (
+          <div 
+            key={i} 
+            className={`h-1 rounded-full transition-all duration-[1200ms] ${i === index ? 'w-6 bg-cyan-400' : 'w-2 bg-white/30'}`} 
+          />
+        ))}
+      </div>
+    </div>
   );
 }
