@@ -162,9 +162,9 @@ export default function Servicios() {
       subtitle: "Experiencias All-Inclusive",
       items: [
         {
-          id: 'deep-blue', name: "Deep Blue", target: "Para buzos certificados", duration: "5 Días",
-          desc: "Nuestro paquete estelar para buzos experimentados. Disfruta de 5 días explorando los mejores arrecifes del Parque Nacional, con alojamiento de primer nivel y desayunos incluidos para que solo te preocupes por bucear.",
-          features: ["5 días buceando (10 tanques)", "6 noches de hotel con desayuno", "Transfer aeropuerto - hotel"],
+          id: 'deep-blue', name: "Baja Ocean", target: "Para buzos certificados", duration: "5 Días",
+          desc: "Disfruta 5 días espectaculares de buceo en el parque nacional bahía de loreto, explorando sitios increíbles llenos de vida y belleza natural. Te alojarás en uno de los mejores hoteles de loreto, donde te sentirás perfectamente bien atendido. Los desayunos están incluidos. NOTA: No incluye equipo de renta, ni propinas para el staff.",
+          features: ["Solo buzos certificados" , "De 12 hasta 70 años", "5 días buceando (10 tanques)", "6 noches de hotel con desayuno", "Transfer: aeropuerto - hotel - aeropuerto", "Impuestos incluídos", "Vigencia: Julio a Octubre"],
           note: "Mínimo 2 buzos", color: "cyan"
         },
         {
@@ -186,9 +186,17 @@ export default function Servicios() {
       subtitle: "All-Inclusive Experiences",
       items: [
         {
-          id: 'deep-blue', name: "Deep Blue", target: "For certified divers", duration: "5 Days",
-          desc: "Our stellar package for experienced divers. Enjoy 5 days exploring the best reefs of the National Park, with top-tier accommodation and breakfasts included so you only worry about diving.",
-          features: ["5 days diving (10 tanks)", "6 nights hotel with breakfast", "Airport - hotel transfer"],
+          id: 'deep-blue', name: "Baja Ocean", target: "For certified divers", duration: "5 Days",
+          desc: "Enjoy 5 spectacular days of diving in the Loreto Bay National Park, exploring breathtaking sites teeming with life and natural beauty. You will stay at one of Loreto's premier hotels, where you will receive exceptional service. Breakfast is included. NOTE: Rental gear and staff gratuities are not included.",
+          features: [
+            "Certified divers only",
+            "Ages 12 to 70",
+            "5 days of diving (10 tanks)",
+            "6 hotel nights with breakfast included",
+            "Transfer: Airport - Hotel - Airport",
+            "Taxes included",
+            "Valid: July to October"
+          ],
           note: "Minimum 2 divers", color: "cyan"
         },
         {
