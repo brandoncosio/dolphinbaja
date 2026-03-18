@@ -154,9 +154,7 @@ export default function GalleryPage() {
 
                 <div className="max-w-7xl mx-auto relative z-10">
 
-                    {/* ========================================================================
-                        HERO HEADER DE GALERÍA
-                        ======================================================================== */}
+                    {/* HERO HEADER */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
                         className="text-center mb-10 md:mb-14 max-w-4xl mx-auto"
@@ -176,9 +174,7 @@ export default function GalleryPage() {
                         </p>
                     </motion.div>
 
-                    {/* ========================================================================
-                        🚀 FILTROS ESTILO APP NATIVA (Segmented Control)
-                        ======================================================================== */}
+                    {/* FILTROS */}
                     <div className="flex justify-center mb-10 md:mb-16">
                         <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 p-1.5 md:p-2 bg-slate-200/50 dark:bg-white/5 rounded-3xl backdrop-blur-md border border-slate-300/50 dark:border-white/10 shadow-inner max-w-full">
                             {categories.map((cat) => {
@@ -190,7 +186,6 @@ export default function GalleryPage() {
                                         className={`relative px-4 py-2.5 md:px-6 md:py-3 rounded-2xl font-title text-[10px] md:text-xs tracking-widest uppercase transition-colors duration-300 z-10 
                                         ${isActive ? 'text-white dark:text-navy' : 'text-slate-500 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-white'}`}
                                     >
-                                        {/* Píldora Deslizante Magnética */}
                                         {isActive && (
                                             <motion.div
                                                 layoutId="activeFilter"
@@ -205,9 +200,7 @@ export default function GalleryPage() {
                         </div>
                     </div>
 
-                    {/* ========================================================================
-                        GRID DE IMÁGENES / VIDEOS
-                        ======================================================================== */}
+                    {/* GRID DE IMÁGENES / VIDEOS */}
                     <motion.div layout className={gridContainerClass}>
                         <AnimatePresence mode="popLayout">
                             {currentGallery.map((item, index) => (
@@ -229,7 +222,8 @@ export default function GalleryPage() {
                                             loop
                                             muted
                                             playsInline
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform"
+                                            // 👇 FILTRO DE CONTRASTE Y SATURACIÓN APLICADO
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform filter contrast-[1.20] saturate-[1.15]"
                                         />
                                     ) : (
                                         <img
@@ -237,19 +231,17 @@ export default function GalleryPage() {
                                             alt={item.title}
                                             loading="lazy"
                                             decoding="async"
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform"
+                                            // 👇 FILTRO DE CONTRASTE Y SATURACIÓN APLICADO
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform filter contrast-[1.20] saturate-[1.15]"
                                         />
                                     )}
 
-                                    {/* Capa Oscura (Aparece en hover) */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:from-dark/90 dark:via-dark/30" />
 
-                                    {/* Icono Flotante */}
                                     <div className="absolute top-4 right-4 md:top-5 md:right-5 w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0 shadow-lg">
                                         <i className={item.type === 'video' ? 'ri-play-fill text-lg md:text-2xl ml-0.5' : 'ri-zoom-in-line text-base md:text-xl'}></i>
                                     </div>
 
-                                    {/* Textos Info */}
                                     <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5 right-4 md:right-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                                         <span className="inline-block px-2.5 py-1 bg-cyan-500 text-white rounded-md text-[8px] md:text-[9px] font-bold uppercase tracking-widest mb-1.5 shadow-sm">
                                             {pageTexts.filters[item.category as keyof typeof pageTexts.filters]}
@@ -263,7 +255,7 @@ export default function GalleryPage() {
                         </AnimatePresence>
                     </motion.div>
 
-                    {/* Botón Cargar Más */}
+                    {/* BOTÓN CARGAR MÁS */}
                     {visibleCount < filteredMedia.length && (
                         <div className="mt-16 text-center">
                             <button
@@ -275,7 +267,7 @@ export default function GalleryPage() {
                         </div>
                     )}
 
-                    {/* Mensaje Final */}
+                    {/* MENSAJE FINAL */}
                     {visibleCount >= filteredMedia.length && filteredMedia.length > 0 && (
                         <p className="mt-16 text-center font-body font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500 text-xs md:text-sm">
                             <i className="ri-check-all-line mr-2 text-cyan-500"></i> {pageTexts.noMore}
@@ -286,7 +278,7 @@ export default function GalleryPage() {
             </main>
 
             {/* ========================================================================
-                🎬 LIGHTBOX ULTRA (Con Swipe y Contador)
+                🎬 LIGHTBOX ULTRA
                 ======================================================================== */}
             <AnimatePresence>
                 {selectedIndex !== null && (
@@ -295,10 +287,8 @@ export default function GalleryPage() {
                         className="fixed inset-0 z-[200] flex items-center justify-center p-2 sm:p-6 md:p-10"
                         onClick={() => setSelectedIndex(null)}
                     >
-                        {/* Fondo de Cristal */}
                         <div className="absolute inset-0 bg-navy/95 dark:bg-black/95 backdrop-blur-xl" />
 
-                        {/* Top Bar (Contador y Cerrar) */}
                         <div className="absolute top-0 left-0 right-0 p-5 md:p-8 flex justify-between items-center z-50 pointer-events-none">
                             <div className="text-white font-title text-sm md:text-base tracking-widest bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 pointer-events-auto shadow-lg">
                                 {selectedIndex + 1} / {currentGallery.length}
@@ -311,7 +301,6 @@ export default function GalleryPage() {
                             </button>
                         </div>
 
-                        {/* Controles Laterales (Desktop) */}
                         <button onClick={handlePrev} className="hidden sm:flex absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 text-white items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 hover:scale-110 transition-all z-50 backdrop-blur-md shadow-lg">
                             <i className="ri-arrow-left-s-line text-3xl"></i>
                         </button>
@@ -319,7 +308,6 @@ export default function GalleryPage() {
                             <i className="ri-arrow-right-s-line text-3xl"></i>
                         </button>
 
-                        {/* 🚀 Contenedor Arrastrable (Swipe para Móviles) */}
                         <motion.div
                             key={currentGallery[selectedIndex].id}
                             drag="x"
@@ -336,23 +324,31 @@ export default function GalleryPage() {
                             onClick={(e) => e.stopPropagation()}
                             className="relative w-full max-w-6xl h-[80vh] sm:h-auto sm:max-h-[85vh] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-black border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.7)] flex flex-col items-center justify-center touch-pan-y"
                         >
-                            {/* Mensaje sutil de "Deslizar" en celular */}
                             <div className="absolute top-4 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full text-white/70 text-[10px] font-bold uppercase tracking-widest z-20 sm:hidden flex items-center gap-2 pointer-events-none">
                                 <i className="ri-arrow-left-line"></i> Deslizar <i className="ri-arrow-right-line"></i>
                             </div>
 
-                            {/* Contenido Visual */}
                             {currentGallery[selectedIndex].type === 'video' ? (
                                 currentGallery[selectedIndex].videoUrl?.endsWith('.webm') || currentGallery[selectedIndex].videoUrl?.endsWith('.mp4') ? (
-                                    <video src={currentGallery[selectedIndex].videoUrl} controls autoPlay className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain" />
+                                    <video 
+                                        src={currentGallery[selectedIndex].videoUrl} 
+                                        controls 
+                                        autoPlay 
+                                        // 👇 FILTRO DE CONTRASTE Y SATURACIÓN APLICADO EN LIGHTBOX
+                                        className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain filter contrast-[1.20] saturate-[1.15]" 
+                                    />
                                 ) : (
                                     <iframe src={currentGallery[selectedIndex].videoUrl} title={currentGallery[selectedIndex].title} className="w-full h-full aspect-video border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 )
                             ) : (
-                                <img src={currentGallery[selectedIndex].src} alt={currentGallery[selectedIndex].title} className="w-full h-full object-contain" />
+                                <img 
+                                    src={currentGallery[selectedIndex].src} 
+                                    alt={currentGallery[selectedIndex].title} 
+                                    // 👇 FILTRO DE CONTRASTE Y SATURACIÓN APLICADO EN LIGHTBOX
+                                    className="w-full h-full object-contain filter contrast-[1.20] saturate-[1.15]" 
+                                />
                             )}
 
-                            {/* Título Elegante */}
                             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent text-white pointer-events-none text-center">
                                 <h3 className="font-title text-xl md:text-3xl tracking-wide drop-shadow-xl">{currentGallery[selectedIndex].title}</h3>
                             </div>
