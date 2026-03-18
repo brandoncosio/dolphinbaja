@@ -18,7 +18,7 @@ export default function DiveSites() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024); // Ajustado para coincidir con lg
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -71,9 +71,7 @@ export default function DiveSites() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-        {/* ====================================================================
-            COLUMNA IZQUIERDA: EDITORIAL & CONTEXTO
-            ==================================================================== */}
+        {/* COLUMNA IZQUIERDA */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -97,7 +95,6 @@ export default function DiveSites() {
               : 'The Loreto Bay National Park, a World Heritage site, hides a vibrant underwater ecosystem. Navigate through our interactive map and discover the secrets waiting for you beneath the surface.'}
           </p>
 
-          {/* Estadísticas / Badges Rápidos para dar más vida */}
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 shadow-sm flex items-center gap-4">
               <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0"><i className="ri-anchor-line text-xl"></i></div>
@@ -116,9 +113,7 @@ export default function DiveSites() {
           </div>
         </motion.div>
 
-        {/* ====================================================================
-            COLUMNA DERECHA: MAPA INTERACTIVO (Radar)
-            ==================================================================== */}
+        {/* COLUMNA DERECHA: MAPA */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -126,22 +121,17 @@ export default function DiveSites() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="lg:col-span-7 relative"
         >
-          {/* Contenedor del Mapa con Efecto Glassmorphism y "Radar" */}
           <div className="relative w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border-2 border-white/50 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] bg-slate-100 dark:bg-dark p-2">
-
-            {/* Animación de escaneo de radar de fondo */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-square rounded-full border border-cyan-400/20 opacity-50 animate-[spin_10s_linear_infinite]" style={{ borderTopColor: 'transparent', borderBottomColor: 'transparent' }}></div>
 
             <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-slate-200 dark:bg-[#0a0f1c]">
-              <img src={mapImg} alt="Mapa del Parque Marino" className="w-full h-auto object-contain mx-auto opacity-90 dark:opacity-75" />
+              {/* 👇 AJUSTE MAPA: Agregado contraste y saturación */}
+              <img src={mapImg} alt="Mapa del Parque Marino" className="w-full h-auto object-contain mx-auto opacity-95 dark:opacity-85 filter contrast-[1.20] saturate-[1.10]" />
 
-              {/* Filtro Oscuro Mágico */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-900/10 to-navy/30 dark:to-dark/50 pointer-events-none mix-blend-overlay"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-900/5 to-navy/20 dark:to-dark/40 pointer-events-none mix-blend-overlay"></div>
 
-              {/* PINES INTERACTIVOS */}
               {allPoints.map((point) => (
                 <div key={point.id} className="absolute -translate-x-1/2 -translate-y-1/2 z-10" style={{ top: point.top, left: point.left }}>
-                  {/* Efecto de Onda Continua */}
                   <div className={`absolute inset-0 rounded-full animate-ping opacity-60 ${point.isMain ? 'bg-red-500' : 'bg-cyan-400'}`}></div>
 
                   <button
@@ -152,11 +142,6 @@ export default function DiveSites() {
                         : 'bg-cyan-500 w-5 h-5 md:w-8 md:h-8 border-2 border-white dark:border-dark shadow-cyan-500/50'}`}
                   >
                     {point.isMain ? <i className="ri-star-fill text-xs md:text-xl"></i> : <i className="ri-pushpin-fill text-[10px] md:text-sm"></i>}
-
-                    {/* Tooltip Hover (Opcional, visible en Desktop) */}
-                    <span className="absolute left-[120%] top-1/2 -translate-y-1/2 px-2 py-1 bg-navy dark:bg-white text-white dark:text-navy text-[9px] font-bold uppercase tracking-widest rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden md:block">
-                      {point.name}
-                    </span>
                   </button>
                 </div>
               ))}
@@ -165,13 +150,10 @@ export default function DiveSites() {
         </motion.div>
       </div>
 
-      {/* ====================================================================
-          🎬 MODAL EXPEDITION (LOGBOOK) - SIN CAMBIOS EN LÓGICA, SOLO ESTILOS
-          ==================================================================== */}
+      {/* MODAL EXPEDITION */}
       <AnimatePresence mode="wait">
         {selectedPoint && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-10">
-
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={() => setSelectedPoint(null)} className="absolute inset-0 bg-navy/90 dark:bg-black/95 backdrop-blur-xl cursor-zoom-out" />
 
             <button onClick={() => handleNavigate('prev')} className="hidden md:flex absolute left-6 lg:left-12 z-[210] w-14 h-14 items-center justify-center rounded-full bg-white/10 text-white border border-white/20 hover:bg-cyan-500 hover:border-cyan-500 transition-all hover:scale-110 shadow-lg backdrop-blur-md"><i className="ri-arrow-left-s-line text-4xl"></i></button>
@@ -208,12 +190,17 @@ export default function DiveSites() {
               <div className="px-6 md:px-8 py-6 relative">
                 {selectedPoint.isMain ? (
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="rounded-[1.5rem] overflow-hidden aspect-video shadow-md border border-slate-200 dark:border-white/10 group"><img src={selectedPoint.imgIsland} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Island View" /></div>
-                    <div className="rounded-[1.5rem] overflow-hidden aspect-video shadow-md border border-slate-200 dark:border-white/10 group"><img src={selectedPoint.imgSite} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Underwater View" /></div>
+                    {/* 👇 AJUSTE FOTOS BITÁCORA: Filtros aplicados */}
+                    <div className="rounded-[1.5rem] overflow-hidden aspect-video shadow-md border border-slate-200 dark:border-white/10 group">
+                      <img src={selectedPoint.imgIsland} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter contrast-[1.20] saturate-[1.15]" alt="Island View" />
+                    </div>
+                    <div className="rounded-[1.5rem] overflow-hidden aspect-video shadow-md border border-slate-200 dark:border-white/10 group">
+                      <img src={selectedPoint.imgSite} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter contrast-[1.20] saturate-[1.15]" alt="Underwater View" />
+                    </div>
                   </div>
                 ) : (
                   <div className="w-full rounded-[1.5rem] overflow-hidden aspect-[16/10] md:aspect-[21/9] shadow-md border border-slate-200 dark:border-white/10 group">
-                    <img src={selectedPoint.imgIsland} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Site Detail" />
+                    <img src={selectedPoint.imgIsland} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter contrast-[1.20] saturate-[1.15]" alt="Site Detail" />
                   </div>
                 )}
 

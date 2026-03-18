@@ -17,7 +17,6 @@ export default function OurStory() {
   `;
 
   // 2. Textos Generales
-  // 👇 CORRECCIÓN: Ajustamos el drop-shadow en modo claro para darle profundidad
   const headingClass = `
     font-title text-3xl md:text-5xl lg:text-6xl leading-[1.1] transition-colors duration-500
     /* LIGHT: Sombra más marcada para dar volumen al texto oscuro */
@@ -128,12 +127,13 @@ export default function OurStory() {
           className="relative rounded-[2.5rem] md:rounded-[3rem] overflow-hidden min-h-[400px] lg:min-h-[500px] flex items-center justify-center text-center px-6 py-20 md:py-24 shadow-2xl border group transition-all duration-500 border-white/20 dark:border-white/10"
           style={{ willChange: 'transform' }}
         >
+          {/* 👇 CAMBIO AQUÍ: Se añade 'contrast-125' para aumentar el contraste de la imagen */}
           <div
-            className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-[10s] ease-out group-hover:scale-110"
+            className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-[10s] ease-out group-hover:scale-110 contrast-125"
             style={{ backgroundImage: 'url("/assets/images/colash1.webp")', willChange: 'transform' }}
           />
 
-          {/* 👇 Overlay que se funde con el fondo Dark para evitar líneas */}
+          {/* Overlay que se funde con el fondo Dark para evitar líneas */}
           <div className={missionOverlayClass} />
 
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 blur-[100px] z-10 pointer-events-none bg-cyan-400/10 dark:bg-white/5" />
