@@ -2,11 +2,20 @@ import { motion, Variants } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function ValueProps() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const content = t.home.valueProps;
 
   const valuesData = [
-    { icon: "ri-award-line", title: content.cards[0].title, desc: content.cards[0].desc, highlight: false },
+    { 
+      // 👇 Restaurado el ícono de la medalla
+      icon: "ri-award-line", 
+      title: content.cards[0].title, 
+      desc: content.cards[0].desc, 
+      highlight: false,
+      padiBadge: "/assets/contentD/img/PADI.png",
+      cressiBadge: "/assets/contentD/img/cressi.png", 
+      makersImg: "/assets/nosotros/makers.png" // Mantenemos la data por completitud
+    },
     { icon: "ri-group-line", title: content.cards[1].title, desc: content.cards[1].desc, highlight: false },
     { icon: "ri-restaurant-line", title: content.cards[2].title, desc: content.cards[2].desc, highlight: false },
     { icon: "ri-leaf-line", title: content.cards[3].title, desc: content.cards[3].desc, highlight: true }
@@ -23,7 +32,6 @@ export default function ValueProps() {
     }
   };
 
-  // 👇 Aquí estaba el error de nombre. Ahora se llama itemVariants y lo usaremos igual abajo.
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
@@ -87,17 +95,19 @@ export default function ValueProps() {
             return (
               <motion.div
                 key={idx}
-                variants={itemVariants} // 👇 ¡CORREGIDO! Antes decía staggerItem
+                variants={itemVariants} 
                 style={{ willChange: "transform" }}
                 className={`group relative p-6 md:p-8 rounded-[2rem] transition-all duration-500 backdrop-blur-xl overflow-hidden border hover:-translate-y-1 hover:shadow-2xl ${cardClasses}`}
               >
                 {/* Halo interactivo en Hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none dark:from-white/5"></div>
 
-                {/* Icono animado */}
-                <div className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6 border transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 ${iconClasses}`}>
-                  <i className={`${item.icon} text-2xl md:text-3xl drop-shadow-sm`}></i>
-                </div>
+                {/* Icono animado (Solo se muestra si existe item.icon) */}
+                {item.icon && (
+                  <div className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6 border transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 ${iconClasses}`}>
+                    <i className={`${item.icon} text-2xl md:text-3xl drop-shadow-sm`}></i>
+                  </div>
+                )}
 
                 {/* Título */}
                 <h3 className="relative z-10 font-title text-xl md:text-2xl mb-3 leading-tight transition-colors duration-500 text-navy dark:text-white group-hover:text-cyan-700 dark:group-hover:text-cyan-300">
@@ -108,6 +118,42 @@ export default function ValueProps() {
                 <p className="relative z-10 text-sm leading-relaxed font-body font-medium transition-colors duration-500 text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300">
                   {item.desc}
                 </p>
+
+                {/* 👇 CONTENEDOR DE LOGOS (DESPUÉS DEL TEXTO) */}
+                {item.padiBadge && (
+                  <div className="relative z-10 flex items-center gap-8 mt-6">
+                    {/* LOGO PADI (Tamaño mini) */}
+                    <motion.img 
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      src={item.padiBadge} 
+                      alt="PADI Certification"
+                      className="h-3.5 md:h-4.5 w-auto object-contain filter brightness-110 drop-shadow-md"
+                    />
+                    {/* LOGO CRESSI (Tamaño protagonista) */}
+                    {item.cressiBadge && (
+                      <motion.img 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.1 }}
+                        src={item.cressiBadge} 
+                        alt="Cressi Dive Center"
+                        className="h-12 md:h-16 w-auto object-contain filter brightness-110 drop-shadow-sm"
+                      />
+                    )}
+                  </div>
+                )}
+
+                {/* IMAGEN MAKERS (Oculta por defecto) */}
+                {item.makersImg && false && (
+                  <motion.img 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    src={item.makersImg} 
+                    alt="Makers" 
+                    className="relative z-10 h-10 md:h-14 w-auto mt-6 object-contain rounded-lg transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
               </motion.div>
             );
           })}

@@ -115,14 +115,14 @@ export const translations = {
             },
             valueProps: {
                 tag: "Te ofrecemos",
-                titleStart: "Buceo responsable y",
-                titleHighlight: "experiencias auténticas",
-                desc: "En Dolphin Dive Baja no solo te llevamos a bucear. Creamos experiencias seguras, humanas y conscientes dentro del Parque Nacional Bahía de Loreto.",
+                titleStart: "Buceo divertido con",
+                titleHighlight: "profesionales",
+                desc: "Con dolphin dive tendrás experiencias increíbles, guiadas con gran responsabilidad, porque tu seguridad es siempre nuestra prioridad. Y el cuidado a nuestro entorno nos mueve.",
                 cards: [
-                    { title: "Centro PADI 5 Estrellas", desc: "Somos el único Centro PADI 5 Estrellas y Cressi Dive Center en Loreto, cumpliendo con los más altos estándares." },
+                    { title: "Centro PADI 5 Estrellas", desc: "Somos el único Centro PADI 5 Estrellas y Cressi Dive Center en Loreto, cumpliendo con los más altos estándares de calidad en el servicio y equipo." },
                     { title: "Grupos Pequeños", desc: "Máximo 6 buzos por Dive Master u 8 snorkelistas por guía. Atención humana y personalizada." },
-                    { title: "Todo Incluido", desc: "Brazaletes del parque, lunch y bebidas incluidos para que solo te preocupes por disfrutar." },
-                    { title: "Nuestra Misión", desc: "Educar para proteger. Primero los animales, segundo los animales, tercero los animales." }
+                    { title: "¿Qué se incluye?", desc: "Lunch, fruta, agua, brazaletes del parque marino. Nota: No se incluye equipo y propinas a la tripulación." },
+                    { title: "Nuestra Misión", desc: "revelar a nuestros invitados la belleza del océano para inspirar su protección. Aquí, la prioridad es clara: primero los animales, después los animales y siempre los animales. Nosotros somos visitantes en su hogar." }
                 ]
             },
             gallery: {
@@ -138,7 +138,7 @@ export const translations = {
                     "Exploración",
                     "Experiencias únicas",
                     "Misterios profundos",
-                    "Equipamiento de Primera",
+                    "Vistas hermosas",
                     "Únete a la Aventura",
                     "Alebrijes del Mar",
                     "Caballitos de Mar",
@@ -155,9 +155,9 @@ export const translations = {
             },
             destination: {
                 tag: "Destino",
-                hashtag: "#Loreto_donde_el_lujo_es_la_",
+                hashtag: "Loreto_donde_el_lujo_es_la_",
                 hashtagHighlight: "naturaleza",
-                desc: "Loreto es un paraíso natural dentro del Parque Nacional Bahía de Loreto: islas, arrecifes y biodiversidad incomparable.",
+                desc: "El parque nacional bahía de loreto dentro de sus 206 mil hectáreas, es la casa de una gran diversidad de flora y fauna marina.",
                 card: {
                     title: "Visítanos",
                     text: "Estamos ubicados en el corazón de Loreto, listos para planear tu aventura.",
@@ -651,14 +651,14 @@ export const translations = {
             },
             valueProps: {
                 tag: "We offer you",
-                titleStart: "Responsible diving and",
-                titleHighlight: "authentic experiences",
-                desc: "At Dolphin Dive Baja, we don't just take you diving. We create safe, human, and conscious experiences within the Loreto Bay National Park.",
+                titleStart: "Fun diving with",
+                titleHighlight: "professionals",
+                desc: "With Dolphin Dive, you'll have incredible experiences guided with the utmost responsibility, because your safety is always our priority. Our commitment to the environment is what drives us.",
                 cards: [
-                    { title: "5-Star PADI Center", desc: "We are the only 5-Star PADI Center and Cressi Dive Center in Loreto, meeting the highest standards." },
+                    { title: "5-Star PADI Center", desc: "We are the only PADI 5-Star and Cressi Dive Center in Loreto, meeting the highest standards for service and equipment quality." },
                     { title: "Small Groups", desc: "Maximum 6 divers per Dive Master or 8 snorkelers per guide. Human and personalized attention." },
-                    { title: "All Inclusive", desc: "Park bracelets, lunch, and drinks included so you only worry about enjoying." },
-                    { title: "Our Mission", desc: "Educate to protect. Animals first, animals second, animals third." }
+                    { title: "What's included?", desc: "Lunch, fruit, water, and marine park bracelets. Note: Rental gear and crew gratuities are not included." },
+                    { title: "Our Mission", desc: "To reveal the ocean's beauty to our guests to inspire its protection. Our priority is clear: animals first, animals second, and always the animals. We are visitors in their home." }
                 ]
             },
             gallery: {
@@ -691,9 +691,9 @@ export const translations = {
             },
             destination: {
                 tag: "Destination",
-                hashtag: "#Loreto_where_luxury_is_",
+                hashtag: "Loreto_where_luxury_is_",
                 hashtagHighlight: "nature",
-                desc: "Loreto is a natural paradise within the Loreto Bay National Park: islands, reefs, and incomparable biodiversity.",
+                desc: "Spanning 206,000 hectares, Loreto Bay National Park is home to a vast diversity of marine flora and fauna.",
                 card: {
                     title: "Visit Us",
                     text: "We are located in the heart of Loreto, ready to plan your adventure.",

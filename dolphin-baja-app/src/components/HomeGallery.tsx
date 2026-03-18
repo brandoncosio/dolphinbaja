@@ -12,7 +12,7 @@ import img5 from '/assets/images/colash5.webp';
 import img6 from '/assets/images/colash6.webp';
 import img7 from '/assets/images/colash7.webp';
 import img8 from '/assets/images/colash8.webp';
-import img9 from '/assets/nosotros/tienda1.webp';
+import img9 from '/assets/contentD/img/reel1.webp';
 import img10 from '/assets/nosotros/team.webp';
 const imgAlebrijes = "/assets/images/alebrije.webp";
 const imgCaballitos = "/assets/images/caballitos de mar.webp";
