@@ -12,7 +12,7 @@ export default function WelcomeSection() {
             cousteau: "El Mar de Cortés fue nombrado por el famoso Jacques Cousteau como “El acuario del mundo” y su entrada está en Loreto.",
             p1: "Con 206,000 hectáreas de mar, el Parque Nacional Bahía de Loreto ha sido un área protegida por más de 20 años y cuenta con más de 50 sitios de buceo con paisajes impresionantes.",
             highlight: "¡Acompáñanos a explorar el mundo subacuático de Loreto!",
-            p2: "Dolphin Dive Baja ha sido miembro del PADI International Resort Association desde 2001. Estamos ubicados estratégicamente a media cuadra del malecón en la calle Juárez, a 5 minutos caminando del puerto, en el centro de Loreto.",
+            p2: "Dolphin Dive Baja ha sido miembro del PADI International Resort Association desde 2001. Estamos ubicados estratégicamente a una cuadra del malecón en la calle Juárez, a 5 minutos caminando del puerto, en el centro de Loreto.",
             welcome: "¡Buzos NAUI y SSI son bienvenidos!",
             warning: "La pesca con arpón no está permitida en nuestro parque marino."
         },
@@ -23,7 +23,7 @@ export default function WelcomeSection() {
             cousteau: "The Sea of Cortez was named by the famous Jacques Cousteau as 'The aquarium of the world' and its entrance is in Loreto.",
             p1: "With 206,000 hectares of sea, the Loreto Bay National Park has been a protected area for over 20 years and features more than 50 dive sites with stunning landscapes.",
             highlight: "Join us to explore the underwater world of Loreto!",
-            p2: "Dolphin Dive Baja has been a member of the PADI International Resort Association since 2001. We are strategically located half a block from the malecon on Juarez Street, a 5-minute walk from the port, in downtown Loreto.",
+            p2: "Dolphin Dive Baja has been a member of the PADI International Resort Association since 2001. We are strategically located one block from the malecon on Juarez Street, a 5-minute walk from the port, in downtown Loreto.",
             welcome: "NAUI and SSI divers are welcome!",
             warning: "Spearfishing is not permitted in our marine park."
         }
