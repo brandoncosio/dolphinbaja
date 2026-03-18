@@ -18,6 +18,9 @@ import reel1 from '/assets/contentD/img/reel1.webp';
 import reel2 from '/assets/contentD/img/reel2.webp';
 import reel3 from '/assets/contentD/img/reel3.webp';
 
+// Logo PADI
+import logoPadi from '/assets/contentD/img/PADI.png';
+
 const snorkelReel = [reel1, reel2, reel3];
 
 export default function Highlights() {
@@ -25,7 +28,7 @@ export default function Highlights() {
   const content = t.home.highlights;
 
   // ========================================================================
-  // 🗄️ DATA COMPLETA (Sin recortes)
+  // 🗄️ DATA COMPLETA (Íntegra, sin recortes)
   // ========================================================================
   const highlightsData = [
     {
@@ -48,7 +51,7 @@ export default function Highlights() {
       id: 3,
       kicker: content.cards[2]?.kicker || "Aprende",
       title: content.cards[2]?.title || "Cursos PADI",
-      desc: lang === 'es' ? "Desde tu primera respiración bajo el agua hasta certificaciones avanzadas con los más altos estándares de seguridad." : "From your first breath underwater to advanced certifications with the highest safety standards.",
+      desc: lang === 'es' ? "A la hora de enseñarte a bucear nos preocupamos porque logres desarrollar las mejores habilidades subacuáticas, en todos los niveles, desde open  water hasta dive master." : "When teaching you to dive, our priority is to ensure you develop top-tier underwater skills at every level, from Open Water to Divemaster.",
       image: imgCursos,
       link: "/servicios#cursos",
     },
@@ -79,7 +82,7 @@ export default function Highlights() {
   ];
 
   // ========================================================================
-  // 🎭 VARIANTES Y ANIMACIONES GENERALES
+  // 🎭 VARIANTES Y ANIMACIONES
   // ========================================================================
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
@@ -141,10 +144,9 @@ export default function Highlights() {
                 className={`relative flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center group w-full`}
               >
 
-                {/* 1. IMAGEN GIGANTE O CARRUSEL */}
+                {/* 1. IMAGEN GIGANTE O REEL */}
                 <div className="w-full md:w-[68%] lg:w-[70%] h-[400px] sm:h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative shrink-0 z-0 bg-slate-200 dark:bg-dark/50">
                   {item.images ? (
-                    /* 👇 Usamos el componente de deslizamiento suave */
                     <HighlightSmoothSlideReel images={item.images} title={item.title} />
                   ) : (
                     <motion.img
@@ -156,6 +158,19 @@ export default function Highlights() {
                       alt={item.title}
                       loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform filter contrast-[1.15] saturate-[1.10]"
+                    />
+                  )}
+
+                  {/* Logo PADI exclusivo para la sección de Cursos (ID 3) */}
+                  {item.id === 3 && (
+                    <motion.img
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ delay: 0.5, duration: 0.8 }}
+                      src={logoPadi}
+                      alt="PADI Official Partner"
+                      className="absolute bottom-6 right-6 md:bottom-10 md:right-10 h-12 md:h-20 w-auto z-10 drop-shadow-2xl brightness-110"
                     />
                   )}
                   
@@ -248,13 +263,12 @@ export default function Highlights() {
 }
 
 // ========================================================================
-// 🛰️ COMPONENTE: HighlightSmoothSlideReel (Empuje suave desde la derecha)
+// 🛰️ COMPONENTE: HighlightSmoothSlideReel (Empuje premium desde la derecha)
 // ========================================================================
 function HighlightSmoothSlideReel({ images, title }: { images: string[], title: string }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    // Aumentamos ligeramente el tiempo de espera entre fotos a 6s
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, 6000); 
@@ -268,19 +282,17 @@ function HighlightSmoothSlideReel({ images, title }: { images: string[], title: 
           key={index}
           src={images[index]}
           alt={`${title} reel`}
-          // Entra desde la derecha (100%) y sale hacia la izquierda (-100%)
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
           exit={{ x: '-100%' }}
           transition={{ 
-            // 👇 CAMBIO A TWEEN + EASEINOUT + MAYOR DURACIÓN PARA MÁXIMA SUAVIDAD
             x: { type: "tween", ease: "easeInOut", duration: 1.2 },
           }}
           className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
         />
       </AnimatePresence>
       
-      {/* Indicadores sutiles de posición */}
+      {/* Indicadores de posición */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30">
         {images.map((_, i) => (
           <div 
