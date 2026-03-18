@@ -108,7 +108,7 @@ export const translations = {
                     { kicker: "Servicios", title: "Fun Dives & Aventuras" },
                     { kicker: "Experiencias", title: "Snorkeling & Familia" },
                     { kicker: "Aprende", title: "Cursos PADI" },
-                    { kicker: "Nosotros", title: "Nuestro Equipo" },
+                    { kicker: "Nosotros", title: "Conoce al equipo" },
                     { kicker: "Planifica", title: "Ubicación y Contacto" },
                     { kicker: "Inspírate", title: "Nuestra Galería" }
                 ]
