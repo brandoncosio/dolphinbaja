@@ -630,7 +630,7 @@ export const translations = {
                     },
                     {
                         title: "DISCOVER THE MAGIC<br/>OF THE ISLANDS",
-                        subtitle: "Unforgettable expeditions to Coronado and del Carmen Islands."
+                        subtitle: "Unforgettable expeditions to Coronados, Carmen and Danzantes Islands."
                     }
                 ]
             },

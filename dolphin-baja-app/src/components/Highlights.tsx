@@ -149,8 +149,8 @@ export default function Highlights() {
                     alt={item.title}
                     loading="lazy"
                     decoding="async"
-                    // 👇 Aumentamos el scale en hover a 110 y la duración a 5s para un efecto más inmersivo
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform"
+                    // 👇 AJUSTES DE IMAGEN PREMIUM: Eliminada opacidad baja, agregados filtros de contraste y saturación
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform filter contrast-[1.15] saturate-[1.10]"
                   />
                   {/* Gradiente protector */}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent dark:from-dark/70 opacity-70 transition-colors duration-500 pointer-events-none" />
@@ -168,7 +168,7 @@ export default function Highlights() {
 
                 {/* 2. TARJETA DE CRISTAL FLOTANTE (Con Parallax) */}
                 <motion.div
-                  // 👇 Aplicamos el Transform Y dinámico (Parallax) + Ajustamos márgenes para móvil
+                  // Aplicamos el Transform Y dinámico (Parallax) + Ajustamos márgenes para móvil
                   style={{ y: cardY }}
                   className={`w-[90%] sm:w-[80%] md:w-[45%] lg:w-[40%] relative z-10 self-center md:self-auto -mt-16 sm:-mt-24 md:mt-0 ${isEven ? 'md:-ml-16 lg:-ml-32' : 'md:-mr-16 lg:-mr-32'}`}
                 >

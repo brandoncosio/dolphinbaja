@@ -30,7 +30,6 @@ export default function HomeGallery() {
     const { t } = useLanguage();
     const content = t.home.gallery;
 
-    // Arrays limpios
     const row1 = [
         { id: 1, src: img1, title: content.images[0] || "Explorando profundidades" },
         { id: 2, src: img2, title: content.images[1] || "Aventuras únicas" },
@@ -58,10 +57,6 @@ export default function HomeGallery() {
         { id: 21, src: imgVol, title: content.images[20] || "Aventuras" },
     ];
 
-    // ========================================================================
-    // 🎨 ESTILOS SEPARADOS (Clean Code)
-    // ========================================================================
-
     const instaBtnClass = `
       inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all duration-300 group shadow-xl hover:-translate-y-1 active:translate-y-0
       bg-cyan-600 text-white border border-cyan-600 
@@ -70,15 +65,12 @@ export default function HomeGallery() {
       dark:hover:bg-cyan-400 dark:hover:border-cyan-400 dark:shadow-none
     `;
 
-    // Tarjeta fotográfica
     const cardClass = `
       relative w-[280px] h-[200px] sm:w-[350px] sm:h-[250px] lg:w-[450px] lg:h-[300px] 
       rounded-[2rem] overflow-hidden shrink-0 group cursor-pointer 
-      border border-slate-200 dark:border-white/10 shadow-lg bg-slate-200 dark:bg-white/5
+      border border-slate-200 dark:border-white/10 shadow-lg bg-slate-900
     `;
 
-    // Bloque estructural para el cálculo matemático perfecto
-    // El padding-right (pr) emula el "gap" final para que conecte con el Bloque B sin saltos.
     const TrackBlock = ({ items }: { items: typeof row1 }) => (
         <div className="flex shrink-0 gap-4 md:gap-6 pr-4 md:pr-6">
             {items.map((item, idx) => (
@@ -88,7 +80,8 @@ export default function HomeGallery() {
                         alt={item.title}
                         loading="lazy"
                         decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110"
+                        // 👇 APLICADO FILTRO DE CONTRASTE Y SATURACIÓN
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110 filter contrast-[1.20] saturate-[1.15]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                     <div className="absolute bottom-0 left-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-10">
@@ -104,14 +97,10 @@ export default function HomeGallery() {
     return (
         <section className="relative z-10 w-full py-24 md:py-32 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
 
-            {/* Luz de fondo ambiental */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[60%] w-[80%] rounded-full blur-[120px] pointer-events-none transition-colors duration-500 bg-cyan-400/10 dark:bg-cyan-500/10" />
 
             <div className="max-w-[1600px] mx-auto relative z-20">
 
-                {/* =========================================
-                    ENCABEZADO
-                ========================================= */}
                 <div className="text-center mb-16 md:mb-24 px-6 relative">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
@@ -136,38 +125,25 @@ export default function HomeGallery() {
                     </motion.h2>
                 </div>
 
-                {/* =========================================
-                    MARQUESINA INFINITA (Fila 1 - Izquierda a Derecha)
-                ========================================= */}
+                {/* FILA 1 - IZQUIERDA A DERECHA (Sin bordes blancos) */}
                 <div className="relative flex overflow-hidden w-full mb-4 md:mb-6">
-                    {/* Gradientes laterales para difuminar bordes y dar efecto Premium */}
-                    <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-r from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
-                    <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-l from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
-
-                    {/* Contenedor en movimiento (Con Hardware Acceleration) */}
                     <motion.div
                         className="flex shrink-0"
                         animate={{ x: ["0%", "-50%"] }}
-                        transition={{ ease: "linear", duration: 80, repeat: Infinity }} // 👈 Duración alta = Movimiento majestuoso
-                        style={{ width: "max-content", willChange: "transform" }} // 👈 Aceleración GPU
+                        transition={{ ease: "linear", duration: 80, repeat: Infinity }}
+                        style={{ width: "max-content", willChange: "transform" }}
                     >
-                        {/* Se renderizan dos bloques gemelos exactos */}
                         <TrackBlock items={row1} />
                         <TrackBlock items={row1} />
                     </motion.div>
                 </div>
 
-                {/* =========================================
-                    MARQUESINA INFINITA (Fila 2 - Derecha a Izquierda)
-                ========================================= */}
+                {/* FILA 2 - DERECHA A IZQUIERDA (Sin bordes blancos) */}
                 <div className="relative flex overflow-hidden w-full">
-                    <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-r from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
-                    <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 z-10 bg-gradient-to-l from-slate-50 to-transparent dark:from-dark pointer-events-none"></div>
-
                     <motion.div
                         className="flex shrink-0"
-                        animate={{ x: ["-50%", "0%"] }} // 👈 Dirección inversa
-                        transition={{ ease: "linear", duration: 95, repeat: Infinity }} // 👈 Ligeramente diferente a la Fila 1 para mayor dinamismo orgánico
+                        animate={{ x: ["-50%", "0%"] }}
+                        transition={{ ease: "linear", duration: 95, repeat: Infinity }}
                         style={{ width: "max-content", willChange: "transform" }}
                     >
                         <TrackBlock items={row2} />
@@ -175,9 +151,6 @@ export default function HomeGallery() {
                     </motion.div>
                 </div>
 
-                {/* =========================================
-                    BOTÓN INSTAGRAM
-                ========================================= */}
                 <div className="mt-16 md:mt-24 text-center px-6">
                     <motion.a
                         initial={{ opacity: 0, y: 20 }}
