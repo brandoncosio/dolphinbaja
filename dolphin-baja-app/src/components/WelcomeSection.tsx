@@ -10,7 +10,7 @@ export default function WelcomeSection() {
             title: "Dolphin Dive Baja Loreto",
             subtitle: "Bucea en el Mar de Cortés, ¡El Acuario del Mundo!",
             cousteau: "El Mar de Cortés fue nombrado por el famoso Jacques Cousteau como “El acuario del mundo” y su entrada está en Loreto.",
-            p1: "Con 206,000 hectáreas de mar, el Parque Nacional Bahía de Loreto ha sido un área protegida por más de 20 años y cuenta con más de 50 sitios de buceo con paisajes impresionantes.",
+            p1: "Con 206,000 hectáreas de mar, el Parque Nacional Bahía de Loreto ha sido un área protegida por más de 20 años y cuenta con más de 40 sitios de buceo con paisajes impresionantes.",
             highlight: "¡Acompáñanos a explorar el mundo subacuático de Loreto!",
             p2: "Dolphin Dive Baja ha sido miembro del PADI International Resort Association desde 2001. Estamos ubicados estratégicamente a una cuadra del malecón en la calle Juárez, a 5 minutos caminando del puerto, en el centro de Loreto.",
             welcome: "¡Buzos de todas las asociaciones son bienvenidos!",
