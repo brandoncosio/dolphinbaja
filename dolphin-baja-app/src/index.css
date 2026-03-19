@@ -1,8 +1,7 @@
 /* 1. IMPORTACIÓN NATIVA DE TAILWIND V4 */
 @import "tailwindcss";
 
-/* ⚠️ NUEVA LÍNEA VITAL (Esto arregla el botón del Navbar): 
-   Habilita manualmente el modo oscuro usando clases (.dark) en lugar de la preferencia del sistema. */
+/* ⚠️ NUEVA LÍNEA VITAL: Habilita manualmente el modo oscuro usando clases (.dark) */
 @variant dark (&:where(.dark, .dark *));
 
 /* 2. CONFIGURACIÓN DEL TEMA (Primitivos y Fuentes) */
@@ -32,10 +31,11 @@
   /* Mapeo de la variable "dark" para compatibilidad con tu código actual */
   --color-dark: #133E60;
 
-  /* 👇 CAMBIO AQUÍ: Fuentes "Divertidas" y animadas */
+  /* Fuentes "Divertidas" y animadas */
   --font-title: 'Lilita One', cursive;
   --font-body: 'Quicksand', sans-serif;
-  
+
+  /* Curva de animación premium (Efecto resorte suave) */
   --ease-dolphin: cubic-bezier(.22, .61, .36, 1);
 }
 
@@ -45,41 +45,46 @@
   /* --- VARIABLES SEMÁNTICAS (Cambian según el tema) --- */
   :root {
     /* ☀️ MODO CLARO (Default - "Superficie / Playa") */
-    /* Fondo: Un blanco "hielo" muy sutil para que las fotos resalten */
     --bg-main: #F8FAFC;
-
-    /* Texto: Azul Navy profundo (elegante y legible sobre blanco) */
     --text-main: #0A253D;
     --text-secondary: #334155;
 
-    /* Cristal: Blanco translúcido con bordes grises suaves */
+    /* Cristal Clásico */
     --glass-bg: rgba(255, 255, 255, 0.6);
     --glass-border: rgba(203, 213, 225, 0.6);
     --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+
+    /* 🎨 Scrollbar Claro */
+    --scrollbar-bg: #F1F5F9;
+    --scrollbar-thumb: #CBD5E1;
+    --scrollbar-hover: #0099CC;
   }
 
   :root.dark {
     /* 🌙 MODO OSCURO ("Profundidad / Arrecife") */
-    /* Fondo: Tu Azul Arrecife (#133E60) */
     --bg-main: #133E60;
-
-    /* Texto: Blanco puro */
     --text-main: #FFFFFF;
     --text-secondary: #CBD5E1;
 
-    /* Cristal: Blanco muy transparente (efecto agua profunda) */
+    /* Cristal Mate Profundo */
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+
+    /* 🎨 Scrollbar Oscuro */
+    --scrollbar-bg: #0A253D;
+    --scrollbar-thumb: #1E4F7A;
+    --scrollbar-hover: #66D8E3;
   }
 
   /* 4. APLICACIÓN GLOBAL */
   html {
     scroll-behavior: smooth;
+    /* Evita que el contenido salte de izquierda a derecha cuando aparece la barra de scroll */
+    scrollbar-gutter: stable;
   }
 
   body {
-    /* Usamos las variables dinámicas aquí */
     background-color: var(--bg-main);
     color: var(--text-main);
     font-family: var(--font-body);
@@ -87,6 +92,9 @@
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    /* Seguridad: Evita scroll horizontal en móviles si un elemento se desborda */
+    overflow-x: hidden;
 
     /* Transición suave al cambiar de tema (0.5s) */
     transition: background-color 0.5s var(--ease-dolphin), color 0.5s var(--ease-dolphin);
@@ -97,8 +105,42 @@
   h3,
   h4 {
     font-family: var(--font-title);
-    /* Le damos un poco de espaciado porque Lilita One es muy robusta */
-    letter-spacing: 0.04em; 
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    /* Lilita One no necesita ser forzada a bold */
+  }
+
+  /* ========================================================================
+     ✨ MEJORAS DE UX/UI NATIVAS (Globales)
+     ======================================================================== */
+
+  /* 1. Selección de texto corporativa */
+  ::selection {
+    background-color: var(--color-cyan);
+    color: var(--color-navy);
+  }
+
+  /* 2. Scrollbar Personalizado (Webkit - Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg);
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 10px;
+    border: 3px solid var(--scrollbar-bg);
+    /* Efecto de padding interno */
+    transition: background-color 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-hover);
   }
 }
 
@@ -117,8 +159,20 @@
   .glass-panel {
     background-color: var(--glass-bg);
     backdrop-filter: blur(16px);
-    /* Tailwind: backdrop-blur-xl */
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
+  }
+
+  /* ✨ Utilidad requerida para ocultar la barra de scroll en Modales sin perder el scroll */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE y Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari y Opera */
   }
 }
