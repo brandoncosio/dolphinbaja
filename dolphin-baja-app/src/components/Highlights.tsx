@@ -5,18 +5,12 @@ import { Link } from 'react-router-dom';
 // Importamos el contexto de idioma
 import { useLanguage } from '../context/LanguageContext';
 
-// Imágenes
-import imgTours from '/assets/images/experiencias.webp';
-import imgExperiencias from '/assets/images/cert2.webp';
-import imgCursos from '/assets/images/certificacionpadi.jpeg';
+// ========================================================================
+// 🖼️ IMPORTACIÓN DE IMÁGENES Y REELS
+// ========================================================================
 import imgStaff from '/assets/images/staff.webp';
-import imgPlanifica from '/assets/images/planifica2.webp';
-import imgGaleria from '/assets/images/colash3.webp';
-import imgTortuguita from '/assets/images/colash4.webp';
-import imgMar from '/assets/images/marprofundo.webp';
-import imgF from '/assets/contentD/img/DSC06335.webp';
 
-// Imágenes para los Reels
+// Reels anteriores conservados
 import reel1 from '/assets/contentD/img/reel1.webp';
 import reel2 from '/assets/contentD/img/reel2.webp';
 import reel3 from '/assets/contentD/img/reel3.webp';
@@ -27,10 +21,43 @@ import reel6 from '/assets/contentD/img/reel6.webp';
 // Logo PADI
 import logoPadi from '/assets/contentD/img/PADI.png';
 
-const snorkelReel = [reel1, reel2, reel3];
+// 👇 NUEVAS IMÁGENES AÑADIDAS
+import funDive1 from '/assets/images/FunDive1.webp';
+import snorkeling1 from '/assets/images/Snorkeling1.webp';
+
+import gal1 from '/assets/images/Gallery1.webp';
+import gal2 from '/assets/images/Gallery2.webp';
+import gal3 from '/assets/images/Gallery3.webp';
+import gal4 from '/assets/images/Gallery4.webp';
+import gal5 from '/assets/images/Gallery5.webp';
+import gal6 from '/assets/images/Gallery6.webp';
+import gal7 from '/assets/images/Gallery7.webp';
+import gal8 from '/assets/images/Gallery8.webp';
+import gal9 from '/assets/images/Gallery9.webp';
+
+// ========================================================================
+// 🎞️ CONFIGURACIÓN DE LOS CARROUSELES (Smart Media: Soporta .mp4 y .webp)
+// ========================================================================
+// Highlight 1
+const funDivesReel = [
+  funDive1,
+  'https://i.imgur.com/jttNzus.mp4' // Video crudo desde Imgur
+];
+
+// Highlight 2 (Mantenemos las que estaban y añadimos la nueva al final)
+const snorkelReel = [reel1, reel2, reel3, snorkeling1];
+
+// Highlight 3
+const padiReel = [
+  'https://i.imgur.com/0l2FaYA.mp4',
+  'https://i.imgur.com/oVfZxpX.mp4'
+];
+
+// Highlight 5
 const planificaReel = [reel4, reel5, reel6];
-// 👇 NUEVO REEL PARA GALERÍA (ID 6)
-const inspiraReel = [imgTortuguita, imgMar, imgF];
+
+// Highlight 6 (Nuevas 9 imágenes de galería)
+const inspiraReel = [gal1, gal2, gal3, gal4, gal5, gal6, gal7, gal8, gal9];
 
 export default function Highlights() {
   const { t, lang } = useLanguage();
@@ -42,7 +69,7 @@ export default function Highlights() {
       kicker: content.cards[0]?.kicker || "Explora",
       title: content.cards[0]?.title || "Tours de Buceo",
       desc: lang === 'es' ? "Descubre los arrecifes y la increíble vida marina del Parque Nacional Bahía de Loreto con nuestros guías expertos." : "Discover the reefs and incredible marine life of the Loreto Bay National Park with our expert guides.",
-      image: imgTours,
+      images: funDivesReel, // 👈 Cambiado a Carrusel Mixto
       link: "/servicios#fundives",
     },
     {
@@ -50,7 +77,7 @@ export default function Highlights() {
       kicker: content.cards[1]?.kicker || "Descubre",
       title: content.cards[1]?.title || "Snorkel",
       desc: lang === 'es' ? "Experiencias de contacto cien por ciento con la naturaleza, puedes encontrar delfines, esnorkelear con los lobos y disfrutar de hermosos paisajes subacuáticos con gran variedad de vida marina." : "Complete 100% nature immersion experiences; encounter dolphins, snorkel with sea lions, and enjoy breathtaking underwater landscapes with a vast variety of marine life.",
-      images: snorkelReel, // Carrusel Snorkel
+      images: snorkelReel, // Carrusel Snorkel Actualizado
       link: "/servicios#snorkel",
     },
     {
@@ -58,7 +85,7 @@ export default function Highlights() {
       kicker: content.cards[2]?.kicker || "Aprende",
       title: content.cards[2]?.title || "Cursos PADI",
       desc: lang === 'es' ? "A la hora de enseñarte a bucear nos preocupamos porque logres desarrollar las mejores habilidades subacuáticas, en todos los niveles, desde open  water hasta dive master." : "When teaching you to dive, our priority is to ensure you develop top-tier underwater skills at every level, from Open Water to Divemaster.",
-      image: imgCursos,
+      images: padiReel, // 👈 Cambiado a Carrusel Mixto (Videos Imgur)
       link: "/servicios#cursos",
     },
     {
@@ -66,7 +93,7 @@ export default function Highlights() {
       kicker: content.cards[3]?.kicker || "Conoce",
       title: content.cards[3]?.title || "Nuestro Equipo",
       desc: lang === 'es' ? "Más que compañeros somos una familia. Capitanes y guias locales unidos por una profunda pasión por el mar." : "More than just colleagues, we are a family. Local captains and guides united by a deep-seated passion for the sea.",
-      image: imgStaff,
+      image: imgStaff, // Este se queda estático
       link: "/nosotros#equipo",
     },
     {
@@ -74,7 +101,7 @@ export default function Highlights() {
       kicker: content.cards[4]?.kicker || "Prepárate",
       title: content.cards[4]?.title || "Planifica tu Viaje",
       desc: lang === 'es' ? "Temporadas, temperaturas del agua, ubicación y todo los detalles que necesitas para reservar tu viaje con nosotros." : "Seasons, water temperatures, location, and all the details you need to book your trip with us.",
-      images: planificaReel, // Carrusel Planifica
+      images: planificaReel,
       link: "/contacto",
     },
     {
@@ -82,8 +109,7 @@ export default function Highlights() {
       kicker: content.cards[5]?.kicker || "Inspírate",
       title: content.cards[5]?.title || "Galería",
       desc: lang === 'es' ? "Aquí te compartimos un poco de nuestras experiencias en el parque nacional bahía de loreto: algo que tú también podrás vivir con dolphin dive baja." : "Here is a glimpse of our experiences in the Loreto Bay National Park: an adventure you can also experience with Dolphin Dive Baja.",
-      // 👇 CAMBIO: Ahora usa el array inspiraReel para el carrusel
-      images: inspiraReel, 
+      images: inspiraReel, // Carrusel con 9 imágenes
       link: "/galeria",
     }
   ];
@@ -128,7 +154,6 @@ export default function Highlights() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-20 md:mb-32 text-center md:text-left relative"
         >
-          {/* Halo decorativo detrás del título */}
           <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500 dark:bg-cyan-400/20 bg-cyan-400/10" />
 
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 border shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10 mx-auto md:mx-0">
@@ -158,7 +183,7 @@ export default function Highlights() {
                 className={`relative flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center group w-full`}
               >
 
-                {/* 1. IMAGEN GIGANTE */}
+                {/* 1. IMAGEN GIGANTE O CARRUSEL */}
                 <div className="w-full md:w-[68%] lg:w-[70%] h-[400px] sm:h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative shrink-0 z-0 bg-slate-200 dark:bg-dark/50">
                   {item.images ? (
                     <HighlightSlideReel images={item.images} title={item.title} />
@@ -188,7 +213,7 @@ export default function Highlights() {
                       className="absolute bottom-6 right-6 md:bottom-10 md:right-10 h-12 md:h-20 w-auto z-10 drop-shadow-2xl brightness-110"
                     />
                   )}
-                  
+
                   {/* Gradiente protector */}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent dark:from-dark/70 opacity-70 transition-colors duration-500 pointer-events-none" />
 
@@ -205,7 +230,6 @@ export default function Highlights() {
 
                 {/* 2. TARJETA DE CRISTAL FLOTANTE (Con Parallax) */}
                 <motion.div
-                  // Aplicamos el Transform Y dinámico (Parallax) + Ajustamos márgenes para móvil
                   style={{ y: cardY }}
                   className={`w-[90%] sm:w-[80%] md:w-[45%] lg:w-[40%] relative z-10 self-center md:self-auto -mt-16 sm:-mt-24 md:mt-0 ${isEven ? 'md:-ml-16 lg:-ml-32' : 'md:-mr-16 lg:-mr-32'}`}
                 >
@@ -280,7 +304,7 @@ export default function Highlights() {
 }
 
 // ========================================================================
-// 🛰️ COMPONENTE: HighlightSlideReel (Empuje suave desde la derecha)
+// 🛰️ COMPONENTE: HighlightSlideReel (Ahora soporta Videos MP4 Inteligente)
 // ========================================================================
 function HighlightSlideReel({ images, title }: { images: string[], title: string }) {
   const [index, setIndex] = useState(0);
@@ -288,31 +312,49 @@ function HighlightSlideReel({ images, title }: { images: string[], title: string
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 6000); 
+    }, 6000);
     return () => clearInterval(timer);
   }, [images.length]);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
       <AnimatePresence initial={false} mode="popLayout">
-        <motion.img
-          key={index}
-          src={images[index]}
-          alt={`${title} reel`}
-          decoding="async"
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '-100%' }}
-          transition={{ x: { type: "tween", ease: "easeInOut", duration: 1.2 } }}
-          className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
-        />
+        {(() => {
+          const currentMedia = images[index];
+          const isVideo = currentMedia.endsWith('.mp4');
+
+          return isVideo ? (
+            <motion.video
+              key={index}
+              src={currentMedia}
+              autoPlay loop muted playsInline
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ x: { type: "tween", ease: "easeInOut", duration: 1.2 } }}
+              className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
+            />
+          ) : (
+            <motion.img
+              key={index}
+              src={currentMedia}
+              alt={`${title} reel`}
+              decoding="async"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ x: { type: "tween", ease: "easeInOut", duration: 1.2 } }}
+              className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
+            />
+          );
+        })()}
       </AnimatePresence>
-      
+
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30">
         {images.map((_, i) => (
-          <div 
-            key={i} 
-            className={`h-1 rounded-full transition-all duration-[1200ms] ${i === index ? 'w-6 bg-cyan-400' : 'w-2 bg-white/30'}`} 
+          <div
+            key={i}
+            className={`h-1 rounded-full transition-all duration-[1200ms] ${i === index ? 'w-6 bg-cyan-400' : 'w-2 bg-white/30'}`}
           />
         ))}
       </div>

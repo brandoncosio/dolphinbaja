@@ -1,9 +1,26 @@
-import { motion, Variants } from 'framer-motion'; // 👈 Importamos Variants
+import React, { useState, useEffect } from 'react';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import turtleImg from '/assets/contentD/img/peces.webp';
+
+import img1 from '/assets/images/DolphinDive1.webp';
+import img2 from '/assets/images/DolphinDive2.webp';
+
+const slideImages = [img1, img2];
 
 export default function WelcomeSection() {
     const { lang } = useLanguage();
+
+    // Estado para controlar qué imagen se muestra en el carrusel
+    const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+    // Efecto para cambiar la imagen automáticamente cada 5 segundos
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImgIndex((prev) => (prev === slideImages.length - 1 ? 0 : prev + 1));
+        }, 5000);
+        return () => clearInterval(timer);
+    }, []);
+
     const content = {
         es: {
             badge: "Bienvenidos a Loreto",
@@ -31,7 +48,7 @@ export default function WelcomeSection() {
 
     const text = content[lang === 'en' ? 'en' : 'es'];
 
-    // 👇 Le asignamos el tipo :Variants a los objetos para evitar el error de TypeScript
+    // Variantes para animación en cascada
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -52,7 +69,7 @@ export default function WelcomeSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
                     {/* =========================================
-                        COLUMNA IZQUIERDA: IMAGEN EDITORIAL
+                        COLUMNA IZQUIERDA: IMAGEN EDITORIAL (CARRUSEL)
                     ========================================= */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, x: -30 }}
@@ -64,15 +81,25 @@ export default function WelcomeSection() {
                         {/* Marco decorativo trasero */}
                         <div className="absolute -inset-4 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-[2.5rem] lg:rounded-[3.5rem] transform -rotate-3 transition-transform duration-700 group-hover:-rotate-6 z-0"></div>
 
-                        <div className="w-full h-[400px] sm:h-[500px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-4 border-white dark:border-white/10">
-                            <img
-                                src={turtleImg}
-                                alt="Tortuga marina en el Parque Nacional Bahía de Loreto"
-                                loading="lazy"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[7s] group-hover:scale-110"
-                            />
+                        {/* Contenedor de la Imagen con fondo negro para evitar destellos en transición */}
+                        <div className="w-full h-[400px] sm:h-[500px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-4 border-white dark:border-white/10 bg-black">
+
+                            {/* Animación del carrusel */}
+                            <AnimatePresence mode="popLayout">
+                                <motion.img
+                                    key={currentImgIndex}
+                                    src={slideImages[currentImgIndex]}
+                                    alt="Buceo en el Parque Nacional Bahía de Loreto"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[7s] group-hover:scale-110"
+                                />
+                            </AnimatePresence>
+
                             {/* Gradiente sutil inferior para contraste */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-60 dark:opacity-80" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-60 dark:opacity-80 pointer-events-none z-10" />
                         </div>
 
                         {/* PADI Badge Flotante */}
