@@ -25,10 +25,6 @@ import cert2Img from '/assets/images/cert2.webp';
 import cert3Img from '/assets/images/cert3.webp';
 import cert4Img from '/assets/images/cert4.webp';
 
-// Imágenes para Coronado
-import cor1 from '/assets/contentD/img/cor1.webp';
-import cor2 from '/assets/contentD/img/cor2.webp';
-
 // Imágenes Danzantes
 import dan1 from '/assets/contentD/img/dan1.webp';
 import dan2 from '/assets/contentD/img/dan2.webp';
