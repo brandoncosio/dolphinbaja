@@ -89,7 +89,7 @@ type TabKey = 'fundives' | 'cursos' | 'snorkel';
 interface ServiceItem {
   title: string;
   duration: string;
-  desc: string;
+  desc: string | React.ReactNode; // Permitir nodos para botones inline
   includes: string[];
   imgKey: string;
   reel?: string[]; 
@@ -98,7 +98,7 @@ interface ServiceItem {
 
 interface ModalData {
   title: string;
-  desc: string;
+  desc: string | React.ReactNode;
   duration?: string;
   includes: string[];
   images: string[];
@@ -213,8 +213,41 @@ export default function Servicios() {
       fundives: [
         {
           title: "Parque Nacional Bahía de Loreto", duration: "Medio Día", imgKey: "funDivesImg", reel: loretoReel,
-          desc: "En el camino hacia los sitios de buceo podemos ver delfines, mantas mobula, peces voladores y ballenas (por temporada). Durante las inmersiones veremos corales, tortugas marinas, anguilas, tiburones de arrecife, el Pecio, lobos marinos y mucha vida macro.",
-          includes: ["2 tanques (3er tanque con costo extra)", "Plomos y tanques", "Lunch, fruta, agua", "Edad: 12 - 70+ años"]
+          desc: (
+            <>
+              De camino a los sitios de buceo, podemos ver:<br />
+              • Delfines • Mantas Mobula • Peces voladores • Ballenas (por temporada) • Aves marinas, etc.<br /><br />
+              Durante el buceo veremos una gran diversidad de vida marina:<br />
+              • Corales duros y blandos (negro, californica, copa naranja y más)<br />
+              • Anémonas de tubo • Tortugas marinas • Anguilas • Tiburones de arrecife<br />
+              • El Pecio C-54 (30–80 pies de prof.) • Lobos marinos • Delfines<br />
+              • Grandes bancos de peces<br />
+              • Vida macro (nudibranquios, blenios, gobios, peces bocón, etc.)<br />
+              • ¡Y mucho más!<br /><br />
+              Buceos matutinos todo el año (8:00 - 13:00 hrs). Cita 7:30 AM en la tienda. Dos tanques en Coronados, Carmen o Danzantes.<br />
+              Buceos vespertinos (Junio–Octubre) de 14:00 PM a 18:00 PM.<br />
+              *Grupos pequeños: máximo 6 buzos por Dive Master.<br /><br />
+              Buzos solos: Intentaremos encontrarte un compañero. Si no, puedes reservar un tour privado a Coronados.<br />
+              *Nuestras tarifas se basan en pesos, el USD se ajustará según el tipo de cambio.<br />
+              💡 Las propinas no están incluidas - ¡gracias por apoyar a nuestro equipo!<br /><br />
+              Complementos Opcionales:<br />
+              • 3er tanque con costo extra (Julio–Octubre) min 2 pax<br />
+              • Tour privado con costo extra<br />
+              • Renta de lámparas disponible<br />
+              • Renta de computadora de buceo disponible<br /><br />
+              *Buceos nocturnos disponibles para buzos avanzados: 
+              <button
+                onClick={() => {
+                  setModalData(null); // Cierra el modal si está abierto
+                  setTimeout(() => scrollToSection('night-dive'), 350);
+                }}
+                className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
+              >
+                Ver Info <i className="ri-arrow-right-up-line"></i>
+              </button>
+            </>
+          ),
+          includes: ["Lunch, snacks, agua", "Tanques y plomos", "Tarifas del Parque Marino", "Requisito: Mínimo 2 buzos"]
         },
         {
           title: "Isla Coronado", duration: "Medio Día", imgKey: "isla", reel: coronadoReel,
@@ -360,8 +393,41 @@ export default function Servicios() {
       fundives: [
         {
           title: "Loreto Bay National Park", duration: "Half Day", imgKey: "funDivesImg", reel: loretoReel,
-          desc: "On the way to the dive sites, spot dolphins, mobula rays, flying fish, and seasonal whales. Underwater: hard and soft corals, anemones, turtles, reef sharks, the C-54 Wreck, sea lions, and macro life.",
-          includes: ["2 tanks (3rd tank extra cost)", "Tanks and weights", "Lunch, fruit, water", "Ages: 12 - 70+"]
+          desc: (
+            <>
+              On our way to the dive sites, we can see:<br />
+              • Dolphins • Mobula rays • Flying fish • Whales (seasonal) • Sea birds, etc.<br /><br />
+              While diving we can see a lot of sea life diversity:<br />
+              • Hard & soft corals (black, californica, orange cup, and more)<br />
+              • Tube anemones • Sea turtles • Eels • Reef sharks<br />
+              • Wreck C-54 (30–80 ft. deep) • Sea lions • Dolphins<br />
+              • Large schools of fish<br />
+              • Macro life (nudibranchs, blennies, gobies, jawfishes, etc.)<br />
+              • & much more!!<br /><br />
+              Morning dives all year (8:00 - 13:00 hrs). Meet at 7:30 AM at the shop. Two tanks in Coronados, Carmen, or Danzantes.<br />
+              Afternoon dives (June–October) from 2:00 PM to 6:00 PM.<br />
+              *Groups are small: 6 divers maximum per Dive Master.<br /><br />
+              Solo diver: We’ll try to find you a buddy. If not, you can book a private tour to Coronados.<br />
+              *Our rates are based on pesos, the USD adjusts depending on the exchange rate.<br />
+              💡 Gratuities are not included - thank you for supporting our crew!<br /><br />
+              Optional Add-ons:<br />
+              • 3rd tank extra fee (July–October) min 2 pax<br />
+              • Private tour extra fee<br />
+              • Torch rental available<br />
+              • Dive computer available<br /><br />
+              *Night dives available for advanced divers: 
+              <button
+                onClick={() => {
+                  setModalData(null); // Close modal if open
+                  setTimeout(() => scrollToSection('night-dive'), 350);
+                }}
+                className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
+              >
+                See Info <i className="ri-arrow-right-up-line"></i>
+              </button>
+            </>
+          ),
+          includes: ["Lunch, snacks, water", "Tanks and weights", "Marine Park fees", "Requirements: Min 2 divers"]
         },
         {
           title: "Coronado Island", duration: "Half Day", imgKey: "isla", reel: coronadoReel,
@@ -674,8 +740,13 @@ export default function Servicios() {
                     const isEven = idx % 2 === 0;
                     const itemImage = imageDict[item.imgKey] || funDivesImg;
 
-                    // Añadimos ID específico para el curso Open Water
-                    const articleId = (tabKey === 'cursos' && item.title === 'Open Water Diver') ? 'open-water-diver' : undefined;
+                    // IDs específicos para scroll
+                    let articleId = undefined;
+                    if (tabKey === 'cursos' && item.title === 'Open Water Diver') {
+                      articleId = 'open-water-diver';
+                    } else if (tabKey === 'fundives' && (item.title === 'Night Dive' || item.title === 'Night Dive (Buceo Nocturno)')) {
+                      articleId = 'night-dive';
+                    }
 
                     let galleryType: 'dive' | 'snorkel' | 'course' = 'dive';
                     if (tabKey === 'cursos') galleryType = 'course';
@@ -715,7 +786,7 @@ export default function Servicios() {
                             {item.title}
                           </h3>
 
-                          <p className="text-sm md:text-base font-body font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-8 line-clamp-3 md:line-clamp-4">
+                          <p className="whitespace-pre-line text-sm md:text-base font-body font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-8 line-clamp-3 md:line-clamp-4">
                             {item.desc}
                           </p>
 
@@ -807,7 +878,7 @@ export default function Servicios() {
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] md:text-xs font-bold uppercase tracking-widest bg-cyan-100 text-cyan-700 border border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-400/20 mb-4"><i className="ri-time-line"></i> {modalData.duration}</span>
                   )}
                   <h2 className="font-title text-3xl md:text-4xl text-navy dark:text-white leading-tight mb-4">{modalData.title}</h2>
-                  <p className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed whitespace-pre-line">{modalData.desc}</p>
+                  <div className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed whitespace-pre-line">{modalData.desc}</div>
                   {modalData.extraContent && <div className="mt-6">{modalData.extraContent}</div>}
                 </div>
                 <div className="mb-10">
@@ -820,7 +891,7 @@ export default function Servicios() {
                         </div> 
                         <span className="leading-snug">
                           {inc}
-                          {/* 👇 BOTÓN TIPO SUGERENCIA INLINE DENTRO DEL MODAL */}
+                          {/* 👇 BOTÓN TIPO SUGERENCIA INLINE DENTRO DEL MODAL (Open Water) */}
                           {(inc.includes('Ejercicios') || inc.includes('exercises')) && modalData.title.includes('Surface') && (
                             <button
                               onClick={() => {
