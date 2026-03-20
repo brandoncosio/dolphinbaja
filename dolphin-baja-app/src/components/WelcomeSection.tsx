@@ -70,7 +70,7 @@ export default function WelcomeSection() {
 
                     {/* =========================================
                         COLUMNA IZQUIERDA: IMAGEN EDITORIAL (CARRUSEL)
-                    ========================================= */}
+                        ========================================= */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, x: -30 }}
                         whileInView={{ opacity: 1, scale: 1, x: 0 }}
@@ -102,17 +102,18 @@ export default function WelcomeSection() {
                             <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-60 dark:opacity-80 pointer-events-none z-10" />
                         </div>
 
-                        {/* PADI Badge Flotante */}
+                        {/* PADI Badge Flotante ACTUALIZADO */}
                         <div className="absolute -bottom-6 -right-6 md:bottom-10 md:-right-10 bg-white dark:bg-navy p-4 rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 z-20 flex flex-col items-center justify-center animate-bounce-slow">
                             <span className="font-title text-3xl text-cyan-600 dark:text-cyan-400 leading-none mb-1">PADI</span>
                             <span className="font-body text-[8px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Resort Member</span>
                             <span className="font-body text-[10px] font-black text-navy dark:text-white mt-1">Since 2001</span>
+                        <img src="/assets/contentD/img/PADI.png" alt="PADI Logo" className="h-10 md:h-12 w-auto mb-2 object-contain filter brightness-110 drop-shadow-sm" />
                         </div>
                     </motion.div>
 
                     {/* =========================================
                         COLUMNA DERECHA: TEXTO
-                    ========================================= */}
+                        ========================================= */}
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"

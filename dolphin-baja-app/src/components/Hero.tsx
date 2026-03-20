@@ -118,7 +118,7 @@ export default function Hero() {
               dangerouslySetInnerHTML={{ __html: getSlideContent(currentIndex).title }}
             />
 
-            <p className="mb-8 md:mb-10 max-w-xl font-body text-sm sm:text-lg lg:text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-medium leading-relaxed transition-colors duration-500
+            <p className="whitespace-pre-line mb-8 md:mb-10 max-w-xl font-body text-sm sm:text-lg lg:text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-medium leading-relaxed transition-colors duration-500
               text-slate-700 dark:text-slate-100">
               {getSlideContent(currentIndex).subtitle}
             </p>

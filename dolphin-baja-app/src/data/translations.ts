@@ -78,7 +78,7 @@ export const translations = {
                 slides: [
                     {
                         title: "UNA EXPERIENCIA INOLVIDABLE",
-                        subtitle: "Cada inmersión está diseñada para conectarte con el océano y la naturaleza."
+                        subtitle: "Cada inmersión está diseñada para conectarte con el océano y la naturaleza. \n#Loreto_Donde_El_Lujo_Es_La_Naturaleza."
                     },
                     {
                         title: "EXPLORA LORETO<br/>DESDE EL MAR",
@@ -614,7 +614,7 @@ export const translations = {
                 slides: [
                     {
                         title: "MORE THAN DIVING,<br/>AN UNFORGETTABLE EXPERIENCE",
-                        subtitle: "Each dive is designed to connect you with the ocean and nature."
+                        subtitle: "Each dive is designed to connect you with the ocean and nature. \n#Loreto_Where_Nature_Is_Luxury."
                     },
                     {
                         title: "EXPLORE LORETO<br/>FROM THE SEA",

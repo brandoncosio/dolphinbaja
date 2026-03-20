@@ -175,4 +175,9 @@
     display: none;
     /* Chrome, Safari y Opera */
   }
+
+  .pre-line {
+    white-space: pre-line;
+  }
+  
 }
