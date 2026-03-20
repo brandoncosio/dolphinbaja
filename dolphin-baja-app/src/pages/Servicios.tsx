@@ -321,9 +321,9 @@ export default function Servicios() {
     en: {
       hero: {
         tag: "Services Catalog",
-        title: "Dive into the",
-        highlight: "Aquarium of the World",
-        desc: "Explore the Loreto Bay National Park. As the only exclusive PADI 5-Star Dive Center & Cressi Dive Center in the region, your safety and enjoyment are our top priorities."
+        title: "Dive into the Aquarium",
+        highlight: "of the World With Dolphin Dive Baja",
+        desc: "Explore the Loreto Bay National Park\nWe are the only exclusive PADI 5 - Stars Dive Center in the region. For us your safety and enjoyment are our top priorities.\nExplore the Loreto Bay National Park. As the only exclusive PADI 5-Star Dive Center & Cressi Dive Center in the region, your safety and enjoyment are our top priorities."
       },
       paquetes: {
         title: "Dive Packages",
@@ -515,7 +515,7 @@ export default function Servicios() {
             </motion.h1>
 
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-              className="font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed pointer-events-auto transition-colors text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              className="whitespace-pre-line font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed pointer-events-auto transition-colors text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
               {currentData.hero.desc}
             </motion.p>
 
