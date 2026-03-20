@@ -7,7 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 import SplashScreen from '../components/SplashScreen';
 
 // ========================================================================
-// 🖼️ IMPORTACIÓN DE IMÁGENES
+// 🖼️ IMPORTACIÓN DE IMÁGENES Y VIDEOS
 // ========================================================================
 import funDivesImg from '/assets/images/colash1.webp';
 import nocturno from '/assets/contentD/img/nocturno.webp';
@@ -25,9 +25,33 @@ import cert2Img from '/assets/images/cert2.webp';
 import cert3Img from '/assets/images/cert3.webp';
 import cert4Img from '/assets/images/cert4.webp';
 
+// Imágenes para Coronado
+import cor1 from '/assets/contentD/img/cor1.webp';
+import cor2 from '/assets/contentD/img/cor2.webp';
+
+// Imágenes Danzantes
+import dan1 from '/assets/contentD/img/dan1.webp';
+import dan2 from '/assets/contentD/img/dan2.webp';
+
+// Imágenes Carmen
+import car1 from '/assets/contentD/img/car1.webp';
+import car2 from '/assets/contentD/img/car2.webp';
+
+// Imágenes/Videos Fun Dives
+import fun1 from '/assets/contentD/img/fun1.webp';
+import fun2 from '/assets/contentD/img/fun2.webm'; // 🎥 Video
+import fun3 from '/assets/contentD/img/fun3.webm'; // 🎥 Video
+
 // Logos de Autoridad PADI y CRESSI
 import padiLogo from '/assets/contentD/img/PADI.png';
 import cressiLogo from '/assets/contentD/img/cressi.png';
+
+// Imágenes cursos
+import cour1 from '/assets/contentD/img/cour1.webp';
+import cour2 from '/assets/contentD/img/cour2.webp';
+import cour3 from '/assets/contentD/img/cour3.webm';
+import cour4 from '/assets/contentD/img/cour4.webm';
+import cour5 from '/assets/contentD/img/cour5.webm';
 
 const imageDict: Record<string, string> = {
   funDivesImg, nocturno, coursesImg,
@@ -35,6 +59,27 @@ const imageDict: Record<string, string> = {
   carmen, danzantes,
   colorFImg, certImg, cert2Img, cert3Img, cert4Img
 };
+
+// ========================================================================
+// 🎞️ CONFIGURACIÓN DE CARRELES (Agrega aquí tus imágenes o videos)
+// ========================================================================
+
+// 1. SECCIÓN: FUN DIVES
+const loretoReel = [funDivesImg, fun1]; // PARQUE NACIONAL BAHÍA DE LORETO
+const coronadoReel = [isla, cor1, cor2]; // ISLA CORONADO
+const nocturnoReel = [nocturno, fun2, fun3]; // BUCEO NOCTURNO (Ahora con videos)
+
+// 2. SECCIÓN: CURSOS
+const bubbleReel = [bubbleImg, cour1]; // BUBBLE MAKERS
+const discoverReel = [colorFImg, cour2]; // DISCOVER SCUBA
+const openWaterReel = [coursesImg, cour3]; // OPEN WATER DIVER
+const advancedReel = [certImg, cour4]; // ADVANCED OPEN WATER
+const rescueReel = [cert2Img, cour5]; // RESCUE DIVER
+
+// 3. SECCIÓN: SNORKEL
+const carmenReel = [carmen, car1, car2]; // ISLA DEL CARMEN
+const danzantesReel = [danzantes, dan1, dan2]; // ISLAS DANZANTES
+
 
 // ========================================================================
 // 🛠️ INTERFACES DE TYPESCRIPT
@@ -47,6 +92,7 @@ interface ServiceItem {
   desc: string;
   includes: string[];
   imgKey: string;
+  reel?: string[]; 
   extraContent?: React.ReactNode;
 }
 
@@ -122,7 +168,7 @@ export default function Servicios() {
   };
 
   // ========================================================================
-  // 📚 DATOS LOCALES CON COMPONENTES JSX PARA TEXTOS DETALLADOS
+  // 📚 DATOS LOCALES
   // ========================================================================
   const localData = {
     es: {
@@ -138,8 +184,8 @@ export default function Servicios() {
         items: [
           {
             id: 'deep-blue', name: "Baja Ocean", target: "Para buzos certificados", duration: "5 Días", color: "cyan",
-            desc: "Disfruta 5 días espectaculares de buceo en el parque nacional bahía de loreto. Te alojarás en uno de los mejores hoteles de loreto. NOTA: No incluye equipo de renta, ni propinas para el staff.",
-            features: ["De 12 hasta 70+ años", "5 días buceando (10 tanques)", "6 noches de hotel con desayuno", "Transfer: aeropuerto - hotel - aeropuerto", "Impuestos incluídos", "Vigencia: Julio a Octubre"],
+            desc: "Disfruta 5 días espectaculares de buceo en el parque nacional bahía de loreto, explorando sitios increíbles llenos de vida y belleza natural. Te alojarás en uno de los mejores hoteles de loreto, donde te sentirás perfectamente bien atendido. Los desayunos están incluidos. NOTA: No incluye equipo de renta, ni propinas para el staff.",
+            features: ["Solo buzos certificados" , "De 12 hasta 70 años", "5 días buceando (10 tanques)", "6 noches de hotel con desayuno", "Transfer: aeropuerto - hotel - aeropuerto", "Impuestos incluídos", "Vigencia: Julio a Octubre"],
             note: "Mínimo 2 buzos"
           },
           {
@@ -158,34 +204,34 @@ export default function Servicios() {
       },
       fundives: [
         {
-          title: "Parque Nacional Bahía de Loreto", duration: "Medio Día", imgKey: "funDivesImg",
+          title: "Parque Nacional Bahía de Loreto", duration: "Medio Día", imgKey: "funDivesImg", reel: loretoReel,
           desc: "En el camino hacia los sitios de buceo podemos ver delfines, mantas mobula, peces voladores y ballenas (por temporada). Durante las inmersiones veremos corales, tortugas marinas, anguilas, tiburones de arrecife, el Pecio C-54, lobos marinos y mucha vida macro.",
           includes: ["2 tanques (3er opcional extra)", "Plomos y tanques", "Lunch, fruta, agua", "Edad: 12 - 70+ años"]
         },
         {
-          title: "Isla Coronado", duration: "Medio Día", imgKey: "isla",
+          title: "Isla Coronado", duration: "Medio Día", imgKey: "isla", reel: coronadoReel,
           desc: "Impresiona con sus formaciones de roca volcánica de más de 125,000 años de antigüedad. Es hogar de aves marinas (garzas, pelícanos, águilas pescadoras) y una amigable colonia de lobos marinos (excepto mediados de julio a mediados de agosto).",
           includes: ["Paseo guiado", "Plomos y tanques", "Lunch, fruta, agua", "Edad: 12 - 70+ años"]
         },
         {
-          title: "Night Dive (Buceo Nocturno)", duration: "18:00 - 21:00 hrs", imgKey: "nocturno",
+          title: "Night Dive (Buceo Nocturno)", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel,
           desc: "La actividad perfecta para ver el mar con otros ojos. Disponible solamente de julio a octubre. Solo para buzos avanzados.",
           includes: ["1 o 2 tanques (según horario)", "Luz en el tanque", "Lunch y agua", "Plomos y tanques"]
         }
       ],
       cursos: [
         {
-          title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg",
+          title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg", reel: bubbleReel,
           desc: "Es una actividad diseñada especialmente para niños. NO ES UNA CERTIFICACIÓN. Inmersión máxima en aguas controladas de 2 a 4 metros.",
           includes: ["Edad: 8 - 11 años", "1 Tanque", "Equipo completo incluido", "Mínimo 2 pax + 1 adulto responsable"]
         },
         {
-          title: "Discover Scuba (Introducción al Buceo)", duration: "Medio Día", imgKey: "colorFImg",
+          title: "Discover Scuba (Introducción al Buceo)", duration: "Medio Día", imgKey: "colorFImg", reel: discoverReel,
           desc: "Vivirás por primera vez la experiencia del buceo, dirigida por un Dive Master capacitado. NO ES UNA CERTIFICACIÓN. Inmersión máxima de 12 mts / 36 ft. El primer tanque es de explicación y el segundo de exploración.",
           includes: ["Edad: 12 - 70+ años", "Corta clase teórica", "2 Tanques (Explicación y Exploración)", "Mínimo 2 pax"]
         },
         {
-          title: "Open Water Diver", duration: "Máx 3 Días", imgKey: "coursesImg",
+          title: "Open Water Diver", duration: "Máx 3 Días", imgKey: "coursesImg", reel: openWaterReel,
           desc: "Como el único PADI 5-Star y Cressi Dive Center en Loreto, haremos tu experiencia inolvidable. Repaso de teoría en salón de clases, seguido de ejercicios en aguas confinadas y aguas abiertas.",
           includes: ["Edad: 12 - 70+ años", "Renta de equipo, lastre y tanques", "Lunch y agua", "Brazaletes del parque marino"],
           extraContent: (
@@ -216,7 +262,7 @@ export default function Servicios() {
           )
         },
         {
-          title: "Advanced Open Water", duration: "2 - 3 Días", imgKey: "certImg",
+          title: "Advanced Open Water", duration: "2 - 3 Días", imgKey: "certImg", reel: advancedReel,
           desc: "¿Ya eres un buzo certificado? Es hora de expandir tus habilidades y explorar nuevas profundidades con el Curso PADI Advanced Open Water. ¡Experimenta nuevas aventuras, gana confianza y descubre el océano de una manera completamente nueva!",
           includes: ["Edad: 12 - 70+ años", "5 Inmersiones en total", "Lunch y agua", "Solo buzos certificados"],
           extraContent: (
@@ -254,19 +300,19 @@ export default function Servicios() {
           )
         },
         {
-          title: "Rescue Diver", duration: "3 - 4 Días", imgKey: "cert2Img",
+          title: "Rescue Diver", duration: "3 - 4 Días", imgKey: "cert2Img", reel: rescueReel,
           desc: "Desafiante y gratificante. Aprende a prevenir y manejar emergencias en el agua. Desarrolla tu confianza como buzo practicando escenarios de rescate reales.",
           includes: ["Edad: 12 - 70+ años", "Prácticas de rescate", "Equipo y tanques", "Lunch y agua"]
         }
       ],
       snorkel: [
         {
-          title: "Tour a Isla del Carmen", duration: "Medio Día", imgKey: "carmen",
+          title: "Tour a Isla del Carmen", duration: "Medio Día", imgKey: "carmen", reel: carmenReel,
           desc: "La isla más grande del Parque. Sus impresionantes acantilados, una mezcla de arena fosilizada, roca volcánica y basalto, te dejarán maravillado; además de contar con cuevas que deslumbrarán tus sentidos.",
           includes: ["Edad: 12 - 70+ años", "Paseo en lancha y Guía", "Equipo de Snorkel", "Lunch y bebidas"]
         },
         {
-          title: "Tour a Islas Danzantes", duration: "Medio Día", imgKey: "danzantes",
+          title: "Tour a Islas Danzantes", duration: "Medio Día", imgKey: "danzantes", reel: danzantesReel,
           desc: "Nombrada por las danzas ancestrales de los Guaycuras. Cuenta con impresionantes formaciones rocosas en forma de pináculo y una formación similar a una ventana con ángulos perfectos de 90°.",
           includes: ["Edad: 12 - 70+ años", "Paseo en lancha y Guía", "Equipo de Snorkel", "Lunch y bebidas"]
         }
@@ -285,8 +331,8 @@ export default function Servicios() {
         items: [
           {
             id: 'deep-blue', name: "Baja Ocean", target: "For certified divers", duration: "5 Days", color: "cyan",
-            desc: "Enjoy 5 spectacular days of diving in the Loreto Bay National Park. Stay at one of Loreto's premier hotels. NOTE: Rental gear and staff gratuities are not included.",
-            features: ["Ages 12 to 70+", "5 days of diving (10 tanks)", "6 hotel nights with breakfast", "Transfer: Airport - Hotel - Airport", "Taxes included", "Valid: July to October"],
+            desc: "Enjoy 5 spectacular days of diving in the Loreto Bay National Park, exploring breathtaking sites teeming with life and natural beauty. You will stay at one of Loreto's premier hotels, where you will receive exceptional service. Breakfast is included. NOTE: Rental gear and staff gratuities are not included.",
+            features: ["Certified divers only" , "Ages 12 to 70", "5 days of diving (10 tanks)", "6 hotel nights with breakfast included", "Transfer: Airport - Hotel - Airport", "Taxes included", "Valid: July to October"],
             note: "Minimum 2 divers"
           },
           {
@@ -305,34 +351,34 @@ export default function Servicios() {
       },
       fundives: [
         {
-          title: "Loreto Bay National Park", duration: "Half Day", imgKey: "funDivesImg",
+          title: "Loreto Bay National Park", duration: "Half Day", imgKey: "funDivesImg", reel: loretoReel,
           desc: "On the way to the dive sites, spot dolphins, mobula rays, flying fish, and seasonal whales. Underwater: hard and soft corals, anemones, turtles, reef sharks, the C-54 Wreck (9–24 m), sea lions, and macro life.",
           includes: ["2 tanks (3rd optional extra)", "Tanks and weights", "Lunch, fruit, water", "Ages: 12 - 70+"]
         },
         {
-          title: "Coronado Island", duration: "Half Day", imgKey: "isla",
+          title: "Coronado Island", duration: "Half Day", imgKey: "isla", reel: coronadoReel,
           desc: "Impresses with volcanic rock formations over 125,000 years old. Home to sea birds (herons, pelicans, ospreys) and a friendly sea lion colony (except mid-July to mid-August).",
           includes: ["Guided boat tour", "Tanks and weights", "Lunch, fruit, water", "Ages: 12 - 70+"]
         },
         {
-          title: "Night Dive", duration: "18:00 - 21:00 hrs", imgKey: "nocturno",
+          title: "Night Dive", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel,
           desc: "Discover the magic of the sea at night. Only available from July to October. Advanced divers only.",
           includes: ["1 or 2 tanks (by schedule)", "Tank light included", "Lunch and water", "Tanks and weights"]
         }
       ],
       cursos: [
         {
-          title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg",
+          title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg", reel: bubbleReel,
           desc: "Activity designed specially for kids. NOT A CERTIFICATION. Max depth in confined waters is 2 to 4 meters.",
           includes: ["Ages: 8 - 11 years", "1 Tank", "Full gear included", "Min 2 pax + 1 responsible adult"]
         },
         {
-          title: "Discover Scuba (Intro Dive)", duration: "Half Day", imgKey: "colorFImg",
+          title: "Discover Scuba (Intro Dive)", duration: "Half Day", imgKey: "colorFImg", reel: discoverReel,
           desc: "Experience diving for the first time, guided by a trained Dive Master. NOT A CERTIFICATION. Max depth 12m / 36ft. First tank for explanation, second for exploration.",
           includes: ["Ages: 12 - 70+ years", "Short theory class", "2 Tanks (Explanation & Exploration)", "Min 2 pax"]
         },
         {
-          title: "Open Water Diver", duration: "Max 3 Days", imgKey: "coursesImg",
+          title: "Open Water Diver", duration: "Max 3 Days", imgKey: "coursesImg", reel: openWaterReel,
           desc: "As the only PADI 5-Star & Cressi Dive Center in Loreto, we make your experience unforgettable. Classroom theory review, followed by confined and open water exercises.",
           includes: ["Ages: 12 - 70+ years", "Gear, weights, and tanks", "Lunch and water", "Marine park bracelets"],
           extraContent: (
@@ -351,19 +397,16 @@ export default function Servicios() {
                   <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">2. Practical Training (in Loreto):</p>
                   <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
                     <li>Day 1: Classroom session (3 hours)</li>
-                    <li>Day 2: Confined water practice + Open Water Dives 1 & 2</li>
+                    <li>Day 2: Practical training sessions.</li>
                     <li>Day 3: Open Water Dives 3 & 4</li>
                   </ul>
                 </div>
-                <p className="text-sm italic text-slate-500 mt-2 border-t border-slate-200 dark:border-white/10 pt-3">
-                  We provide all scuba equipment, plus lunch, fruit, snacks, and marine park fees every day.
-                </p>
               </div>
             </div>
           )
         },
         {
-          title: "Advanced Open Water", duration: "2 - 3 Days", imgKey: "certImg",
+          title: "Advanced Open Water", duration: "2 - 3 Days", imgKey: "certImg", reel: advancedReel,
           desc: "Already a certified diver? It’s time to expand your skills and explore new depths with the PADI Advanced Open Water Course at Dolphin Dive Center. Experience new adventures, build confidence, and discover the ocean in a whole new way!",
           includes: ["Ages: 12 - 70+ years", "5 total dives", "Lunch and water", "Certified divers only"],
           extraContent: (
@@ -401,19 +444,19 @@ export default function Servicios() {
           )
         },
         {
-          title: "Rescue Diver", duration: "3 - 4 Days", imgKey: "cert2Img",
+          title: "Rescue Diver", duration: "3 - 4 Days", imgKey: "cert2Img", reel: rescueReel,
           desc: "Challenging and rewarding. Learn to prevent and manage emergencies in the water. Build your confidence by practicing real rescue scenarios.",
           includes: ["Ages: 12 - 70+ years", "Rescue practices", "Gear and tanks", "Lunch and water"]
         }
       ],
       snorkel: [
         {
-          title: "Isla del Carmen Tour", duration: "Half Day", imgKey: "carmen",
+          title: "Isla del Carmen Tour", duration: "Half Day", imgKey: "carmen", reel: carmenReel,
           desc: "The largest island in the park. Its impressive cliffs—a mix of fossilized sand, volcanic rock, and basalt—will leave you amazed, along with caves that will dazzle your senses.",
           includes: ["Ages: 12 - 70+ years", "Boat ride & Guide", "Snorkel Gear", "Lunch & drinks"]
         },
         {
-          title: "Danzantes Island Tour", duration: "Half Day", imgKey: "danzantes",
+          title: "Danzantes Island Tour", duration: "Half Day", imgKey: "danzantes", reel: danzantesReel,
           desc: "Named after ancestral Guaycura dances. Features impressive pinnacle-shaped rock formations and a window-like rock formation with perfect 90° angles.",
           includes: ["Ages: 12 - 70+ years", "Boat ride & Guide", "Snorkel Gear", "Lunch & drinks"]
         }
@@ -445,10 +488,7 @@ export default function Servicios() {
           {isLoading && <SplashScreen key="splash" />}
         </AnimatePresence>
 
-        {/* ========================================================================
-            🚀 NUEVO HERO DE SERVICIOS
-            ======================================================================== */}
-        {/* 👇 AUMENTAMOS EL PADDING BOTTOM PARA EVITAR CHOQUES CON EL BANNER */}
+        {/* 🚀 HERO DE SERVICIOS */}
         <section className="relative w-full h-[100dvh] min-h-[650px] md:h-[80vh] md:min-h-[750px] overflow-hidden flex flex-col justify-center items-center pt-40 md:pt-48 pb-32">
 
           <div className="absolute inset-0 z-0">
@@ -492,15 +532,12 @@ export default function Servicios() {
           </div>
         </section>
 
-        {/* ========================================================================
-            🌟 BANNER DE AUTORIDAD PADI & CRESSI (Rediseño Equilibrado)
-            ======================================================================== */}
+        {/* 🌟 BANNER DE AUTORIDAD PADI & CRESSI */}
         <section className="relative z-20 max-w-6xl mx-auto px-5 md:px-12 pt-8 md:pt-12 pb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.6 }}
             className="rounded-[2rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-none p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-10"
           >
-            {/* Texto de Autoridad */}
             <div className="text-center lg:text-left shrink-0">
               <p className="font-body text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400 mb-2">
                 Official Partners
@@ -510,31 +547,21 @@ export default function Servicios() {
               </h3>
             </div>
 
-            {/* Divisor */}
             <div className="hidden lg:block w-[1px] h-20 bg-slate-200 dark:bg-white/10 shrink-0"></div>
 
-            {/* Contenedor de Logos (Cajas invisibles del mismo tamaño para equilibrarlos) */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-10 sm:gap-12 w-full lg:w-auto">
-
-              {/* Caja PADI */}
               <div className="flex items-center justify-center h-16 sm:h-20 w-48 sm:w-56">
                 <img src={padiLogo} alt="PADI 5 Star Dive Center" className="max-h-full max-w-full object-contain drop-shadow-sm hover:scale-105 transition-transform" />
               </div>
-
-              {/* Separador Móvil/Desktop */}
               <div className="hidden sm:block w-[1px] h-12 bg-slate-200 dark:bg-white/10 shrink-0"></div>
               <div className="sm:hidden w-32 h-[1px] bg-slate-200 dark:bg-white/10 shrink-0"></div>
-
-              {/* Caja CRESSI */}
               <div className="flex items-center justify-center h-16 sm:h-20 w-48 sm:w-56">
                 <img src={cressiLogo} alt="Cressi Dive Center" className="max-h-full max-w-full object-contain drop-shadow-sm hover:scale-105 transition-transform" />
               </div>
-
             </div>
           </motion.div>
         </section>
 
-        {/* CATÁLOGO UNIFICADO */}
         <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12">
 
           {/* ======================= SECCIÓN PAQUETES ======================= */}
@@ -567,7 +594,6 @@ export default function Servicios() {
                       ))}
                     </ul>
 
-                    {/* Botones Paquetes */}
                     <div className="mt-auto flex flex-col gap-3">
                       <div className="flex items-center justify-center gap-2 mb-2 font-body text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-black/20 py-2.5 rounded-xl border border-slate-100 dark:border-white/5">
                         <i className="ri-group-fill"></i> {pkg.note}
@@ -596,13 +622,12 @@ export default function Servicios() {
             </div>
           </section>
 
-          {/* ======================= SECCIONES INDIVIDUALES (FUN DIVES, CURSOS, SNORKEL) ======================= */}
+          {/* ======================= SECCIONES INDIVIDUALES ======================= */}
           {(['fundives', 'cursos', 'snorkel'] as TabKey[]).map((tabKey) => {
             const sectionTitle = categoriesList.find(c => c.id === tabKey)?.label;
             const servicesList = currentData[tabKey] as ServiceItem[];
 
             return (
-              // 👇 PADDING TOP AUMENTADO PARA EVITAR CHOQUES ENTRE SECCIONES
               <section key={tabKey} id={tabKey} className="pt-20 md:pt-32 scroll-mt-24">
                 <div className="text-center md:text-left mb-10 border-b border-slate-200 dark:border-white/10 pb-6">
                   <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{sectionTitle}</h2>
@@ -618,30 +643,33 @@ export default function Servicios() {
                     if (tabKey === 'snorkel') galleryType = 'snorkel';
 
                     return (
-                      <motion.article key={idx} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6 }}
+                      <motion.article key={idx} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }}
                         className={`group flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-slate-200 shadow-xl bg-white dark:bg-white/5 dark:border-white/10 transition-all hover:border-cyan-400/50 hover:shadow-2xl`}
                       >
-                        {/* IMAGEN */}
+                        {/* 🖼️ IMAGEN O CARRUSEL HÍBRIDO */}
                         <div className="w-full lg:w-5/12 h-[300px] sm:h-[400px] lg:h-auto relative overflow-hidden shrink-0">
-                          <img
-                            src={itemImage}
-                            alt={item.title}
-                            loading="lazy"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105 filter contrast-[1.15] saturate-[1.10]"
-                          />
+                          {item.reel && item.reel.length > 1 ? (
+                            <ServicePushReel images={item.reel} title={item.title} />
+                          ) : (
+                            <img
+                              src={itemImage}
+                              alt={item.title}
+                              loading="lazy"
+                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105 filter contrast-[1.15] saturate-[1.10]"
+                            />
+                          )}
+                          
                           <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent dark:from-dark/60 pointer-events-none" />
                           <div className="absolute top-5 right-5 backdrop-blur-xl bg-white/90 dark:bg-dark/80 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-[10px] md:text-xs font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 shadow-lg flex items-center gap-2">
                             <i className="ri-time-line text-base"></i> {item.duration}
                           </div>
                         </div>
 
-                        {/* CONTENIDO */}
                         <div className="w-full lg:w-7/12 p-8 sm:p-10 md:p-12 lg:p-14 flex flex-col justify-center">
-                          <h3 className="font-title text-3xl md:text-4xl mb-4 text-navy dark:text-white transition-colors group-hover:text-cyan-600 dark:group-hover:text-cyan-400 leading-tight">
+                          <h3 className="font-title text-3xl md:text-4xl mb-4 text-navy dark:text-white transition-colors group-hover:text-cyan-600 dark:group-hover:text-cyan-300 leading-tight">
                             {item.title}
                           </h3>
 
-                          {/* 👇 LINE-CLAMP RESTAURADO. El Extra Content ya no se renderiza aquí, solo en el Modal */}
                           <p className="text-sm md:text-base font-body font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-8 line-clamp-3 md:line-clamp-4">
                             {item.desc}
                           </p>
@@ -664,7 +692,8 @@ export default function Servicios() {
                               onClick={() => {
                                 setModalData({
                                   title: item.title, desc: item.desc, duration: item.duration, includes: item.includes,
-                                  images: generateGallery(itemImage, galleryType), extraContent: item.extraContent
+                                  images: item.reel && item.reel.length > 0 ? item.reel : generateGallery(itemImage, galleryType), 
+                                  extraContent: item.extraContent
                                 });
                                 setCurrentImageIdx(0);
                               }}
@@ -677,12 +706,10 @@ export default function Servicios() {
                             </a>
                           </div>
                         </div>
-
                       </motion.article>
                     );
                   })}
                 </div>
-
               </section>
             );
           })}
@@ -690,101 +717,122 @@ export default function Servicios() {
         </main>
       </div>
 
-      {/* ========================================================================
-          🎬 MODAL EDITORIAL (Lightbox Responsivo)
-          ======================================================================== */}
+      {/* MODAL LIGHTBOX */}
       <AnimatePresence>
         {modalData && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
-              className="absolute inset-0 bg-navy/90 dark:bg-black/90 backdrop-blur-md"
-              onClick={() => setModalData(null)}
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} transition={{ duration: 0.4, ease: "easeOut" }}
-              className="relative w-full max-w-6xl bg-white dark:bg-dark rounded-[2rem] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh] z-10 border border-slate-200 dark:border-white/10"
-            >
-              <button onClick={() => setModalData(null)} className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-colors z-50 border border-white/20">
-                <i className="ri-close-line text-2xl"></i>
-              </button>
-
-              {/* IZQUIERDA: Carrusel */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-navy/90 dark:bg-black/90 backdrop-blur-md" onClick={() => setModalData(null)} />
+            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative w-full max-w-6xl bg-white dark:bg-dark rounded-[2rem] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh] z-10 border border-slate-200 dark:border-white/10">
+              <button onClick={() => setModalData(null)} className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-colors z-50 border border-white/20"><i className="ri-close-line text-2xl"></i></button>
+              
               <div className="w-full md:w-1/2 h-[35vh] md:h-auto relative bg-slate-900 group">
                 <AnimatePresence mode="wait">
-                  <motion.img
-                    key={currentImageIdx}
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}
-                    src={modalData.images[currentImageIdx]}
-                    alt={modalData.title}
-                    className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
-                  />
+                  {/* Detección de video en Modal */}
+                  {(modalData.images[currentImageIdx].endsWith('.webm') || modalData.images[currentImageIdx].endsWith('.mp4')) ? (
+                    <motion.video 
+                      key={currentImageIdx} 
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} 
+                      src={modalData.images[currentImageIdx]} 
+                      autoPlay muted loop playsInline 
+                      className="absolute inset-0 w-full h-full object-cover" 
+                    />
+                  ) : (
+                    <motion.img 
+                      key={currentImageIdx} 
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} 
+                      transition={{ duration: 0.5 }} 
+                      src={modalData.images[currentImageIdx]} 
+                      alt={modalData.title} 
+                      className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]" 
+                    />
+                  )}
                 </AnimatePresence>
-
                 {modalData.images.length > 1 && (
                   <>
                     <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIdx((prev) => (prev === 0 ? modalData.images.length - 1 : prev - 1)); }} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-all hover:bg-cyan-500 pointer-events-auto border border-white/20"><i className="ri-arrow-left-s-line text-xl"></i></button>
-                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIdx((prev) => (prev === modalData.images.length - 1 ? 0 : prev + 1)); }} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-all hover:bg-cyan-500 pointer-events-auto border border-white/20"><i className="ri-arrow-right-s-line text-xl"></i></button>
-                    </div>
-                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-                      {modalData.images.map((_, i) => (
-                        <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentImageIdx ? 'w-6 bg-white shadow-md' : 'w-2 bg-white/50'}`} />
-                      ))}
+                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIdx((prev) => (prev === 0 ? modalData.images.length - 1 : prev - 1)); }} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center pointer-events-auto border border-white/20 hover:bg-cyan-500"><i className="ri-arrow-left-s-line text-xl"></i></button>
+                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIdx((prev) => (prev === modalData.images.length - 1 ? 0 : prev + 1)); }} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center pointer-events-auto border border-white/20 hover:bg-cyan-500"><i className="ri-arrow-right-s-line text-xl"></i></button>
                     </div>
                   </>
                 )}
               </div>
 
-              {/* DERECHA: Info del Modal */}
               <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-10 lg:p-14 flex flex-col overflow-y-auto bg-slate-50 dark:bg-dark no-scrollbar h-[55vh] md:h-auto">
                 <div className="mb-8">
                   {modalData.duration && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] md:text-xs font-bold uppercase tracking-widest bg-cyan-100 text-cyan-700 border border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-400/20 mb-4">
-                      <i className="ri-time-line"></i> {modalData.duration}
-                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] md:text-xs font-bold uppercase tracking-widest bg-cyan-100 text-cyan-700 border border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-400/20 mb-4"><i className="ri-time-line"></i> {modalData.duration}</span>
                   )}
                   <h2 className="font-title text-3xl md:text-4xl text-navy dark:text-white leading-tight mb-4">{modalData.title}</h2>
-                  <p className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-                    {modalData.desc}
-                  </p>
-
-                  {/* 👇 SÓLO AQUÍ SE MUESTRA EL CONTENIDO EXTRA LARGO */}
-                  {modalData.extraContent && (
-                    <div className="mt-6">
-                      {modalData.extraContent}
-                    </div>
-                  )}
+                  <p className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{modalData.desc}</p>
+                  {modalData.extraContent && <div className="mt-6">{modalData.extraContent}</div>}
                 </div>
-
                 <div className="mb-10">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-white/10 pb-3 mb-5">
-                    {lang === 'es' ? 'QUÉ INCLUYE ESTA EXPERIENCIA' : 'WHAT’S INCLUDED'}
-                  </h4>
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-white/10 pb-3 mb-5">{lang === 'es' ? 'QUÉ INCLUYE ESTA EXPERIENCIA' : 'WHAT’S INCLUDED'}</h4>
                   <ul className="space-y-4">
                     {modalData.includes.map((inc, i) => (
-                      <li key={i} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-700 dark:text-slate-200">
-                        <div className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 mt-0.5">
-                          <i className="ri-check-line text-cyan-600 dark:text-cyan-400 text-xs"></i>
-                        </div>
-                        {inc}
-                      </li>
+                      <li key={i} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-700 dark:text-slate-200"><div className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 mt-0.5"><i className="ri-check-line text-cyan-600 dark:text-cyan-400 text-xs"></i></div> {inc}</li>
                     ))}
                   </ul>
                 </div>
-
-                <div className="mt-auto pt-6">
-                  <a href={`https://wa.me/526131182311?text=Hola, quiero reservar: ${modalData.title}`} target="_blank" rel="noopener noreferrer"
-                    className="w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400">
-                    {lang === 'es' ? 'RESERVAR AHORA' : 'BOOK NOW'} <i className="ri-whatsapp-line text-xl"></i>
-                  </a>
-                </div>
+                <div className="mt-auto pt-6"><a href={`https://wa.me/526131182311?text=Hola, quiero reservar: ${modalData.title}`} target="_blank" className="w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400">{lang === 'es' ? 'RESERVAR AHORA' : 'BOOK NOW'} <i className="ri-whatsapp-line text-xl"></i></a></div>
               </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+// ========================================================================
+// 🛰️ COMPONENTE: ServicePushReel (Transición de empuje suave Híbrida)
+// ========================================================================
+function ServicePushReel({ images, title }: { images: string[], title: string }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 5500); // ⏱️ Duración de 5.5 segundos por elemento
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  const isVideo = (src: string) => src.endsWith('.webm') || src.endsWith('.mp4') || src.endsWith('.ogg');
+
+  return (
+    <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
+      <AnimatePresence initial={false} mode="popLayout">
+        <motion.div
+          key={index}
+          initial={{ x: '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '-100%' }}
+          transition={{ x: { type: "tween", ease: "easeInOut", duration: 1.2 } }}
+          className="absolute inset-0 w-full h-full"
+        >
+          {isVideo(images[index]) ? (
+            <video
+              src={images[index]}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
+            />
+          ) : (
+            <img
+              src={images[index]}
+              alt={`${title} reel`}
+              className="w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
+            />
+          )}
+        </motion.div>
+      </AnimatePresence>
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-30">
+        {images.map((_, i) => (
+          <div key={i} className={`h-1 rounded-full transition-all duration-[1000ms] ${i === index ? 'w-5 bg-cyan-400 shadow-md' : 'w-1.5 bg-white/30'}`} />
+        ))}
+      </div>
+    </div>
   );
 }
