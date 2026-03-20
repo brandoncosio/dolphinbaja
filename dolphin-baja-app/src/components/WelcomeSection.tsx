@@ -38,7 +38,7 @@ export default function WelcomeSection() {
             title: "Dolphin Dive Baja Loreto",
             subtitle: "Dive in the Sea of Cortez, The Aquarium of the World!",
             cousteau: "The Sea of Cortez was named by the famous Jacques Cousteau as 'The aquarium of the world' and its entrance is in Loreto.",
-            p1: "With 206,000 hectares of sea, the Loreto Bay National Park has been a protected area for over 20 years and features more than 50 dive sites with stunning landscapes.",
+            p1: "With 206,000 hectares of sea, the Loreto Bay National Park has been a protected area for over 20 years and features more than 40 dive sites with stunning landscapes.",
             highlight: "Join us to explore the underwater world of Loreto!",
             p2: "Dolphin Dive Baja has been a member of the PADI International Resort Association since 2001. We are strategically located one block from the malecon on Juarez Street, a 5-minute walk from the port, in downtown Loreto.",
             welcome: "Divers from all associations are welcome!",

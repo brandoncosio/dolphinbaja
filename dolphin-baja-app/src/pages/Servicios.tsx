@@ -205,8 +205,8 @@ export default function Servicios() {
       fundives: [
         {
           title: "Parque Nacional Bahía de Loreto", duration: "Medio Día", imgKey: "funDivesImg", reel: loretoReel,
-          desc: "En el camino hacia los sitios de buceo podemos ver delfines, mantas mobula, peces voladores y ballenas (por temporada). Durante las inmersiones veremos corales, tortugas marinas, anguilas, tiburones de arrecife, el Pecio C-54, lobos marinos y mucha vida macro.",
-          includes: ["2 tanques (3er opcional extra)", "Plomos y tanques", "Lunch, fruta, agua", "Edad: 12 - 70+ años"]
+          desc: "En el camino hacia los sitios de buceo podemos ver delfines, mantas mobula, peces voladores y ballenas (por temporada). Durante las inmersiones veremos corales, tortugas marinas, anguilas, tiburones de arrecife, el Pecio, lobos marinos y mucha vida macro.",
+          includes: ["2 tanques (3er tanque con costo extra)", "Plomos y tanques", "Lunch, fruta, agua", "Edad: 12 - 70+ años"]
         },
         {
           title: "Isla Coronado", duration: "Medio Día", imgKey: "isla", reel: coronadoReel,
@@ -352,8 +352,8 @@ export default function Servicios() {
       fundives: [
         {
           title: "Loreto Bay National Park", duration: "Half Day", imgKey: "funDivesImg", reel: loretoReel,
-          desc: "On the way to the dive sites, spot dolphins, mobula rays, flying fish, and seasonal whales. Underwater: hard and soft corals, anemones, turtles, reef sharks, the C-54 Wreck (9–24 m), sea lions, and macro life.",
-          includes: ["2 tanks (3rd optional extra)", "Tanks and weights", "Lunch, fruit, water", "Ages: 12 - 70+"]
+          desc: "On the way to the dive sites, spot dolphins, mobula rays, flying fish, and seasonal whales. Underwater: hard and soft corals, anemones, turtles, reef sharks, the C-54 Wreck, sea lions, and macro life.",
+          includes: ["2 tanks (3rd tank extra cost)", "Tanks and weights", "Lunch, fruit, water", "Ages: 12 - 70+"]
         },
         {
           title: "Coronado Island", duration: "Half Day", imgKey: "isla", reel: coronadoReel,
