@@ -67,7 +67,7 @@ const imageDict: Record<string, string> = {
 // 1. SECCIÓN: FUN DIVES
 const loretoReel = [funDivesImg, fun1]; // PARQUE NACIONAL BAHÍA DE LORETO
 const coronadoReel = [isla, cor1, cor2]; // ISLA CORONADO
-const nocturnoReel = [nocturno, fun2, fun3]; // BUCEO NOCTURNO (Ahora con videos)
+const nocturnoReel = [nocturno, fun2, fun3]; // BUCEO NOCTURNO
 
 // 2. SECCIÓN: CURSOS
 const bubbleReel = [bubbleImg, cour1]; // BUBBLE MAKERS
@@ -185,7 +185,7 @@ export default function Servicios() {
           {
             id: 'deep-blue', name: "Baja Ocean", target: "Para buzos certificados", duration: "5 Días", color: "cyan",
             desc: "Disfruta 5 días espectaculares de buceo en el parque nacional bahía de loreto, explorando sitios increíbles llenos de vida y belleza natural. Te alojarás en uno de los mejores hoteles de loreto, donde te sentirás perfectamente bien atendido. Los desayunos están incluidos. NOTA: No incluye equipo de renta, ni propinas para el staff.",
-            features: ["Solo buzos certificados" , "De 12 hasta 70 años", "5 días buceando (10 tanques)", "6 noches de hotel con desayuno", "Transfer: aeropuerto - hotel - aeropuerto", "Impuestos incluídos", "Vigencia: Julio a Octubre"],
+            features: ["Solo buzos certificados" , "De 12 hasta 70 años", "5 días buceando (10 tanques)", "6 noches de hotel con desayuno incluído", "Transfer: aeropuerto - hotel - aeropuerto", "Vigencia: Julio a Octubre"],
             note: "Mínimo 2 buzos"
           },
           {
@@ -332,7 +332,7 @@ export default function Servicios() {
           {
             id: 'deep-blue', name: "Baja Ocean", target: "For certified divers", duration: "5 Days", color: "cyan",
             desc: "Enjoy 5 spectacular days of diving in the Loreto Bay National Park, exploring breathtaking sites teeming with life and natural beauty. You will stay at one of Loreto's premier hotels, where you will receive exceptional service. Breakfast is included. NOTE: Rental gear and staff gratuities are not included.",
-            features: ["Certified divers only" , "Ages 12 to 70", "5 days of diving (10 tanks)", "6 hotel nights with breakfast included", "Transfer: Airport - Hotel - Airport", "Taxes included", "Valid: July to October"],
+            features: ["Certified divers only" , "Ages 12 to 70", "5 days of diving (10 tanks)", "6 hotel nights with breakfast included", "Transfer: Airport - Hotel - Airport", "Valid: July to October"],
             note: "Minimum 2 divers"
           },
           {
@@ -610,9 +610,9 @@ export default function Servicios() {
                           className="w-full py-3.5 rounded-xl font-title text-[10px] md:text-xs tracking-widest uppercase transition-all active:scale-95 border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10">
                           {lang === 'es' ? 'Detalles' : 'Details'}
                         </button>
-                        <a href={`https://wa.me/526131182311?text=${encodeURIComponent(`Hola, me interesa el Paquete: ${pkg.name}`)}`} target="_blank" rel="noopener noreferrer"
+                        <a href={`mailto:ventas@dolphindivebaja.com?subject=Reserva Paquete: ${pkg.name}`} rel="noopener noreferrer"
                           className="w-full py-3.5 rounded-xl font-title text-[10px] md:text-xs tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500">
-                          {lang === 'es' ? 'Reservar' : 'Book'} <i className="ri-whatsapp-line text-base"></i>
+                          {lang === 'es' ? 'Reservar' : 'Book'} <i className="ri-mail-line text-base"></i>
                         </a>
                       </div>
                     </div>
@@ -700,9 +700,9 @@ export default function Servicios() {
                               className="w-full py-4 rounded-xl font-title text-xs md:text-sm tracking-widest uppercase transition-all active:scale-95 border border-slate-300 text-slate-600 hover:bg-slate-50 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10">
                               {lang === 'es' ? 'Ver Detalles' : 'See Details'}
                             </button>
-                            <a href={`https://wa.me/526131182311?text=Hola, quiero información sobre: ${item.title}`} target="_blank" rel="noopener noreferrer"
+                            <a href={`mailto:ventas@dolphindivebaja.com?subject=Información sobre: ${item.title}`} rel="noopener noreferrer"
                               className="w-full py-4 rounded-xl font-title text-xs md:text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500">
-                              {lang === 'es' ? 'Reservar' : 'Book Now'} <i className="ri-whatsapp-line text-lg md:text-xl"></i>
+                              {lang === 'es' ? 'Reservar' : 'Book Now'} <i className="ri-mail-line text-lg md:text-xl"></i>
                             </a>
                           </div>
                         </div>
@@ -727,7 +727,6 @@ export default function Servicios() {
               
               <div className="w-full md:w-1/2 h-[35vh] md:h-auto relative bg-slate-900 group">
                 <AnimatePresence mode="wait">
-                  {/* Detección de video en Modal */}
                   {(modalData.images[currentImageIdx].endsWith('.webm') || modalData.images[currentImageIdx].endsWith('.mp4')) ? (
                     <motion.video 
                       key={currentImageIdx} 
@@ -774,7 +773,7 @@ export default function Servicios() {
                     ))}
                   </ul>
                 </div>
-                <div className="mt-auto pt-6"><a href={`https://wa.me/526131182311?text=Hola, quiero reservar: ${modalData.title}`} target="_blank" className="w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400">{lang === 'es' ? 'RESERVAR AHORA' : 'BOOK NOW'} <i className="ri-whatsapp-line text-xl"></i></a></div>
+                <div className="mt-auto pt-6"><a href={`mailto:ventas@dolphindivebaja.com?subject=Reserva: ${modalData.title}`} className="w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400">{lang === 'es' ? 'RESERVAR AHORA' : 'BOOK NOW'} <i className="ri-mail-line text-xl"></i></a></div>
               </div>
             </motion.div>
           </div>
