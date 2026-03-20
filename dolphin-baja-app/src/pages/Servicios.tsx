@@ -103,6 +103,7 @@ interface ModalData {
   includes: string[];
   images: string[];
   extraContent?: React.ReactNode;
+  footerContent?: React.ReactNode; // Para la nota debajo de las palomitas
 }
 
 export default function Servicios() {
@@ -184,7 +185,7 @@ export default function Servicios() {
         items: [
           {
             id: 'deep-blue', name: "Baja Ocean", target: "Para buzos certificados", duration: "5 Días", color: "cyan",
-            desc: "Disfruta 5 días espectaculares de buceo en el parque nacional bahía de loreto, explorando sitios increíbles llenos de vida y belleza natural. Te alojarás en uno de los mejores hoteles de loreto, donde te sentirás perfectamente bien atendido. Los desayunos están incluidos. NOTA: No incluye equipo de renta, ni propinas para el staff.",
+            desc: "Disfruta 5 días espectaculares de buceo en el parque nacional bahía de loreto, explorando sitios increíbles llenos de vida y belleza natural. Te alojarás en uno de los mejores hoteles de loreto, donde te sentirás perfectamente bien atendido. Los desayunos están incluidos.",
             features: ["Solo buzos certificados" , "De 12 hasta 70 años", "5 días buceando (10 tanques)", "6 noches de hotel con desayuno incluído", "Transfer: aeropuerto - hotel - aeropuerto", "Vigencia: Julio a Octubre"],
             note: "Mínimo 2 buzos"
           },
@@ -197,7 +198,14 @@ export default function Servicios() {
           {
             id: 'beyond-surface', name: "Beyond the Surface", target: "Obtén tu PADI Open Water", duration: "4-5 Días", color: "yellow",
             desc: "Conviértete en un buzo certificado con este paquete integral. Incluye toda tu teoría, inmersiones de práctica y certificación oficial PADI.",
-            features: ["De 12 hasta 70+ años", "Certificación Open Water", "Repaso de teoría 1, 2, 3 y 4", "+2 días extra de buceo (4 tanques)", "Computadora Cressi"],
+            features: [
+              "Repaso de teoría (eLearning completado)",
+              "Sesión en aguas confinadas",
+              "Ejercicios en Aguas Abiertas 1, 2, 3 y 4",
+              "+2 días extra de buceo (4 tanques)",
+              "Computadora de buceo Cressi",
+              "Total de 5 a 6 días"
+            ],
             note: "Mínimo 2 buzos"
           }
         ]
@@ -337,14 +345,14 @@ export default function Servicios() {
           },
           {
             id: 'blue-escape', name: "Blue Escape", target: "For certified divers", duration: "3 Days", color: "ocean",
-            desc: "The perfect weekend getaway. Three intense days of diving in the majestic waters of Loreto, combined with a comfortable and relaxing stay.",
+            desc: "The perfect weekend getaway. Three intense days of diving in the majestic waters of Loreto, combined with a comfortable and relaxing stay. NOTE: Rental gear and staff gratuities are not included.",
             features: ["Ages 12 to 70+", "3 days diving (6 tanks)", "4 nights hotel with breakfast included", "Transfer: Airport - Hotel - Airport", "Valid: July - October"],
             note: "Minimum 2 divers"
           },
           {
             id: 'beyond-surface', name: "Beyond the Surface", target: "Get your PADI Open Water", duration: "4-5 Days", color: "yellow",
             desc: "Become a certified diver with this comprehensive package. Includes all your theory, practice dives, and official PADI certification.",
-            features: ["Ages 12 to 70+", "Open Water Certification", "Theory review 1, 2, 3 & 4", "+2 extra days diving (4 tanks)", "Cressi Dive Computer"],
+            features: ["Theory review (Have done the eLearning)", "Confined Waters", "Open Waters exercises 1, 2, 3 & 4", "+2 extra days diving (4 tanks)", "Cressi Dive Computer", "Total Days 5-6"],
             note: "Minimum 2 divers"
           }
         ]
@@ -589,7 +597,18 @@ export default function Servicios() {
                       {pkg.features.map((feat, fIdx) => (
                         <li key={fIdx} className="flex items-start gap-3 font-body text-sm lg:text-base font-medium text-slate-600 dark:text-slate-300">
                           <i className={`ri-checkbox-circle-fill mt-0.5 text-lg ${pkg.color === 'yellow' ? 'text-yellow-500' : 'text-cyan-500'}`}></i>
-                          <span className="leading-snug">{feat}</span>
+                          <span className="leading-snug">
+                            {feat}
+                            {/* 👇 BOTÓN TIPO SUGERENCIA INLINE CORREGIDO */}
+                            {pkg.id === 'beyond-surface' && (feat.includes('Ejercicios') || feat.includes('exercises')) && (
+                              <button
+                                onClick={() => scrollToSection('open-water-diver')}
+                                className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
+                              >
+                                Ver Curso <i className="ri-arrow-right-up-line"></i>
+                              </button>
+                            )}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -601,9 +620,26 @@ export default function Servicios() {
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           onClick={() => {
+                            let footer = null;
+
+                            // Nota para Baja Ocean y Blue Escape
+                            if (pkg.id === 'deep-blue' || pkg.id === 'blue-escape') {
+                              footer = (
+                                <p className="mt-4 font-body text-[11px] italic text-slate-500 border-t border-slate-200 dark:border-white/10 pt-4 leading-relaxed">
+                                  {lang === 'es' 
+                                    ? 'NOTA: No incluye equipo de renta, ni propinas para el staff.' 
+                                    : 'NOTE: Rental gear and staff gratuities are not included.'}
+                                </p>
+                              );
+                            }
+
                             setModalData({
-                              title: pkg.name, desc: pkg.desc, duration: pkg.duration, includes: pkg.features,
-                              images: generateGallery(funDivesImg, 'package')
+                              title: pkg.name, 
+                              desc: pkg.desc, 
+                              duration: pkg.duration, 
+                              includes: pkg.features,
+                              images: generateGallery(funDivesImg, 'package'),
+                              footerContent: footer
                             });
                             setCurrentImageIdx(0);
                           }}
@@ -638,12 +674,21 @@ export default function Servicios() {
                     const isEven = idx % 2 === 0;
                     const itemImage = imageDict[item.imgKey] || funDivesImg;
 
+                    // Añadimos ID específico para el curso Open Water
+                    const articleId = (tabKey === 'cursos' && item.title === 'Open Water Diver') ? 'open-water-diver' : undefined;
+
                     let galleryType: 'dive' | 'snorkel' | 'course' = 'dive';
                     if (tabKey === 'cursos') galleryType = 'course';
                     if (tabKey === 'snorkel') galleryType = 'snorkel';
 
                     return (
-                      <motion.article key={idx} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }}
+                      <motion.article 
+                        key={idx} 
+                        id={articleId}
+                        initial={{ opacity: 0, y: 40 }} 
+                        whileInView={{ opacity: 1, y: 0 }} 
+                        viewport={{ once: true, margin: "-100px" }} 
+                        transition={{ duration: 0.6 }}
                         className={`group flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-slate-200 shadow-xl bg-white dark:bg-white/5 dark:border-white/10 transition-all hover:border-cyan-400/50 hover:shadow-2xl`}
                       >
                         {/* 🖼️ IMAGEN O CARRUSEL HÍBRIDO */}
@@ -762,16 +807,38 @@ export default function Servicios() {
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] md:text-xs font-bold uppercase tracking-widest bg-cyan-100 text-cyan-700 border border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-400/20 mb-4"><i className="ri-time-line"></i> {modalData.duration}</span>
                   )}
                   <h2 className="font-title text-3xl md:text-4xl text-navy dark:text-white leading-tight mb-4">{modalData.title}</h2>
-                  <p className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{modalData.desc}</p>
+                  <p className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed whitespace-pre-line">{modalData.desc}</p>
                   {modalData.extraContent && <div className="mt-6">{modalData.extraContent}</div>}
                 </div>
                 <div className="mb-10">
                   <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-white/10 pb-3 mb-5">{lang === 'es' ? 'QUÉ INCLUYE ESTA EXPERIENCIA' : 'WHAT’S INCLUDED'}</h4>
                   <ul className="space-y-4">
                     {modalData.includes.map((inc, i) => (
-                      <li key={i} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-700 dark:text-slate-200"><div className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 mt-0.5"><i className="ri-check-line text-cyan-600 dark:text-cyan-400 text-xs"></i></div> {inc}</li>
+                      <li key={i} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-700 dark:text-slate-200">
+                        <div className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 mt-0.5">
+                          <i className="ri-check-line text-cyan-600 dark:text-cyan-400 text-xs"></i>
+                        </div> 
+                        <span className="leading-snug">
+                          {inc}
+                          {/* 👇 BOTÓN TIPO SUGERENCIA INLINE DENTRO DEL MODAL */}
+                          {(inc.includes('Ejercicios') || inc.includes('exercises')) && modalData.title.includes('Surface') && (
+                            <button
+                              onClick={() => {
+                                setModalData(null);
+                                setTimeout(() => scrollToSection('open-water-diver'), 350);
+                              }}
+                              className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
+                            >
+                              {lang === 'es' ? 'Ver Curso' : 'See Course'} <i className="ri-arrow-right-up-line"></i>
+                            </button>
+                          )}
+                        </span>
+                      </li>
                     ))}
                   </ul>
+                  {modalData.footerContent && (
+                    <div className="mt-4">{modalData.footerContent}</div>
+                  )}
                 </div>
                 <div className="mt-auto pt-6"><a href={`mailto:ventas@dolphindivebaja.com?subject=Reserva: ${modalData.title}`} className="w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400">{lang === 'es' ? 'RESERVAR AHORA' : 'BOOK NOW'} <i className="ri-mail-line text-xl"></i></a></div>
               </div>
@@ -792,7 +859,7 @@ function ServicePushReel({ images, title }: { images: string[], title: string })
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 5500); // ⏱️ Duración de 5.5 segundos por elemento
+    }, 5500); 
     return () => clearInterval(timer);
   }, [images.length]);
 
