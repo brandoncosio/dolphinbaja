@@ -176,7 +176,7 @@ export default function Servicios() {
         tag: "Catálogo de Servicios",
         title: "Sumérgete en el",
         highlight: "Acuario del Mundo",
-        desc: "Explora el Parque Nacional Bahía de Loreto. Como el único centro exclusivo PADI 5-Star y Cressi Dive Center en la región, tu seguridad y disfrute son nuestra máxima prioridad."
+        desc: "Explora el Parque Nacional Bahía de Loreto.\nComo el único Centro de Buceo exclusivo PADI 5 Estrellas y Cressi Dive Center en la región, tu seguridad y disfrute son nuestra máxima prioridad."
       },
       paquetes: {
         title: "Paquetes de Buceo",
