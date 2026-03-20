@@ -224,7 +224,7 @@ export const translations = {
                         desc: "La isla más grande del parque. Aquí exploramos el famoso pecio C-54, un barco hundido lleno de vida, además de impresionantes paredes y arrecifes rocosos."
                     },
                     {
-                        name: "Isla Coronado",
+                        name: "Isla Coronados",
                         desc: "Nuestra expedición más popular. Podrás bucear y jugar con amigables lobos marinos en su hábitat natural, rodeado de hermosas formaciones de roca volcánica."
                     }
                 ]
@@ -760,7 +760,7 @@ export const translations = {
                         desc: "The largest island in the park. Here we explore the famous C-54 wreck, a sunken ship full of marine life, along with stunning walls and rocky reefs."
                     },
                     {
-                        name: "Coronado Island",
+                        name: "Coronados Island",
                         desc: "Our most popular expedition. You'll be able to dive and play with friendly sea lions in their natural habitat, surrounded by beautiful volcanic rock formations."
                     }
                 ]

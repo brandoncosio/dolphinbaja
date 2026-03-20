@@ -53,6 +53,10 @@ import cour3 from '/assets/contentD/img/cour3.webm';
 import cour4 from '/assets/contentD/img/cour4.webm';
 import cour5 from '/assets/contentD/img/cour5.webm';
 
+// Imágenes Coronados
+import coro1 from '/assets/contentD/img/coro1.webp';
+import coro2 from '/assets/contentD/img/coro2.webp';
+
 const imageDict: Record<string, string> = {
   funDivesImg, nocturno, coursesImg,
   isla, experienciasImg, bubbleImg, leones,
@@ -66,7 +70,7 @@ const imageDict: Record<string, string> = {
 
 // 1. SECCIÓN: FUN DIVES
 const loretoReel = [funDivesImg, fun1]; // PARQUE NACIONAL BAHÍA DE LORETO
-const coronadoReel = [isla, cor1, cor2]; // ISLA CORONADO
+const coronadoReel = [isla, coro1, coro2]; // ISLA CORONADO
 const nocturnoReel = [nocturno, fun2, fun3]; // BUCEO NOCTURNO
 
 // 2. SECCIÓN: CURSOS
@@ -250,9 +254,9 @@ export default function Servicios() {
           includes: ["Lunch, snacks, agua", "Tanques y plomos", "Tarifas del Parque Marino", "Requisito: Mínimo 2 buzos"]
         },
         {
-          title: "Isla Coronado", duration: "Medio Día", imgKey: "isla", reel: coronadoReel,
-          desc: "Impresiona con sus formaciones de roca volcánica de más de 125,000 años de antigüedad. Es hogar de aves marinas (garzas, pelícanos, águilas pescadoras) y una amigable colonia de lobos marinos (excepto mediados de julio a mediados de agosto).",
-          includes: ["Paseo guiado", "Plomos y tanques", "Lunch, fruta, agua", "Edad: 12 - 70+ años"]
+          title: "Isla Coronados", duration: "Medio Día", imgKey: "isla", reel: coronadoReel,
+          desc: "Es común avistar delfines, tortugas, mantarrayas, lobos marinos y aves marinas. La isla impresiona con sus formaciones de roca volcánica, creadas hace más de 125,000 años, y es hogar de garzas, gaviotas, cormoranes, pelícanos, águilas pescadoras y otras aves marinas. \nTambién encontrarás una amigable colonia de lobos marinos que reside allí todo el año (excepto de mediados de julio a mediados de agosto). \n10 SITIOS DE BUCEO PARA EXPLORAR EN ESTA ISLA\n\nREQUISITOS:\n-Buena salud\n-Saber nadar\n-Certificado de buceo\n-Edad: 12-70+ años\n❌ NO incluye equipo de buceo ni propinas para la tripulación.",
+          includes: ["Tarifas del Parque Marino", "Plomos y tanques", "Lunch, fruta y agua"]
         },
         {
           title: "Night Dive (Buceo Nocturno)", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel,
@@ -430,9 +434,9 @@ export default function Servicios() {
           includes: ["Lunch, snacks, water", "Tanks and weights", "Marine Park fees", "Requirements: Min 2 divers"]
         },
         {
-          title: "Coronado Island", duration: "Half Day", imgKey: "isla", reel: coronadoReel,
-          desc: "Impresses with volcanic rock formations over 125,000 years old. Home to sea birds (herons, pelicans, ospreys) and a friendly sea lion colony (except mid-July to mid-August).",
-          includes: ["Guided boat tour", "Tanks and weights", "Lunch, fruit, water", "Ages: 12 - 70+"]
+          title: "Coronados Island", duration: "Half Day", imgKey: "isla", reel: coronadoReel,
+          desc: "It’s common to spot dolphins, turtles, rays, sea lions, & sea birds. The island impresses with its volcanic rock formations, created more than 125,000 years ago, and is home to herons, seagulls, cormorants, pelicans, ospreys, and other sea birds. \nYou’ll also encounter a friendly sea lion colony that resides there year-round. (except mid July to mid august). \n10 DIVE SITES TO EXPLORE  IN THIS ISLAND\n\nREQUERIMENTS:\n-Good Health\n-Know how to swim\n-Dive Certificate\n-Age 12-70+ years old\n❌ NOT included Dive Gear, and Gratuities for the crew.",
+          includes: ["Marine Park fees", "Weights & Tanks", "Lunch, fruit, water"]
         },
         {
           title: "Night Dive", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel,
