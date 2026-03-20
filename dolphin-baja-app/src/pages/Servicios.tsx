@@ -191,7 +191,7 @@ export default function Servicios() {
           {
             id: 'blue-escape', name: "Blue Escape", target: "Para buzos certificados", duration: "3 Días", color: "ocean",
             desc: "La escapada perfecta de fin de semana. Tres días intensos de inmersiones en las majestuosas aguas de Loreto, combinados con una estancia cómoda y relajante.",
-            features: ["De 12 hasta 70+ años", "3 días buceando (6 tanques)", "4 noches de hotel con desayuno", "Transfer aeropuerto - hotel"],
+            features: ["De 12 hasta 70+ años", "3 días buceando (6 tanques)", "4 noches de hotel con desayuno incluído", "Transfer: aeropuerto - hotel - aeropuerto", "Válido de Julio a Octubre"],
             note: "Mínimo 2 buzos"
           },
           {
@@ -338,7 +338,7 @@ export default function Servicios() {
           {
             id: 'blue-escape', name: "Blue Escape", target: "For certified divers", duration: "3 Days", color: "ocean",
             desc: "The perfect weekend getaway. Three intense days of diving in the majestic waters of Loreto, combined with a comfortable and relaxing stay.",
-            features: ["Ages 12 to 70+", "3 days diving (6 tanks)", "4 nights hotel with breakfast", "Airport - hotel transfer"],
+            features: ["Ages 12 to 70+", "3 days diving (6 tanks)", "4 nights hotel with breakfast included", "Transfer: Airport - Hotel - Airport", "Valid: July - October"],
             note: "Minimum 2 divers"
           },
           {
