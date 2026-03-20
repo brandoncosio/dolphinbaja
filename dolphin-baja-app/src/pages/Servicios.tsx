@@ -540,10 +540,10 @@ export default function Servicios() {
           >
             <div className="text-center lg:text-left shrink-0">
               <p className="font-body text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400 mb-2">
-                Official Partners
+                Official Partners son:
               </p>
               <h3 className="font-title text-2xl md:text-3xl text-navy dark:text-white leading-tight">
-                Dolphin Dive Baja<br className="hidden lg:block" /> Loreto
+                Whales of<br className="hidden lg:block" /> Loreto
               </h3>
             </div>
 
