@@ -1,34 +1,21 @@
 /* 1. IMPORTACIÓN NATIVA DE TAILWIND V4 */
 @import "tailwindcss";
 
-/* ⚠️ NUEVA LÍNEA VITAL: Habilita manualmente el modo oscuro usando clases (.dark) */
+/* ⚠️ Habilita manualmente el modo oscuro usando clases (.dark) */
 @variant dark (&:where(.dark, .dark *));
 
 /* 2. CONFIGURACIÓN DEL TEMA (Primitivos y Fuentes) */
 @theme {
   /* =======================================================
      PALETA DE MARCA (Colores Fijos)
-     Estos colores siempre se ven igual, sin importar el modo.
      ======================================================= */
-
-  /* Azul Arrecife (Tu nuevo fondo oscuro base) */
   --color-reef: #133E60;
-
-  /* Azul Navy (Sombras y Textos en modo claro) */
   --color-navy: #0A253D;
-
-  /* Azul Océano (Luces brillantes) */
   --color-ocean: #0099CC;
-
-  /* Acentos */
   --color-cyan: #66D8E3;
   --color-yellow: #FED966;
-
-  /* Neutros */
   --color-offwhite: #F5F2E3;
   --color-pale: #CCEAEA;
-
-  /* Mapeo de la variable "dark" para compatibilidad con tu código actual */
   --color-dark: #133E60;
 
   /* Fuentes "Divertidas" y animadas */
@@ -36,21 +23,38 @@
   --font-body: 'Quicksand', sans-serif;
 
   /* Curva de animación premium (Efecto resorte suave) */
-  --ease-dolphin: cubic-bezier(.22, .61, .36, 1);
+  --ease-dolphin: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Ajustado para un ease-out más "buttery" */
+
+  /* 🎬 ANIMACIONES PREMIUM (Nativas de CSS) */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-15px);
+    }
+  }
 }
 
 /* 3. LÓGICA DE TEMA (Claro / Oscuro) */
 @layer base {
 
-  /* --- VARIABLES SEMÁNTICAS (Cambian según el tema) --- */
+  /* --- VARIABLES SEMÁNTICAS --- */
   :root {
-    /* ☀️ MODO CLARO (Default - "Superficie / Playa") */
+    /* ☀️ MODO CLARO ("Superficie") */
     --bg-main: #F8FAFC;
     --text-main: #0A253D;
     --text-secondary: #334155;
 
     /* Cristal Clásico */
-    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(203, 213, 225, 0.6);
     --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 
@@ -61,15 +65,15 @@
   }
 
   :root.dark {
-    /* 🌙 MODO OSCURO ("Profundidad / Arrecife") */
+    /* 🌙 MODO OSCURO ("Profundidad") */
     --bg-main: #133E60;
     --text-main: #FFFFFF;
     --text-secondary: #CBD5E1;
 
     /* Cristal Mate Profundo */
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 
     /* 🎨 Scrollbar Oscuro */
     --scrollbar-bg: #0A253D;
@@ -77,27 +81,38 @@
     --scrollbar-hover: #66D8E3;
   }
 
-  /* 4. APLICACIÓN GLOBAL */
+  /* 4. APLICACIÓN GLOBAL & MEJORAS DE RENDERIZADO */
   html {
     scroll-behavior: smooth;
-    /* Evita que el contenido salte de izquierda a derecha cuando aparece la barra de scroll */
     scrollbar-gutter: stable;
+    /* Evita el salto de layout al abrir modales */
+    -webkit-text-size-adjust: 100%;
+    /* Evita zoom automático en iOS */
   }
 
   body {
     background-color: var(--bg-main);
     color: var(--text-main);
     font-family: var(--font-body);
-
     margin: 0;
+
+    /* 💎 TOP-TIER: Renderizado de texto perfecto */
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    /* Seguridad: Evita scroll horizontal en móviles si un elemento se desborda */
-    overflow-x: hidden;
+    /* 💎 TOP-TIER: Sensación de App Nativa (elimina el parpadeo azul al tocar) */
+    -webkit-tap-highlight-color: transparent;
 
-    /* Transición suave al cambiar de tema (0.5s) */
+    overflow-x: hidden;
     transition: background-color 0.5s var(--ease-dolphin), color 0.5s var(--ease-dolphin);
+  }
+
+  /* Mejora en la accesibilidad del Focus (borde azul en lugar del contorno feo por defecto) */
+  :focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   h1,
@@ -107,35 +122,44 @@
     font-family: var(--font-title);
     letter-spacing: 0.04em;
     font-weight: 400;
-    /* Lilita One no necesita ser forzada a bold */
+  }
+
+  /* Prevenir parpadeos en imágenes durante animaciones (Framer Motion) */
+  img,
+  video {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   /* ========================================================================
-     ✨ MEJORAS DE UX/UI NATIVAS (Globales)
+     ✨ MEJORAS DE UX/UI NATIVAS
      ======================================================================== */
 
-  /* 1. Selección de texto corporativa */
+  /* 1. Selección de texto corporativa y elegante */
   ::selection {
     background-color: var(--color-cyan);
     color: var(--color-navy);
+    text-shadow: none;
+    /* Eliminar sombras al seleccionar mejora la legibilidad */
   }
 
-  /* 2. Scrollbar Personalizado (Webkit - Chrome, Safari, Edge) */
+  /* 2. Scrollbar Premium */
   ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    /* Un poco más delgado se siente más premium */
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
     background: var(--scrollbar-bg);
-    transition: background 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-thumb);
-    border-radius: 10px;
+    border-radius: 20px;
     border: 3px solid var(--scrollbar-bg);
-    /* Efecto de padding interno */
+    background-clip: padding-box;
+    /* Truco para que el borde se vea transparente */
     transition: background-color 0.3s ease;
   }
 
@@ -144,26 +168,49 @@
   }
 }
 
-/* 5. UTILIDADES PERSONALIZADAS */
+/* 5. UTILIDADES PERSONALIZADAS PREMIUM */
 @layer utilities {
   .wrap {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
     max-width: 1200px;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
-  /* Clase maestra para el efecto cristal adaptable */
+  /* 💎 Cristal Adaptable Mejorado con saturación de fondo */
   .glass-panel {
     background-color: var(--glass-bg);
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    /* Soporte Safari */
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
   }
 
-  /* ✨ Utilidad requerida para ocultar la barra de scroll en Modales sin perder el scroll */
+  /* 💎 Utilidad para animaciones fluidas a 60fps (Obliga a usar GPU) */
+  .hardware-accelerated {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* 💎 Texto Gradiente (Moderno) */
+  .text-gradient {
+    background: linear-gradient(to right, var(--color-cyan), var(--color-ocean));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* 💎 Resplandor suave para títulos en Dark Mode */
+  .text-glow {
+    text-shadow: 0 0 20px rgba(102, 216, 227, 0.4);
+  }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     /* IE y Edge */
@@ -179,5 +226,4 @@
   .pre-line {
     white-space: pre-line;
   }
-  
 }
