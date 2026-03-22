@@ -36,14 +36,13 @@ export default function Footer() {
   ];
 
   // ========================================================================
-  // 📚 ESTRUCTURA DE ENLACES DEL FOOTER (Nuevo Orden Aplicado)
+  // 📚 ESTRUCTURA DE ENLACES DEL FOOTER
   // ========================================================================
   const footerLinks = [
     {
       title: content.navTitle,
       links: [
         { label: content.navLinks.home, path: "/" },
-        // 👇 Nuevo orden aplicado: Nosotros -> Servicios -> Galería -> Contacto
         { label: content.navLinks.about, path: "/nosotros" },
         { label: content.navLinks.services, path: "/servicios" },
         { label: lang === 'en' ? 'Gallery' : 'Galería', path: "/galeria" },
@@ -61,70 +60,62 @@ export default function Footer() {
   ];
 
   // ========================================================================
-  // 🎨 ESTILOS SEPARADOS (Corrección de Fondo)
+  // 🎨 ESTILOS PREMIUM (Corrección de Fondo y Franja Gris)
   // ========================================================================
 
   const footerClass = `
-    relative pt-24 md:pt-32 pb-8 md:pb-10 overflow-hidden transition-colors duration-500 z-10 border-t 
-    bg-slate-50 border-slate-200 text-slate-600
-    dark:bg-dark dark:border-white/10 dark:text-slate-200 
+    relative pt-24 md:pt-32 pb-8 overflow-hidden transition-colors duration-500 z-10
+    bg-slate-50 text-slate-600
+    dark:bg-dark dark:text-slate-200 
   `;
 
   const bgImageClass = `
-    w-full h-full object-cover object-bottom transition-all duration-500
-    /* LIGHT MODE */
-    opacity-25 grayscale-[20%] mix-blend-multiply
-    /* DARK MODE */
-    dark:opacity-50 dark:grayscale-[30%] dark:mix-blend-luminosity dark:mix-blend-normal
+    absolute bottom-0 left-0 w-full h-full object-cover object-bottom transition-all duration-500
+    /* LIGHT MODE: Más sutil para no ensuciar el blanco */
+    opacity-15 grayscale-[50%] mix-blend-multiply
+    /* DARK MODE: Más contraste y luminosidad */
+    dark:opacity-30 dark:grayscale-[20%] dark:mix-blend-luminosity
   `;
 
+  // 👇 LA CORRECCIÓN MÁGICA: El gradiente ahora funde el bg-slate-50 puro con transparencia, eliminando la línea cortada.
   const overlayGradientClass = `
-    absolute inset-0 bg-gradient-to-b transition-colors duration-500
+    absolute inset-0 bg-gradient-to-b transition-colors duration-500 pointer-events-none
     /* LIGHT MODE */
-    from-slate-50/90 via-slate-50/40 to-slate-200/90
+    from-slate-50 via-slate-50/90 to-slate-50/40
     /* DARK MODE */
-    dark:from-dark dark:via-dark/30 dark:to-navy/90
+    dark:from-dark dark:via-dark/90 dark:to-dark/40
   `;
 
   const glowClass = `
-    absolute -bottom-[10%] md:-bottom-[20%] left-1/2 -translate-x-1/2 w-[120%] md:w-[800px] h-[200px] md:h-[300px] rounded-full blur-[100px] md:blur-[150px] transition-colors duration-500
+    absolute -bottom-[20%] left-1/2 -translate-x-1/2 w-[150%] md:w-[800px] h-[300px] rounded-full blur-[120px] transition-colors duration-500 pointer-events-none
     bg-cyan-400/10
     dark:bg-cyan-400/15
   `;
 
   const colTitleClass = `
-    font-title text-lg tracking-widest mb-6 drop-shadow-md transition-colors duration-500
-    text-cyan-700
-    dark:text-cyan-400
+    font-title text-lg md:text-xl tracking-widest mb-6 transition-colors duration-500 relative inline-block
+    text-navy dark:text-white
   `;
 
   const linkClass = `
-    font-medium transition-colors inline-flex items-center justify-center sm:justify-start gap-2 group text-base w-full sm:w-auto py-1 sm:py-0
-    text-slate-600 hover:text-cyan-600
-    dark:text-slate-300 dark:hover:text-cyan-300
+    font-body font-medium text-sm md:text-base transition-all duration-300 flex items-center gap-2 group w-fit py-1.5
+    text-slate-500 hover:text-cyan-600 hover:translate-x-2
+    dark:text-slate-400 dark:hover:text-cyan-400
   `;
 
   const socialBtnClass = `
-    w-11 h-11 md:w-12 h-12 rounded-xl flex items-center justify-center shadow-md transition-all duration-300 group hover:-translate-y-1
+    w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center shadow-sm transition-all duration-300 group hover:-translate-y-1.5
     /* LIGHT */
-    bg-white border border-slate-200 text-slate-600 hover:bg-cyan-600 hover:text-white hover:border-cyan-600 hover:shadow-cyan-200/50
+    bg-white border border-slate-200 text-slate-500 hover:bg-cyan-600 hover:text-white hover:border-cyan-600 hover:shadow-cyan-200/50
     /* DARK */
-    dark:bg-white/5 dark:border-white/15 dark:text-slate-200 dark:hover:bg-cyan-400 dark:hover:text-dark dark:hover:border-cyan-400 dark:shadow-none
-  `;
-
-  const contactIconClass = `
-    w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 shadow-sm
-    /* LIGHT */
-    bg-white border border-slate-200 group-hover:bg-cyan-50 group-hover:border-cyan-300
-    /* DARK */
-    dark:bg-white/5 dark:border-white/10 dark:group-hover:bg-cyan-400 dark:group-hover:border-cyan-400
+    dark:bg-white/5 dark:border-white/10 dark:text-slate-300 dark:hover:bg-cyan-400 dark:hover:text-navy dark:hover:border-cyan-400 dark:shadow-none
   `;
 
   return (
     <footer className={footerClass}>
 
       {/* =========================================
-          FONDO OCEÁNICO (Dual Texture)
+          FONDO OCEÁNICO PERFECTO
       ========================================= */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
@@ -134,108 +125,31 @@ export default function Footer() {
           decoding="async"
           className={bgImageClass}
         />
-
-        {/* Gradiente Adaptable */}
         <div className={overlayGradientClass} />
-
-        {/* Luz de fondo sutil */}
-        <div
-          className={glowClass}
-          style={{ willChange: 'transform' }}
-        />
+        <div className={glowClass} style={{ willChange: 'transform' }} />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full">
 
         {/* =========================================
-            GRID PRINCIPAL
+            GRID PRINCIPAL DE 4 COLUMNAS
         ========================================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16 md:mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16 md:mb-20">
 
-          {/* COLUMNA 1: Marca y Misión */}
-          <div className="space-y-6 lg:pr-8 flex flex-col items-center sm:items-start text-center sm:text-left">
-            <Link to="/" className="inline-block group">
+          {/* COLUMNA 1: Marca y Misión (Toma 4 espacios) */}
+          <div className="lg:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left pr-0 lg:pr-8">
+            <Link to="/" className="inline-block group mb-6">
               <img
                 src={logo}
                 alt="Dolphin Dive Baja"
-                className="h-20 md:h-24 w-auto drop-shadow-2xl md:group-hover:scale-105 transition-transform duration-500"
+                className="h-24 md:h-28 w-auto drop-shadow-xl md:group-hover:scale-105 transition-transform duration-500"
               />
             </Link>
-            <p className="font-body font-medium leading-relaxed text-sm md:text-base max-w-[280px] sm:max-w-none drop-shadow-sm transition-colors duration-500
-              text-slate-600 dark:text-slate-200">
+            <p className="font-body font-medium leading-relaxed text-sm md:text-base text-slate-500 dark:text-slate-300 mb-8 max-w-sm">
               {content.desc}
             </p>
-          </div>
 
-          {/* COLUMNAS 2 Y 3: Enlaces */}
-          {footerLinks.map((col, idx) => (
-            <div key={idx} className="flex flex-col items-center sm:items-start text-center sm:text-left">
-              <h4 className={colTitleClass}>
-                {col.title}
-              </h4>
-              <ul className="space-y-3 md:space-y-4 font-body w-full">
-                {col.links.map((link, i) => (
-                  <li key={i}>
-                    <Link
-                      to={link.path}
-                      className={linkClass}
-                    >
-                      <i className="ri-arrow-right-s-line opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline-block
-                        text-cyan-600 dark:text-cyan-400"></i>
-                      <span className="sm:group-hover:translate-x-1 transition-transform duration-300">{link.label}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* COLUMNA 4: Contacto y Redes */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <h4 className="font-title text-lg tracking-widest mb-6 drop-shadow-md transition-colors duration-500
-              text-yellow-600 dark:text-yellow-400">
-              {content.contactTitle}
-            </h4>
-
-            <ul className="space-y-5 font-body mb-8 w-full">
-
-              {/* Ubicación */}
-              <li className="flex flex-row items-center sm:items-start justify-center sm:justify-start gap-4 group transition-colors
-                text-slate-600 dark:text-slate-300">
-                <div className={contactIconClass}>
-                  <i className="ri-map-pin-2-fill text-lg transition-colors
-                    text-cyan-600 dark:text-cyan-400 dark:group-hover:text-dark"></i>
-                </div>
-                <span className="text-sm md:text-base font-medium leading-relaxed max-w-[200px] sm:max-w-none text-left sm:mt-2 group-hover:text-cyan-600 dark:group-hover:text-white transition-colors">{content.address}</span>
-              </li>
-
-              {/* Teléfono */}
-              <li className="flex justify-center sm:justify-start">
-                <a href="https://wa.me/526131182311" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-4 group transition-colors
-                  text-slate-600 dark:text-slate-300">
-                  <div className={contactIconClass.replace('cyan', 'yellow')}>
-                    <i className="ri-whatsapp-fill text-xl transition-colors
-                      text-yellow-600 dark:text-yellow-400 dark:group-hover:text-dark"></i>
-                  </div>
-                  <span className="text-base font-medium tracking-wide group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">+52 (613) 118 2311</span>
-                </a>
-              </li>
-
-              {/* Correo */}
-              <li className="flex justify-center sm:justify-start">
-                <a href="mailto:ventas@dolphindivebaja.com" className="flex flex-row items-center gap-4 group transition-colors
-                  text-slate-600 dark:text-slate-300">
-                  <div className={contactIconClass}>
-                    <i className="ri-mail-send-fill text-lg transition-colors
-                      text-cyan-600 dark:text-cyan-400 dark:group-hover:text-dark"></i>
-                  </div>
-                  <span className="text-base font-medium group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">ventas@dolphindivebaja.com</span>
-                </a>
-              </li>
-
-            </ul>
-
-            {/* Redes Sociales */}
+            {/* Redes Sociales movidas aquí para mayor cohesión de marca */}
             <div className="flex gap-3 justify-center sm:justify-start w-full flex-wrap">
               {socialLinks.map((social, idx) => (
                 <a
@@ -244,27 +158,94 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  style={{ willChange: 'transform' }}
                   className={socialBtnClass}
                 >
-                  <i className={`${social.icon} text-xl transition-transform`}></i>
+                  <i className={`${social.icon} text-lg md:text-xl transition-transform`}></i>
                 </a>
               ))}
             </div>
           </div>
 
+          {/* COLUMNAS 2 Y 3: Enlaces Rápido (Toman 2 espacios c/u) */}
+          {footerLinks.map((col, idx) => (
+            <div key={idx} className="lg:col-span-2 flex flex-col items-center sm:items-start text-center sm:text-left">
+              <h4 className={colTitleClass}>
+                {col.title}
+                <span className="absolute -bottom-2 left-1/2 sm:left-0 -translate-x-1/2 sm:translate-x-0 w-8 h-1 bg-cyan-500 rounded-full opacity-50"></span>
+              </h4>
+              <ul className="space-y-2 mt-2 w-full flex flex-col items-center sm:items-start">
+                {col.links.map((link, i) => (
+                  <li key={i}>
+                    <Link to={link.path} className={linkClass}>
+                      <span className="relative">
+                        {link.label}
+                        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* COLUMNA 4: Contacto (Toma 4 espacios) */}
+          <div className="lg:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h4 className={colTitleClass}>
+              <span className="text-yellow-600 dark:text-yellow-400">{content.contactTitle}</span>
+              <span className="absolute -bottom-2 left-1/2 sm:left-0 -translate-x-1/2 sm:translate-x-0 w-8 h-1 bg-yellow-500 rounded-full opacity-50"></span>
+            </h4>
+
+            <ul className="space-y-6 mt-2 w-full max-w-sm">
+
+              {/* Ubicación */}
+              <li className="flex items-start justify-center sm:justify-start gap-4 group">
+                <div className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 shadow-sm group-hover:bg-cyan-50 dark:group-hover:bg-cyan-400/20 transition-colors">
+                  <i className="ri-map-pin-2-fill text-lg text-cyan-600 dark:text-cyan-400"></i>
+                </div>
+                <span className="text-sm md:text-base font-medium leading-relaxed text-slate-500 dark:text-slate-300 group-hover:text-navy dark:group-hover:text-white transition-colors pt-1 text-left">
+                  {content.address}
+                </span>
+              </li>
+
+              {/* Teléfono */}
+              <li>
+                <a href="https://wa.me/526131182311" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center sm:justify-start gap-4 group">
+                  <div className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 shadow-sm group-hover:bg-yellow-50 dark:group-hover:bg-yellow-400/20 transition-colors">
+                    <i className="ri-whatsapp-fill text-xl text-yellow-600 dark:text-yellow-400"></i>
+                  </div>
+                  <span className="text-base font-medium tracking-wide text-slate-500 dark:text-slate-300 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
+                    +52 (613) 118 2311
+                  </span>
+                </a>
+              </li>
+
+              {/* Correo */}
+              <li>
+                <a href="mailto:ventas@dolphindivebaja.com" className="flex items-center justify-center sm:justify-start gap-4 group">
+                  <div className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 shadow-sm group-hover:bg-cyan-50 dark:group-hover:bg-cyan-400/20 transition-colors">
+                    <i className="ri-mail-send-fill text-lg text-cyan-600 dark:text-cyan-400"></i>
+                  </div>
+                  <span className="text-base font-medium text-slate-500 dark:text-slate-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                    ventas@dolphindivebaja.com
+                  </span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
         </div>
 
         {/* =========================================
-            BARRA INFERIOR
+            BARRA INFERIOR DE LEGALES
         ========================================= */}
-        <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-6 font-body text-xs md:text-sm text-center md:text-left transition-colors duration-500
-          border-slate-200 text-slate-500
-          dark:border-white/10 dark:text-slate-400">
-          <p className="tracking-wide">© {currentYear} {content.rights}</p>
-          <div className="flex flex-wrap justify-center md:justify-end gap-6 md:gap-8 font-medium">
-            <Link to="/privacidad" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2 md:py-0">{content.privacy}</Link>
-            <Link to="/terminos" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2 md:py-0">{content.terms}</Link>
+        <div className="pt-6 border-t flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs md:text-sm text-center md:text-left transition-colors duration-500
+          border-slate-200/60 text-slate-400
+          dark:border-white/10 dark:text-slate-500">
+          <p className="tracking-wide">© {currentYear} Dolphin Dive Baja. {content.rights}</p>
+          <div className="flex flex-wrap justify-center md:justify-end gap-6 font-medium">
+            <Link to="/privacidad" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{content.privacy}</Link>
+            <Link to="/terminos" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{content.terms}</Link>
           </div>
         </div>
 
