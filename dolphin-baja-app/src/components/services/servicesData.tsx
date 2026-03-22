@@ -60,8 +60,6 @@ const danzantesReel = [danzantes, dan1, dan2];
 // ========================================================================
 // 📦 EXPORTACIONES CENTRALIZADAS
 // ========================================================================
-
-// Exportamos logos y hero para que el componente principal los use
 export const serviceAssets = {
     heroBg: funDivesImg,
     padiLogo,
@@ -78,7 +76,8 @@ export const imageDict: Record<string, string> = {
 export const getCategoriesList = (lang: string) => [
     { id: 'paquetes', label: lang === 'es' ? 'Paquetes' : 'Packages', icon: 'ri-vip-crown-fill' },
     { id: 'fundives', label: 'Fun Dives', icon: 'ri-anchor-fill' },
-    { id: 'cursos', label: lang === 'es' ? 'Cursos' : 'Courses', icon: 'ri-medal-fill' },
+    { id: 'intro', label: lang === 'es' ? 'Intro al Buceo' : 'Intro to Diving', icon: 'ri-lifebuoy-fill' },
+    { id: 'cursos', label: lang === 'es' ? 'Cursos PADI' : 'PADI Courses', icon: 'ri-medal-fill' },
     { id: 'snorkel', label: 'Snorkel', icon: 'ri-sun-fill' }
 ];
 
@@ -94,7 +93,6 @@ export const generateGallery = (mainImg: string, type: 'dive' | 'snorkel' | 'cou
 
 // ========================================================================
 // 📚 DATOS LOCALES (Motor de Traducción y Contenido)
-// Recibe "actions" para separar la lógica de UI del contenido.
 // ========================================================================
 export const getServicesData = (lang: string, actions: { onNavigate: (id: string) => void }) => {
     const localData = {
@@ -141,86 +139,125 @@ export const getServicesData = (lang: string, actions: { onNavigate: (id: string
                     title: "Parque Nacional Bahía de Loreto", duration: "Medio Día", imgKey: "funDivesImg", reel: loretoReel,
                     desc: (
                         <>
+                            <span className="font-bold text-cyan-600 block mb-2">SI NO HAS BUCEADO EN MÁS DE 1 AÑO - POR TU SEGURIDAD TE RECOMENDAMOS UN REFRESH.</span>
                             De camino a los sitios de buceo, podemos ver:<br />
-                            • Delfines • Mantas Mobula • Peces voladores • Ballenas (por temporada) • Aves marinas, etc.<br /><br />
-                            Durante el buceo veremos una gran diversidad de vida marina:<br />
-                            • Corales duros y blandos (negro, californica, copa naranja y más)<br />
-                            • Anémonas de tubo • Tortugas marinas • Anguilas • Tiburones de arrecife<br />
-                            • El Pecio C-54 (30–80 pies de prof.) • Lobos marinos • Delfines<br />
-                            • Grandes bancos de peces<br />
-                            • Vida macro (nudibranquios, blenios, gobios, peces bocón, etc.)<br />
-                            • ¡Y mucho más!<br /><br />
+                            • Delfines • Mantas Mobula • Peces voladores • Ballenas (por temporada), etc.<br /><br />
+                            Durante las inmersiones podemos ver gran diversidad de vida marina:<br />
+                            • Corales duros y blandos (negro, californica, copa naranja y muchos más) • Anémonas tubulares • Tortugas marinas • Anguilas • Tiburones de arrecife • Pecio C-54 (9–24 m de profundidad) • Lobos marinos • Delfines • Grandes cardúmenes • Vida macro (nudibranquios, blénidos, gobios, jawfishes, etc.) • ¡y mucho más!<br /><br />
                             Buceos matutinos todo el año (8:00 - 13:00 hrs). Cita 7:30 AM en la tienda. Dos tanques en Coronados, Carmen o Danzantes.<br />
                             Buceos vespertinos (Junio–Octubre) de 14:00 PM a 18:00 PM.<br />
                             *Grupos pequeños: máximo 6 buzos por Dive Master.<br /><br />
                             Buzos solos: Intentaremos encontrarte un compañero. Si no, puedes reservar un tour privado a Coronados.<br />
                             *Nuestras tarifas se basan en pesos, el USD se ajustará según el tipo de cambio.<br />
-                            💡 Las propinas no están incluidas - ¡gracias por apoyar a nuestro equipo!<br /><br />
                             Complementos Opcionales:<br />
                             • 3er tanque con costo extra (Julio–Octubre) min 2 pax<br />
                             • Tour privado con costo extra<br />
-                            • Renta de lámparas disponible<br />
-                            • Renta de computadora de buceo disponible<br /><br />
+                            • Renta de lámparas y computadora de buceo disponible<br /><br />
                             *Buceos nocturnos disponibles para buzos avanzados:
-                            <button
-                                onClick={() => actions.onNavigate('night-dive')}
-                                className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
-                            >
+                            <button onClick={() => actions.onNavigate('night-dive')} className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto">
                                 Ver Info <i className="ri-arrow-right-up-line"></i>
                             </button>
                         </>
                     ),
-                    includes: ["Lunch, snacks, agua", "Tanques y plomos", "Tarifas del Parque Marino", "Requisito: Mínimo 2 buzos"]
+                    includes: ["2 tanques (3er opcional con costo extra)", "Plomos y tanques", "Lunch, fruta, agua", "Edad: 12 - 70+ años", "Las propinas al guía y capitán no están incluidas"]
                 },
                 {
                     title: "Isla Coronados", duration: "Medio Día", imgKey: "isla", reel: coronadoReel,
-                    desc: "Es común avistar delfines, tortugas, mantarrayas, lobos marinos y aves marinas. La isla impresiona con sus formaciones de roca volcánica, creadas hace más de 125,000 años, y es hogar de garzas, gaviotas, cormoranes, pelícanos, águilas pescadoras y otras aves marinas. \nTambién encontrarás una amigable colonia de lobos marinos que reside allí todo el año (excepto de mediados de julio a mediados de agosto). \n10 SITIOS DE BUCEO PARA EXPLORAR EN ESTA ISLA\n\nREQUISITOS:\n-Buena salud\n-Saber nadar\n-Certificado de buceo\n-Edad: 12-70+ años\n❌ NO incluye equipo de buceo ni propinas para la tripulación.",
+                    desc: "La isla impresiona con sus formaciones de roca volcánica, creadas hace más de 125,000 años, y es hogar de garzas, gaviotas, cormoranes, pelícanos, águilas pescadoras y otras aves marinas.\nTambién encontrarás una amigable colonia de lobos marinos que reside allí todo el año (excepto de mediados de julio a mediados de agosto).\n\n10 SITIOS DE BUCEO PARA EXPLORAR EN ESTA ISLA\n\nREQUISITOS:\n- Buena salud\n- Saber nadar\n- Certificado de buceo\n- Edad: 12-70+ años\n❌ NO incluye equipo de buceo ni propinas para la tripulación.",
                     includes: ["Tarifas del Parque Marino", "Plomos y tanques", "Lunch, fruta y agua"]
                 },
                 {
-                    title: "Night Dive (Buceo Nocturno)", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel,
-                    desc: "La actividad perfecta para ver el mar con otros ojos. Disponible solamente de julio a octubre. Solo para buzos avanzados.",
-                    includes: ["1 o 2 tanques (según horario)", "Luz en el tanque", "Lunch y agua", "Plomos y tanques"]
+                    title: "Buceo en Isla del Carmen", duration: "5 - 6 hrs", imgKey: "carmen", reel: carmenReel,
+                    desc: "Tour de 5-6 horas con viaje en lancha de aprox. 45 min. En el camino, podrás ver delfines, aves marinas, rayas y más. Sus impresionantes acantilados —una mezcla de arena fosilizada, roca volcánica, basalto y más— te dejarán maravillado; también hay cuevas en la superficie que deslumbrarán tus sentidos.\n\nEs la isla más larga (casi 30 km de longitud) con 18 sitios de buceo en el norte, sur y oeste. Buceos desde principiantes a avanzados. Tenemos sitios para todos los niveles de certificación.",
+                    includes: ["Tarifas del Parque Marino", "Lunch, fruta, agua", "Plomos y tanques", "Requisitos: Buena salud, saber nadar, certificado de buceo, 12-70+ años", "❌ NO incluye: Equipo de buceo, Propinas"]
+                },
+                {
+                    title: "Buceo en Islas Danzantes", duration: "5 - 6 hrs", imgKey: "danzantes", reel: danzantesReel,
+                    desc: "Tour de 5-6 horas con viaje en lancha de 40 min. En el camino podrás encontrar delfines, rayas, aves marinas y más.\n\nLa Isla de los Danzantes, nombrada así por las tradiciones ancestrales de los Guaycuras. Cuenta con impresionantes formaciones rocosas en forma de pináculo y una formación similar a una ventana con ángulos rectos de 90°. Podemos hacer una parada en alguna de las playas cercanas para disfrutar la vista mientras comemos.",
+                    includes: ["Tarifas del Parque Marino", "Lunch, fruta, agua", "Plomos y tanques", "Requisitos: Buena salud, saber nadar, certificado de buceo, 12-70+ años", "❌ NO incluye: Equipo de buceo, Propinas"]
+                },
+                {
+                    title: "Night Dive (Buceo Nocturno)", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel, hideBookNow: true,
+                    desc: "Los buceos nocturnos siempre son fascinantes, ya que nos permiten descubrir un comportamiento completamente distinto en las mismas especies que observamos durante el día: algunos descansan, otros salen de cacería y muchos se ocultan para evitar a sus depredadores.\nEsta actividad está dirigida a buzos avanzados que cuenten con la especialidad de buceo nocturno.\nVen y disfruta con nosotros de esta increíble aventura bajo el mar.",
+                    includes: [],
+                    extraContent: (
+                        <div className="mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 space-y-4">
+                            <h4 className="font-title text-lg text-navy dark:text-white mb-2 flex items-center gap-2"><i className="ri-moon-fill text-cyan-600"></i> ONLY FOR ADVANCED DIVERS</h4>
+                            <ul className="list-disc pl-5 text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                                <li>Night dive (Julio–Octubre, solo buzos avanzados): 1 inmersión de tarde + 1 inmersión nocturna (4:00–8:00 PM) min 2 pax.</li>
+                                <li>Night dive 1 tanque (Julio-Octubre, solo buzos avanzados).</li>
+                            </ul>
+                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10">
+                                <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">Incluye:</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300">Tarifas del parque marino, lunch, fruta, agua, plomos y tanques, luz química para el chaleco.</p>
+                            </div>
+                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10">
+                                <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">Requisitos:</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300">Buena salud, saber nadar, certificación avanzada con aventura nocturna, 12-70+ años.</p>
+                            </div>
+                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10">
+                                <p className="font-bold text-red-500 dark:text-red-400 mb-1">No Incluye:</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300">Equipo de buceo, propinas para la tripulación. Lámparas disponibles para renta.</p>
+                            </div>
+                        </div>
+                    )
+                }
+            ],
+            intro: [
+                {
+                    title: "Scuba Refresh", duration: "Medio Día", imgKey: "colorFImg", reel: discoverReel,
+                    desc: "Si no has buceado en más de 1 año, por tu seguridad te recomendamos realizar un Refresh para repasar tus habilidades y recuperar la confianza bajo el agua antes de ir a aguas abiertas.",
+                    includes: ["Edad: 12 - 70+ años", "Repaso teórico y práctico", "Equipo completo"]
+                },
+                {
+                    title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg", reel: bubbleReel,
+                    desc: "Es una actividad diseñada especialmente para niños.\nNO ES UNA CERTIFICACIÓN.\nInmersión máxima en aguas controladas de 2 a 4 metros.",
+                    includes: ["Edad: 8 - 11 años", "1 Tanque", "Equipo completo incluido", "Mínimo 2 pax + 1 adulto responsable"]
+                },
+                {
+                    title: "Discover Scuba", duration: "Medio Día", imgKey: "colorFImg", reel: discoverReel,
+                    desc: "En ésta actividad vivirás por primera vez la experiencia del buceo, para que te des cuenta de lo hermoso que es la vida marina.\nLa actividad la dirige un dive máster capacitado para llevarte a conocer bajo el mar.\n\nNO ES UNA CERTIFICACIÓN.\nInmersión máxima de 12 mts / 36 ft.",
+                    includes: ["Edad: 14 - 70+ años", "Corta clase teórica", "2 Tanques (Explicación y Exploración)", "Mínimo 2 pax"]
                 }
             ],
             cursos: [
                 {
-                    title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg", reel: bubbleReel,
-                    desc: "Es una actividad diseñada especialmente para niños. NO ES UNA CERTIFICACIÓN. Inmersión máxima en aguas controladas de 2 a 4 metros.",
-                    includes: ["Edad: 8 - 11 años", "1 Tanque", "Equipo completo incluido", "Mínimo 2 pax + 1 adulto responsable"]
-                },
-                {
-                    title: "Discover Scuba (Introducción al Buceo)", duration: "Medio Día", imgKey: "colorFImg", reel: discoverReel,
-                    desc: "Vivirás por primera vez la experiencia del buceo, dirigida por un Dive Master capacitado. NO ES UNA CERTIFICACIÓN. Inmersión máxima de 12 mts / 36 ft. El primer tanque es de explicación y el segundo de exploración.",
-                    includes: ["Edad: 12 - 70+ años", "Corta clase teórica", "2 Tanques (Explicación y Exploración)", "Mínimo 2 pax"]
-                },
-                {
                     title: "Open Water Diver", duration: "Máx 3 Días", imgKey: "coursesImg", reel: openWaterReel,
-                    desc: "Como el único PADI 5-Star y Cressi Dive Center en Loreto, haremos tu experiencia inolvidable. Repaso de teoría en salón de clases, seguido de ejercicios en aguas confinadas y aguas abiertas.",
-                    includes: ["Edad: 12 - 70+ años", "Renta de equipo, lastre y tanques", "Lunch y agua", "Brazaletes del parque marino"],
+                    desc: "Como el único PADI 5-Star y Cressi Dive Center en Loreto, estamos aquí para hacer tu experiencia de buceo verdaderamente inolvidable.\nPorque tu seguridad y diversión son nuestra prioridad, recomendamos planear tu certificación entre Junio y Octubre—cuando las aguas de Loreto están más tranquilas creando condiciones perfectas.\n\nRepaso de teoría en salón de clases, ejercicios en aguas confinadas + aguas abiertas, total 3 días máximo.",
+                    includes: ["Edad: 12 - 70+ años", "Renta de equipo, lastre y tanques", "Lunch y agua", "Brazaletes del parque marino", "Las propinas al crew no están incluidas"],
                     extraContent: (
-                        <div className="mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                            <h4 className="font-title text-lg text-navy dark:text-white mb-3">Cómo funciona la certificación</h4>
-                            <div className="space-y-4">
-                                <div>
-                                    <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">1. Teoría (online – PADI eLearning):</p>
-                                    <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-                                        <li>Ve a store.padi.com y completa la teoría en línea.</li>
-                                        <li>Al registrarte, selecciona nuestro dive shop: <strong className="text-navy dark:text-white">Dolphin Dive Center #20390</strong>.</li>
-                                        <li>Una vez que te registres, recibiremos una notificación y nos prepararemos para guiarte en las sesiones prácticas en Loreto.</li>
-                                    </ul>
+                        <div className="mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 space-y-5">
+                            <div>
+                                <h4 className="font-title text-lg text-navy dark:text-white mb-2">Requisitos</h4>
+                                <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                                    <li>Tener al menos 11 años de edad</li>
+                                    <li>Buena salud (se requiere certificado médico)</li>
+                                    <li>Saber nadar</li>
+                                </ul>
+                            </div>
+                            <div className="pt-4 border-t border-slate-200 dark:border-white/10">
+                                <h4 className="font-title text-lg text-navy dark:text-white mb-3">Cómo funciona la certificación</h4>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">1. Teoría (online – PADI eLearning):</p>
+                                        <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                                            <li>Ve a store.padi.com y completa la teoría en línea.</li>
+                                            <li>Al registrarte, selecciona nuestro dive shop: <strong className="text-navy dark:text-white">Dolphin Dive Center #20390</strong>.</li>
+                                            <li>Una vez que te registres, recibiremos una notificación y nos prepararemos para guiarte en las sesiones prácticas en Loreto.</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">2. Entrenamiento Práctico (en Loreto):</p>
+                                        <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                                            <li>Día 1: Sesión en salón de clases (3 horas)</li>
+                                            <li>Día 2: Práctica en aguas confinadas + Inmersiones en Aguas Abiertas 1 & 2</li>
+                                            <li>Día 3: Inmersiones en Aguas Abiertas 3 & 4</li>
+                                        </ul>
+                                    </div>
+                                    <p className="text-sm italic text-slate-500 mt-2 border-t border-slate-200 dark:border-white/10 pt-3">
+                                        Proporcionamos todo el equipo de buceo, además de lunch, fruta, snacks y tarifas del parque marino todos los días.
+                                    </p>
                                 </div>
-                                <div>
-                                    <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">2. Entrenamiento Práctico (en Loreto):</p>
-                                    <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-                                        <li>Día 1: Sesión en salón de clases (3 horas)</li>
-                                        <li>Día 2: Práctica en aguas confinadas + Inmersiones en Aguas Abiertas 1 & 2</li>
-                                        <li>Día 3: Inmersiones en Aguas Abiertas 3 & 4</li>
-                                    </ul>
-                                </div>
-                                <p className="text-sm italic text-slate-500 mt-2 border-t border-slate-200 dark:border-white/10 pt-3">
-                                    Proporcionamos todo el equipo de buceo, además de lunch, fruta, snacks y tarifas del parque marino todos los días.
-                                </p>
                             </div>
                         </div>
                     )
@@ -318,6 +355,7 @@ export const getServicesData = (lang: string, actions: { onNavigate: (id: string
                     title: "Loreto Bay National Park", duration: "Half Day", imgKey: "funDivesImg", reel: loretoReel,
                     desc: (
                         <>
+                            <span className="font-bold text-cyan-600 block mb-2">IF YOU HAVEN'T DIVED IN OVER A YEAR - FOR YOUR SAFETY WE RECOMMEND A REFRESH.</span>
                             On our way to the dive sites, we can see:<br />
                             • Dolphins • Mobula rays • Flying fish • Whales (seasonal) • Sea birds, etc.<br /><br />
                             While diving we can see a lot of sea life diversity:<br />
@@ -332,68 +370,114 @@ export const getServicesData = (lang: string, actions: { onNavigate: (id: string
                             *Groups are small: 6 divers maximum per Dive Master.<br /><br />
                             Solo diver: We’ll try to find you a buddy. If not, you can book a private tour to Coronados.<br />
                             *Our rates are based on pesos, the USD adjusts depending on the exchange rate.<br />
-                            💡 Gratuities are not included - thank you for supporting our crew!<br /><br />
                             Optional Add-ons:<br />
                             • 3rd tank extra fee (July–October) min 2 pax<br />
                             • Private tour extra fee<br />
-                            • Torch rental available<br />
-                            • Dive computer available<br /><br />
+                            • Torch and dive computer rental available<br /><br />
                             *Night dives available for advanced divers:
-                            <button
-                                onClick={() => actions.onNavigate('night-dive')}
-                                className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
-                            >
+                            <button onClick={() => actions.onNavigate('night-dive')} className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto">
                                 See Info <i className="ri-arrow-right-up-line"></i>
                             </button>
                         </>
                     ),
-                    includes: ["Lunch, snacks, water", "Tanks and weights", "Marine Park fees", "Requirements: Min 2 divers"]
+                    includes: ["2 tanks (3rd optional extra)", "Tanks and weights", "Lunch, fruit, water", "Ages: 12 - 70+", "Gratuities are not included - thank you for supporting our crew!"]
                 },
                 {
                     title: "Coronados Island", duration: "Half Day", imgKey: "isla", reel: coronadoReel,
-                    desc: "It’s common to spot dolphins, turtles, rays, sea lions, & sea birds. The island impresses with its volcanic rock formations, created more than 125,000 years ago, and is home to herons, seagulls, cormorants, pelicans, ospreys, and other sea birds. \nYou’ll also encounter a friendly sea lion colony that resides there year-round. (except mid July to mid august). \n10 DIVE SITES TO EXPLORE  IN THIS ISLAND\n\nREQUERIMENTS:\n-Good Health\n-Know how to swim\n-Dive Certificate\n-Age 12-70+ years old\n❌ NOT included Dive Gear, and Gratuities for the crew.",
+                    desc: "It’s common to spot dolphins, turtles, rays, sea lions, & sea birds. The island impresses with its volcanic rock formations, created more than 125,000 years ago, and is home to herons, seagulls, cormorants, pelicans, ospreys, and other sea birds. \nYou’ll also encounter a friendly sea lion colony that resides there year-round. (except mid July to mid august). \n\n10 DIVE SITES TO EXPLORE IN THIS ISLAND\n\nREQUERIMENTS:\n- Good Health\n- Know how to swim\n- Dive Certificate\n- Age 12-70+ years old\n❌ NOT included Dive Gear, and Gratuities for the crew.",
                     includes: ["Marine Park fees", "Weights & Tanks", "Lunch, fruit, water"]
                 },
                 {
-                    title: "Night Dive", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel,
-                    desc: "Discover the magic of the sea at night. Only available from July to October. Advanced divers only.",
-                    includes: ["1 or 2 tanks (by schedule)", "Tank light included", "Lunch and water", "Tanks and weights"]
+                    title: "Carmen Island Dive", duration: "5 - 6 hrs", imgKey: "carmen", reel: carmenReel,
+                    desc: "A 5–6 hour tour with an approximately 45-minute boat ride. Along the way, you may spot dolphins, seabirds, rays & more. Its impressive cliffs —a mix of fossilized sand, volcanic rock, basalt, and more— will leave you amazed; there are also on surface some caves that make the landscape a place sure to dazzle your senses.\n\nLONGEST ISLAND WITHIN ALMOST 30 KM LENGTH / 18 DIVE SITES ALL OVER CARMEN NORTH- SOUTH WEST. Dives from beginners to advanced. We have sites for all certification levels.",
+                    includes: ["Marine park fees", "Lunch, fruit, water", "Weights & tanks", "Requirements: good health, know how to swim, dive certificate, age 12- 70+ years old", "❌ Not included: Dive gear, Gratuities for the crew"]
+                },
+                {
+                    title: "Danzantes Island Dive", duration: "5 - 6 hrs", imgKey: "danzantes", reel: danzantesReel,
+                    desc: "A 5–6 hour tour, with a 40-minute boat ride. You may encounter dolphins, rays, sea birds, and more, along the way.\n\nThe Island of the Dancers, named after the ancestral dance traditions performed by the Guaycuras during their indigenous rituals. The island features impressive pinnacle-shaped rock formations that make it truly distinctive, as well as a rock formation resembling a window with perfectly straight 90° angles. We can stop in one of the beaches around to enjoy the view, while enjoy our lunch.",
+                    includes: ["Marine park fees", "Lunch, fruit, water", "Weights & tanks", "Requirements: good health, know how to swim, dive certificate, age 12- 70+ years old", "❌ Not included: Dive gear, Gratuities for the crew"]
+                },
+                {
+                    title: "Night Dive", duration: "18:00 - 21:00 hrs", imgKey: "nocturno", reel: nocturnoReel, hideBookNow: true,
+                    desc: "Night dives are always fascinating, as they let us observe completely different behaviors from the same animals we see during the day -some asleep, others hunting , and many hiding to avoid becoming prey.\nThis activity is designed for advanced divers with a night diving speciality certification.\nCome and enjoy this unique underwater adventure with us!",
+                    includes: [],
+                    extraContent: (
+                        <div className="mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 space-y-4">
+                            <h4 className="font-title text-lg text-navy dark:text-white mb-2 flex items-center gap-2"><i className="ri-moon-fill text-cyan-600"></i> ONLY FOR ADVANCED DIVERS</h4>
+                            <ul className="list-disc pl-5 text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                                <li>Night dive (July–October, advanced divers only): 1 afternoon dive + 1 night dive (4:00–8:00 PM) min 2 pax.</li>
+                                <li>Night dive 1 tank (July-October, advanced divers only).</li>
+                            </ul>
+                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10">
+                                <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">Includes:</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300">Marine park fees, lunch, fruit, water, weights & tanks, night light stick for the BCD.</p>
+                            </div>
+                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10">
+                                <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">Requirements:</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300">Good health, know how to swim, advanced dive certificate w/ night adventure, age 12- 70+ years old.</p>
+                            </div>
+                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10">
+                                <p className="font-bold text-red-500 dark:text-red-400 mb-1">Not Included:</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300">Dive gear, Gratuities for the crew. Available for rent: torch.</p>
+                            </div>
+                        </div>
+                    )
+                }
+            ],
+            intro: [
+                {
+                    title: "Scuba Refresh", duration: "Half Day", imgKey: "colorFImg", reel: discoverReel,
+                    desc: "If you haven't dived in over 1 year, for your safety we highly recommend a Scuba Refresh to brush up your skills and regain underwater confidence before heading to open waters.",
+                    includes: ["Ages: 12 - 70+ years", "Theoretical and practical review", "Full gear included"]
+                },
+                {
+                    title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg", reel: bubbleReel,
+                    desc: "Activity designed specially for kids.\nNOT A CERTIFICATION.\nMax depth in confined waters is 2 to 4 meters.",
+                    includes: ["Ages: 8 - 11 years", "1 Tank", "Full gear included", "Min 2 pax + 1 responsible adult"]
+                },
+                {
+                    title: "Discover Scuba", duration: "Half Day", imgKey: "colorFImg", reel: discoverReel,
+                    desc: "Experience diving for the first time, guided by a trained Dive Master to realize how beautiful marine life is.\nNOT A CERTIFICATION.\nMax depth 12m / 36ft.",
+                    includes: ["Ages: 14 - 70+ years", "Short theory class", "2 Tanks (Explanation & Exploration)", "Min 2 pax"]
                 }
             ],
             cursos: [
                 {
-                    title: "Bubble Makers", duration: "2 - 3 hrs", imgKey: "bubbleImg", reel: bubbleReel,
-                    desc: "Activity designed specially for kids. NOT A CERTIFICATION. Max depth in confined waters is 2 to 4 meters.",
-                    includes: ["Ages: 8 - 11 years", "1 Tank", "Full gear included", "Min 2 pax + 1 responsible adult"]
-                },
-                {
-                    title: "Discover Scuba (Intro Dive)", duration: "Half Day", imgKey: "colorFImg", reel: discoverReel,
-                    desc: "Experience diving for the first time, guided by a trained Dive Master. NOT A CERTIFICATION. Max depth 12m / 36ft. First tank for explanation, second for exploration.",
-                    includes: ["Ages: 12 - 70+ years", "Short theory class", "2 Tanks (Explanation & Exploration)", "Min 2 pax"]
-                },
-                {
                     title: "Open Water Diver", duration: "Max 3 Days", imgKey: "coursesImg", reel: openWaterReel,
-                    desc: "As the only PADI 5-Star & Cressi Dive Center in Loreto, we make your experience unforgettable. Classroom theory review, followed by confined and open water exercises.",
+                    desc: "As the only exclusive PADI 5-Star Dive Center & Cressi Dive Center in Loreto, we’re here to make your diving experience truly unforgettable.\nBecause your safety and enjoyment are our top priorities, we recommend planning your certification between June and October—when the waters of Loreto are at their calmest and most predictable, creating the perfect conditions for diving.\n\nClassroom theory review, followed by confined and open water exercises.",
                     includes: ["Ages: 12 - 70+ years", "Gear, weights, and tanks", "Lunch and water", "Marine park bracelets"],
                     extraContent: (
-                        <div className="mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                            <h4 className="font-title text-lg text-navy dark:text-white mb-3">How the Certification Works</h4>
-                            <div className="space-y-4">
-                                <div>
-                                    <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">1. Theory (online – PADI eLearning):</p>
-                                    <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-                                        <li>Go to store.padi.com and complete the theory online.</li>
-                                        <li>When registering, select our dive shop: <strong className="text-navy dark:text-white">Dolphin Dive Center #20390</strong>.</li>
-                                        <li>Once you register, we’ll receive a notification and get ready to guide you through the practical sessions in Loreto with Dolphin Dive Baja.</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">2. Practical Training (in Loreto):</p>
-                                    <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-                                        <li>Day 1: Classroom session (3 hours)</li>
-                                        <li>Day 2: Practical training sessions.</li>
-                                        <li>Day 3: Open Water Dives 3 & 4</li>
-                                    </ul>
+                        <div className="mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 space-y-5">
+                            <div>
+                                <h4 className="font-title text-lg text-navy dark:text-white mb-2">Requirements</h4>
+                                <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                                    <li>Be at least 11 years old</li>
+                                    <li>Be in good health (medical certificate from your doctor required)</li>
+                                    <li>Know how to swim</li>
+                                </ul>
+                            </div>
+                            <div className="pt-4 border-t border-slate-200 dark:border-white/10">
+                                <h4 className="font-title text-lg text-navy dark:text-white mb-3">How the Certification Works</h4>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">1. Theory (online – PADI eLearning):</p>
+                                        <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                                            <li>Go to store.padi.com and complete the theory online.</li>
+                                            <li>When registering, select our dive shop: <strong className="text-navy dark:text-white">Dolphin Dive Center #20390</strong>.</li>
+                                            <li>Once you register, we’ll receive a notification and get ready to guide you through the practical sessions in Loreto with Dolphin Dive Baja.</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold text-cyan-700 dark:text-cyan-400 mb-1">2. Practical Training (in Loreto):</p>
+                                        <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                                            <li>Day 1: Classroom session (3 hours)</li>
+                                            <li>Day 2: Practical training sessions.</li>
+                                            <li>Day 3: Open Water Dives 3 & 4</li>
+                                        </ul>
+                                    </div>
+                                    <p className="text-sm italic text-slate-500 mt-2 border-t border-slate-200 dark:border-white/10 pt-3">
+                                        We provide all scuba equipment, plus lunch, fruit, snacks, and marine park fees every day.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -464,7 +548,7 @@ export const getServicesData = (lang: string, actions: { onNavigate: (id: string
 // ========================================================================
 // 🛠️ INTERFACES DE TYPESCRIPT
 // ========================================================================
-export type TabKey = 'fundives' | 'cursos' | 'snorkel';
+export type TabKey = 'fundives' | 'intro' | 'cursos' | 'snorkel';
 
 export interface ServiceItem {
     title: string;
@@ -474,6 +558,7 @@ export interface ServiceItem {
     imgKey: string;
     reel?: string[];
     extraContent?: React.ReactNode;
+    hideBookNow?: boolean;
 }
 
 export interface ModalData {
@@ -484,4 +569,5 @@ export interface ModalData {
     images: string[];
     extraContent?: React.ReactNode;
     footerContent?: React.ReactNode;
+    hideBookNow?: boolean;
 }

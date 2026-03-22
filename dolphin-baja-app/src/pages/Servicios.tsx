@@ -77,7 +77,8 @@ export default function Servicios() {
         <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12">
           <PackagesGrid paquetesData={currentData.paquetes} setModalData={setModalData} setCurrentImageIdx={setCurrentImageIdx} scrollToSection={scrollToSection} />
 
-          {(['fundives', 'cursos', 'snorkel'] as TabKey[]).map((tabKey) => (
+          {/* 👇 AQUÍ ESTÁ LA CORRECCIÓN: Agregamos 'intro' a la lista de secciones */}
+          {(['fundives', 'intro', 'cursos', 'snorkel'] as TabKey[]).map((tabKey) => (
             <ServiceCategory
               key={tabKey}
               tabKey={tabKey}
