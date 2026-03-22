@@ -11,7 +11,7 @@ import AboutHero from '../components/about/AboutHero';
 import OurStory from '../components/about/OurStory';
 import History from '../components/about/History';
 import Team from '../components/about/Team';
-import SplashScreen from '../components/SplashScreen';
+import SplashScreen from '../components/layout/SplashScreen';
 
 export default function Nosotros() {
   const [isLoading, setIsLoading] = useState(true);

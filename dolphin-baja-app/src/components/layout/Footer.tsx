@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // Importamos el contexto de idioma
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from "../../context/LanguageContext";
 
 import logo from '/assets/images/logodolphin.webp';
 import footerBg from '/assets/images/footer.webp';

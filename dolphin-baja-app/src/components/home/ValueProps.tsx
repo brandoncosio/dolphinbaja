@@ -1,19 +1,19 @@
 import { motion, Variants } from 'framer-motion';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function ValueProps() {
   const { t, lang } = useLanguage();
   const content = t.home.valueProps;
 
   const valuesData = [
-    { 
+    {
       // 👇 Restaurado el ícono de la medalla
-      icon: "ri-award-line", 
-      title: content.cards[0].title, 
-      desc: content.cards[0].desc, 
+      icon: "ri-award-line",
+      title: content.cards[0].title,
+      desc: content.cards[0].desc,
       highlight: false,
       padiBadge: "/assets/contentD/img/PADI.png",
-      cressiBadge: "/assets/contentD/img/cressi.png", 
+      cressiBadge: "/assets/contentD/img/cressi.png",
       makersImg: "/assets/nosotros/makers.png" // Mantenemos la data por completitud
     },
     { icon: "ri-group-line", title: content.cards[1].title, desc: content.cards[1].desc, highlight: false },
@@ -95,7 +95,7 @@ export default function ValueProps() {
             return (
               <motion.div
                 key={idx}
-                variants={itemVariants} 
+                variants={itemVariants}
                 style={{ willChange: "transform" }}
                 className={`group relative p-6 md:p-8 rounded-[2rem] transition-all duration-500 backdrop-blur-xl overflow-hidden border hover:-translate-y-1 hover:shadow-2xl ${cardClasses}`}
               >
@@ -123,20 +123,20 @@ export default function ValueProps() {
                 {item.padiBadge && (
                   <div className="relative z-10 flex items-center gap-8 mt-6">
                     {/* LOGO PADI (Tamaño mini) */}
-                    <motion.img 
+                    <motion.img
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
-                      src={item.padiBadge} 
+                      src={item.padiBadge}
                       alt="PADI Certification"
                       className="h-3.5 md:h-4.5 w-auto object-contain filter brightness-110 drop-shadow-md"
                     />
                     {/* LOGO CRESSI (Tamaño protagonista) */}
                     {item.cressiBadge && (
-                      <motion.img 
+                      <motion.img
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ delay: 0.1 }}
-                        src={item.cressiBadge} 
+                        src={item.cressiBadge}
                         alt="Cressi Dive Center"
                         className="h-12 md:h-16 w-auto object-contain filter brightness-110 drop-shadow-sm"
                       />
@@ -146,11 +146,11 @@ export default function ValueProps() {
 
                 {/* IMAGEN MAKERS (Oculta por defecto) */}
                 {item.makersImg && false && (
-                  <motion.img 
+                  <motion.img
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    src={item.makersImg} 
-                    alt="Makers" 
+                    src={item.makersImg}
+                    alt="Makers"
                     className="relative z-10 h-10 md:h-14 w-auto mt-6 object-contain rounded-lg transition-transform duration-500 group-hover:scale-105"
                   />
                 )}

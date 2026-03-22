@@ -1,5 +1,5 @@
 import { motion, Variants } from 'framer-motion';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Testimonials() {
   const { t } = useLanguage();

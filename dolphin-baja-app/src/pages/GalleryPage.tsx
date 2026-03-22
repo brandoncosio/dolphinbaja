@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import SplashScreen from '../components/SplashScreen';
+import SplashScreen from '../components/layout/SplashScreen';
 import { useLanguage } from '../context/LanguageContext';
 
 // ========================================================================
@@ -330,22 +330,22 @@ export default function GalleryPage() {
 
                             {currentGallery[selectedIndex].type === 'video' ? (
                                 currentGallery[selectedIndex].videoUrl?.endsWith('.webm') || currentGallery[selectedIndex].videoUrl?.endsWith('.mp4') ? (
-                                    <video 
-                                        src={currentGallery[selectedIndex].videoUrl} 
-                                        controls 
-                                        autoPlay 
+                                    <video
+                                        src={currentGallery[selectedIndex].videoUrl}
+                                        controls
+                                        autoPlay
                                         // 👇 FILTRO DE CONTRASTE Y SATURACIÓN APLICADO EN LIGHTBOX
-                                        className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain filter contrast-[1.20] saturate-[1.15]" 
+                                        className="w-full h-full max-h-[85vh] sm:max-h-[90vh] object-contain filter contrast-[1.20] saturate-[1.15]"
                                     />
                                 ) : (
                                     <iframe src={currentGallery[selectedIndex].videoUrl} title={currentGallery[selectedIndex].title} className="w-full h-full aspect-video border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 )
                             ) : (
-                                <img 
-                                    src={currentGallery[selectedIndex].src} 
-                                    alt={currentGallery[selectedIndex].title} 
+                                <img
+                                    src={currentGallery[selectedIndex].src}
+                                    alt={currentGallery[selectedIndex].title}
                                     // 👇 FILTRO DE CONTRASTE Y SATURACIÓN APLICADO EN LIGHTBOX
-                                    className="w-full h-full object-contain filter contrast-[1.20] saturate-[1.15]" 
+                                    className="w-full h-full object-contain filter contrast-[1.20] saturate-[1.15]"
                                 />
                             )}
 

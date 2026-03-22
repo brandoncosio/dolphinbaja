@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function CookieConsent() {
     const [isVisible, setIsVisible] = useState(false);

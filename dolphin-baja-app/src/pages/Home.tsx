@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 
-// Componentes
-import Hero from '../components/Hero';
-import Highlights from '../components/Highlights';
-import ValueProps from '../components/ValueProps';
-import HomeGallery from '../components/HomeGallery';
-import Destination from '../components/Destination';
-import WelcomeSection from '../components/WelcomeSection';
-import SplashScreen from '../components/SplashScreen';
-import Testimonials from '../components/Testimonials';
+// Componentes Exclusivos del Home
+import Hero from '../components/home/Hero';
+import WelcomeSection from '../components/home/WelcomeSection';
+import Highlights from '../components/home/Highlights';
+import Destination from '../components/home/Destination';
+import HomeGallery from '../components/home/HomeGallery';
+import ValueProps from '../components/home/ValueProps';
+import Testimonials from '../components/home/Testimonials';
+
+// Componentes Globales (Layout)
+import SplashScreen from '../components/layout/SplashScreen';
 
 import { useLanguage } from '../context/LanguageContext';
 

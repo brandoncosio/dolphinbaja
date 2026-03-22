@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { sileo } from 'sileo';
 import logo from '/assets/images/logodolphin.webp';
 
-import { useLanguage } from '../context/LanguageContext';
-import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from "../../context/LanguageContext";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);

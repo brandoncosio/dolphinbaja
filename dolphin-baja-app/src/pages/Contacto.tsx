@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import SplashScreen from '../components/SplashScreen';
+import SplashScreen from '../components/layout/SplashScreen';
 import contactBg from '/assets/images/slide2.webp';
 import VisitorGuide from '../components/VisitorGuide';
 

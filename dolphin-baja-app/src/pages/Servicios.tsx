@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
-import SplashScreen from '../components/SplashScreen';
+import SplashScreen from '../components/layout/SplashScreen';
 
 // 👇 COMPONENTES MODULARES IMPORTADOS
 import ServicesHero from '../components/services/ServicesHero';

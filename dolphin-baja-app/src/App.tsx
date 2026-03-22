@@ -9,12 +9,12 @@ import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 
 // Componentes Globales
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import SplashScreen from './components/SplashScreen';
-import ScrollToTop from './components/ScrollToTop';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import SplashScreen from './components/layout/SplashScreen';
+import ScrollToTop from './components/layout/ScrollToTop';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import CookieConsent from './components/CookieConsent';
+import CookieConsent from './components/layout/CookieConsent';
 import DiveSites from './components/DiveSites';
 
 // ==========================================

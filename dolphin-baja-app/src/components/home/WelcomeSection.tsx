@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 import img1 from '/assets/images/DolphinDive1.webp';
 import img2 from '/assets/images/DolphinDive2.webp';
@@ -107,7 +107,7 @@ export default function WelcomeSection() {
                             <span className="font-title text-3xl text-cyan-600 dark:text-cyan-400 leading-none mb-1">PADI</span>
                             <span className="font-body text-[8px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Resort Member</span>
                             <span className="font-body text-[10px] font-black text-navy dark:text-white mt-1">Since 2001</span>
-                        <img src="/assets/contentD/img/PADI.png" alt="PADI Logo" className="h-10 md:h-12 w-auto mb-2 object-contain filter brightness-110 drop-shadow-sm" />
+                            <img src="/assets/contentD/img/PADI.png" alt="PADI Logo" className="h-10 md:h-12 w-auto mb-2 object-contain filter brightness-110 drop-shadow-sm" />
                         </div>
                     </motion.div>
 

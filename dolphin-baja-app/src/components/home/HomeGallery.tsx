@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
 // Importamos el contexto de idioma
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 // --- IMÁGENES ---
 import img1 from '/assets/nosotros/coral.webp';

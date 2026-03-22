@@ -3,7 +3,7 @@ import { motion, Variants, useScroll, useTransform, AnimatePresence } from 'fram
 import { Link } from 'react-router-dom';
 
 // Importamos el contexto de idioma
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 // ========================================================================
 // 🖼️ IMPORTACIÓN DE IMÁGENES Y REELS
