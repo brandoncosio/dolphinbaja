@@ -61,23 +61,26 @@ export default function Navbar() {
     }, 1500);
   };
 
+  // 👇 AQUÍ ACTUALIZAMOS TODOS LOS ENLACES (Menús completos y mapeados correctamente)
   const navItems = [
     {
       name: t.navbar.about,
       path: '/nosotros',
       submenu: [
-        { label: t.navbar.submenu.history, link: '/nosotros#historia' },
-        { label: t.navbar.submenu.team, link: '/nosotros#equipo' },
-        { label: 'Dive Sites', link: '/nosotros#divesites' }
+        { label: lang === 'es' ? 'Nuestra Historia' : 'Our Story', link: '/nosotros#historia' },
+        { label: lang === 'es' ? 'Nuestro Equipo' : 'Our Team', link: '/nosotros#equipo' },
+        { label: lang === 'es' ? 'Sitios de Buceo' : 'Dive Sites', link: '/nosotros#divesites' }
       ]
     },
     {
       name: t.navbar.services,
       path: '/servicios',
       submenu: [
-        { label: t.navbar.submenu.funDives, link: '/servicios#fundives' },
-        { label: t.navbar.submenu.courses, link: '/servicios#cursos' },
-        { label: t.navbar.submenu.snorkel, link: '/servicios#snorkel' }
+        { label: lang === 'es' ? 'Paquetes' : 'Packages', link: '/servicios#paquetes' },
+        { label: 'Fun Dives', link: '/servicios#fundives' },
+        { label: lang === 'es' ? 'Intro al Buceo' : 'Intro to Diving', link: '/servicios#intro' },
+        { label: lang === 'es' ? 'Cursos PADI' : 'PADI Courses', link: '/servicios#cursos' },
+        { label: 'Snorkel', link: '/servicios#snorkel' }
       ]
     },
     {
@@ -88,10 +91,10 @@ export default function Navbar() {
       name: t.navbar.contact,
       path: '/contacto',
       submenu: [
-        { label: t.navbar.submenu.location, link: '/contacto#ubicacion' },
-        { label: t.contact.visitorGuide?.tag || 'Guía de Viaje', link: '/contacto#guia' },
-        { label: t.navbar.submenu.whatsapp, link: 'https://wa.me/526131182311' },
-        { label: t.navbar.submenu.faq, link: '/contacto#faq' }
+        { label: t.navbar.submenu.location || (lang === 'es' ? 'Ubicación' : 'Location'), link: '/contacto#ubicacion' },
+        { label: t.contact.visitorGuide?.tag || (lang === 'es' ? 'Guía de Viaje' : 'Travel Guide'), link: '/contacto#guia' },
+        { label: t.navbar.submenu.whatsapp || 'WhatsApp', link: 'https://wa.me/526131182311' },
+        { label: t.navbar.submenu.faq || 'FAQ', link: '/contacto#faq' }
       ]
     }
   ];
@@ -136,18 +139,18 @@ export default function Navbar() {
       <header className={headerClass}>
 
         {/* =========================================
-            1. COLUMNA IZQUIERDA (LOGO + TOOLTIP)
+            1. COLUMNA IZQUIERDA (LOGO + TEXTO SIEMPRE VISIBLE)
             ========================================= */}
         <div className="flex-1 flex items-center justify-start z-50">
-          <Link to="/" className="relative flex items-center group shrink-0" onClick={() => setIsMenuOpen(false)}>
+          <Link to="/" className="relative flex flex-col items-center justify-center group shrink-0" onClick={() => setIsMenuOpen(false)}>
             <img
               src={logo}
               alt="Dolphin Dive Baja"
-              className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'
+              className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-10 md:h-12 lg:h-14 mb-1.5' : 'h-12 md:h-16 lg:h-20 mb-1.5'
                 }`}
             />
-            {/* Tooltip de "Ir al inicio" */}
-            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-navy/90 dark:bg-white/90 text-white dark:text-navy font-title text-[9px] md:text-[10px] tracking-widest uppercase rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+            {/* 👇 Texto "Ir al inicio" siempre visible y sutil */}
+            <span className="absolute -bottom-1 md:bottom-0 left-1/2 -translate-x-1/2 text-slate-400 dark:text-slate-500 font-title text-[7px] md:text-[8px] tracking-[0.2em] uppercase whitespace-nowrap pointer-events-none opacity-80 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
               {lang === 'es' ? 'Ir al inicio' : 'Back to home'}
             </span>
           </Link>
@@ -156,7 +159,7 @@ export default function Navbar() {
         {/* =========================================
             2. COLUMNA CENTRAL (NAVEGACIÓN)
             ========================================= */}
-        <nav className="hidden lg:flex flex-none items-center justify-center gap-1 xl:gap-2 h-full z-50">
+        <nav className="hidden lg:flex flex-none items-center justify-center gap-1 xl:gap-2 h-full z-50 mt-1 md:mt-0">
           {navItems.map((item, idx) => {
             const isActive = hoveredMenu === item.name;
 

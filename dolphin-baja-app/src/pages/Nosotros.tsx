@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import DiveSites from '../components/DiveSites';
+import DiveSites from '../components/about/DiveSites';
 
 // Contexto de idioma
 import { useLanguage } from '../context/LanguageContext';

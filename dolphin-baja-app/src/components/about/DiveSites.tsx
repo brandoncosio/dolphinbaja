@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 // 🗺️ IMÁGENES
-import mapImg from '/assets/images/isladanzante.webp';
 import islaImg from '/assets/images/isla.webp';
 import buceoImg from '/assets/images/buceo.webp';
 import carmenIslaImg from '/assets/images/carmen.webp';
@@ -11,11 +10,54 @@ import carmenBuceoImg from '/assets/images/carmensur.webp';
 import coronadoIslaImg from '/assets/images/fuera.webp';
 import coronadoBuceoImg from '/assets/images/fondo.webp';
 
+// Nuevo Mapa
+const mapImg = '/assets/images/diving_map.jpg';
+
 export default function DiveSites() {
   const { t, lang } = useLanguage();
-  const content = t.diveSites;
+  const content = t.diveSites; // Usado para los puntos del mapa originales
   const [selectedPoint, setSelectedPoint] = useState<any | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+
+  // ========================================================================
+  // 📚 NUEVOS TEXTOS LOCALES (Columna Izquierda y Temperaturas)
+  // ========================================================================
+  const pageData = {
+    es: {
+      tag: "Explora Nuestros Sitios",
+      title: "El Acuario del Mundo",
+      p1: "Un santuario marino protegido por la UNESCO que abarca 206,000 hectáreas de océano prístino, hogar de 5 islas y más de 40 sitios de buceo para todos los niveles de experiencia.",
+      p2: "Explora un mundo de formaciones volcánicas dramáticas y una rica biodiversidad marina — perfecto para explorar y para fotografía submarina.",
+      sightingsTitle: "Vida Marina que te espera:",
+      sightings1: "En el camino hacia los sitios de buceo, podemos ver delfines • mantas mobula • peces voladores • ballenas (por temporada), etc.",
+      sightings2: "Durante las inmersiones podemos ver gran diversidad de vida marina: Corales duros y blandos (negro, californica, copa naranja y muchos más) • Anémonas tubulares • Tortugas marinas • Anguilas • Tiburones de arrecife • Pecio C-54 (10–25 m de profundidad) • Lobos marinos • Delfines • Grandes cardúmenes • Vida macro (nudibranquios, blénidos, gobios, jawfishes, etc.) • ¡y mucho más!",
+      tempTitle: "Temperaturas del Agua",
+      temps: [
+        "Mayo–Junio: 73–80°F (22–26°C) → Traje de 3–5mm recomendado.",
+        "Julio–Med-Nov: 76–85°F (24–29°C) → Traje de 2–5mm o rash guard.",
+        "Nov–Abril: 65–75°F (18–24°C) → Traje de 5–7mm (Ene-Mar son los más fríos; trae chaqueta)."
+      ],
+      bookBtn: "Reservar Expedición"
+    },
+    en: {
+      tag: "Explore Our Sites",
+      title: "The World's Aquarium",
+      p1: "A UNESCO protected marine sanctuary spanning 206,000 hectares of pristine ocean, home to 5 islands and over 40 dive sites for all experience levels.",
+      p2: "Explore a world of dramatic volcanic formations and rich marine biodiversity — perfect for exploring and underwater photography.",
+      sightingsTitle: "Marine Life Awaiting You:",
+      sightings1: "On the way to the dive sites, we can see dolphins • mobula rays • flying fish • whales (seasonal), etc.",
+      sightings2: "During the dives we can see a great diversity of marine life: Hard and soft corals (black, californica, orange cup and many more) • Tube anemones • Sea turtles • Eels • Reef sharks • C-54 Wreck (10–25 m deep) • Sea lions • Dolphins • Large schools of fish • Macro life (nudibranchs, blennies, gobies, jawfishes, etc.) • and much more!",
+      tempTitle: "Water Temperatures",
+      temps: [
+        "May–June: 73–80°F (22–26°C) → 3–5mm wetsuit recommended.",
+        "July–Mid-Nov: 76–85°F (24–29°C) → 2–5mm wetsuit or rash guard.",
+        "Nov–April: 65–75°F (18–24°C) → 5–7mm full wetsuit (Jan–Mar are coldest months; bring a jacket for surface intervals)."
+      ],
+      bookBtn: "Book Expedition"
+    }
+  };
+
+  const localText = pageData[lang === 'en' ? 'en' : 'es'];
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -33,7 +75,7 @@ export default function DiveSites() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [selectedPoint]);
 
-  // 📍 BASE DE DATOS
+  // 📍 BASE DE DATOS DEL MAPA INTERACTIVO
   const mainPoints = [
     { id: 1, name: content.interactiveMap.points[0].name, desc: content.interactiveMap.points[0].desc, top: "75%", left: "45%", imgIsland: islaImg, imgSite: buceoImg, isMain: true },
     { id: 2, name: content.interactiveMap.points[1].name, desc: content.interactiveMap.points[1].desc, top: "45%", left: "55%", imgIsland: carmenIslaImg, imgSite: carmenBuceoImg, isMain: true },
@@ -71,7 +113,9 @@ export default function DiveSites() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-        {/* COLUMNA IZQUIERDA */}
+        {/* ========================================================================
+            COLUMNA IZQUIERDA: TEXTOS, TEMPERATURAS Y BOTÓN
+            ======================================================================== */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -79,66 +123,94 @@ export default function DiveSites() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-5 flex flex-col justify-center"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-[10px] md:text-xs font-bold uppercase tracking-widest bg-white text-cyan-600 border-slate-200 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 w-max mb-6">
-            <i className="ri-map-pin-line text-lg"></i> {content.tag}
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-[10px] md:text-xs font-bold uppercase tracking-widest bg-white text-cyan-600 border-slate-200 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 w-max mb-6 shadow-sm">
+            <i className="ri-map-pin-line text-lg"></i> {localText.tag}
           </span>
 
           <h2 className="font-title text-4xl sm:text-5xl md:text-6xl text-navy dark:text-white leading-tight drop-shadow-sm mb-6">
-            {content.title}
+            {localText.title}
           </h2>
 
           <div className="w-20 h-1 bg-cyan-500 rounded-full mb-8"></div>
 
-          <p className="font-body text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-10">
-            {lang === 'es'
-              ? 'El Parque Nacional Bahía de Loreto, declarado Patrimonio de la Humanidad, esconde un ecosistema submarino vibrante. Navega por nuestro mapa interactivo y descubre los secretos que te esperan bajo la superficie.'
-              : 'The Loreto Bay National Park, a World Heritage site, hides a vibrant underwater ecosystem. Navigate through our interactive map and discover the secrets waiting for you beneath the surface.'}
-          </p>
+          {/* Textos Principales */}
+          <div className="space-y-4 font-body text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-6">
+            <p>{localText.p1}</p>
+            <p>{localText.p2}</p>
+          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 shadow-sm flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0"><i className="ri-anchor-line text-xl"></i></div>
-              <div>
-                <p className="font-title text-xl text-navy dark:text-white leading-none">+15</p>
-                <p className="font-body text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-1">Sitios</p>
-              </div>
-            </div>
-            <div className="p-4 rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 shadow-sm flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0"><i className="ri-fish-line text-xl"></i></div>
-              <div>
-                <p className="font-title text-xl text-navy dark:text-white leading-none">Único</p>
-                <p className="font-body text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-1">Ecosistema</p>
-              </div>
+          {/* Bloque de Avistamientos */}
+          <div className="mb-8 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+            <h4 className="font-title text-lg text-cyan-700 dark:text-cyan-400 mb-3 flex items-center gap-2">
+              <i className="ri-camera-lens-fill text-xl"></i> {localText.sightingsTitle}
+            </h4>
+            <div className="space-y-3 font-body text-sm text-slate-600 dark:text-slate-300">
+              <p><strong className="text-navy dark:text-white">{lang === 'es' ? 'En superficie:' : 'On surface:'}</strong> {localText.sightings1}</p>
+              <p><strong className="text-navy dark:text-white">{lang === 'es' ? 'Bajo el agua:' : 'Underwater:'}</strong> {localText.sightings2}</p>
             </div>
           </div>
+
+          {/* Tarjeta de Temperaturas del Agua */}
+          <div className="mb-10 p-5 rounded-2xl bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800/50 shadow-inner">
+            <h4 className="font-title text-lg text-cyan-800 dark:text-cyan-300 mb-3 flex items-center gap-2">
+              <i className="ri-temp-hot-line text-xl text-yellow-500"></i> {localText.tempTitle}
+            </h4>
+            <ul className="space-y-2">
+              {localText.temps.map((temp, i) => (
+                <li key={i} className="text-sm font-body text-cyan-900 dark:text-cyan-100 flex items-start gap-2">
+                  <i className="ri-drop-fill text-cyan-500 mt-0.5"></i>
+                  <span className="font-medium">{temp}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Botón de Reserva (Reemplazo de los stats) */}
+          <a
+            href="mailto:ventas@dolphindivebaja.com?subject=Reserva de Expedición de Buceo"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-title text-sm md:text-base tracking-widest uppercase transition-all active:scale-95 shadow-lg shadow-cyan-500/30 border border-cyan-500"
+          >
+            {localText.bookBtn} <i className="ri-calendar-check-line text-xl"></i>
+          </a>
+
         </motion.div>
 
-        {/* COLUMNA DERECHA: MAPA */}
+        {/* ========================================================================
+            COLUMNA DERECHA: MAPA INTERACTIVO
+            ======================================================================== */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="lg:col-span-7 relative"
+          className="lg:col-span-7 relative mt-10 lg:mt-0"
         >
-          <div className="relative w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border-2 border-white/50 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] bg-slate-100 dark:bg-dark p-2">
+          <div className="relative w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border-4 border-white dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-slate-100 dark:bg-dark p-1">
+
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-square rounded-full border border-cyan-400/20 opacity-50 animate-[spin_10s_linear_infinite]" style={{ borderTopColor: 'transparent', borderBottomColor: 'transparent' }}></div>
 
-            <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-slate-200 dark:bg-[#0a0f1c]">
-              {/* 👇 AJUSTE MAPA: Agregado contraste y saturación */}
-              <img src={mapImg} alt="Mapa del Parque Marino" className="w-full h-auto object-contain mx-auto opacity-95 dark:opacity-85 filter contrast-[1.20] saturate-[1.10]" />
+            <div className="relative rounded-[2.2rem] md:rounded-[2.8rem] overflow-hidden bg-white dark:bg-dark group">
+              {/* 👇 Imagen del Mapa AHORA ES DIVING_MAP.JPG */}
+              <img
+                src={mapImg}
+                alt="Mapa de Buceo del Parque Marino"
+                className="w-full h-auto object-contain mx-auto transition-transform duration-[5s] group-hover:scale-105"
+              />
 
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-900/5 to-navy/20 dark:to-dark/40 pointer-events-none mix-blend-overlay"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-900/5 to-navy/10 dark:to-dark/40 pointer-events-none mix-blend-overlay"></div>
 
+              {/* Renderizado de Puntos Interactivos */}
               {allPoints.map((point) => (
-                <div key={point.id} className="absolute -translate-x-1/2 -translate-y-1/2 z-10" style={{ top: point.top, left: point.left }}>
-                  <div className={`absolute inset-0 rounded-full animate-ping opacity-60 ${point.isMain ? 'bg-red-500' : 'bg-cyan-400'}`}></div>
+                <div key={point.id} className="absolute -translate-x-1/2 -translate-y-1/2 z-10 transition-all duration-300" style={{ top: point.top, left: point.left }}>
+
+                  {/* Animación Ping de fondo para llamar la atención */}
+                  <div className={`absolute inset-0 rounded-full animate-ping opacity-60 ${point.isMain ? 'bg-yellow-500' : 'bg-cyan-400'}`}></div>
 
                   <button
                     onClick={() => setSelectedPoint(point)}
                     className={`relative rounded-full text-white shadow-xl hover:scale-125 transition-transform duration-300 flex items-center justify-center group/pin
                       ${point.isMain
-                        ? 'bg-red-600 w-8 h-8 md:w-12 md:h-12 border-[3px] border-white dark:border-dark shadow-red-500/50'
+                        ? 'bg-yellow-500 w-8 h-8 md:w-12 md:h-12 border-[3px] border-white dark:border-dark shadow-yellow-500/50 text-navy'
                         : 'bg-cyan-500 w-5 h-5 md:w-8 md:h-8 border-2 border-white dark:border-dark shadow-cyan-500/50'}`}
                   >
                     {point.isMain ? <i className="ri-star-fill text-xs md:text-xl"></i> : <i className="ri-pushpin-fill text-[10px] md:text-sm"></i>}
@@ -150,7 +222,9 @@ export default function DiveSites() {
         </motion.div>
       </div>
 
-      {/* MODAL EXPEDITION */}
+      {/* ========================================================================
+          MODAL DE EXPEDICIÓN (LIGHTBOX DEL MAPA)
+          ======================================================================== */}
       <AnimatePresence mode="wait">
         {selectedPoint && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-10">
@@ -190,7 +264,6 @@ export default function DiveSites() {
               <div className="px-6 md:px-8 py-6 relative">
                 {selectedPoint.isMain ? (
                   <div className="grid grid-cols-2 gap-4">
-                    {/* 👇 AJUSTE FOTOS BITÁCORA: Filtros aplicados */}
                     <div className="rounded-[1.5rem] overflow-hidden aspect-video shadow-md border border-slate-200 dark:border-white/10 group">
                       <img src={selectedPoint.imgIsland} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter contrast-[1.20] saturate-[1.15]" alt="Island View" />
                     </div>

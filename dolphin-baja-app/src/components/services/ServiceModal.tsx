@@ -53,40 +53,56 @@ export default function ServiceModal({ modalData, setModalData, currentImageIdx,
                         {modalData.duration && (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] md:text-xs font-bold uppercase tracking-widest bg-cyan-100 text-cyan-700 border border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-400/20 mb-4"><i className="ri-time-line"></i> {modalData.duration}</span>
                         )}
-                        <h2 className="font-title text-3xl md:text-4xl text-navy dark:text-white leading-tight mb-4">{modalData.title}</h2>
-                        <div className="font-body text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed whitespace-pre-line">{modalData.desc}</div>
+                        <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white leading-tight mb-4">{modalData.title}</h2>
+                        <div className="font-body text-base md:text-lg text-slate-600 dark:text-slate-300 font-medium leading-relaxed whitespace-pre-line">{modalData.desc}</div>
                         {modalData.extraContent && <div className="mt-6">{modalData.extraContent}</div>}
                     </div>
+
                     <div className="mb-10">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-white/10 pb-3 mb-5">{lang === 'es' ? 'QUÉ INCLUYE ESTA EXPERIENCIA' : 'WHAT’S INCLUDED'}</h4>
-                        <ul className="space-y-4">
-                            {modalData.includes.map((inc, i) => (
-                                <li key={i} className="flex items-start gap-3 font-body text-sm md:text-base font-medium text-slate-700 dark:text-slate-200">
-                                    <div className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 mt-0.5">
-                                        <i className="ri-check-line text-cyan-600 dark:text-cyan-400 text-xs"></i>
-                                    </div>
-                                    <span className="leading-snug">
-                                        {inc}
-                                        {(inc.includes('Ejercicios') || inc.includes('exercises')) && modalData.title.includes('Surface') && (
-                                            <button
-                                                onClick={() => {
-                                                    setModalData(null);
-                                                    setTimeout(() => scrollToSection('open-water-diver'), 350);
-                                                }}
-                                                className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[9px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
-                                            >
-                                                {lang === 'es' ? 'Ver Curso' : 'See Course'} <i className="ri-arrow-right-up-line"></i>
-                                            </button>
-                                        )}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
+                        {modalData.includes && modalData.includes.length > 0 && (
+                            <>
+                                <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-white/10 pb-3 mb-5">{lang === 'es' ? 'QUÉ INCLUYE ESTA EXPERIENCIA' : 'WHAT’S INCLUDED'}</h4>
+                                <ul className="space-y-4">
+                                    {modalData.includes.map((inc, i) => (
+                                        <li key={i} className="flex items-start gap-3 font-body text-base md:text-lg font-medium text-slate-700 dark:text-slate-200">
+                                            <div className="w-6 h-6 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 mt-0.5">
+                                                <i className="ri-check-line text-cyan-600 dark:text-cyan-400 text-sm"></i>
+                                            </div>
+                                            <span className="leading-snug">
+                                                {inc}
+                                                {(inc.includes('Ejercicios') || inc.includes('exercises')) && modalData.title.includes('Surface') && (
+                                                    <button
+                                                        onClick={() => {
+                                                            setModalData(null);
+                                                            setTimeout(() => scrollToSection('open-water-diver'), 350);
+                                                        }}
+                                                        className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-[10px] font-bold uppercase tracking-tighter hover:bg-cyan-200 transition-colors pointer-events-auto"
+                                                    >
+                                                        {lang === 'es' ? 'Ver Curso' : 'See Course'} <i className="ri-arrow-right-up-line"></i>
+                                                    </button>
+                                                )}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
                         {modalData.footerContent && (
                             <div className="mt-4">{modalData.footerContent}</div>
                         )}
                     </div>
-                    <div className="mt-auto pt-6"><a href={`mailto:ventas@dolphindivebaja.com?subject=Reserva: ${modalData.title}`} className="w-full py-4 rounded-xl font-title text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400">{lang === 'es' ? 'RESERVAR AHORA' : 'BOOK NOW'} <i className="ri-mail-line text-xl"></i></a></div>
+
+                    {/* 👇 AQUÍ ESTÁN LOS DOS BOTONES NUEVOS DE MAIL Y WHATSAPP */}
+                    {!modalData.hideBookNow && (
+                        <div className="mt-auto pt-6 flex flex-col sm:flex-row gap-4">
+                            <a href={`mailto:ventas@dolphindivebaja.com?subject=Reserva: ${modalData.title}`} className="w-full sm:w-1/2 py-4 rounded-xl font-title text-sm md:text-base tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500">
+                                Email <i className="ri-mail-line text-xl"></i>
+                            </a>
+                            <a href={`https://wa.me/526131182311?text=Hola, me interesa reservar la actividad: ${modalData.title}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-1/2 py-4 rounded-xl font-title text-sm md:text-base tracking-widest uppercase flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg bg-green-500 text-white hover:bg-green-400">
+                                WhatsApp <i className="ri-whatsapp-line text-xl"></i>
+                            </a>
+                        </div>
+                    )}
                 </div>
             </motion.div>
         </div>

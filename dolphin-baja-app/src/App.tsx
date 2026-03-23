@@ -15,7 +15,7 @@ import SplashScreen from './components/layout/SplashScreen';
 import ScrollToTop from './components/layout/ScrollToTop';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import CookieConsent from './components/layout/CookieConsent';
-import DiveSites from './components/DiveSites';
+import DiveSites from './components/about/DiveSites';
 
 // ==========================================
 // 🚀 PÁGINAS LAZY (Carga Diferida)

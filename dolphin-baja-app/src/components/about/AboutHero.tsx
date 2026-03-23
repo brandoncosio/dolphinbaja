@@ -5,8 +5,27 @@ import { useLanguage } from '../../context/LanguageContext';
 import teamImg from '/assets/nosotros/team.webp';
 
 export default function AboutHero() {
-  const { t, lang } = useLanguage();
-  const content = t.aboutPage.hero;
+  const { lang } = useLanguage();
+
+  // ========================================================================
+  // 📚 TEXTOS LOCALES (Aplicando correcciones de la clienta)
+  // ========================================================================
+  const pageContent = {
+    es: {
+      tag: "Nuestra Historia",
+      titleStart: "Más que solo un centro de buceo,",
+      titleHighlight: "somos una familia que amamos el mar",
+      desc: "Nuestra pasión por el océano nos une. Guiados por el respeto a la vida marina y décadas de experiencia en el Parque Nacional Bahía de Loreto, te invitamos a descubrir el 'Acuario del Mundo' guiado por verdaderos locales."
+    },
+    en: {
+      tag: "Our Story",
+      titleStart: "More than just a dive center,",
+      titleHighlight: "we are a family that loves the sea",
+      desc: "Our passion for the ocean unites us. Guided by our respect for marine life and decades of experience in the Loreto Bay National Park, we invite you to discover the 'Aquarium of the World' guided by true locals."
+    }
+  };
+
+  const content = pageContent[lang === 'en' ? 'en' : 'es'];
 
   // ========================================================================
   // 🎨 ESTILOS SEPARADOS (Ajuste Perfecto para la Nueva Navbar)
@@ -38,19 +57,19 @@ export default function AboutHero() {
     dark:bg-black/60 dark:border-white/10 dark:text-cyan-400
   `;
 
+  // 👇 Ajuste: Bajé de text-7xl a text-6xl máximo porque el título ahora es muy largo
   const titleClass = `
-    font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:mb-6 leading-tight pointer-events-auto transition-colors
+    font-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight pointer-events-auto transition-colors
     text-navy drop-shadow-[0_2px_15px_rgba(255,255,255,0.8)]
     dark:text-white dark:drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]
   `;
 
   const descClass = `
-    font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-md pointer-events-auto transition-colors
+    font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-3xl mx-auto leading-relaxed drop-shadow-md pointer-events-auto transition-colors
     text-slate-800 dark:text-slate-100
   `;
 
   return (
-    // 👇 Ajuste principal: pt-32 (espacio de la Navbar) y alturas relativas (min-h-[100dvh] en móvil para ocupar toda la pantalla correctamente)
     <section key={lang} className="relative h-[85vh] min-h-[550px] md:min-h-[700px] lg:h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center pt-32 pb-16">
 
       {/* =========================================
@@ -107,7 +126,7 @@ export default function AboutHero() {
           className={titleClass}
         >
           <span dangerouslySetInnerHTML={{ __html: content.titleStart }} />{' '}
-          <span className="text-yellow-500 dark:text-yellow-400 drop-shadow-md">{content.titleHighlight}</span>
+          <span className="text-yellow-500 dark:text-yellow-400 drop-shadow-md block mt-2 sm:inline sm:mt-0">{content.titleHighlight}</span>
         </motion.h1>
 
         <motion.p
