@@ -238,7 +238,7 @@ export default function Contacto() {
 
                 <VisitorGuide />
 
-                <section id="faq" className="py-24 px-6 md:px-12 scroll-mt-20 relative z-10 border-t border-slate-200 dark:border-white/10 bg-white/50 dark:bg-transparent">
+                <section id="faq" className="whitespace-pre-line py-24 px-6 md:px-12 scroll-mt-20 relative z-10 border-t border-slate-200 dark:border-white/10 bg-white/50 dark:bg-transparent">
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-16">
                             <span className="inline-block px-5 py-2 rounded-full border text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] mb-4 bg-white border-slate-200 text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 shadow-sm">

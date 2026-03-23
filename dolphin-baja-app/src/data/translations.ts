@@ -463,15 +463,48 @@ export const translations = {
                 text: "Nuestra base de operaciones en el corazón de Loreto"
             },
             faq: {
-                subtitle: "Resolver Dudas",
+                subtitle: "Despeja tus dudas",
                 title: "Preguntas Frecuentes",
-                more: "¿Tienes otra pregunta?",
-                link: "Pregúntanos por WhatsApp",
+                more: "¿Tienes alguna otra pregunta?",
+                link: "Consúltanos por WhatsApp",
                 list: [
-                    { q: "¿Necesito certificación para bucear?", a: "Para los Fun Dives sí requerimos certificación. Si nunca has buceado, pregunta por nuestro programa 'Discover Scuba' o Bautizo." },
-                    { q: "¿Incluyen equipo de renta?", a: "En los cursos y tours de snorkel sí. En los Fun Dives para certificados, el equipo tiene un costo adicional o puedes traer el tuyo." },
-                    { q: "¿Cuál es la política de cancelación?", a: "Requerimos 24 horas de anticipación para cambios o cancelaciones sin cargo. Grupos grandes pueden requerir 48 horas." },
-                    { q: "¿Aceptan tarjetas de crédito?", a: "Sí, aceptamos Visa, Mastercard y efectivo (Pesos/Dólares). Los pagos con tarjeta pueden tener una pequeña comisión bancaria." }
+                    { 
+                        q: "🤿 ¿Necesito una certificación para bucear?", 
+                        a: "Para los 'Fun Dives' sí, pero si no tienes certificación, ¡no te preocupes! Tenemos el programa 'Discover Scuba' (Introducción al buceo) diseñado especialmente para principiantes." 
+                    },
+                    { 
+                        q: "🎒 ¿Está incluido el equipo de renta?", 
+                        a: "El equipo está incluido únicamente en el 'Discover Scuba' y en el curso 'Open Water Diver'. Para el resto de las actividades, contamos con equipo Cressi profesional disponible para renta." 
+                    },
+                    { 
+                        q: "💳 ¿Necesito pagar un depósito para asegurar mi reserva?", 
+                        a: "Sí, para confirmar y mantener tu lugar en la expedición se requiere un depósito previo del 30%." 
+                    },
+                    { 
+                        q: "🌊 ¿Cuántas inmersiones se realizan por día?", 
+                        a: "Normalmente realizamos 2 tanques (inmersiones) por salida, con la opción de agregar un 3er tanque (con costo adicional)." 
+                    },
+                    { 
+                        q: "🗓️ ¿En qué época del año realizan certificaciones?", 
+                        a: "Nuestra temporada de certificaciones es de Junio a Octubre, que es cuando el mar ofrece las mejores condiciones de visibilidad y temperatura." 
+                    },
+                    { 
+                        q: "📌 ¿Cuál es la política de cancelación?", 
+                        a: "• No show o cancelaciones el mismo día: Lamentablemente, no hay reembolso.\n"
+                            + "• Cancelaciones con menos de 24 horas: No hay reembolso.\n"
+                            + "• Cancelaciones con al menos 3 días de antelación: Se reembolsa el 85%."
+                    },
+                    { 
+                        q: "🌦️ Cancelaciones relacionadas con el clima:",
+                        a: "• Si cancelamos debido al clima, haremos lo posible por reprogramar tu actividad.\n"
+                            + "• Si no es posible reprogramar, emitiremos un reembolso.\n"
+                            + "• Los pagos vía PayPal o tarjeta de crédito generan comisiones. En estos casos, se reembolsa el 80% del total.\n"
+                            + "¡Gracias por tu comprensión!"
+                    },
+                    { 
+                        q: "💵 ¿Aceptan tarjetas de crédito?", 
+                        a: "Sí, aceptamos tarjetas de crédito y efectivo (tanto en Pesos Mexicanos como en Dólares USD)." 
+                    }
                 ]
             }
         },
@@ -1002,10 +1035,43 @@ export const translations = {
                 more: "Have another question?",
                 link: "Ask us on WhatsApp",
                 list: [
-                    { q: "Do I need certification to dive?", a: "For Fun Dives, yes. If you've never dived, ask about our 'Discover Scuba' program." },
-                    { q: "Is rental gear included?", a: "Yes, for courses and snorkel tours. For certified Fun Dives, gear has an extra cost or you can bring yours." },
-                    { q: "What is the cancellation policy?", a: "We require 24 hours notice for changes or cancellations free of charge. Large groups may require 48 hours." },
-                    { q: "Do you accept credit cards?", a: "Yes, we accept Visa, Mastercard, and cash (Pesos/USD). Card payments may have a small bank fee." }
+                    { 
+                        q: "🤿 Do I need a certification to dive?", 
+                        a: "For 'Fun Dives', yes. However, if you are not certified, don't worry! We have the 'Discover Scuba' program (Intro to diving) specifically designed for beginners." 
+                    },
+                    { 
+                        q: "🎒 Is rental gear included?", 
+                        a: "Gear is included only for 'Discover Scuba' and the 'Open Water Diver' course. For all other activities, we have professional Cressi gear available for rent." 
+                    },
+                    { 
+                        q: "💳 Do I need to pay a deposit to hold my reservation?", 
+                        a: "Yes, a 30% deposit is required to confirm and maintain your spot on the expedition." 
+                    },
+                    { 
+                        q: "🌊 How many dives are done per day?", 
+                        a: "We normally do 2 tanks (dives) per trip, with the option to add a 3rd tank (at an extra cost)." 
+                    },
+                    { 
+                        q: "🗓️ What time of year do you offer certifications?", 
+                        a: "Our certification season runs from June to October, which is when the ocean offers the best visibility and temperature conditions." 
+                    },
+                    { 
+                        q: "📌 What is the cancellation policy?", 
+                        a: "• No-shows or same-day cancellations: Unfortunately, no refund.\n"
+                            + "• Cancellations within 24 hours: No refund.\n"
+                            + "• Cancellations made at least 3 days in advance: 85% refund."
+                    },
+                    { 
+                        q: "🌦️ Weather-related cancellations:",
+                        a: "• If we need to cancel due to weather, we'll do our best to reschedule your activity.\n"
+                            + "• If rescheduling is not possible, we will issue a refund.\n"
+                            + "• Payments made via PayPal or credit card incur processing fees. In these cases, we can refund 80% of the total.\n"
+                            + "Thank you for your understanding!"
+                    },
+                    { 
+                        q: "💵 Do you accept credit cards?", 
+                        a: "Yes, we accept credit cards and cash (both Mexican Pesos and USD)." 
+                    }
                 ]
             }
         },
