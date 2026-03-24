@@ -141,7 +141,7 @@ export default function Highlights() {
   const cardY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={sectionRef} className="relative z-10 w-full py-20 md:py-32 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
+    <section ref={sectionRef} className="relative z-10 w-full py-8 md:py-16 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
       <div className="max-w-7xl mx-auto">
 
         {/* ========================================================================

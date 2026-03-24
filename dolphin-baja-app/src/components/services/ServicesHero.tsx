@@ -9,7 +9,7 @@ interface ServicesHeroProps {
 
 export default function ServicesHero({ heroData, categoriesList, scrollToSection }: ServicesHeroProps) {
     return (
-        <section className="relative w-full h-[100dvh] min-h-[650px] md:h-[80vh] md:min-h-[750px] overflow-hidden flex flex-col justify-center items-center pt-40 md:pt-48 pb-32">
+        <section className="relative w-full h-[100dvh] min-h-[650px] md:h-[80vh] md:min-h-[750px] overflow-hidden flex flex-col justify-center items-center pt-16 md:pt-20 pb-16">
             <div className="absolute inset-0 z-0">
                 <motion.div initial={{ scale: 1.1 }} animate={{ scale: 1 }} transition={{ duration: 15, ease: "linear" }} className="w-full h-full" style={{ willChange: "transform" }}>
                     <img src={serviceAssets.heroBg} alt="Dolphin Dive Baja" fetchPriority="high" loading="eager" decoding="async" className="w-full h-full object-cover object-[center_30%] md:object-center filter contrast-[1.15] saturate-[1.10]" />

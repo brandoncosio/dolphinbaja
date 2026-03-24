@@ -13,7 +13,7 @@ export default function PackagesGrid({ paquetesData, setModalData, setCurrentIma
     const { lang } = useLanguage();
 
     return (
-        <section id="paquetes" className="mb-20 md:mb-32 scroll-mt-28">
+        <section id="paquetes" className="mb-8 md:mb-16 scroll-mt-28">
             <div className="text-center mb-10 md:mb-12">
                 <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-4">{paquetesData.title}</h2>
                 <p className="font-body font-bold tracking-widest uppercase text-xs md:text-sm text-cyan-600 dark:text-cyan-400">{paquetesData.subtitle}</p>

@@ -94,7 +94,7 @@ export default function OurStory() {
   `;
 
   return (
-    <section className="relative py-20 md:py-32 px-6 overflow-hidden z-10">
+    <section className="relative py-8 md:py-16 px-6 overflow-hidden z-10">
       {/* Gradiente para conectar suavemente con el Hero */}
       <div className={entryGradientClass} />
 

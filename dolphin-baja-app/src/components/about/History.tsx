@@ -156,7 +156,7 @@ export default function History() {
   `;
 
   return (
-    <section id="historia" className="relative pb-24 md:pb-32 px-6 md:px-20 scroll-mt-24 z-10">
+    <section id="historia" className="relative pb-12 md:pb-16 px-6 md:px-20 scroll-mt-24 z-10">
       <div className="max-w-5xl mx-auto">
 
         <motion.div

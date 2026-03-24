@@ -65,7 +65,7 @@ export default function Servicios() {
         <title>{lang === 'es' ? 'Catálogo de Servicios y Tours | Dolphin Dive' : 'Diving Services & Tours | Dolphin Dive'}</title>
       </Helmet>
 
-      <div className="min-h-screen selection:bg-cyan-400 selection:text-dark bg-slate-50 dark:bg-dark transition-colors duration-500 pb-20">
+      <div className="min-h-screen selection:bg-cyan-400 selection:text-dark bg-slate-50 dark:bg-dark transition-colors duration-500 pb-10">
         <AnimatePresence>
           {isLoading && <SplashScreen key="splash" />}
         </AnimatePresence>

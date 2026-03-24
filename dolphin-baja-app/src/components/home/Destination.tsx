@@ -35,7 +35,7 @@ export default function Destination() {
   `;
 
   return (
-    <section id="ubicacion" className="relative z-10 w-full py-24 md:py-32 px-6 md:px-12 lg:px-20 overflow-hidden scroll-mt-24 transition-colors duration-500 bg-slate-50 dark:bg-dark">
+    <section id="ubicacion" className="relative z-10 w-full py-10 md:py-16 px-6 md:px-12 lg:px-20 overflow-hidden scroll-mt-24 transition-colors duration-500 bg-slate-50 dark:bg-dark">
       <div className="max-w-7xl mx-auto relative z-20">
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">

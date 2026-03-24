@@ -155,7 +155,7 @@ export default function Team() {
   `;
 
   return (
-    <section id="equipo" className="relative py-24 md:py-32 px-6 md:px-12 lg:px-20 scroll-mt-20 z-10">
+    <section id="equipo" className="relative py-10 md:py-16 px-6 md:px-12 lg:px-20 scroll-mt-20 z-10">
 
       {/* Luz de fondo central */}
       <div

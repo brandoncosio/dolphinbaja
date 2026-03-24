@@ -16,7 +16,7 @@ export default function ServiceCategory({ tabKey, sectionTitle, servicesList, se
     const { lang } = useLanguage();
 
     return (
-        <section id={tabKey} className="pt-20 md:pt-32 scroll-mt-24">
+        <section id={tabKey} className="pt-8 md:pt-16 scroll-mt-24">
             <div className="text-center md:text-left mb-10 border-b border-slate-200 dark:border-white/10 pb-6">
                 <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{sectionTitle}</h2>
             </div>

@@ -70,7 +70,7 @@ export default function AboutHero() {
   `;
 
   return (
-    <section key={lang} className="relative h-[85vh] min-h-[550px] md:min-h-[700px] lg:h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center pt-32 pb-16">
+    <section key={lang} className="relative h-[85vh] min-h-[550px] md:min-h-[700px] lg:h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center pt-16 pb-8">
 
       {/* =========================================
           FONDO PARALLAX OCEÁNICO

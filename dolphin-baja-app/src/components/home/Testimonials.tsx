@@ -35,7 +35,7 @@ export default function Testimonials() {
   const infiniteTestimonials = [...content.list, ...content.list];
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden z-10 w-full bg-slate-50 dark:bg-dark transition-colors duration-500">
+    <section className="relative py-10 md:py-16 overflow-hidden z-10 w-full bg-slate-50 dark:bg-dark transition-colors duration-500">
 
       {/* Luz ambiental sutil de fondo */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-64 w-[80%] rounded-full blur-[100px] pointer-events-none transition-colors duration-500 bg-cyan-400/5 dark:bg-cyan-500/5" />

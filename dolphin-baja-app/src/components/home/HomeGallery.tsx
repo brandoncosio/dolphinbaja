@@ -95,7 +95,7 @@ export default function HomeGallery() {
     );
 
     return (
-        <section className="relative z-10 w-full py-24 md:py-32 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
+        <section className="relative z-10 w-full py-10 md:py-16 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[60%] w-[80%] rounded-full blur-[120px] pointer-events-none transition-colors duration-500 bg-cyan-400/10 dark:bg-cyan-500/10" />
 
