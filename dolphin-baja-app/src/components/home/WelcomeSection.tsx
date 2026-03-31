@@ -21,26 +21,29 @@ export default function WelcomeSection() {
         return () => clearInterval(timer);
     }, []);
 
+    // ========================================================================
+    // 📚 TEXTOS LOCALES CON TRADUCCIONES MEJORADAS
+    // ========================================================================
     const content = {
         es: {
             badge: "Bienvenidos a Loreto",
-            title: "Dolphin Dive Baja Loreto",
+            title: "Dolphin Dive Baja",
             subtitle: "Bucea en el Mar de Cortés, ¡El Acuario del Mundo!",
             cousteau: "El Mar de Cortés fue nombrado por el famoso Jacques Cousteau como “El acuario del mundo” y su entrada está en Loreto.",
             p1: "Loreto es un Parque Nacional Marino y un santuario protegido por la UNESCO que abarca 206,000 hectáreas de océano prístino. Es hogar de 5 islas y más de 40 sitios de buceo para todos los niveles de experiencia, donde encontrarás espectaculares formaciones volcánicas y una rica biodiversidad marina; el escenario perfecto para la exploración y la fotografía subacuática.",
             highlight: "¡Acompáñanos a explorar el mundo subacuático de Loreto!",
-            p2: "Dolphin Dive Baja ha sido miembro del PADI International Resort Association desde 2001. Estamos ubicados estratégicamente a una cuadra del malecón en la calle Juárez, a 5 minutos caminando del puerto, en el centro de Loreto.",
+            p2: "Nosotros, Dolphin Dive Baja, somos miembros de PADI desde el año 2001. En Loreto, B.C.S., estamos estratégicamente ubicados a solo una cuadra del malecón, a 5 minutos caminando del puerto de Loreto y a tan solo 2 minutos de la plaza principal del pueblo.",
             welcome: "¡Buzos de todas las asociaciones son bienvenidos!",
             warning: "La pesca con arpón no está permitida en nuestro parque marino."
         },
         en: {
             badge: "Welcome to Loreto",
-            title: "Dolphin Dive Baja Loreto",
+            title: "Dolphin Dive Baja",
             subtitle: "Dive in the Sea of Cortez, The Aquarium of the World!",
             cousteau: "The Sea of Cortez was named by the famous Jacques Cousteau as 'The aquarium of the world' and its entrance is in Loreto.",
-            p1: "Loreto is a National Marine Park a UNESCO-protected marine sanctuary covering 206,000 hectares of pristine ocean, home to 5 islands and over 40+ dive sites for all experience levels. Where we have dramatic volcanic formations and rich marine biodiversity — perfect for exploration and underwater photography",
+            p1: "Loreto is a National Marine Park and a UNESCO-protected marine sanctuary covering 206,000 hectares of pristine ocean. It is home to 5 islands and over 40 dive sites for all experience levels, where you will find dramatic volcanic formations and rich marine biodiversity; the perfect setting for exploration and underwater photography.",
             highlight: "Join us to explore the underwater world of Loreto!",
-            p2: "Dolphin Dive Baja has been a member of the PADI International Resort Association since 2001. We are strategically located one block from the malecon on Juarez Street, a 5-minute walk from the port, in downtown Loreto.",
+            p2: "We, Dolphin Dive Baja, have been PADI members since 2001. In Loreto, B.C.S., we are strategically located just one block from the malecon, a 5-minute walk from the Loreto marina, and just 2 minutes from the town's main square.",
             welcome: "Divers from all associations are welcome!",
             warning: "Spearfishing is not permitted in our marine park."
         }
@@ -102,12 +105,13 @@ export default function WelcomeSection() {
                             <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-60 dark:opacity-80 pointer-events-none z-10" />
                         </div>
 
-                        {/* PADI Badge Flotante ACTUALIZADO */}
-                        <div className="absolute -bottom-6 -right-6 md:bottom-10 md:-right-10 bg-white dark:bg-navy p-4 rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 z-20 flex flex-col items-center justify-center animate-bounce-slow">
-                            <span className="font-title text-3xl text-cyan-600 dark:text-cyan-400 leading-none mb-1">PADI</span>
-                            <span className="font-body text-[8px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Resort Member</span>
-                            <span className="font-body text-[10px] font-black text-navy dark:text-white mt-1">Since 2001</span>
-                            <img src="/assets/contentD/img/PADI.png" alt="PADI Logo" className="h-10 md:h-12 w-auto mb-2 object-contain filter brightness-110 drop-shadow-sm" />
+                        {/* 👇 PADI Badge Flotante ACTUALIZADO (Solo Logo) */}
+                        <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 bg-white/90 dark:bg-white/10 backdrop-blur-xl p-4 md:p-5 rounded-[1.5rem] shadow-xl border border-white/50 dark:border-white/20 z-20 flex items-center justify-center animate-bounce-slow hover:scale-105 transition-transform">
+                            <img
+                                src="/assets/contentD/img/PADI.png"
+                                alt="PADI Logo"
+                                className="h-12 md:h-16 w-auto object-contain filter drop-shadow-md"
+                            />
                         </div>
                     </motion.div>
 
@@ -162,7 +166,7 @@ export default function WelcomeSection() {
                                 {text.p2}
                             </motion.p>
 
-                            <motion.p variants={itemVariants} className="inline-flex items-center gap-2 font-bold px-4 py-2 rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-800/50">
+                            <motion.p variants={itemVariants} className="inline-flex flex-wrap items-center gap-2 font-bold px-4 py-2 rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-800/50">
                                 <i className="ri-checkbox-circle-fill text-xl"></i> {text.welcome}
                             </motion.p>
                         </div>

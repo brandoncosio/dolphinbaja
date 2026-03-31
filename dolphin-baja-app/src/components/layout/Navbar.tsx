@@ -61,7 +61,6 @@ export default function Navbar() {
     }, 1500);
   };
 
-  // 👇 AQUÍ ACTUALIZAMOS TODOS LOS ENLACES (Menús completos y mapeados correctamente)
   const navItems = [
     {
       name: t.navbar.about,
@@ -139,18 +138,18 @@ export default function Navbar() {
       <header className={headerClass}>
 
         {/* =========================================
-            1. COLUMNA IZQUIERDA (LOGO + TEXTO SIEMPRE VISIBLE)
+            1. COLUMNA IZQUIERDA (LOGO + TOOLTIP FLOTANTE)
             ========================================= */}
         <div className="flex-1 flex items-center justify-start z-50">
-          <Link to="/" className="relative flex flex-col items-center justify-center group shrink-0" onClick={() => setIsMenuOpen(false)}>
+          <Link to="/" className="relative flex items-center group shrink-0" onClick={() => setIsMenuOpen(false)}>
             <img
               src={logo}
               alt="Dolphin Dive Baja"
-              className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-10 md:h-12 lg:h-14 mb-1.5' : 'h-12 md:h-16 lg:h-20 mb-1.5'
+              className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'
                 }`}
             />
-            {/* 👇 Texto "Ir al inicio" siempre visible y sutil */}
-            <span className="absolute -bottom-1 md:bottom-0 left-1/2 -translate-x-1/2 text-slate-400 dark:text-slate-500 font-title text-[7px] md:text-[8px] tracking-[0.2em] uppercase whitespace-nowrap pointer-events-none opacity-80 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
+            {/* 👇 Tooltip elegante que solo aparece al pasar el cursor */}
+            <span className="absolute left-full ml-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-navy/90 dark:bg-white/90 text-white dark:text-navy font-title text-[9px] md:text-[10px] tracking-widest uppercase rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap hidden lg:block -translate-x-2 group-hover:translate-x-0">
               {lang === 'es' ? 'Ir al inicio' : 'Back to home'}
             </span>
           </Link>

@@ -70,14 +70,16 @@ export default function Servicios() {
           {isLoading && <SplashScreen key="splash" />}
         </AnimatePresence>
 
-        <ServicesHero heroData={currentData.hero} categoriesList={categoriesList} scrollToSection={scrollToSection} />
+        {/* 👇 AJUSTE: Quitamos la prop heroData porque ServicesHero ya tiene sus datos locales */}
+        <ServicesHero categoriesList={categoriesList} scrollToSection={scrollToSection} />
 
         <PartnersBanner />
 
         <main className="relative z-10 max-w-7xl mx-auto px-5 md:px-12">
-          <PackagesGrid paquetesData={currentData.paquetes} setModalData={setModalData} setCurrentImageIdx={setCurrentImageIdx} scrollToSection={scrollToSection} />
+          {/* 👇 AJUSTE: Quitamos la prop paquetesData porque PackagesGrid ya tiene sus datos locales */}
+          <PackagesGrid setModalData={setModalData} setCurrentImageIdx={setCurrentImageIdx} scrollToSection={scrollToSection} />
 
-          {/* 👇 AQUÍ ESTÁ LA CORRECCIÓN: Agregamos 'intro' a la lista de secciones */}
+          {/* Renderizado dinámico de las categorías basadas en servicesData */}
           {(['fundives', 'intro', 'cursos', 'snorkel'] as TabKey[]).map((tabKey) => (
             <ServiceCategory
               key={tabKey}
