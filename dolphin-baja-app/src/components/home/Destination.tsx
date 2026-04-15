@@ -60,13 +60,13 @@ export default function Destination() {
 
             {/* Título Principal */}
             <h2 className="font-title text-4xl sm:text-5xl lg:text-6xl leading-[1.1] text-navy dark:text-white mb-4">
-              {lang === 'es' ? 'Nuestra Hogar en ' : 'Our Home in '}
+              {lang === 'es' ? 'Nuestro Hogar en ' : 'Our Home in '}
               <br className="hidden lg:block" />
               <span className="text-yellow-500 dark:text-yellow-400">Loreto</span>
             </h2>
 
             {/* 🏷️ HASHTAG DE MARCA */}
-            <p className="font-title text-2xl sm:text-3xl tracking-tight mb-8 transition-colors duration-500 text-cyan-600 dark:text-cyan-400">
+            <p className="font-title text-1xl sm:text-2xl tracking-tight mb-8 transition-colors duration-500 text-cyan-600 dark:text-cyan-400">
               #{content.hashtag.trim()}{content.hashtagHighlight.trim()}
             </p>
 
