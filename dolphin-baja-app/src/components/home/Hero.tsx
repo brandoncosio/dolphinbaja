@@ -85,10 +85,11 @@ export default function Hero() {
     });
   }, []);
 
+  // 👇 AJUSTE APLICADO: El tiempo aumentó a 8000ms (8 segundos) para una lectura cómoda
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev === slideImages.length - 1 ? 0 : prev + 1));
-    }, 5500); // 5.5s para dar tiempo a leer bien
+    }, 8000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -96,7 +97,6 @@ export default function Hero() {
   // 🎨 ESTILOS SEPARADOS (Clean Code)
   // ========================================================================
 
-  // 👇 AJUSTE APLICADO: Cambiado de 'rounded-full' a 'rounded-xl'
   const primaryBtnClass = `
     flex items-center justify-center gap-3 rounded-xl px-6 py-3.5 md:px-8 md:py-4 
     font-title text-sm tracking-widest uppercase backdrop-blur-md transition-all 
@@ -107,7 +107,6 @@ export default function Hero() {
     dark:hover:bg-yellow-400 dark:hover:text-dark dark:shadow-none
   `;
 
-  // 👇 AJUSTE APLICADO: Cambiado de 'rounded-full' a 'rounded-xl'
   const secondaryBtnClass = `
     flex items-center justify-center gap-3 rounded-xl border px-6 py-3.5 md:px-8 md:py-4 
     font-title text-sm tracking-widest uppercase backdrop-blur-md transition-all 

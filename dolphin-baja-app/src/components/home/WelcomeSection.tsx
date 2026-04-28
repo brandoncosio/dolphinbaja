@@ -84,11 +84,11 @@ export default function WelcomeSection() {
                         {/* Marco decorativo trasero */}
                         <div className="absolute -inset-4 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-[2.5rem] lg:rounded-[3.5rem] transform -rotate-3 transition-transform duration-700 group-hover:-rotate-6 z-0"></div>
 
-                        {/* Contenedor de la Imagen con fondo negro para evitar destellos en transición */}
-                        <div className="w-full h-[400px] sm:h-[500px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-4 border-white dark:border-white/10 bg-black">
+                        {/* Contenedor de la Imagen: Ahora usa bg-slate-900 para alojar la imagen completa */}
+                        <div className="w-full h-[400px] sm:h-[500px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-4 border-white dark:border-white/10 bg-slate-900 flex items-center justify-center">
 
-                            {/* Animación del carrusel */}
-                            <AnimatePresence mode="popLayout">
+                            {/* Animación del carrusel: Object-contain evita la pérdida de calidad/recortes */}
+                            <AnimatePresence mode="wait">
                                 <motion.img
                                     key={currentImgIndex}
                                     src={slideImages[currentImgIndex]}
@@ -96,16 +96,16 @@ export default function WelcomeSection() {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[7s] group-hover:scale-110"
+                                    transition={{ duration: 1, ease: "easeInOut" }}
+                                    className="w-full h-full object-contain"
                                 />
                             </AnimatePresence>
 
-                            {/* Gradiente sutil inferior para contraste */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-60 dark:opacity-80 pointer-events-none z-10" />
+                            {/* Gradiente sutil inferior para contraste del logo */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80 pointer-events-none z-10" />
                         </div>
 
-                        {/* 👇 PADI Badge Flotante ACTUALIZADO (Solo Logo) */}
+                        {/* PADI Badge Flotante ACTUALIZADO (Solo Logo) */}
                         <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 bg-white/90 dark:bg-white/10 backdrop-blur-xl p-4 md:p-5 rounded-[1.5rem] shadow-xl border border-white/50 dark:border-white/20 z-20 flex items-center justify-center animate-bounce-slow hover:scale-105 transition-transform">
                             <img
                                 src="/assets/contentD/img/PADI.png"
