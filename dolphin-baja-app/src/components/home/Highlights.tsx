@@ -26,7 +26,7 @@ import funDive1 from '/assets/images/FunDive1.webp';
 import snorkeling1 from '/assets/images/Snorkeling1.webp';
 
 import gal1 from '/assets/images/Gallery1.webp';
-import gal2 from '/assets/images/Gallery2.webp';
+import gal2 from '/assets/images/colash4.webp';
 import gal3 from '/assets/images/Gallery3.webp';
 import gal4 from '/assets/images/Gallery4.webp';
 import gal5 from '/assets/images/Gallery5.webp';

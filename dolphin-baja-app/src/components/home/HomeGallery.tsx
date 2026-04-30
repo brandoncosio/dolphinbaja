@@ -16,7 +16,7 @@ import img9 from '/assets/contentD/img/reel1.webp';
 import img10 from '/assets/nosotros/team.webp';
 const imgAlebrijes = "/assets/images/alebrije.webp";
 const imgCaballitos = "/assets/images/caballitos de mar.webp";
-const imgFocahome = "/assets/images/focahome.webp";
+const imgFocahome = "/assets/images/DolphinDive1.webp";
 const imgHomecar = "/assets/images/homecar.webp";
 const imgHomef = "/assets/images/homef.webp";
 const imgHomein = "/assets/images/homein.webp";

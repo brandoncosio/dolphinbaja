@@ -31,10 +31,10 @@ import cor1 from '/assets/images/ColorF.webp';
 import cor2 from '/assets/images/DolphinDive1.webp';
 import experiencias from '/assets/images/experiencias.webp';
 import nocturno from '/assets/images/DolphinDive2.webp';
-import recorrido from '/assets/images/focahome.webp';
+import recorrido from '/assets/images/DolphinDive1.webp';
 import slide1 from '/assets/images/FunDive1.webp';
 import slide2 from '/assets/images/Gallery1.webp';
-import slide3 from '/assets/images/Gallery2.webp';
+import slide3 from '/assets/images/colash4.webp';
 
 const mapImg = '/assets/images/diving_map.webp';
 

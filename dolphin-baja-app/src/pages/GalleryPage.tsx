@@ -9,7 +9,7 @@ import { useLanguage } from '../context/LanguageContext';
 // ========================================================================
 const mediaData = [
     { id: 1, type: 'photo', category: 'marine', src: '/assets/images/caballitos de mar.webp', title: 'Caballito de Mar', span: 'col-span-1 row-span-2' },
-    { id: 2, type: 'video', category: 'marine', src: '/assets/images/focahome.webp', videoUrl: '/assets/contentD/video/GX010057.webm', title: 'Encuentro con Lobos Marinos', span: 'col-span-2 row-span-2' },
+    { id: 2, type: 'video', category: 'marine', src: '/assets/images/DolphinDive1.webp', videoUrl: '/assets/contentD/video/GX010057.webm', title: 'Encuentro con Lobos Marinos', span: 'col-span-2 row-span-2' },
     { id: 3, type: 'photo', category: 'marine', src: '/assets/images/alebrije.webp', title: 'Nudibranquio Alebrije', span: 'col-span-1 row-span-1' },
     { id: 4, type: 'video', category: 'marine', src: '/assets/images/slide2.webp', videoUrl: '/assets/contentD/video/GX010803.webm', title: 'Hábitat Submarino', span: 'col-span-2 row-span-1' },
     { id: 5, type: 'video', category: 'marine', src: '/assets/images/slide3.webp', videoUrl: '/assets/contentD/video/tijeritass.webm', title: 'Tijeritas en el Arrecife', span: 'col-span-2 row-span-1' },
