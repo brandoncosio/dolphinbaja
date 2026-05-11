@@ -24,6 +24,7 @@ import logoPadi from '/assets/contentD/img/PADI.png';
 // 👇 NUEVAS IMÁGENES AÑADIDAS
 import funDive1 from '/assets/images/FunDive1.webp';
 import snorkeling1 from '/assets/images/Snorkeling1.webp';
+import funDive2 from '/assets/images/azul.webp';
 
 import gal1 from '/assets/images/Gallery1.webp';
 import gal2 from '/assets/images/colash4.webp';
@@ -41,7 +42,8 @@ import gal9 from '/assets/images/Gallery9.webp';
 // Highlight 1
 const funDivesReel = [
   funDive1,
-  'https://i.imgur.com/jttNzus.mp4' // Video crudo desde Imgur
+  //'https://i.imgur.com/jttNzus.mp4' // Video crudo desde Imgur
+  funDive2
 ];
 
 // Highlight 2 (Mantenemos las que estaban y añadimos la nueva al final)
