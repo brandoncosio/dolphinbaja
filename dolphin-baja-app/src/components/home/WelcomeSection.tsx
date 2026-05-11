@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
-import img1 from '/assets/images/DolphinDive1.webp';
-import img2 from '/assets/images/DolphinDive2.webp';
+import img1 from '/assets/images/corales.webp';
+import img2 from '/assets/images/CANGREJO.webp';
 
 const slideImages = [img1, img2];
 
@@ -72,7 +72,7 @@ export default function WelcomeSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
                     {/* =========================================
-                        COLUMNA IZQUIERDA: IMAGEN EDITORIAL (CARRUSEL)
+                        COLUMNA IZQUIERDA: IMAGEN EDITORIAL (CARRUSEL VERTICAL)
                         ========================================= */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, x: -30 }}
@@ -84,10 +84,10 @@ export default function WelcomeSection() {
                         {/* Marco decorativo trasero */}
                         <div className="absolute -inset-4 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-[2.5rem] lg:rounded-[3.5rem] transform -rotate-3 transition-transform duration-700 group-hover:-rotate-6 z-0"></div>
 
-                        {/* Contenedor de la Imagen: Ahora usa bg-slate-900 para alojar la imagen completa */}
-                        <div className="w-full h-[400px] sm:h-[500px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-4 border-white dark:border-white/10 bg-slate-900 flex items-center justify-center">
+                        {/* ✅ CORRECCIÓN: Contenedor con Aspect Ratio Vertical (3/4) */}
+                        <div className="w-full aspect-[3/4] sm:max-w-md lg:max-w-full mx-auto rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-4 border-white dark:border-white/10 bg-slate-100 dark:bg-slate-900 flex items-center justify-center">
 
-                            {/* Animación del carrusel: Object-contain evita la pérdida de calidad/recortes */}
+                            {/* ✅ CORRECCIÓN: object-cover para que las fotos verticales llenen el espacio grandes y completas */}
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={currentImgIndex}
@@ -97,7 +97,7 @@ export default function WelcomeSection() {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 1, ease: "easeInOut" }}
-                                    className="w-full h-full object-contain"
+                                    className="w-full h-full object-cover"
                                 />
                             </AnimatePresence>
 
