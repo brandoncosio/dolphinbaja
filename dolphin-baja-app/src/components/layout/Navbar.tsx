@@ -12,53 +12,80 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const { t, toggleLanguage, lang } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
-  // Control de Scroll
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Cerrar menús al cambiar de página
   useEffect(() => {
     if (isMenuOpen) setIsMenuOpen(false);
     if (hoveredMenu) setHoveredMenu(null);
+    setIsBookingOpen(false);
     setOpenMobileSubmenu(null);
   }, [location.pathname]);
 
-  // Scroll suave a Hashes (#)
   useEffect(() => {
     if (location.hash) {
       const elem = document.getElementById(location.hash.substring(1));
       if (elem) {
-        const yOffset = isScrolled ? -100 : -140;
+        const yOffset = window.scrollY > 50 ? -100 : -140;
         const y = elem.getBoundingClientRect().top + window.scrollY + yOffset;
         setTimeout(() => window.scrollTo({ top: y, behavior: 'smooth' }), 100);
       }
     }
-  }, [location, isScrolled]);
+  }, [location]);
 
-  // Bloquear scroll del fondo en menú móvil
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
     return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
 
-  // 🚀 EVENTO: Disparo de Sileo Toast
-  const handleReservation = (e: React.MouseEvent) => {
+  // ========================================================================
+  // 🌍 MENSAJES PREDETERMINADOS DINÁMICOS
+  // ========================================================================
+  const defaultMessage = lang === 'es'
+    ? 'Hola Equipo Dolphin, me gustaría reservar, ¿me dan más información por favor?'
+    : 'Hello Dolphin Team, I would like to book, could you give me more information please?';
+
+  const defaultEmailSubject = lang === 'es' ? 'Nueva Reserva desde Web' : 'New Booking from Website';
+
+  // 🚀 EVENTOS DE RESERVA
+  const handleWhatsApp = (e: React.MouseEvent) => {
     e.preventDefault();
     sileo.success({
       title: lang === 'es' ? '¡Conectando con el equipo!' : 'Connecting with our team!',
       description: lang === 'es' ? 'Abriendo chat seguro en WhatsApp...' : 'Opening a secure WhatsApp chat...',
     });
     setTimeout(() => {
-      window.open('https://wa.me/526131182311', '_blank');
+      window.open(`https://wa.me/526131182311?text=${encodeURIComponent(defaultMessage)}`, '_blank');
     }, 1500);
+    setIsBookingOpen(false);
+  };
+
+  // 👇 SMART EMAIL BUTTON
+  const handleEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const email = 'ventas@dolphindivebaja.com';
+
+    navigator.clipboard.writeText(email).catch(() => { });
+
+    sileo.success({
+      title: lang === 'es' ? '¡Correo copiado al portapapeles!' : 'Email copied to clipboard!',
+      description: lang === 'es' ? 'Abriendo tu app de correo...' : 'Opening your mail app...',
+    });
+
+    setTimeout(() => {
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(defaultEmailSubject)}&body=${encodeURIComponent(defaultMessage)}`;
+    }, 800);
+
+    setIsBookingOpen(false);
   };
 
   const navItems = [
@@ -98,9 +125,6 @@ export default function Navbar() {
     }
   ];
 
-  // ========================================================================
-  // 🎨 ESTILOS PREMIUM
-  // ========================================================================
   const headerClass = `
     fixed z-[100] left-1/2 -translate-x-1/2 transition-all duration-500 ease-in-out flex items-center justify-between
     ${isScrolled
@@ -136,65 +160,29 @@ export default function Navbar() {
   return (
     <>
       <header className={headerClass}>
-
-        {/* =========================================
-            1. COLUMNA IZQUIERDA (LOGO + TOOLTIP FLOTANTE)
-            ========================================= */}
         <div className="flex-1 flex items-center justify-start z-50">
           <Link to="/" className="relative flex items-center group shrink-0" onClick={() => setIsMenuOpen(false)}>
-            <img
-              src={logo}
-              alt="Dolphin Dive Baja"
-              className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'
-                }`}
-            />
-            {/* 👇 Tooltip elegante que solo aparece al pasar el cursor */}
+            <img src={logo} alt="Dolphin Dive Baja" className={`transition-all duration-500 ease-in-out w-auto object-contain drop-shadow-md md:group-hover:scale-105 ${isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'}`} />
             <span className="absolute left-full ml-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-navy/90 dark:bg-white/90 text-white dark:text-navy font-title text-[9px] md:text-[10px] tracking-widest uppercase rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap hidden lg:block -translate-x-2 group-hover:translate-x-0">
               {lang === 'es' ? 'Ir al inicio' : 'Back to home'}
             </span>
           </Link>
         </div>
 
-        {/* =========================================
-            2. COLUMNA CENTRAL (NAVEGACIÓN)
-            ========================================= */}
         <nav className="hidden lg:flex flex-none items-center justify-center gap-1 xl:gap-2 h-full z-50 mt-1 md:mt-0">
           {navItems.map((item, idx) => {
             const isActive = hoveredMenu === item.name;
-
             return (
-              <div
-                key={idx}
-                className="relative flex flex-col items-center justify-center cursor-pointer h-full px-1"
-                onMouseEnter={() => item.submenu ? setHoveredMenu(item.name) : null}
-                onMouseLeave={() => setHoveredMenu(null)}
-              >
-                {/* Botón Principal */}
-                <Link
-                  to={item.path}
-                  className={`relative z-20 flex items-center gap-1.5 font-body text-xs lg:text-[13px] font-bold uppercase tracking-[0.15em] transition-all duration-300 py-2.5 px-4 rounded-xl whitespace-nowrap
-                  ${isActive
-                      ? 'text-cyan-600 dark:text-cyan-400 bg-slate-100/50 dark:bg-white/5'
-                      : 'text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 bg-transparent'}`}
-                >
+              <div key={idx} className="relative flex flex-col items-center justify-center cursor-pointer h-full px-1" onMouseEnter={() => item.submenu ? setHoveredMenu(item.name) : null} onMouseLeave={() => setHoveredMenu(null)}>
+                <Link to={item.path} className={`relative z-20 flex items-center gap-1.5 font-body text-xs lg:text-[13px] font-bold uppercase tracking-[0.15em] transition-all duration-300 py-2.5 px-4 rounded-xl whitespace-nowrap ${isActive ? 'text-cyan-600 dark:text-cyan-400 bg-slate-100/50 dark:bg-white/5' : 'text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 bg-transparent'}`}>
                   {item.name}
                   {item.submenu && <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${isActive ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : 'opacity-40'}`}></i>}
-
-                  {/* Línea Activa */}
                   <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full w-0 bg-cyan-500 transition-all duration-300 ${isActive || location.pathname === item.path ? 'w-3/4' : ''}`} />
                 </Link>
 
-                {/* 👇 DROPDOWN SILEO ULTRA ANIMADO */}
                 <AnimatePresence>
                   {item.submenu && isActive && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -25, scaleX: 0.4, scaleY: 0.2, filter: "blur(15px)" }}
-                      animate={{ opacity: 1, y: 0, scaleX: 1, scaleY: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, y: -20, scaleX: 0.7, scaleY: 0.4, filter: "blur(10px)" }}
-                      transition={{ type: "spring", stiffness: 450, damping: 25, mass: 1 }}
-                      style={{ transformOrigin: "top center" }}
-                      className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[240px] z-10 pt-1"
-                    >
+                    <motion.div initial={{ opacity: 0, y: -25, scaleX: 0.4, scaleY: 0.2, filter: "blur(15px)" }} animate={{ opacity: 1, y: 0, scaleX: 1, scaleY: 1, filter: "blur(0px)" }} exit={{ opacity: 0, y: -20, scaleX: 0.7, scaleY: 0.4, filter: "blur(10px)" }} transition={{ type: "spring", stiffness: 450, damping: 25, mass: 1 }} style={{ transformOrigin: "top center" }} className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[240px] z-10 pt-1">
                       <div className={dropdownContainerClass}>
                         <div className="flex flex-col relative z-10 gap-0.5">
                           {item.submenu.map((subItem, subIdx) => (
@@ -204,9 +192,7 @@ export default function Navbar() {
                                 <i className="ri-external-link-line opacity-40 group-hover/link:opacity-100 transition-opacity text-base"></i>
                               </a>
                             ) : (
-                              <Link key={subIdx} to={subItem.link} className={`${dropdownItemClass} block`}>
-                                <span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span>
-                              </Link>
+                              <Link key={subIdx} to={subItem.link} className={`${dropdownItemClass} block`}><span className="inline-block group-hover/link:translate-x-1 transition-transform">{subItem.label}</span></Link>
                             )
                           ))}
                         </div>
@@ -219,105 +205,76 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* =========================================
-            3. COLUMNA DERECHA (CONTROLES)
-            ========================================= */}
         <div className="flex-1 flex items-center justify-end gap-2 md:gap-3 z-50">
-
-          {/* Desktop Only: Theme & Language */}
           <div className="hidden lg:flex items-center gap-3">
             <button onClick={toggleTheme} className={iconBtnClass} aria-label="Toggle Theme">
               <motion.div key={theme} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
                 {theme === 'dark' ? <i className="ri-sun-fill text-xl"></i> : <i className="ri-moon-clear-fill text-xl"></i>}
               </motion.div>
             </button>
-
             <button onClick={toggleLanguage} className={langBtnClass} aria-label="Toggle Language">
-              <img
-                src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"}
-                alt="Flag"
-                className="w-5 h-5 rounded-full object-cover border border-black/10 dark:border-white/20 shadow-sm"
-              />
+              <img src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} alt="Flag" className="w-5 h-5 rounded-full object-cover border border-black/10 dark:border-white/20 shadow-sm" />
               <span className="font-title text-[11px] font-bold tracking-widest mt-0.5">{lang === 'es' ? 'EN' : 'ES'}</span>
             </button>
           </div>
 
-          {/* Botón WhatsApp Sileo (Desktop) - 🟢 VERDE WHATSAPP */}
-          <button onClick={handleReservation} className="hidden lg:flex items-center gap-2 rounded-xl border px-5 py-2.5 xl:px-6 xl:py-3 font-title text-[10px] xl:text-xs tracking-widest uppercase transition-all hover:scale-105 active:scale-95 shadow-md group bg-green-500 border-green-500 text-white hover:bg-green-400 hover:border-green-400 hover:shadow-green-500/30 dark:bg-green-600 dark:border-green-600 dark:text-white dark:hover:bg-green-500 dark:hover:border-green-500">
-            {t.navbar.cta} <i className="ri-whatsapp-line text-lg xl:text-xl group-hover:scale-110 transition-transform"></i>
-          </button>
-
-          {/* Controles Móviles */}
-          <div className="flex lg:hidden items-center gap-2">
-            <button onClick={toggleLanguage} className={iconBtnClass}>
-              <img src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} alt="Flag" className="w-5 h-5 rounded-full object-cover shadow-sm" />
+          <div className="hidden lg:block relative" onMouseEnter={() => setIsBookingOpen(true)} onMouseLeave={() => setIsBookingOpen(false)}>
+            <button className="flex items-center gap-2 rounded-xl border px-5 py-2.5 xl:px-6 xl:py-3 font-title text-[10px] xl:text-xs tracking-widest uppercase transition-all shadow-md group bg-cyan-600 border-cyan-600 text-white hover:bg-cyan-500 hover:border-cyan-500">
+              {t.navbar.cta} <i className={`ri-arrow-down-s-line text-lg transition-transform duration-300 ${isBookingOpen ? 'rotate-180' : ''}`}></i>
             </button>
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={iconBtnClass}>
-              {isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-4-line text-xl"></i>}
-            </button>
+            <AnimatePresence>
+              {isBookingOpen && (
+                <motion.div initial={{ opacity: 0, y: -10, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -10, scale: 0.95 }} transition={{ duration: 0.2 }} className="absolute right-0 top-full mt-2 w-[220px] z-10 pt-1">
+                  <div className={dropdownContainerClass}>
+                    <div className="flex flex-col relative z-10 gap-1">
+                      <button onClick={handleWhatsApp} className="flex items-center gap-3 px-4 py-3.5 text-[13px] font-body font-bold tracking-wide rounded-xl transition-all duration-300 group/btn bg-green-50 text-green-700 hover:bg-green-500 hover:text-white dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-500 dark:hover:text-white">
+                        <i className="ri-whatsapp-line text-xl group-hover/btn:scale-110 transition-transform"></i> {lang === 'es' ? 'Por WhatsApp' : 'Via WhatsApp'}
+                      </button>
+                      <button onClick={handleEmail} className="flex items-center gap-3 px-4 py-3.5 text-[13px] font-body font-bold tracking-wide rounded-xl transition-all duration-300 group/btn bg-slate-50 text-slate-700 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10">
+                        <i className="ri-mail-send-line text-xl group-hover/btn:scale-110 transition-transform"></i> {lang === 'es' ? 'Por Correo' : 'Via Email'}
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
+          <div className="flex lg:hidden items-center gap-2">
+            <button onClick={toggleLanguage} className={iconBtnClass}><img src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} alt="Flag" className="w-5 h-5 rounded-full object-cover shadow-sm" /></button>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={iconBtnClass}>{isMenuOpen ? <i className="ri-close-line text-2xl"></i> : <i className="ri-menu-4-line text-xl"></i>}</button>
+          </div>
         </div>
       </header>
 
-      {/* ========================================================================
-          📱 NUEVO MENÚ MÓVIL FULL-SCREEN (App-Like Modal)
-          ======================================================================== */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: "100%" }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "100%" }}
-            transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-            className="fixed inset-0 z-[110] bg-white/95 dark:bg-dark/95 backdrop-blur-3xl lg:hidden flex flex-col overflow-hidden"
-          >
-            {/* Header del Menú Móvil */}
+          <motion.div initial={{ opacity: 0, y: "100%" }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: "100%" }} transition={{ type: 'spring', damping: 25, stiffness: 250 }} className="fixed inset-0 z-[110] bg-white/95 dark:bg-dark/95 backdrop-blur-3xl lg:hidden flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-6 py-6 border-b border-slate-200 dark:border-white/10">
               <img src={logo} alt="Logo" className="h-10 object-contain" />
-              <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white">
-                <i className="ri-close-line text-2xl"></i>
-              </button>
+              <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-white"><i className="ri-close-line text-2xl"></i></button>
             </div>
-
-            {/* Cuerpo del Menú */}
             <div className="flex-1 overflow-y-auto px-6 py-8">
               <nav className="flex flex-col gap-2">
                 {navItems.map((item, idx) => (
                   <div key={idx} className="border-b border-slate-100 dark:border-white/5 pb-2">
                     <div className="flex items-center justify-between w-full py-4">
-                      <Link to={item.path} className="text-3xl font-title text-navy dark:text-white" onClick={() => setIsMenuOpen(false)}>
-                        {item.name}
-                      </Link>
+                      <Link to={item.path} className="text-3xl font-title text-navy dark:text-white" onClick={() => setIsMenuOpen(false)}>{item.name}</Link>
                       {item.submenu && (
-                        <button
-                          onClick={() => setOpenMobileSubmenu(openMobileSubmenu === item.name ? null : item.name)}
-                          className="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-300 active:bg-cyan-100 dark:active:bg-cyan-900"
-                        >
+                        <button onClick={() => setOpenMobileSubmenu(openMobileSubmenu === item.name ? null : item.name)} className="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-300 active:bg-cyan-100 dark:active:bg-cyan-900">
                           <i className={`ri-arrow-down-s-line text-3xl transition-transform duration-300 ${openMobileSubmenu === item.name ? 'rotate-180 text-cyan-600 dark:text-cyan-400' : ''}`}></i>
                         </button>
                       )}
                     </div>
-
                     <AnimatePresence>
                       {item.submenu && openMobileSubmenu === item.name && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
                           <div className="pl-6 pb-6 flex flex-col gap-6 border-l-2 border-cyan-400/30 ml-2 mt-2">
                             {item.submenu.map((sub, i) => (
                               sub.link.startsWith('http') ? (
-                                <a key={i} href={sub.link} target="_blank" rel="noopener noreferrer" className="text-xl font-body font-medium text-slate-500 dark:text-slate-400 flex items-center justify-between" onClick={() => setIsMenuOpen(false)}>
-                                  {sub.label} <i className="ri-external-link-line opacity-40"></i>
-                                </a>
+                                <a key={i} href={sub.link} target="_blank" rel="noopener noreferrer" className="text-xl font-body font-medium text-slate-500 dark:text-slate-400 flex items-center justify-between" onClick={() => setIsMenuOpen(false)}>{sub.label} <i className="ri-external-link-line opacity-40"></i></a>
                               ) : (
-                                <Link key={i} to={sub.link} className="text-xl font-body font-medium text-slate-500 dark:text-slate-400" onClick={() => setIsMenuOpen(false)}>
-                                  {sub.label}
-                                </Link>
+                                <Link key={i} to={sub.link} className="text-xl font-body font-medium text-slate-500 dark:text-slate-400" onClick={() => setIsMenuOpen(false)}>{sub.label}</Link>
                               )
                             ))}
                           </div>
@@ -328,54 +285,37 @@ export default function Navbar() {
                 ))}
               </nav>
             </div>
-
-            {/* Footer del Menú Móvil */}
             <div className="p-6 bg-slate-50 dark:bg-[#0f172a] border-t border-slate-200 dark:border-white/10 flex flex-col gap-4">
-              <div className="flex items-center justify-between gap-4">
-                <button onClick={toggleTheme} className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 font-title text-xs tracking-widest uppercase text-slate-600 dark:text-slate-300 shadow-sm">
-                  {theme === 'dark' ? <><i className="ri-sun-fill text-lg"></i> Claro</> : <><i className="ri-moon-clear-fill text-lg"></i> Oscuro</>}
+              <div className="flex items-center gap-3">
+                <button onClick={handleEmail} className="flex-1 py-4 rounded-xl flex items-center justify-center gap-2 bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-white font-title text-xs tracking-widest uppercase shadow-sm active:scale-95 transition-transform">
+                  <i className="ri-mail-send-line text-xl"></i> {lang === 'es' ? 'Correo' : 'Email'}
                 </button>
-                <button onClick={toggleLanguage} className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 font-title text-xs tracking-widest uppercase text-slate-600 dark:text-slate-300 shadow-sm">
-                  <img src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} alt="Flag" className="w-5 h-5 rounded-full object-cover" />
+                <button onClick={handleWhatsApp} className="flex-1 py-4 rounded-xl flex items-center justify-center gap-2 bg-green-500 text-white font-title text-xs tracking-widest uppercase shadow-lg active:scale-95 transition-transform dark:bg-green-600">
+                  <i className="ri-whatsapp-line text-xl"></i> WhatsApp
+                </button>
+              </div>
+              <div className="flex items-center justify-between gap-3 mt-2">
+                <button onClick={toggleTheme} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 font-title text-[10px] tracking-widest uppercase text-slate-600 dark:text-slate-300 shadow-sm">
+                  {theme === 'dark' ? <><i className="ri-sun-fill text-base"></i> Claro</> : <><i className="ri-moon-clear-fill text-base"></i> Oscuro</>}
+                </button>
+                <button onClick={toggleLanguage} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 font-title text-[10px] tracking-widest uppercase text-slate-600 dark:text-slate-300 shadow-sm">
+                  <img src={lang === 'es' ? "https://flagcdn.com/us.svg" : "https://flagcdn.com/mx.svg"} alt="Flag" className="w-4 h-4 rounded-full object-cover" />
                   {lang === 'es' ? 'English' : 'Español'}
                 </button>
               </div>
-
-              <button onClick={handleReservation} className="w-full py-4 rounded-xl flex items-center justify-center gap-3 bg-green-500 text-white font-title text-sm tracking-widest uppercase shadow-lg active:scale-95 transition-transform mt-2 dark:bg-green-600">
-                <i className="ri-whatsapp-line text-2xl"></i> {t.navbar.cta}
-              </button>
             </div>
-
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ========================================================================
-          💬 LOGO FLOTANTE WHATSAPP (Con Logo del Cliente + Badge Verde)
-          ======================================================================== */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[80]">
         <div className="relative group">
-          {/* Pulso verde de fondo que indica que es WhatsApp */}
           <div className="absolute inset-0 bg-green-400/50 rounded-full animate-ping opacity-75"></div>
-
-          <button
-            onClick={handleReservation}
-            className="relative w-16 h-16 md:w-20 md:h-20 bg-white/95 dark:bg-navy/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300"
-            aria-label="Contactar por WhatsApp"
-          >
-            {/* EL LOGO DEL CLIENTE (El protagonista) */}
-            <img
-              src={logo}
-              alt="WhatsApp Dolphin Dive Baja"
-              className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-md group-hover:drop-shadow-xl transition-all"
-            />
-
-            {/* BADGE DE WHATSAPP (Aclara inmediatamente la acción del botón) */}
+          <button onClick={handleWhatsApp} className="relative w-16 h-16 md:w-20 md:h-20 bg-white/95 dark:bg-navy/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300" aria-label="Contactar por WhatsApp">
+            <img src={logo} alt="WhatsApp Dolphin Dive Baja" className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-md group-hover:drop-shadow-xl transition-all" />
             <div className="absolute -bottom-1 -right-1 w-6 h-6 md:w-7 md:h-7 bg-green-500 rounded-full border-2 border-white dark:border-navy flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12">
               <i className="ri-whatsapp-line text-white text-sm md:text-base"></i>
             </div>
-
-            {/* Tooltip redondeado congruente con los demás botones */}
             <span className="absolute right-[115%] top-1/2 -translate-y-1/2 mr-2 px-4 py-2 bg-white/95 dark:bg-dark/95 backdrop-blur-md text-navy dark:text-white border border-slate-200 dark:border-white/10 font-title text-[10px] md:text-xs tracking-widest uppercase rounded-xl shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
               {lang === 'es' ? '¡Chatea con nosotros!' : 'Chat with us!'}
             </span>

@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { serviceAssets, generateGallery, ModalData } from './servicesData';
 import { useLanguage } from '../../context/LanguageContext';
+import { sileo } from 'sileo';
 
 interface PackagesGridProps {
-    paquetesData?: any; // Se mantiene por compatibilidad, pero usaremos los datos locales
+    paquetesData?: any;
     setModalData: (data: ModalData) => void;
     setCurrentImageIdx: (idx: number) => void;
     scrollToSection: (id: string) => void;
@@ -12,9 +13,6 @@ interface PackagesGridProps {
 export default function PackagesGrid({ setModalData, setCurrentImageIdx, scrollToSection }: PackagesGridProps) {
     const { lang } = useLanguage();
 
-    // ========================================================================
-    // 📚 DATOS LOCALES (Control total y traducciones perfectas)
-    // ========================================================================
     const pageData = {
         es: {
             title: "Paquetes de Buceo",
@@ -90,15 +88,34 @@ export default function PackagesGrid({ setModalData, setCurrentImageIdx, scrollT
 
     const content = pageData[lang === 'en' ? 'en' : 'es'];
 
+    // 👇 Helper de Correo Inteligente para los Paquetes
+    const handleSmartEmail = (e: React.MouseEvent, packageName: string) => {
+        e.preventDefault();
+        const email = 'ventas@dolphindivebaja.com';
+        const subject = lang === 'es' ? `Reserva Paquete: ${packageName}` : `Package Booking: ${packageName}`;
+        const message = lang === 'es'
+            ? `Hola Equipo Dolphin, me gustaría reservar el paquete ${packageName}, ¿me dan más información por favor?`
+            : `Hello Dolphin Team, I would like to book the ${packageName} package, could you give me more information please?`;
+
+        navigator.clipboard.writeText(email).catch(() => { });
+
+        sileo.success({
+            title: lang === 'es' ? '¡Correo copiado al portapapeles!' : 'Email copied to clipboard!',
+            description: lang === 'es' ? 'Abriendo tu app de correo...' : 'Opening your mail app...',
+        });
+
+        setTimeout(() => {
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        }, 800);
+    };
+
     return (
         <section id="paquetes" className="mb-8 md:mb-16 scroll-mt-28">
-            {/* ENCABEZADO */}
             <div className="text-center mb-6 md:mb-8">
                 <h2 className="font-title text-3xl md:text-5xl text-navy dark:text-white drop-shadow-sm mb-4">{content.title}</h2>
                 <p className="font-body font-bold tracking-widest uppercase text-xs md:text-sm text-cyan-600 dark:text-cyan-400">{content.subtitle}</p>
             </div>
 
-            {/* 👇 BANNER DE INCLUSIONES GLOBALES (Añadido aquí) */}
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -113,7 +130,6 @@ export default function PackagesGrid({ setModalData, setCurrentImageIdx, scrollT
                 </p>
             </motion.div>
 
-            {/* GRID DE PAQUETES */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {content.items.map((pkg: any, idx: number) => {
                     let badgeClass = "text-blue-600 border-blue-400 bg-blue-50 dark:bg-blue-400/10 dark:text-blue-400";
@@ -168,10 +184,15 @@ export default function PackagesGrid({ setModalData, setCurrentImageIdx, scrollT
                                         className="w-full py-3.5 rounded-xl font-title text-[10px] md:text-xs tracking-widest uppercase transition-all active:scale-95 border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10">
                                         {content.btnDetails}
                                     </button>
-                                    <a href={`mailto:ventas@dolphindivebaja.com?subject=Reserva Paquete: ${pkg.name}`} rel="noopener noreferrer"
-                                        className="w-full py-3.5 rounded-xl font-title text-[10px] md:text-xs tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500">
+
+                                    {/* 👇 BOTÓN DE CORREO INTELIGENTE (Reemplazó a la etiqueta 'a') */}
+                                    <button
+                                        onClick={(e) => handleSmartEmail(e, pkg.name)}
+                                        className="w-full py-3.5 rounded-xl font-title text-[10px] md:text-xs tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all active:scale-95 border shadow-md bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:text-navy dark:border-cyan-500"
+                                    >
                                         {content.btnBook} <i className="ri-mail-line text-base"></i>
-                                    </a>
+                                    </button>
+
                                 </div>
                             </div>
                         </motion.article>
