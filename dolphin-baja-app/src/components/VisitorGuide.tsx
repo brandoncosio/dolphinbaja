@@ -5,8 +5,21 @@ import { useLanguage } from '../context/LanguageContext';
 import viajeImg from '/assets/images/Viaje.webp';
 
 export default function VisitorGuide() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const content = t.contact.visitorGuide;
+
+  // ========================================================================
+  // 🌟 SOBREESCRITURA DE TEXTOS (A petición directa del cliente)
+  // ========================================================================
+  const customTag = lang === 'es' ? 'Cómo llegar' : 'How to get there';
+
+  const customRoadText = lang === 'es'
+    ? "Puedes rentar un auto y disfrutar los paisajes de la carretera transpeninsular (14 hrs desde Tijuana, 4 hrs desde La Paz o 6 hrs desde Los Cabos) o viajar cómodamente en Autobuses Águila."
+    : "You can rent a car and enjoy the scenery of the transpeninsular highway (14 hrs from Tijuana, 4 hrs from La Paz, or 6 hrs from Los Cabos) or travel comfortably on Autobuses Águila.";
+
+  const customHotelText = lang === 'es'
+    ? "Loreto cuenta con una gran variedad de alojamientos, incluyendo varios hoteles boutique de propiedad local con servicio personalizado. Recomendamos estos hoteles cercanos en el centro de Loreto."
+    : "Loreto has many choice accommodations including several locally owned boutique hotels with personalized service. We recommend these nearby hotels in central Loreto.";
 
   // Estilo base para las tarjetas de cristal
   const glassCardClass = `
@@ -17,7 +30,7 @@ export default function VisitorGuide() {
 
   return (
     <section id="guia" className="relative py-24 px-6 md:px-20 z-10 max-w-7xl mx-auto scroll-mt-20">
-      
+
       {/* Encabezado de la Sección */}
       <div className="text-center mb-16">
         <motion.span
@@ -26,7 +39,7 @@ export default function VisitorGuide() {
           viewport={{ once: true }}
           className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-cyan-600 dark:text-cyan-400 mb-4 block font-body drop-shadow-md"
         >
-          {content.tag}
+          {customTag}
         </motion.span>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -41,12 +54,12 @@ export default function VisitorGuide() {
 
       {/* Grid de Información (Estilo Bento) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        
+
         {/* COLUMNA IZQUIERDA */}
         <div className="flex flex-col gap-6 md:gap-8">
-          
+
           {/* Tarjeta: Ubicación */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -64,7 +77,7 @@ export default function VisitorGuide() {
           </motion.div>
 
           {/* Tarjeta: Carretera */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -78,12 +91,12 @@ export default function VisitorGuide() {
               <h3 className="font-title text-2xl text-navy dark:text-white">{content.road.title}</h3>
             </div>
             <p className="font-body text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-              {content.road.text}
+              {customRoadText}
             </p>
           </motion.div>
 
-          {/* 👇 NUEVA TARJETA: Imagen de Viaje */}
-          <motion.div 
+          {/* TARJETA: Imagen de Viaje */}
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -91,9 +104,9 @@ export default function VisitorGuide() {
             className="rounded-[2rem] overflow-hidden border border-slate-200 dark:border-white/10 shadow-lg relative group flex-grow min-h-[250px] md:min-h-[300px]"
           >
             <div className="absolute inset-0 bg-dark/10 z-10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
-            <img 
-              src={viajeImg} 
-              alt="Viaje a Loreto" 
+            <img
+              src={viajeImg}
+              alt="Viaje a Loreto"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
             />
@@ -103,9 +116,9 @@ export default function VisitorGuide() {
 
         {/* COLUMNA DERECHA */}
         <div className="flex flex-col gap-6 md:gap-8">
-          
+
           {/* Tarjeta: Vuelos */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -132,7 +145,7 @@ export default function VisitorGuide() {
           </motion.div>
 
           {/* Tarjeta: Hoteles */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -146,7 +159,7 @@ export default function VisitorGuide() {
               <h3 className="font-title text-2xl text-navy dark:text-white">{content.hotels.title}</h3>
             </div>
             <p className="font-body text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-4">
-              {content.hotels.text}
+              {customHotelText}
             </p>
             <p className="font-body text-sm text-cyan-700 dark:text-cyan-300 italic mb-6">
               {content.hotels.list}

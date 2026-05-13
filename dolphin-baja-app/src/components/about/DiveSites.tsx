@@ -40,14 +40,14 @@ const mapImg = '/assets/images/diving_map.webp';
 
 export default function DiveSites() {
   const { t, lang } = useLanguage();
-  const content = t.diveSites; 
+  const content = t.diveSites;
   const [selectedPoint, setSelectedPoint] = useState<any | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   // Pool extendido con 26 imágenes para evitar repeticiones en los 30 puntos
   const imagePool = [
-    alebrije, bubblem, buceoImg, caballitos, cert1, cert2, cert3, cert4, 
-    padi, colash1, colash2, colash3, colash4, colash5, colash6, colash7, 
+    alebrije, bubblem, buceoImg, caballitos, cert1, cert2, cert3, cert4,
+    padi, colash1, colash2, colash3, colash4, colash5, colash6, colash7,
     colorF, cor1, cor2, experiencias, nocturno, recorrido, slide1, slide2, slide3
   ];
 
@@ -67,8 +67,8 @@ export default function DiveSites() {
       p1: "Un santuario marino protegido por la UNESCO que abarca 206,000 hectáreas de océano prístino, hogar de 5 islas y más de 40 sitios de buceo para todos los niveles de experiencia.",
       p2: "Explora un mundo de formaciones volcánicas espectaculares y una rica biodiversidad marina.",
       sightingsTitle: "Vida Marina que te espera:",
-      sightings1: "Delfines • mantas mobula • peces voladores • ballenas (por temporada).",
-      sightings2: "Corales • Anémonas • Tortugas • Tiburones • Pecio C-54 • Lobos marinos • Vida macro.",
+      sightings1: "Delfines • mobula • peces voladores • ballenas (por temporada).",
+      sightings2: "Peces • Lobos marinos • Corales • Anémonas • Vida macro • Tortugas • Tiburones • Pecio C-54.",
       nightDiveText: "* Buceos nocturnos disponibles para buzos avanzados:",
       nightDiveBtn: "Ver Info",
       tempTitle: "Temperaturas del Agua",

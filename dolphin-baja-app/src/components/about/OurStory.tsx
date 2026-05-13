@@ -22,7 +22,7 @@ export default function OurStory() {
       mission: {
         tag: "NUESTRO COMPROMISO",
         main: "Revelar a nuestros invitados la belleza del océano para inspirar su protección.",
-        highlight: "Aquí, la prioridad es clara: primero los animales, después los animales y siempre los animales.",
+        highlight: "Compartir la belleza del océano es nuestra misión; inspirar su conservación, nuestro propósito.",
         end: "Nosotros somos solo visitantes en su hogar.",
         btn: "Contactar a la familia"
       }
@@ -41,7 +41,7 @@ export default function OurStory() {
       mission: {
         tag: "OUR STATEMENT",
         main: "Reveal the beauty of the ocean to our guests and inspire its protection.",
-        highlight: "Here, the priority is clear: first the animals, then the animals, and always the animals.",
+        highlight: "Sharing the beauty of the ocean is our mission; inspiring its conservation, our purpose.",
         end: "We are only visitors in their home.",
         btn: "Contact the family"
       }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
+import { sileo } from 'sileo';
 import SplashScreen from '../components/layout/SplashScreen';
 import contactBg from '/assets/images/slide2.webp';
 import VisitorGuide from '../components/VisitorGuide';
@@ -10,8 +11,6 @@ import { useLanguage } from '../context/LanguageContext';
 export default function Contacto() {
     const [isLoading, setIsLoading] = useState(true);
     const { t, lang } = useLanguage();
-
-    const [openFaq, setOpenFaq] = useState<number | null>(0);
 
     useEffect(() => {
         const hasLoaded = sessionStorage.getItem('hasLoadedContact');
@@ -46,11 +45,44 @@ export default function Contacto() {
         }
     }, [isLoading]);
 
-    const whatsappMessage = "Hola Dolphin Dive Baja, me gustaría recibir información para reservar una experiencia.";
-    const whatsappLink = `https://wa.me/526131182311?text=${encodeURIComponent(whatsappMessage)}`;
+    // ========================================================================
+    // 🌍 LÓGICA DE CONTACTO INTELIGENTE
+    // ========================================================================
+    const defaultMessage = lang === 'es'
+        ? 'Hola Equipo Dolphin, me gustaría reservar, ¿me dan más información por favor?'
+        : 'Hello Dolphin Team, I would like to book, could you give me more information please?';
+
+    const defaultEmailSubject = lang === 'es' ? 'Nueva Reserva desde Web' : 'New Booking from Website';
+
+    const handleWhatsApp = (e: React.MouseEvent) => {
+        e.preventDefault();
+        sileo.success({
+            title: lang === 'es' ? '¡Conectando con el equipo!' : 'Connecting with our team!',
+            description: lang === 'es' ? 'Abriendo chat seguro en WhatsApp...' : 'Opening a secure WhatsApp chat...',
+        });
+        setTimeout(() => {
+            window.open(`https://wa.me/526131182311?text=${encodeURIComponent(defaultMessage)}`, '_blank');
+        }, 1500);
+    };
+
+    const handleSmartEmail = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const email = 'ventas@dolphindivebaja.com';
+
+        navigator.clipboard.writeText(email).catch(() => { });
+
+        sileo.success({
+            title: lang === 'es' ? '¡Correo copiado al portapapeles!' : 'Email copied to clipboard!',
+            description: lang === 'es' ? 'Abriendo tu app de correo...' : 'Opening your mail app...',
+        });
+
+        setTimeout(() => {
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(defaultEmailSubject)}&body=${encodeURIComponent(defaultMessage)}`;
+        }, 800);
+    };
 
     // ========================================================================
-    // 🎨 ESTILOS PREMIUM
+    // 🎨 ESTILOS PREMIUM UNIFICADOS PARA LAS 3 TARJETAS
     // ========================================================================
     const pageContainerClass = `
         relative min-h-screen pb-20 selection:bg-cyan-400 selection:text-dark overflow-hidden transition-colors duration-500
@@ -58,22 +90,10 @@ export default function Contacto() {
         dark:bg-dark dark:text-white
     `;
 
-    const whatsAppCardClass = `
-        md:col-span-2 lg:col-span-1 border p-10 md:p-12 rounded-[2.5rem] flex flex-col justify-center items-center text-center relative overflow-hidden group transition-all duration-500 shadow-2xl hover:-translate-y-2
-        bg-white/90 backdrop-blur-2xl border-green-200 hover:shadow-green-300/40 hover:border-green-400
-        dark:bg-white/5 dark:border-white/10 dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] dark:hover:border-green-500/50
-    `;
-
-    const secondaryCardClass = `
-        border p-8 md:p-10 rounded-[2rem] flex flex-col items-start transition-all duration-500 group shadow-lg hover:-translate-y-2 hover:shadow-2xl
-        bg-white/90 backdrop-blur-xl border-slate-200 hover:border-cyan-400
-        dark:bg-white/5 dark:border-white/10 dark:shadow-[0_15px_40px_rgba(0,0,0,0.4)] dark:hover:border-cyan-400/50
-    `;
-
-    const iconBoxClass = `
-        w-14 h-14 rounded-2xl border flex items-center justify-center mb-6 transition-all duration-500 shadow-sm
-        bg-slate-50 border-slate-200 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white group-hover:shadow-md group-hover:border-cyan-600
-        dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 dark:group-hover:bg-cyan-500 dark:group-hover:text-navy dark:group-hover:border-cyan-400
+    const primaryCardClass = `
+        border p-8 md:p-12 rounded-[2.5rem] flex flex-col justify-center items-center text-center relative overflow-hidden group transition-all duration-500 shadow-xl hover:-translate-y-2 hover:shadow-2xl
+        bg-white/90 backdrop-blur-2xl border-slate-200
+        dark:bg-white/5 dark:border-white/10 dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]
     `;
 
     return (
@@ -114,16 +134,20 @@ export default function Contacto() {
 
                     <div className="relative z-10 text-center px-6 md:px-12 max-w-4xl mx-auto pointer-events-none">
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-64 w-[90%] md:w-[600px] rounded-full blur-[100px] pointer-events-none transition-colors duration-500 bg-cyan-500/20 dark:bg-cyan-500/10" />
+
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                            {/* Texto "Sin formularios largos" ELIMINADO */}
                             <span className="inline-block font-body text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 px-5 py-2 md:px-6 md:py-2.5 rounded-full backdrop-blur-xl border transition-all duration-500 shadow-lg pointer-events-auto bg-white/90 border-white/60 text-cyan-700 dark:bg-black/60 dark:border-white/10 dark:text-cyan-400">
-                                {t.contact.hero.subtitle}
+                                {lang === 'es' ? 'Hablemos de tu próxima aventura' : "Let's talk about your next adventure"}
                             </span>
                         </motion.div>
+
                         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
                             className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 md:mb-8 drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] leading-tight text-white">
                             {t.contact.hero.titleStart} <br className="hidden md:block" />
                             <span className="text-yellow-400 drop-shadow-md">{t.contact.hero.titleHighlight}</span>
                         </motion.h1>
+
                         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
                             className="font-body text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] text-slate-100">
                             {t.contact.hero.text}
@@ -132,61 +156,82 @@ export default function Contacto() {
                 </section>
 
                 <section className="px-6 md:px-12 max-w-7xl mx-auto -mt-32 md:-mt-48 relative z-20">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+
+                        {/* =========================================
+                            TARJETA 1: WHATSAPP
+                            ========================================= */}
                         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-                            className={`${whatsAppCardClass} lg:col-span-1 md:col-span-2`}
+                            className={`${primaryCardClass} border-green-200 hover:border-green-400 hover:shadow-green-300/40 dark:hover:border-green-500/50`}
                         >
                             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <div className="relative z-10 w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mb-8 shadow-xl animate-pulse bg-gradient-to-br from-green-400 to-green-600 dark:shadow-green-500/20">
+
+                            <div className="relative z-10 w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mb-6 shadow-xl animate-pulse bg-gradient-to-br from-green-400 to-green-600 dark:shadow-green-500/20">
                                 <i className="ri-whatsapp-line text-4xl md:text-5xl text-white"></i>
                             </div>
-                            <h3 className="relative z-10 font-title text-3xl md:text-4xl mb-4 text-navy dark:text-white leading-tight">
+
+                            <h3 className="relative z-10 font-title text-3xl md:text-4xl mb-3 text-navy dark:text-white leading-tight">
                                 {t.contact.cards.whatsapp.title}
                             </h3>
-                            <p className="relative z-10 font-body text-sm md:text-base mb-10 leading-relaxed font-medium text-slate-600 dark:text-slate-300">
+                            <p className="relative z-10 font-body text-sm md:text-base mb-8 leading-relaxed font-medium text-slate-600 dark:text-slate-300 flex-grow">
                                 {t.contact.cards.whatsapp.text}
                             </p>
-                            <a href={whatsappLink} target="_blank" rel="noopener noreferrer"
-                                className="relative z-10 w-full px-8 py-4 font-title text-xs md:text-sm tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-95 bg-green-500 hover:bg-green-400 text-white dark:bg-green-600 dark:hover:bg-green-500">
+
+                            <button onClick={handleWhatsApp} className="relative z-10 w-full px-8 py-4 font-title text-xs md:text-sm tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-95 bg-green-500 hover:bg-green-400 text-white dark:bg-green-600 dark:hover:bg-green-500">
                                 <i className="ri-chat-1-line text-xl"></i> {t.contact.cards.whatsapp.btn}
-                            </a>
+                            </button>
                         </motion.div>
 
+                        {/* =========================================
+                            TARJETA 2: CORREO (SMART EMAIL)
+                            ========================================= */}
                         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-                            className={secondaryCardClass}
+                            className={`${primaryCardClass} border-cyan-200 hover:border-cyan-400 hover:shadow-cyan-300/40 dark:hover:border-cyan-500/50`}
                         >
-                            <div className={`${iconBoxClass} text-yellow-600 border-yellow-200 group-hover:bg-yellow-400 group-hover:border-yellow-400 group-hover:text-navy dark:text-yellow-400 dark:border-white/20`}>
-                                <i className="ri-mail-send-fill text-2xl"></i>
+                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                            <div className="relative z-10 w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mb-6 shadow-xl animate-pulse bg-gradient-to-br from-cyan-400 to-cyan-600 dark:shadow-cyan-500/20">
+                                <i className="ri-mail-send-fill text-4xl md:text-5xl text-white"></i>
                             </div>
-                            <h3 className="font-title text-2xl md:text-3xl mb-3 text-navy dark:text-white">{t.contact.cards.email.title}</h3>
-                            <p className="font-body text-sm font-medium mb-8 flex-grow leading-relaxed text-slate-600 dark:text-slate-300">
+
+                            <h3 className="relative z-10 font-title text-3xl md:text-4xl mb-3 text-navy dark:text-white leading-tight">
+                                {t.contact.cards.email.title}
+                            </h3>
+                            <p className="relative z-10 font-body text-sm md:text-base mb-8 leading-relaxed font-medium text-slate-600 dark:text-slate-300 flex-grow">
                                 {t.contact.cards.email.text}
                             </p>
-                            <a href="mailto:ventas@dolphindivebaja.com" className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-cyan-600 hover:border-cyan-300 dark:border-white/20 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-cyan-400 dark:hover:border-cyan-500/50 active:scale-95">
-                                {t.contact.cards.email.link} <i className="ri-arrow-right-line text-base"></i>
-                            </a>
+
+                            <button onClick={handleSmartEmail} className="relative z-10 w-full px-8 py-4 font-title text-xs md:text-sm tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-95 bg-cyan-600 hover:bg-cyan-500 text-white dark:bg-cyan-600 dark:hover:bg-cyan-500">
+                                <i className="ri-mail-line text-xl"></i> {t.contact.cards.email.link}
+                            </button>
                         </motion.div>
 
+                        {/* =========================================
+                            TARJETA 3: UBICACIÓN
+                            ========================================= */}
                         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
-                            className={secondaryCardClass}
+                            className={`${primaryCardClass} border-yellow-200 hover:border-yellow-400 hover:shadow-yellow-300/40 dark:hover:border-yellow-500/50`}
                         >
-                            <div className={iconBoxClass}>
-                                <i className="ri-map-pin-2-fill text-2xl"></i>
+                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                            <div className="relative z-10 w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mb-6 shadow-xl animate-pulse bg-gradient-to-br from-yellow-400 to-yellow-600 dark:shadow-yellow-500/20">
+                                <i className="ri-map-pin-2-fill text-4xl md:text-5xl text-white"></i>
                             </div>
-                            <h3 className="font-title text-2xl md:text-3xl mb-3 text-navy dark:text-white">{t.contact.cards.visit.title}</h3>
-                            <p className="font-body text-sm font-medium mb-8 flex-grow leading-relaxed text-slate-600 dark:text-slate-300">
+
+                            <h3 className="relative z-10 font-title text-3xl md:text-4xl mb-3 text-navy dark:text-white leading-tight">
+                                {t.contact.cards.visit.title}
+                            </h3>
+                            <p className="relative z-10 font-body text-sm md:text-base mb-8 leading-relaxed font-medium text-slate-600 dark:text-slate-300 flex-grow">
                                 {t.contact.cards.visit.text}
                             </p>
-                            <button onClick={() => scrollToSection('ubicacion')} className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl font-title text-[11px] md:text-xs tracking-widest uppercase transition-all border border-cyan-300 text-cyan-700 hover:bg-cyan-50 hover:border-cyan-400 dark:border-cyan-500/30 dark:text-cyan-400 dark:hover:bg-cyan-500/10 active:scale-95">
-                                {t.contact.cards.visit.link} <i className="ri-map-2-line text-base"></i>
+
+                            <button onClick={() => scrollToSection('ubicacion')} className="relative z-10 w-full px-8 py-4 font-title text-xs md:text-sm tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-95 bg-yellow-500 hover:bg-yellow-400 text-white dark:bg-yellow-600 dark:hover:bg-yellow-500">
+                                <i className="ri-map-2-line text-xl"></i> {t.contact.cards.visit.link}
                             </button>
                         </motion.div>
                     </div>
                 </section>
 
-                {/* =========================================
-                    MAPA INTERACTIVO (CON REDIRECCIÓN)
-                ========================================= */}
                 <section id="ubicacion" className="py-12 px-5 md:px-12 max-w-7xl mx-auto scroll-mt-20 relative z-10">
                     <div className="text-center md:text-left mb-10 md:mb-12 border-b border-slate-200 dark:border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
@@ -196,8 +241,6 @@ export default function Contacto() {
                     </div>
 
                     <div className="w-full h-[450px] md:h-[600px] rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border relative group transition-all duration-500 bg-white border-slate-200 shadow-2xl dark:bg-white/5 dark:border-white/10 dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-                        
-                        {/* Iframe del Mapa */}
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3611.834199920197!2d-111.345014!3d26.0122591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86b97541d5f33221%3A0x3d486bfb5b378e58!2sDolphin%20Dive%20Baja!5e0!3m2!1ses-419!2smx!4v1716300000000!5m2!1ses-419!2smx"
                             width="100%"
@@ -210,18 +253,14 @@ export default function Contacto() {
                             className="w-full h-full"
                         ></iframe>
 
-                        {/* 🔗 OVERLAY TRANSPARENTE: Captura el clic y redirige a Google Maps */}
-                        <a 
-                            href="https://maps.app.goo.gl/JdgU6qmLmNTvUrZc6" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
+                        <a
+                            href="https://maps.app.goo.gl/JdgU6qmLmNTvUrZc6"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="absolute inset-0 z-20 cursor-pointer"
                             aria-label="Ver en Google Maps"
-                        >
-                            {/* Este div vacío bloquea la interacción con el iframe y redirige al dar click */}
-                        </a>
+                        ></a>
 
-                        {/* Tarjeta Flotante (Address Box) */}
                         <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 p-6 md:p-8 rounded-3xl shadow-2xl max-w-[280px] z-30 backdrop-blur-2xl border bg-white/95 border-slate-200 dark:bg-dark/90 dark:border-white/20 hidden md:block pointer-events-none">
                             <div className="flex items-center gap-3 mb-3">
                                 <div className="w-10 h-10 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 text-cyan-600 dark:text-cyan-400 shadow-sm">
@@ -238,52 +277,7 @@ export default function Contacto() {
 
                 <VisitorGuide />
 
-                <section id="faq" className="whitespace-pre-line py-10 px-6 md:px-12 scroll-mt-20 relative z-10 border-t border-slate-200 dark:border-white/10 bg-white/50 dark:bg-transparent">
-                    <div className="max-w-4xl mx-auto">
-                        <div className="text-center mb-16">
-                            <span className="inline-block px-5 py-2 rounded-full border text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] mb-4 bg-white border-slate-200 text-cyan-600 dark:bg-white/5 dark:border-white/10 dark:text-cyan-400 shadow-sm">
-                                {t.contact.faq.subtitle}
-                            </span>
-                            <h2 className="font-title text-4xl md:text-5xl text-navy dark:text-white">{t.contact.faq.title}</h2>
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            {t.contact.faq.list.map((faq, idx) => {
-                                const isOpen = openFaq === idx;
-                                return (
-                                    <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
-                                        className={`border rounded-2xl overflow-hidden transition-all duration-300 shadow-sm
-                                        ${isOpen ? 'bg-white shadow-lg border-cyan-400 dark:bg-white/10 dark:border-cyan-500' : 'bg-white/70 border-slate-200 hover:border-cyan-300 dark:bg-white/5 dark:border-white/10 hover:dark:border-white/30'}`}
-                                    >
-                                        <button onClick={() => setOpenFaq(isOpen ? null : idx)} className="w-full p-6 md:p-8 flex items-center justify-between gap-4 text-left cursor-pointer outline-none">
-                                            <h4 className={`font-title text-lg md:text-xl transition-colors pr-4 ${isOpen ? 'text-cyan-700 dark:text-cyan-400' : 'text-navy dark:text-white'}`}>
-                                                {faq.q}
-                                            </h4>
-                                            <div className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-cyan-500 text-white rotate-180' : 'bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-400'}`}>
-                                                <i className={`text-xl transition-transform ${isOpen ? 'ri-subtract-line' : 'ri-add-line'}`}></i>
-                                            </div>
-                                        </button>
-                                        <AnimatePresence>
-                                            {isOpen && (
-                                                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="px-6 md:px-8 pb-6 md:pb-8">
-                                                    <div className="h-[1px] w-full bg-slate-100 dark:bg-white/10 mb-6"></div>
-                                                    <p className="font-body text-sm md:text-base font-medium leading-relaxed text-slate-600 dark:text-slate-300">
-                                                        {faq.a}
-                                                    </p>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
-                        <div className="mt-16 pt-10 text-center border-t border-slate-200 dark:border-white/10">
-                            <p className="font-body text-sm font-medium mb-6 text-slate-500 dark:text-slate-400">{t.contact.faq.more}</p>
-                            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-navy font-title text-sm tracking-widest uppercase px-8 py-4 rounded-xl transition-all duration-300 active:scale-95 shadow-md bg-yellow-400 hover:bg-yellow-300 dark:bg-yellow-400 dark:text-dark dark:hover:bg-yellow-300">
-                                {t.contact.faq.link} <i className="ri-whatsapp-line text-2xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                </section>
+                {/* 👇 LA SECCIÓN DE PREGUNTAS FRECUENTES HA SIDO ELIMINADA DE AQUÍ 👇 */}
 
             </main>
         </div>

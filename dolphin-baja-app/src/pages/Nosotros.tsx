@@ -11,6 +11,7 @@ import AboutHero from '../components/about/AboutHero';
 import OurStory from '../components/about/OurStory';
 import History from '../components/about/History';
 import Team from '../components/about/Team';
+import FAQ from '../components/about/FAQ';
 import SplashScreen from '../components/layout/SplashScreen';
 
 export default function Nosotros() {
@@ -125,6 +126,8 @@ export default function Nosotros() {
 
           {/* 5. El Patio de Juegos (A dónde te llevamos) */}
           <DiveSites />
+
+          <FAQ />
 
         </div>
       </main>

@@ -71,7 +71,7 @@ export default function Highlights() {
       kicker: content.cards[0]?.kicker || "Explora",
       title: content.cards[0]?.title || "Tours de Buceo",
       desc: lang === 'es' ? "Descubre los arrecifes y la increíble vida marina del Parque Nacional Bahía de Loreto con nuestros guías expertos." : "Discover the reefs and incredible marine life of the Loreto Bay National Park with our expert guides.",
-      images: funDivesReel, // 👈 Cambiado a Carrusel Mixto
+      images: funDivesReel,
       link: "/servicios#fundives",
     },
     {
@@ -79,7 +79,7 @@ export default function Highlights() {
       kicker: content.cards[1]?.kicker || "Descubre",
       title: content.cards[1]?.title || "Snorkel",
       desc: lang === 'es' ? "Experiencias de contacto cien por ciento con la naturaleza, puedes encontrar delfines, esnorkelear con los lobos y disfrutar de hermosos paisajes subacuáticos con gran variedad de vida marina." : "Complete 100% nature immersion experiences; encounter dolphins, snorkel with sea lions, and enjoy breathtaking underwater landscapes with a vast variety of marine life.",
-      images: snorkelReel, // Carrusel Snorkel Actualizado
+      images: snorkelReel,
       link: "/servicios#snorkel",
     },
     {
@@ -87,7 +87,7 @@ export default function Highlights() {
       kicker: content.cards[2]?.kicker || "Aprende",
       title: content.cards[2]?.title || "Cursos PADI",
       desc: lang === 'es' ? "A la hora de enseñarte a bucear nos preocupamos porque logres desarrollar las mejores habilidades subacuáticas, en todos los niveles, desde open  water hasta dive master." : "When teaching you to dive, our priority is to ensure you develop top-tier underwater skills at every level, from Open Water to Divemaster.",
-      images: padiReel, // 👈 Cambiado a Carrusel Mixto (Videos Imgur)
+      images: padiReel,
       link: "/servicios#cursos",
     },
     {
@@ -95,7 +95,7 @@ export default function Highlights() {
       kicker: content.cards[3]?.kicker || "Conoce",
       title: content.cards[3]?.title || "Nuestro Equipo",
       desc: lang === 'es' ? "Más que compañeros somos una familia. Capitanes y guias locales unidos por una profunda pasión por el mar." : "More than just colleagues, we are a family. Local captains and guides united by a deep-seated passion for the sea.",
-      image: imgStaff, // Este se queda estático
+      image: imgStaff,
       link: "/nosotros#equipo",
     },
     {
@@ -111,7 +111,7 @@ export default function Highlights() {
       kicker: content.cards[5]?.kicker || "Inspírate",
       title: content.cards[5]?.title || "Galería",
       desc: lang === 'es' ? "Aquí te compartimos un poco de nuestras experiencias en el parque nacional bahía de loreto: algo que tú también podrás vivir con dolphin dive baja." : "Here is a glimpse of our experiences in the Loreto Bay National Park: an adventure you can also experience with Dolphin Dive Baja.",
-      images: inspiraReel, // Carrusel con 9 imágenes
+      images: inspiraReel,
       link: "/galeria",
     }
   ];
@@ -132,14 +132,12 @@ export default function Highlights() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  // Referencia general de la sección para el efecto Parallax
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
 
-  // Parallax suave: Las tarjetas suben ligeramente al hacer scroll
   const cardY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
@@ -147,30 +145,59 @@ export default function Highlights() {
       <div className="max-w-7xl mx-auto">
 
         {/* ========================================================================
-            ENCABEZADO DE SECCIÓN
+            ENCABEZADO DE SECCIÓN + VIDEO DE LA CLIENTA
             ======================================================================== */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-20 md:mb-32 text-center md:text-left relative"
-        >
-          <div className="absolute top-1/2 left-1/2 md:-left-10 -translate-x-1/2 md:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500 dark:bg-cyan-400/20 bg-cyan-400/10" />
+        <div className="mb-20 md:mb-32 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 border shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10 mx-auto md:mx-0">
-            <i className="ri-compass-3-line text-sm"></i> {content.tag}
-          </span>
+          {/* COLUMNA 1: Textos */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full lg:w-1/2 text-center lg:text-left relative"
+          >
+            <div className="absolute top-1/2 left-1/2 lg:-left-10 -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500 dark:bg-cyan-400/20 bg-cyan-400/10" />
 
-          <h2 className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-sm transition-colors duration-500 dark:text-white text-navy">
-            {content.titleStart} <br className="hidden md:block" />
-            <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
-          </h2>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 border shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10 mx-auto lg:mx-0">
+              <i className="ri-compass-3-line text-sm"></i> {content.tag}
+            </span>
 
-          <p className="mt-5 md:mt-8 max-w-2xl mx-auto md:mx-0 text-base sm:text-lg leading-relaxed font-body font-medium transition-colors duration-500 dark:text-slate-300 text-slate-600">
-            {content.desc}
-          </p>
-        </motion.div>
+            <h2 className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-sm transition-colors duration-500 dark:text-white text-navy">
+              {content.titleStart} <br className="hidden lg:block" />
+              <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
+            </h2>
+
+            <p className="mt-5 md:mt-8 max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed font-body font-medium transition-colors duration-500 dark:text-slate-300 text-slate-600">
+              {content.desc}
+            </p>
+          </motion.div>
+
+          {/* COLUMNA 2: Video Solicitado */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="w-full lg:w-1/2 relative"
+          >
+            <div className="relative w-full aspect-[4/3] lg:aspect-video rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 bg-slate-900 group">
+              <video
+                src="/assets/contentD/video/tu_nueva_experiencia.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              {/* Capa protectora sutil para que el video no desentone brillando mucho */}
+              <div className="absolute inset-0 bg-navy/10 dark:bg-black/20 pointer-events-none mix-blend-overlay"></div>
+            </div>
+
+            {/* Elemento decorativo detrás del video */}
+            <div className="absolute -inset-4 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-[2.5rem] lg:rounded-[3rem] transform rotate-3 -z-10 transition-transform duration-700 group-hover:rotate-6"></div>
+          </motion.div>
+        </div>
 
         {/* ========================================================================
             ZIG-ZAG CINEMATOGRÁFICO CON PARALLAX

@@ -50,7 +50,7 @@ export default function Team() {
           img: "/assets/nosotros/kaliman2.png" // 👈 Cambia por la ruta real de Kalimán
         },
         {
-          name: "Eruviel",
+          name: "Luis",
           role: "Guía Local",
           desc: "De familia de pescadores y pescador de corazón, muestra un gran entusiasmo por aprender sobre el turismo de naturaleza. Le apasiona cuidar su entorno y siempre está dispuesto a colaborar en lo que se necesite.",
           img: "/assets/nosotros/luis.webp" // 👈 Cambia por la ruta real de Eruviel
@@ -105,7 +105,7 @@ export default function Team() {
           img: "/assets/nosotros/kaliman2.png"
         },
         {
-          name: "Eruviel",
+          name: "Luis",
           role: "Local Guide",
           desc: "Coming from a family of fishermen and a fisherman at heart, he shows great enthusiasm for learning about nature tourism. He is passionate about caring for his environment and is always willing to help.",
           img: "/assets/nosotros/luis.webp"

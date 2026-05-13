@@ -88,6 +88,7 @@ export default function Navbar() {
     setIsBookingOpen(false);
   };
 
+  // 👇 ESTRUCTURA DEL MENÚ CORREGIDA
   const navItems = [
     {
       name: t.navbar.about,
@@ -95,7 +96,9 @@ export default function Navbar() {
       submenu: [
         { label: lang === 'es' ? 'Nuestra Historia' : 'Our Story', link: '/nosotros#historia' },
         { label: lang === 'es' ? 'Nuestro Equipo' : 'Our Team', link: '/nosotros#equipo' },
-        { label: lang === 'es' ? 'Sitios de Buceo' : 'Dive Sites', link: '/nosotros#divesites' }
+        { label: lang === 'es' ? 'Sitios de Buceo' : 'Dive Sites', link: '/nosotros#divesites' },
+        // 👇 FAQ movido aquí correctamente
+        { label: lang === 'es' ? 'Preguntas Frecuentes' : 'FAQ', link: '/nosotros#faq' }
       ]
     },
     {
@@ -118,9 +121,9 @@ export default function Navbar() {
       path: '/contacto',
       submenu: [
         { label: t.navbar.submenu.location || (lang === 'es' ? 'Ubicación' : 'Location'), link: '/contacto#ubicacion' },
-        { label: t.contact.visitorGuide?.tag || (lang === 'es' ? 'Guía de Viaje' : 'Travel Guide'), link: '/contacto#guia' },
-        { label: t.navbar.submenu.whatsapp || 'WhatsApp', link: 'https://wa.me/526131182311' },
-        { label: t.navbar.submenu.faq || 'FAQ', link: '/contacto#faq' }
+        { label: t.contact.visitorGuide?.tag || (lang === 'es' ? 'Cómo llegar' : 'How to get there'), link: '/contacto#guia' },
+        { label: t.navbar.submenu.whatsapp || 'WhatsApp', link: 'https://wa.me/526131182311' }
+        // FAQ eliminado de aquí
       ]
     }
   ];
