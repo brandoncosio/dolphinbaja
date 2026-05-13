@@ -3,7 +3,7 @@ import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
 import img1 from '/assets/images/corales.webp';
-import img2 from '/assets/images/CANGREJO.webp';
+import img2 from '/assets/images/med.webp';
 
 const slideImages = [img1, img2];
 

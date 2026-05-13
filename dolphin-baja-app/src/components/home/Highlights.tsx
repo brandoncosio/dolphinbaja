@@ -11,55 +11,51 @@ import { useLanguage } from '../../context/LanguageContext';
 import imgStaff from '/assets/images/staff.webp';
 
 // Reels anteriores conservados
-import reel1 from '/assets/contentD/img/reel1.webp';
-import reel2 from '/assets/contentD/img/reel2.webp';
-import reel3 from '/assets/contentD/img/reel3.webp';
-import reel4 from '/assets/contentD/img/reel4.webp';
-import reel5 from '/assets/contentD/img/reel5.webp';
-import reel6 from '/assets/contentD/img/reel6.webp';
+import reel1 from '/assets/contentD/img/sn4.webp';
+import reel2 from '/assets/contentD/img/sn3.webp';
+import reel3 from '/assets/contentD/img/sn1.webp';
+import reel4 from '/assets/contentD/img/loc1.webp';
+import reel5 from '/assets/contentD/img/loc2.webp';
+import reel6 from '/assets/contentD/img/loc3.webp';
 
 // Logo PADI
 import logoPadi from '/assets/contentD/img/PADI.png';
 
 // 👇 NUEVAS IMÁGENES AÑADIDAS
-import funDive1 from '/assets/images/FunDive1.webp';
-import snorkeling1 from '/assets/images/Snorkeling1.webp';
-import funDive2 from '/assets/images/azul.webp';
+import funDive2 from '/assets/contentD/img/reel3.webp';
 
 import gal1 from '/assets/images/Gallery1.webp';
 import gal2 from '/assets/images/colash4.webp';
-import gal3 from '/assets/images/Gallery3.webp';
-import gal4 from '/assets/images/Gallery4.webp';
-import gal5 from '/assets/images/Gallery5.webp';
-import gal6 from '/assets/images/Gallery6.webp';
-import gal7 from '/assets/images/Gallery7.webp';
-import gal8 from '/assets/images/Gallery8.webp';
-import gal9 from '/assets/images/Gallery9.webp';
+import gal3 from '/assets/images/CANGREJO.webp';
+import gal4 from '/assets/images/g1.webp';
+import gal5 from '/assets/images/g2.webp';
+import gal6 from '/assets/images/g3.webp';
+import gal7 from '/assets/images/med.webp';
+import gal8 from '/assets/images/g5.webp';
+import gal9 from '/assets/images/g6.webp';
+
+//Nuevas 
+import fun from '/assets/images/fun2.webp';
+import pad1 from '/assets/contentD/img/pad1.webp';
+import tim from '/assets/contentD/img/tim.webm';
 
 // ========================================================================
 // 🎞️ CONFIGURACIÓN DE LOS CARROUSELES (Smart Media: Soporta .mp4 y .webp)
 // ========================================================================
 // Highlight 1
-const funDivesReel = [
-  funDive1,
-  //'https://i.imgur.com/jttNzus.mp4' // Video crudo desde Imgur
-  funDive2
-];
+const funDivesReel = [funDive2, fun];
 
-// Highlight 2 (Mantenemos las que estaban y añadimos la nueva al final)
-const snorkelReel = [reel1, reel2, reel3, snorkeling1];
+// Highlight 2
+const snorkelReel = [reel1, reel2, reel3];
 
 // Highlight 3
-const padiReel = [
-  'https://i.imgur.com/0l2FaYA.mp4',
-  'https://i.imgur.com/oVfZxpX.mp4'
-];
+const padiReel = [pad1, 'https://i.imgur.com/oVfZxpX.mp4'];
 
 // Highlight 5
-const planificaReel = [reel4, reel5, reel6];
+const planificaReel = [reel6, reel5, reel4];
 
-// Highlight 6 (Nuevas 9 imágenes de galería)
-const inspiraReel = [gal1, gal2, gal3, gal4, gal5, gal6, gal7, gal8, gal9];
+// Highlight 6
+const inspiraReel = [gal5, gal6, gal7, gal4, gal8, gal9 ,gal1, gal2, gal3];
 
 export default function Highlights() {
   const { t, lang } = useLanguage();
@@ -86,7 +82,7 @@ export default function Highlights() {
       id: 3,
       kicker: content.cards[2]?.kicker || "Aprende",
       title: content.cards[2]?.title || "Cursos PADI",
-      desc: lang === 'es' ? "A la hora de enseñarte a bucear nos preocupamos porque logres desarrollar las mejores habilidades subacuáticas, en todos los niveles, desde open  water hasta dive master." : "When teaching you to dive, our priority is to ensure you develop top-tier underwater skills at every level, from Open Water to Divemaster.",
+      desc: lang === 'es' ? "A la hora de enseñarte a bucear nos preocupamos porque logres desarrollar las mejores habilidades subacuáticas, en todos los niveles, desde open water hasta dive master." : "When teaching you to dive, our priority is to ensure you develop top-tier underwater skills at every level, from Open Water to Divemaster.",
       images: padiReel,
       link: "/servicios#cursos",
     },
@@ -95,7 +91,7 @@ export default function Highlights() {
       kicker: content.cards[3]?.kicker || "Conoce",
       title: content.cards[3]?.title || "Nuestro Equipo",
       desc: lang === 'es' ? "Más que compañeros somos una familia. Capitanes y guias locales unidos por una profunda pasión por el mar." : "More than just colleagues, we are a family. Local captains and guides united by a deep-seated passion for the sea.",
-      image: imgStaff,
+      images: [imgStaff, tim], // ✅ Ahora usa el carrusel con la imagen y el video tim.webm
       link: "/nosotros#equipo",
     },
     {
@@ -116,9 +112,6 @@ export default function Highlights() {
     }
   ];
 
-  // ========================================================================
-  // 🎭 VARIANTES TIPADAS PARA TYPESCRIPT
-  // ========================================================================
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -144,12 +137,7 @@ export default function Highlights() {
     <section ref={sectionRef} className="relative z-10 w-full py-8 md:py-16 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
       <div className="max-w-7xl mx-auto">
 
-        {/* ========================================================================
-            ENCABEZADO DE SECCIÓN + VIDEO DE LA CLIENTA
-            ======================================================================== */}
         <div className="mb-20 md:mb-32 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-
-          {/* COLUMNA 1: Textos */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -158,22 +146,18 @@ export default function Highlights() {
             className="w-full lg:w-1/2 text-center lg:text-left relative"
           >
             <div className="absolute top-1/2 left-1/2 lg:-left-10 -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500 dark:bg-cyan-400/20 bg-cyan-400/10" />
-
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 border shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10 mx-auto lg:mx-0">
               <i className="ri-compass-3-line text-sm"></i> {content.tag}
             </span>
-
             <h2 className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-sm transition-colors duration-500 dark:text-white text-navy">
               {content.titleStart} <br className="hidden lg:block" />
               <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
             </h2>
-
             <p className="mt-5 md:mt-8 max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed font-body font-medium transition-colors duration-500 dark:text-slate-300 text-slate-600">
               {content.desc}
             </p>
           </motion.div>
 
-          {/* COLUMNA 2: Video Solicitado */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -184,35 +168,23 @@ export default function Highlights() {
             <div className="relative w-full aspect-[4/3] lg:aspect-video rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 bg-slate-900 group">
               <video
                 src="/assets/contentD/video/tu_nueva_experiencia.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
+                autoPlay loop muted playsInline
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              {/* Capa protectora sutil para que el video no desentone brillando mucho */}
               <div className="absolute inset-0 bg-navy/10 dark:bg-black/20 pointer-events-none mix-blend-overlay"></div>
             </div>
-
-            {/* Elemento decorativo detrás del video */}
             <div className="absolute -inset-4 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-[2.5rem] lg:rounded-[3rem] transform rotate-3 -z-10 transition-transform duration-700 group-hover:rotate-6"></div>
           </motion.div>
         </div>
 
-        {/* ========================================================================
-            ZIG-ZAG CINEMATOGRÁFICO CON PARALLAX
-            ======================================================================== */}
         <div className="flex flex-col gap-24 md:gap-40 lg:gap-48">
           {highlightsData.map((item, idx) => {
             const isEven = idx % 2 === 0;
-
             return (
               <div
                 key={item.id}
                 className={`relative flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center group w-full`}
               >
-
-                {/* 1. IMAGEN GIGANTE O CARRUSEL */}
                 <div className="w-full md:w-[68%] lg:w-[70%] h-[400px] sm:h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative shrink-0 z-0 bg-slate-200 dark:bg-dark/50">
                   {item.images ? (
                     <HighlightSlideReel images={item.images} title={item.title} />
@@ -230,7 +202,6 @@ export default function Highlights() {
                     />
                   )}
 
-                  {/* Logo PADI para Cursos */}
                   {item.id === 3 && (
                     <motion.img
                       initial={{ opacity: 0, y: 20 }}
@@ -243,10 +214,7 @@ export default function Highlights() {
                     />
                   )}
 
-                  {/* Gradiente protector */}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent dark:from-dark/70 opacity-70 transition-colors duration-500 pointer-events-none" />
-
-                  {/* TELÓN REVEAL */}
                   <motion.div
                     initial={{ scaleX: 1 }}
                     whileInView={{ scaleX: 0 }}
@@ -257,7 +225,6 @@ export default function Highlights() {
                   />
                 </div>
 
-                {/* 2. TARJETA DE CRISTAL FLOTANTE (Con Parallax) */}
                 <motion.div
                   style={{ y: cardY }}
                   className={`w-[90%] sm:w-[80%] md:w-[45%] lg:w-[40%] relative z-10 self-center md:self-auto -mt-16 sm:-mt-24 md:mt-0 ${isEven ? 'md:-ml-16 lg:-ml-32' : 'md:-mr-16 lg:-mr-32'}`}
@@ -272,69 +239,36 @@ export default function Highlights() {
                       dark:bg-dark/90 dark:border-white/10 dark:hover:border-white/30"
                   >
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/20"></div>
-
                     <motion.span
                       variants={staggerItem}
-                      className="inline-block px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border
-                        text-cyan-700 bg-cyan-50 border-cyan-200
-                        dark:text-cyan-400 dark:bg-cyan-400/10 dark:border-cyan-400/20"
+                      className="inline-block px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border text-cyan-700 bg-cyan-50 border-cyan-200 dark:text-cyan-400 dark:bg-cyan-400/10 dark:border-cyan-400/20"
                     >
                       {item.kicker}
                     </motion.span>
-
-                    <motion.h3
-                      variants={staggerItem}
-                      className="font-title text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 transition-colors duration-500
-                        text-navy dark:text-white"
-                    >
-                      {item.title}
-                    </motion.h3>
-
-                    <motion.p
-                      variants={staggerItem}
-                      className="font-body text-sm md:text-base leading-relaxed mb-8 transition-colors duration-500 font-medium
-                        text-slate-600 dark:text-slate-300"
-                    >
-                      {item.desc}
-                    </motion.p>
-
+                    <motion.h3 variants={staggerItem} className="font-title text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 transition-colors duration-500 text-navy dark:text-white">{item.title}</motion.h3>
+                    <motion.p variants={staggerItem} className="font-body text-sm md:text-base leading-relaxed mb-8 transition-colors duration-500 font-medium text-slate-600 dark:text-slate-300">{item.desc}</motion.p>
                     <motion.div variants={staggerItem}>
-                      <Link
-                        to={item.link}
-                        className="inline-flex items-center gap-3 font-title text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 group/btn
-                          text-yellow-600 hover:text-yellow-500
-                          dark:text-yellow-400 dark:hover:text-yellow-300"
-                      >
+                      <Link to={item.link} className="inline-flex items-center gap-3 font-title text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 group/btn text-yellow-600 hover:text-yellow-500 dark:text-yellow-400 dark:hover:text-yellow-300">
                         <span className="relative overflow-hidden block">
                           <span className="block transition-transform duration-300 group-hover/btn:-translate-y-full">{content.cardLink || "VER DETALLES"}</span>
                           <span className="absolute top-0 left-0 block translate-y-full transition-transform duration-300 group-hover/btn:translate-y-0">{content.cardLink || "VER DETALLES"}</span>
                         </span>
-
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover/btn:bg-yellow-400 group-hover/btn:text-navy
-                          border-yellow-400/50 bg-yellow-50 text-yellow-600
-                          dark:border-yellow-400/30 dark:bg-yellow-400/10 dark:text-yellow-400"
-                        >
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover/btn:bg-yellow-400 group-hover/btn:text-navy border-yellow-400/50 bg-yellow-50 text-yellow-600 dark:border-yellow-400/30 dark:bg-yellow-400/10 dark:text-yellow-400">
                           <i className="ri-arrow-right-line text-lg sm:text-xl group-hover/btn:translate-x-1 transition-transform"></i>
                         </div>
                       </Link>
                     </motion.div>
-
                   </motion.div>
                 </motion.div>
-
               </div>
             );
           })}
         </div>
-
       </div>
     </section>
   );
 }
 
-// ========================================================================
-// 🛰️ COMPONENTE: HighlightSlideReel (Ahora soporta Videos MP4 Inteligente)
-// ========================================================================
 function HighlightSlideReel({ images, title }: { images: string[], title: string }) {
   const [index, setIndex] = useState(0);
 
@@ -350,7 +284,8 @@ function HighlightSlideReel({ images, title }: { images: string[], title: string
       <AnimatePresence initial={false} mode="popLayout">
         {(() => {
           const currentMedia = images[index];
-          const isVideo = currentMedia.endsWith('.mp4');
+          // ✅ Soporte actualizado para videos .webm
+          const isVideo = currentMedia.endsWith('.mp4') || currentMedia.endsWith('.webm');
 
           return isVideo ? (
             <motion.video
