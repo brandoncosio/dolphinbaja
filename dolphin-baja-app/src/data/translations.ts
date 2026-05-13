@@ -376,7 +376,7 @@ export const translations = {
                 subtitle: "Estamos para ayudarte",
                 titleStart: "Hablemos de tu próxima",
                 titleHighlight: "Aventura",
-                text: "Sin formularios largos. Atención directa y personalizada para planear tu inmersión perfecta en Loreto."
+                text: "Atención directa y personalizada para planear tu inmersión perfecta en Loreto."
             },
             visitorGuide: {
                 tag: "Guía de Viaje",
@@ -820,7 +820,7 @@ export const translations = {
                 subtitle: "We are here to help",
                 titleStart: "Let's plan your next",
                 titleHighlight: "Adventure",
-                text: "No long forms. Direct and personalized attention to plan your perfect dive in Loreto."
+                text: "Direct and personalized attention to plan your perfect dive in Loreto."
             },
             visitorGuide: {
                 tag: "Travel Guide",
