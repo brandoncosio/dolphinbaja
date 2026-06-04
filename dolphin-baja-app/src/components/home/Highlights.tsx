@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, Variants, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 // Importamos el contexto de idioma
@@ -40,22 +40,14 @@ import pad1 from '/assets/contentD/img/pad1.webp';
 import tim from '/assets/contentD/img/tim.webm';
 
 // ========================================================================
-// 🎞️ CONFIGURACIÓN DE LOS CARROUSELES (Smart Media: Soporta .mp4 y .webp)
+// 🎞️ CONFIGURACIÓN DE LOS CARROUSELES
 // ========================================================================
-// Highlight 1
 const funDivesReel = [funDive2, fun];
-
-// Highlight 2
 const snorkelReel = [reel1, reel2, reel3];
-
-// Highlight 3
 const padiReel = [pad1, 'https://i.imgur.com/oVfZxpX.mp4'];
-
-// Highlight 5
+const equipoReel = [imgStaff, tim];
 const planificaReel = [reel6, reel5, reel4];
-
-// Highlight 6
-const inspiraReel = [gal5, gal6, gal7, gal4, gal8, gal9 ,gal1, gal2, gal3];
+const inspiraReel = [gal5, gal6, gal7, gal4, gal8, gal9, gal1, gal2, gal3];
 
 export default function Highlights() {
   const { t, lang } = useLanguage();
@@ -91,7 +83,7 @@ export default function Highlights() {
       kicker: content.cards[3]?.kicker || "Conoce",
       title: content.cards[3]?.title || "Nuestro Equipo",
       desc: lang === 'es' ? "Más que compañeros somos una familia. Capitanes y guias locales unidos por una profunda pasión por el mar." : "More than just colleagues, we are a family. Local captains and guides united by a deep-seated passion for the sea.",
-      images: [imgStaff, tim], // ✅ Ahora usa el carrusel con la imagen y el video tim.webm
+      images: equipoReel,
       link: "/nosotros#equipo",
     },
     {
@@ -126,18 +118,15 @@ export default function Highlights() {
   };
 
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const cardY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={sectionRef} className="relative z-10 w-full py-8 md:py-16 px-5 sm:px-8 md:px-12 lg:px-20 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
-      <div className="max-w-7xl mx-auto">
+    <section ref={sectionRef} className="relative z-10 w-full pt-8 md:pt-16 pb-0 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
 
-        <div className="mb-20 md:mb-32 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+      {/* ========================================================================
+          ENCABEZADO DE SECCIÓN Y VIDEO DEL CLIENTE
+          ======================================================================== */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-20 mb-16 md:mb-24">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -158,6 +147,7 @@ export default function Highlights() {
             </p>
           </motion.div>
 
+          {/* VIDEO PROPORCIONADO POR EL CLIENTE CON LA RUTA CORREGIDA */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -167,108 +157,112 @@ export default function Highlights() {
           >
             <div className="relative w-full aspect-[4/3] lg:aspect-video rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 bg-slate-900 group">
               <video
-                src="/assets/contentD/video/tu_nueva_experiencia.mp4"
                 autoPlay loop muted playsInline
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+              >
+                {/* 👇 Ruta corregida quitando "contentD/" */}
+                <source src="/assets/video/tu_nueva_experiencia.mp4" type="video/mp4" />
+              </video>
               <div className="absolute inset-0 bg-navy/10 dark:bg-black/20 pointer-events-none mix-blend-overlay"></div>
             </div>
             <div className="absolute -inset-4 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-[2.5rem] lg:rounded-[3rem] transform rotate-3 -z-10 transition-transform duration-700 group-hover:rotate-6"></div>
           </motion.div>
         </div>
+      </div>
 
-        <div className="flex flex-col gap-24 md:gap-40 lg:gap-48">
-          {highlightsData.map((item, idx) => {
-            const isEven = idx % 2 === 0;
-            return (
-              <div
-                key={item.id}
-                className={`relative flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center group w-full`}
-              >
-                <div className="w-full md:w-[68%] lg:w-[70%] h-[400px] sm:h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl relative shrink-0 z-0 bg-slate-200 dark:bg-dark/50">
-                  {item.images ? (
-                    <HighlightSlideReel images={item.images} title={item.title} />
-                  ) : (
-                    <motion.img
-                      initial={{ scale: 1.15 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-110 will-change-transform filter contrast-[1.15] saturate-[1.10]"
-                    />
-                  )}
+      {/* ========================================================================
+          PANELERÍA INMERSIVA (FULL-WIDTH EDGE-TO-EDGE - SIN CUADROS DE CRISTAL)
+          ======================================================================== */}
+      <div className="w-full flex flex-col bg-slate-900">
+        {highlightsData.map((item, idx) => {
+          const isEven = idx % 2 === 0;
 
-                  {item.id === 3 && (
-                    <motion.img
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ delay: 0.5, duration: 0.8 }}
-                      src={logoPadi}
-                      alt="PADI Partner"
-                      className="absolute bottom-6 right-6 md:bottom-10 md:right-10 h-12 md:h-20 w-auto z-10 drop-shadow-2xl brightness-110"
-                    />
-                  )}
+          // Gradiente robusto para asegurar legibilidad en PC ya que no hay cuadro
+          const gradientClass = isEven
+            ? "md:bg-gradient-to-r md:from-black/95 md:via-black/50 md:to-transparent"
+            : "md:bg-gradient-to-l md:from-black/95 md:via-black/50 md:to-transparent";
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent dark:from-dark/70 opacity-70 transition-colors duration-500 pointer-events-none" />
-                  <motion.div
-                    initial={{ scaleX: 1 }}
-                    whileInView={{ scaleX: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                    style={{ originX: isEven ? 1 : 0 }}
-                    className="absolute inset-0 bg-slate-50 dark:bg-dark z-20 pointer-events-none"
-                  />
-                </div>
+          return (
+            <div key={item.id} className="relative w-full flex flex-col md:block md:h-[75vh] md:min-h-[600px] overflow-hidden group border-b border-white/5 md:border-none">
+
+              {/* FONDO / IMAGEN */}
+              <div className="relative w-full h-[45vh] min-h-[300px] md:h-full md:absolute md:inset-0 z-0">
+                <HighlightSlideReel images={item.images} title={item.title} />
+
+                {/* Gradiente en Desktop para leer el texto */}
+                <div className={`hidden md:block absolute inset-0 z-10 transition-colors duration-500 pointer-events-none ${gradientClass}`} />
+
+                {/* Suavizado en Móvil entre la foto y el texto */}
+                <div className="md:hidden absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-900 to-transparent z-10 pointer-events-none" />
+              </div>
+
+              {/* CONTENEDOR CENTRALIZADO DEL TEXTO (Sin fondos ni bordes) */}
+              <div className={`relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-20 flex flex-col md:flex-row ${isEven ? 'md:justify-start' : 'md:justify-end'} items-center md:h-full`}>
 
                 <motion.div
-                  style={{ y: cardY }}
-                  className={`w-[90%] sm:w-[80%] md:w-[45%] lg:w-[40%] relative z-10 self-center md:self-auto -mt-16 sm:-mt-24 md:mt-0 ${isEven ? 'md:-ml-16 lg:-ml-32' : 'md:-mr-16 lg:-mr-32'}`}
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  // 👇 Eliminado todo rastro de cristal (bg, backdrop-blur, shadow, border)
+                  className="w-full py-10 md:py-8 lg:p-10 md:w-[55%] lg:w-[45%] flex flex-col justify-center"
                 >
-                  <motion.div
-                    variants={staggerContainer}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="p-7 sm:p-8 md:p-10 lg:p-12 rounded-[2rem] lg:rounded-[2.5rem] backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.15)] border transition-all duration-500 hover:shadow-cyan-500/20
-                      bg-white/95 border-white/80
-                      dark:bg-dark/90 dark:border-white/10 dark:hover:border-white/30"
+                  <motion.span
+                    variants={staggerItem}
+                    className="inline-block self-start px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 md:mb-5 border text-white bg-white/10 border-white/20"
                   >
-                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/20"></div>
-                    <motion.span
-                      variants={staggerItem}
-                      className="inline-block px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border text-cyan-700 bg-cyan-50 border-cyan-200 dark:text-cyan-400 dark:bg-cyan-400/10 dark:border-cyan-400/20"
+                    {item.kicker}
+                  </motion.span>
+
+                  <motion.h3
+                    variants={staggerItem}
+                    className="font-title text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 text-white drop-shadow-lg"
+                  >
+                    {item.title}
+                  </motion.h3>
+
+                  <motion.p
+                    variants={staggerItem}
+                    className="font-body text-sm md:text-base leading-relaxed mb-8 font-medium text-slate-100 drop-shadow-md"
+                  >
+                    {item.desc}
+                  </motion.p>
+
+                  <motion.div variants={staggerItem} className="flex items-center gap-4">
+                    <Link
+                      to={item.link}
+                      className="inline-flex items-center gap-3 font-title text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 group/btn text-yellow-400 hover:text-yellow-300"
                     >
-                      {item.kicker}
-                    </motion.span>
-                    <motion.h3 variants={staggerItem} className="font-title text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 transition-colors duration-500 text-navy dark:text-white">{item.title}</motion.h3>
-                    <motion.p variants={staggerItem} className="font-body text-sm md:text-base leading-relaxed mb-8 transition-colors duration-500 font-medium text-slate-600 dark:text-slate-300">{item.desc}</motion.p>
-                    <motion.div variants={staggerItem}>
-                      <Link to={item.link} className="inline-flex items-center gap-3 font-title text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 group/btn text-yellow-600 hover:text-yellow-500 dark:text-yellow-400 dark:hover:text-yellow-300">
-                        <span className="relative overflow-hidden block">
-                          <span className="block transition-transform duration-300 group-hover/btn:-translate-y-full">{content.cardLink || "VER DETALLES"}</span>
-                          <span className="absolute top-0 left-0 block translate-y-full transition-transform duration-300 group-hover/btn:translate-y-0">{content.cardLink || "VER DETALLES"}</span>
-                        </span>
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover/btn:bg-yellow-400 group-hover/btn:text-navy border-yellow-400/50 bg-yellow-50 text-yellow-600 dark:border-yellow-400/30 dark:bg-yellow-400/10 dark:text-yellow-400">
-                          <i className="ri-arrow-right-line text-lg sm:text-xl group-hover/btn:translate-x-1 transition-transform"></i>
-                        </div>
-                      </Link>
-                    </motion.div>
+                      <span className="relative overflow-hidden block">
+                        <span className="block transition-transform duration-300 group-hover/btn:-translate-y-full">{content.cardLink || "VER DETALLES"}</span>
+                        <span className="absolute top-0 left-0 block translate-y-full transition-transform duration-300 group-hover/btn:translate-y-0">{content.cardLink || "VER DETALLES"}</span>
+                      </span>
+
+                      <div className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover/btn:bg-yellow-400 group-hover/btn:text-navy border-yellow-400/50 bg-yellow-400/10 text-yellow-400">
+                        <i className="ri-arrow-right-line text-lg sm:text-xl group-hover/btn:translate-x-1 transition-transform"></i>
+                      </div>
+                    </Link>
+
+                    {/* Logo PADI en la tarjeta correspondiente */}
+                    {item.id === 3 && (
+                      <img src={logoPadi} alt="PADI" className="h-10 w-auto ml-auto filter drop-shadow-lg" />
+                    )}
                   </motion.div>
+
                 </motion.div>
               </div>
-            );
-          })}
-        </div>
+
+            </div>
+          );
+        })}
       </div>
     </section>
   );
 }
 
+// ========================================================================
+// 🛰️ COMPONENTE: HighlightSlideReel 
+// ========================================================================
 function HighlightSlideReel({ images, title }: { images: string[], title: string }) {
   const [index, setIndex] = useState(0);
 
@@ -280,11 +274,10 @@ function HighlightSlideReel({ images, title }: { images: string[], title: string
   }, [images.length]);
 
   return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
+    <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
       <AnimatePresence initial={false} mode="popLayout">
         {(() => {
           const currentMedia = images[index];
-          // ✅ Soporte actualizado para videos .webm
           const isVideo = currentMedia.endsWith('.mp4') || currentMedia.endsWith('.webm');
 
           return isVideo ? (
@@ -292,11 +285,11 @@ function HighlightSlideReel({ images, title }: { images: string[], title: string
               key={index}
               src={currentMedia}
               autoPlay loop muted playsInline
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ x: { type: "tween", ease: "easeInOut", duration: 1.2 } }}
-              className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full object-cover filter contrast-[1.10] saturate-[1.10]"
             />
           ) : (
             <motion.img
@@ -304,21 +297,21 @@ function HighlightSlideReel({ images, title }: { images: string[], title: string
               src={currentMedia}
               alt={`${title} reel`}
               decoding="async"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ x: { type: "tween", ease: "easeInOut", duration: 1.2 } }}
-              className="absolute inset-0 w-full h-full object-cover filter contrast-[1.15] saturate-[1.10]"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full object-cover filter contrast-[1.10] saturate-[1.10] transform hover:scale-105 duration-[10s]"
             />
           );
         })()}
       </AnimatePresence>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+      <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-30">
         {images.map((_, i) => (
           <div
             key={i}
-            className={`h-1 rounded-full transition-all duration-[1200ms] ${i === index ? 'w-6 bg-cyan-400' : 'w-2 bg-white/30'}`}
+            className={`h-1.5 rounded-full transition-all duration-[1200ms] shadow-sm ${i === index ? 'w-8 bg-cyan-400' : 'w-2 bg-white/40 backdrop-blur-sm'}`}
           />
         ))}
       </div>

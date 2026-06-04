@@ -64,20 +64,24 @@ export default function Contacto() {
             window.open(`https://wa.me/526131182311?text=${encodeURIComponent(defaultMessage)}`, '_blank');
         }, 1500);
     };
-
     const handleSmartEmail = (e: React.MouseEvent) => {
         e.preventDefault();
         const email = 'ventas@dolphindivebaja.com';
 
+        // 1. Copiamos al portapapeles como respaldo
         navigator.clipboard.writeText(email).catch(() => { });
 
+        // 2. Avisamos al usuario con la nueva mensajería
         sileo.success({
-            title: lang === 'es' ? '¡Correo copiado al portapapeles!' : 'Email copied to clipboard!',
-            description: lang === 'es' ? 'Abriendo tu app de correo...' : 'Opening your mail app...',
+            title: lang === 'es' ? '¡Abriendo Gmail!' : 'Opening Gmail!',
+            description: lang === 'es' ? 'También copiamos el correo por si usas otra app.' : 'We also copied the email just in case.',
         });
 
+        // 3. Redirección directa a la composición web de Gmail en una nueva pestaña
+        const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(defaultEmailSubject)}&body=${encodeURIComponent(defaultMessage)}`;
+
         setTimeout(() => {
-            window.location.href = `mailto:${email}?subject=${encodeURIComponent(defaultEmailSubject)}&body=${encodeURIComponent(defaultMessage)}`;
+            window.open(gmailLink, '_blank');
         }, 800);
     };
 
@@ -136,7 +140,6 @@ export default function Contacto() {
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-64 w-[90%] md:w-[600px] rounded-full blur-[100px] pointer-events-none transition-colors duration-500 bg-cyan-500/20 dark:bg-cyan-500/10" />
 
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                            {/* Texto "Sin formularios largos" ELIMINADO */}
                             <span className="inline-block font-body text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 px-5 py-2 md:px-6 md:py-2.5 rounded-full backdrop-blur-xl border transition-all duration-500 shadow-lg pointer-events-auto bg-white/90 border-white/60 text-cyan-700 dark:bg-black/60 dark:border-white/10 dark:text-cyan-400">
                                 {lang === 'es' ? 'Hablemos de tu próxima aventura' : "Let's talk about your next adventure"}
                             </span>
@@ -276,8 +279,6 @@ export default function Contacto() {
                 </section>
 
                 <VisitorGuide />
-
-                {/* 👇 LA SECCIÓN DE PREGUNTAS FRECUENTES HA SIDO ELIMINADA DE AQUÍ 👇 */}
 
             </main>
         </div>

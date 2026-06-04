@@ -11,7 +11,7 @@ export default function VisitorGuide() {
   // ========================================================================
   // 🌟 SOBREESCRITURA DE TEXTOS (A petición directa del cliente)
   // ========================================================================
-  const customTag = lang === 'es' ? 'Cómo llegar' : 'How to get there';
+  const customTag = lang === 'es' ? 'Como llegar' : 'How to get to Loreto';
 
   const customRoadText = lang === 'es'
     ? "Puedes rentar un auto y disfrutar los paisajes de la carretera transpeninsular (14 hrs desde Tijuana, 4 hrs desde La Paz o 6 hrs desde Los Cabos) o viajar cómodamente en Autobuses Águila."

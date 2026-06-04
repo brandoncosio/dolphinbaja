@@ -97,7 +97,7 @@ export default function Destination() {
             {/* Botón de Acción a Google Maps */}
             <div>
               <a
-                href="https://goo.gl/maps/b5R4D1w7c1y3B2A1"
+                href="https://www.google.com/maps/place/Dolphin+Dive+Baja/@26.0122591,-111.3454002,17z/data=!3m1!4b1!4m6!3m5!1s0x86afd34185f33221:0x3d486bfb5b378e58!8m2!3d26.0122591!4d-111.3428253!16s%2Fg%2F1tggp22y?entry=tts&g_ep=EgoyMDI2MDMxOC4xIPu8ASoASAFQAw%3D%3D&skid=3db1b818-31b5-49af-9238-3b2aa6811740"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={primaryBtnClass}
@@ -131,7 +131,7 @@ export default function Destination() {
 
                 {/* 👇 Iframe con URL real de Google Maps de Loreto BCS */}
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28430.73032549216!2d-111.3653139!3d26.0135899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86c7553b1b3fb49d%3A0x67c2dfd13264422e!2sLoreto%2C%20B.C.S.!5e0!3m2!1ses!2smx!4v1700000000000!5m2!1ses!2smx"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3611.834199920197!2d-111.345014!3d26.0122591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86b97541d5f33221%3A0x3d486bfb5b378e58!2sDolphin%20Dive%20Baja!5e0!3m2!1ses-419!2smx!4v1716300000000!5m2!1ses-419!2smx"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

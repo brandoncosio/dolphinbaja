@@ -35,6 +35,7 @@ import recorrido from '/assets/images/DolphinDive1.webp';
 import slide1 from '/assets/images/FunDive1.webp';
 import slide2 from '/assets/images/Gallery1.webp';
 import slide3 from '/assets/images/colash4.webp';
+import { sileo } from 'sileo';
 
 const mapImg = '/assets/images/diving_map.webp';
 
@@ -168,6 +169,28 @@ export default function DiveSites() {
     setSelectedPoint(allPoints[nextIndex]);
   };
 
+  const handleSmartEmail = (e: React.MouseEvent, packageName: string) => {
+    e.preventDefault();
+    const email = 'ventas@dolphindivebaja.com';
+    const subject = lang === 'es' ? `Reserva Paquete: ${packageName}` : `Package Booking: ${packageName}`;
+    const message = lang === 'es'
+      ? `Hola Equipo Dolphin, me gustaría reservar el paquete ${packageName}, ¿me dan más información por favor?`
+      : `Hello Dolphin Team, I would like to book the ${packageName} package, could you give me more information please?`;
+
+    navigator.clipboard.writeText(email).catch(() => { });
+
+    sileo.success({
+      title: lang === 'es' ? '¡Abriendo Gmail!' : 'Opening Gmail!',
+      description: lang === 'es' ? 'También copiamos el correo por si usas otra app.' : 'We also copied the email just in case.',
+    });
+
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+    setTimeout(() => {
+      window.open(gmailLink, '_blank');
+    }, 800);
+  };
+
   return (
     <section id="divesites" className="relative py-8 px-6 md:px-12 lg:px-20 z-10 max-w-[1400px] mx-auto scroll-mt-24">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -197,9 +220,12 @@ export default function DiveSites() {
               </div>
             </div>
           </div>
-          <a href="mailto:ventas@dolphindivebaja.com" className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-title text-sm md:text-base tracking-widest uppercase transition-all active:scale-95 shadow-lg shadow-cyan-500/30 border border-cyan-500">
+          <button
+            onClick={(e) => handleSmartEmail(e, 'Reserva Paquete: ' + localText.bookBtn)}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-title text-sm md:text-base tracking-widest uppercase transition-all active:scale-95 shadow-lg shadow-cyan-500/30 border border-cyan-500"
+          >
             {localText.bookBtn} <i className="ri-calendar-check-line text-xl"></i>
-          </a>
+          </button>
         </motion.div>
 
         {/* COLUMNA DERECHA: MAPA */}

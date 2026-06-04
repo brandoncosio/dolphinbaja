@@ -25,7 +25,6 @@ export default function ServiceModal({ modalData, setModalData, currentImageIdx,
         ? `Hola, me interesa reservar la actividad: ${modalData.title}`
         : `Hello, I'm interested in booking the activity: ${modalData.title}`;
 
-    // 👇 SMART EMAIL BUTTON PARA EL MODAL
     const handleSmartEmail = (e: React.MouseEvent) => {
         e.preventDefault();
         const email = 'ventas@dolphindivebaja.com';
@@ -33,12 +32,14 @@ export default function ServiceModal({ modalData, setModalData, currentImageIdx,
         navigator.clipboard.writeText(email).catch(() => { });
 
         sileo.success({
-            title: lang === 'es' ? '¡Correo copiado al portapapeles!' : 'Email copied to clipboard!',
-            description: lang === 'es' ? 'Abriendo tu app de correo...' : 'Opening your mail app...',
+            title: lang === 'es' ? '¡Abriendo Gmail!' : 'Opening Gmail!',
+            description: lang === 'es' ? 'También copiamos el correo por si usas otra app.' : 'We also copied the email just in case.',
         });
 
+        const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(waMessage)}`;
+
         setTimeout(() => {
-            window.location.href = `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(waMessage)}`;
+            window.open(gmailLink, '_blank');
         }, 800);
     };
 

@@ -69,26 +69,33 @@ export default function Navbar() {
     setIsBookingOpen(false);
   };
 
-  // 👇 SMART EMAIL BUTTON
   const handleEmail = (e: React.MouseEvent) => {
     e.preventDefault();
     const email = 'ventas@dolphindivebaja.com';
 
+    // 1. Copiamos al portapapeles como respaldo
     navigator.clipboard.writeText(email).catch(() => { });
 
+    // 2. Avisamos al usuario
     sileo.success({
-      title: lang === 'es' ? '¡Correo copiado al portapapeles!' : 'Email copied to clipboard!',
-      description: lang === 'es' ? 'Abriendo tu app de correo...' : 'Opening your mail app...',
+      title: lang === 'es' ? '¡Abriendo Gmail!' : 'Opening Gmail!',
+      description: lang === 'es' ? 'También copiamos el correo por si usas otra app.' : 'We also copied the email just in case.',
     });
 
+    // 3. Redirección directa a la composición web de Gmail
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(defaultEmailSubject)}&body=${encodeURIComponent(defaultMessage)}`;
+
     setTimeout(() => {
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(defaultEmailSubject)}&body=${encodeURIComponent(defaultMessage)}`;
+      window.open(gmailLink, '_blank');
     }, 800);
 
-    setIsBookingOpen(false);
+    // Cerramos el menú desplegable si estamos en la Navbar
+    if (typeof setIsBookingOpen === 'function') {
+      setIsBookingOpen(false);
+    }
   };
 
-  // 👇 ESTRUCTURA DEL MENÚ CORREGIDA
+  // 👇 ESTRUCTURA DEL MENÚ CORREGIDA (FORZANDO LOS TEXTOS)
   const navItems = [
     {
       name: t.navbar.about,
@@ -97,7 +104,6 @@ export default function Navbar() {
         { label: lang === 'es' ? 'Nuestra Historia' : 'Our Story', link: '/nosotros#historia' },
         { label: lang === 'es' ? 'Nuestro Equipo' : 'Our Team', link: '/nosotros#equipo' },
         { label: lang === 'es' ? 'Sitios de Buceo' : 'Dive Sites', link: '/nosotros#divesites' },
-        // 👇 FAQ movido aquí correctamente
         { label: lang === 'es' ? 'Preguntas Frecuentes' : 'FAQ', link: '/nosotros#faq' }
       ]
     },
@@ -120,10 +126,10 @@ export default function Navbar() {
       name: t.navbar.contact,
       path: '/contacto',
       submenu: [
-        { label: t.navbar.submenu.location || (lang === 'es' ? 'Ubicación' : 'Location'), link: '/contacto#ubicacion' },
-        { label: t.contact.visitorGuide?.tag || (lang === 'es' ? 'Cómo llegar' : 'How to get there'), link: '/contacto#guia' },
-        { label: t.navbar.submenu.whatsapp || 'WhatsApp', link: 'https://wa.me/526131182311' }
-        // FAQ eliminado de aquí
+        // Usamos strings condicionales directos para ignorar el diccionario que tiene el texto viejo
+        { label: lang === 'es' ? 'Ubicación' : 'Location', link: '/contacto#ubicacion' },
+        { label: lang === 'es' ? 'Cómo llegar' : 'How to get there', link: '/contacto#guia' },
+        { label: 'WhatsApp', link: 'https://wa.me/526131182311' }
       ]
     }
   ];

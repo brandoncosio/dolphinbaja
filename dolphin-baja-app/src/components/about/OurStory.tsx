@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
+import { sileo } from 'sileo';
 
 export default function OurStory() {
   const { lang } = useLanguage();
@@ -92,6 +93,28 @@ export default function OurStory() {
     text-slate-500 group-hover:text-slate-700
     dark:text-slate-400 dark:group-hover:text-slate-200
   `;
+
+  const handleSmartEmail = (e: React.MouseEvent, packageName: string) => {
+    e.preventDefault();
+    const email = 'ventas@dolphindivebaja.com';
+    const subject = lang === 'es' ? `Reserva Paquete: ${packageName}` : `Package Booking: ${packageName}`;
+    const message = lang === 'es'
+      ? `Hola Equipo Dolphin, me gustaría reservar el paquete ${packageName}, ¿me dan más información por favor?`
+      : `Hello Dolphin Team, I would like to book the ${packageName} package, could you give me more information please?`;
+
+    navigator.clipboard.writeText(email).catch(() => { });
+
+    sileo.success({
+      title: lang === 'es' ? '¡Abriendo Gmail!' : 'Opening Gmail!',
+      description: lang === 'es' ? 'También copiamos el correo por si usas otra app.' : 'We also copied the email just in case.',
+    });
+
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+    setTimeout(() => {
+      window.open(gmailLink, '_blank');
+    }, 800);
+  };
 
   return (
     <section className="relative py-8 md:py-16 px-6 overflow-hidden z-10">
@@ -194,15 +217,15 @@ export default function OurStory() {
                 — {content.mission.end}
               </p>
 
-              <a
-                href="mailto:ventas@dolphindivebaja.com"
+              <button
+                onClick={(e) => handleSmartEmail(e, content.mission.btn)}
                 className="inline-flex items-center gap-3 px-8 py-4 rounded-xl text-white font-title text-sm tracking-widest uppercase transition-all duration-300 shadow-lg active:scale-95 
                 bg-cyan-600 hover:bg-cyan-500 hover:-translate-y-1
                 dark:bg-cyan-500 dark:text-navy dark:hover:bg-cyan-400"
               >
                 <i className="ri-mail-send-line text-lg"></i>
                 {content.mission.btn}
-              </a>
+              </button>
             </div>
           </div>
         </motion.div>

@@ -88,7 +88,6 @@ export default function PackagesGrid({ setModalData, setCurrentImageIdx, scrollT
 
     const content = pageData[lang === 'en' ? 'en' : 'es'];
 
-    // 👇 Helper de Correo Inteligente para los Paquetes
     const handleSmartEmail = (e: React.MouseEvent, packageName: string) => {
         e.preventDefault();
         const email = 'ventas@dolphindivebaja.com';
@@ -100,12 +99,14 @@ export default function PackagesGrid({ setModalData, setCurrentImageIdx, scrollT
         navigator.clipboard.writeText(email).catch(() => { });
 
         sileo.success({
-            title: lang === 'es' ? '¡Correo copiado al portapapeles!' : 'Email copied to clipboard!',
-            description: lang === 'es' ? 'Abriendo tu app de correo...' : 'Opening your mail app...',
+            title: lang === 'es' ? '¡Abriendo Gmail!' : 'Opening Gmail!',
+            description: lang === 'es' ? 'También copiamos el correo por si usas otra app.' : 'We also copied the email just in case.',
         });
 
+        const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
         setTimeout(() => {
-            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+            window.open(gmailLink, '_blank');
         }, 800);
     };
 
