@@ -34,7 +34,7 @@ import gal7 from '/assets/images/med.webp';
 import gal8 from '/assets/images/g5.webp';
 import gal9 from '/assets/images/g6.webp';
 
-//Nuevas 
+// Nuevas 
 import fun from '/assets/images/fun2.webp';
 import pad1 from '/assets/contentD/img/pad1.webp';
 import tim from '/assets/contentD/img/tim.webm';
@@ -120,58 +120,65 @@ export default function Highlights() {
   const sectionRef = useRef(null);
 
   return (
-    <section ref={sectionRef} className="relative z-10 w-full pt-8 md:pt-16 pb-0 overflow-hidden transition-colors duration-500 bg-slate-50 dark:bg-dark">
+    // 👇 Fondo oscuro para fusionar todo sin bordes blancos
+    <section ref={sectionRef} className="relative z-10 w-full pt-0 pb-0 overflow-hidden bg-slate-900">
 
       {/* ========================================================================
-          ENCABEZADO DE SECCIÓN Y VIDEO DEL CLIENTE
+          HERO INMERSIVO: ENCABEZADO Y VIDEO (Pantalla Completa Edge-to-Edge)
           ======================================================================== */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-20 mb-16 md:mb-24">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full lg:w-1/2 text-center lg:text-left relative"
-          >
-            <div className="absolute top-1/2 left-1/2 lg:-left-10 -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 -z-10 h-32 md:h-40 w-32 md:w-40 rounded-full blur-[80px] transition-colors duration-500 dark:bg-cyan-400/20 bg-cyan-400/10" />
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 border shadow-sm text-cyan-700 bg-white border-slate-200 dark:text-cyan-400 dark:bg-white/5 dark:border-white/10 mx-auto lg:mx-0">
-              <i className="ri-compass-3-line text-sm"></i> {content.tag}
-            </span>
-            <h2 className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-sm transition-colors duration-500 dark:text-white text-navy">
-              {content.titleStart} <br className="hidden lg:block" />
-              <span className="text-yellow-500 dark:text-yellow-400">{content.titleHighlight}</span>
-            </h2>
-            <p className="mt-5 md:mt-8 max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed font-body font-medium transition-colors duration-500 dark:text-slate-300 text-slate-600">
-              {content.desc}
-            </p>
-          </motion.div>
+      <div className="relative w-full flex flex-col md:block md:h-[80vh] md:min-h-[600px] overflow-hidden group">
 
-          {/* VIDEO PROPORCIONADO POR EL CLIENTE CON LA RUTA CORREGIDA */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="w-full lg:w-1/2 relative"
+        {/* FONDO / VIDEO */}
+        <div className="relative w-full h-[50vh] min-h-[350px] md:h-full md:absolute md:inset-0 z-0 bg-slate-900">
+          {/* 👇 AQUÍ SE AÑADIÓ EL VIDEO SOLICITADO POR EL CLIENTE */}
+          <video
+            autoPlay loop muted playsInline
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[10s] ease-out hover:scale-105 filter contrast-[1.10] saturate-[1.10]"
           >
-            <div className="relative w-full aspect-[4/3] lg:aspect-video rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 bg-slate-900 group">
-              <video
-                autoPlay loop muted playsInline
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              >
-                {/* 👇 Ruta corregida quitando "contentD/" */}
-                <source src="/assets/video/tu_nueva_experiencia.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-navy/10 dark:bg-black/20 pointer-events-none mix-blend-overlay"></div>
-            </div>
-            <div className="absolute -inset-4 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-[2.5rem] lg:rounded-[3rem] transform rotate-3 -z-10 transition-transform duration-700 group-hover:rotate-6"></div>
+            <source src="/assets/contentD/video/tu_nueva_experiencia.mp4" type="video/mp4" />
+          </video>
+          {/* Gradiente oscuro en PC para legibilidad */}
+          <div className="hidden md:block absolute inset-0 z-10 bg-gradient-to-r from-black/95 via-black/60 to-transparent pointer-events-none" />
+          {/* Suavizado en Móvil */}
+          <div className="md:hidden absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900 to-transparent z-10 pointer-events-none" />
+        </div>
+
+        {/* CONTENEDOR DE TEXTO FLOTANTE */}
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-20 flex flex-col md:flex-row md:justify-start items-center md:h-full bg-slate-900 md:bg-transparent pb-16 md:pb-0">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="w-full py-10 md:py-8 lg:p-10 md:w-[60%] lg:w-[50%] flex flex-col justify-center"
+          >
+            <motion.span
+              variants={staggerItem}
+              className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-5 border shadow-sm text-cyan-400 bg-white/5 border-white/10"
+            >
+              <i className="ri-compass-3-line text-sm"></i> {content.tag}
+            </motion.span>
+
+            <motion.h2
+              variants={staggerItem}
+              className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-5 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+            >
+              {content.titleStart} <br className="hidden md:block" />
+              <span className="text-yellow-400 drop-shadow-md">{content.titleHighlight}</span>
+            </motion.h2>
+
+            <motion.p
+              variants={staggerItem}
+              className="font-body text-base sm:text-lg leading-relaxed font-medium text-slate-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+            >
+              {content.desc}
+            </motion.p>
           </motion.div>
         </div>
       </div>
 
       {/* ========================================================================
-          PANELERÍA INMERSIVA (FULL-WIDTH EDGE-TO-EDGE - SIN CUADROS DE CRISTAL)
+          PANELERÍA INMERSIVA (FULL-WIDTH EDGE-TO-EDGE - SIN LÍNEAS DE SEPARACIÓN)
           ======================================================================== */}
       <div className="w-full flex flex-col bg-slate-900">
         {highlightsData.map((item, idx) => {
@@ -183,7 +190,7 @@ export default function Highlights() {
             : "md:bg-gradient-to-l md:from-black/95 md:via-black/50 md:to-transparent";
 
           return (
-            <div key={item.id} className="relative w-full flex flex-col md:block md:h-[75vh] md:min-h-[600px] overflow-hidden group border-b border-white/5 md:border-none">
+            <div key={item.id} className="relative w-full flex flex-col md:block md:h-[75vh] md:min-h-[600px] overflow-hidden group">
 
               {/* FONDO / IMAGEN */}
               <div className="relative w-full h-[45vh] min-h-[300px] md:h-full md:absolute md:inset-0 z-0">
@@ -204,7 +211,6 @@ export default function Highlights() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-50px" }}
-                  // 👇 Eliminado todo rastro de cristal (bg, backdrop-blur, shadow, border)
                   className="w-full py-10 md:py-8 lg:p-10 md:w-[55%] lg:w-[45%] flex flex-col justify-center"
                 >
                   <motion.span
@@ -233,12 +239,12 @@ export default function Highlights() {
                       to={item.link}
                       className="inline-flex items-center gap-3 font-title text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 group/btn text-yellow-400 hover:text-yellow-300"
                     >
-                      <span className="relative overflow-hidden block">
+                      <span className="relative overflow-hidden block drop-shadow-md">
                         <span className="block transition-transform duration-300 group-hover/btn:-translate-y-full">{content.cardLink || "VER DETALLES"}</span>
                         <span className="absolute top-0 left-0 block translate-y-full transition-transform duration-300 group-hover/btn:translate-y-0">{content.cardLink || "VER DETALLES"}</span>
                       </span>
 
-                      <div className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover/btn:bg-yellow-400 group-hover/btn:text-navy border-yellow-400/50 bg-yellow-400/10 text-yellow-400">
+                      <div className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover/btn:bg-yellow-400 group-hover/btn:text-navy border-yellow-400/50 bg-yellow-400/10 text-yellow-400 backdrop-blur-sm">
                         <i className="ri-arrow-right-line text-lg sm:text-xl group-hover/btn:translate-x-1 transition-transform"></i>
                       </div>
                     </Link>
